@@ -6,29 +6,35 @@
    - want to be able to delete QR codes that are bad or malicious 
    - able to delete players 
 
-## Player
-attributes? (e.g. Username and contact information (like what contact info tho?)
- - Do not want to have to login to personal application using username/password as device ID (SIM, phone, w/e) can identify me 
-   - BUT use log in to add additional devices(?)
- - QR code is scanned by the camera (camera access button) -- don't record the actual code
- - Can decline recording geolocation for privacy reasons
- - Add new QR codes
- - When scanning QR codes -- record a photo of the location or object + geolocation of the location or object
- - Able to add comments to the QR codes 
- - Able to see that other players have scanned the same QR code 
- - QR codes inventory management (browse QR codes currently owned)
-    - Remove QR codes collected
-    - Sorting algorithm to sort the QR code list from higher to lowest or lowest to highest
-      - we can use this everywhere there's a QR code list
- - Show sum of the QR code values that have been scanned
- - Total number of QR codes that have been scanned
- - See other players profiles (search by usernames)
- - Browse QR codes that other players have scanned
- - Create/Generate QR codes -- that show player's game status (the person who had made the QR code) -- saves in their library so that they can post it later?
- - Create/Generate QR code to log in to another device with the same account - 
- - See a map of geo-locations of nearby QR codes
-    - Search for nearby QR codes by using geo location
- - Ability to see game-wide high scores of all players
- - Estimate player's ranking for highest scoring unique QR code scanned (may be displayed in the user profile)
- - Estimate player's ranking for total number of QR codes scanned (in user profile?)
- - Estimate player's total sum of scores of QR codes scanned
+## Player Profile Specifications:
+- Username 
+- Contact information (Not sure what what implies, email maybe) -- we can add a feature where the player can toggle different contact info to be visible or not 
+- View + Add/Remove QR codes (need to update the total QR codes scanned + sum total score + ranking) that the player owns (when the player presses the QR card, it shows the information about the QR code such as the photo, comment, geolocation, value, ranking(?))
+ - Additional: ability to sort the QR codes from highest value to lowest value/lowest value to highest value/by rank (?) -- can use this everywhere*
+- Player's current score (sum of QR code values)
+- Player's total number of scanned QR codes 
+- Player's estimated ranking for highest scoring unique QR code 
+- Player's estimated ranking for total number of QR codes scanned 
+
+## Log-In Specification:
+- For the primary device, they don't need to log in every time (we can do a "remember me" for the primary device); if they add another device, they'll need to log in and approve the additional device 
+
+## QR Code Specifications:
+- Scanned by phone camera (approve access to phone camera, camera "button"); the code is scanned but the info it holds isn't recorded (e.g., scan your vaccination ID but it doesn't record the vaccination information on the ID, just the QR code itself) 
+- Add geolocation (however, the player can decline sharing the geo location) 
+- Add photo of the location + comments associated with the photo 
+- Can see that other players have scanned the same QR code (I think we can do this by showing the number of people who scanned it, not their actual profiles) 
+- Players have the ability to generate QR codes which show the player's game status (save feature to save the QR code to post later, maybe) or to log in to another device with the same account (see Log-In Specification)
+
+## Search Specifications (within "main" interface ("home" screen)):
+- Search for other players profiles by their usernames (can view their profiles and see the QR codes that they had scanned)--we can add a feature where the player viewing another player's QR code can see how far a certain QR code is from their present location 
+- Search for nearby QR codes by using geolocation 
+ - Also, see a map of the nearby geolocations (we can do a "sliding" feature similar to Snapchat possibly) 
+
+## Ranking Board Specifications:
+- See game-wide high scores of all players (either by sum of QR codes or by total amount of QR codes scanned)
+- If  the player viewing the ranking board can see themselves, they should be personally "highlighted" so they know where they are in the ranking board
+
+## What we could add for uniqueness (for fun):
+- Commenting from other players on QR codes
+- Private messaging system 
