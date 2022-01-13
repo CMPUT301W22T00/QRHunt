@@ -26,7 +26,7 @@
 - Can see that other players have scanned the same QR code (I think we can do this by showing the number of people who scanned it, not their actual profiles) 
 - Players have the ability to generate QR codes which show the player's game status (save feature to save the QR code to post later, maybe) or to log in to another device with the same account (see Log-In Specification)
 
-## Search Specifications (within "main" interface ("home" screen)):
+## Search Specifications:
 - Search for other players profiles by their usernames (can view their profiles and see the QR codes that they had scanned)--we can add a feature where the player viewing another player's QR code can see how far a certain QR code is from their present location 
 - Search for nearby QR codes by using geolocation 
  - Also, see a map of the nearby geolocations (we can do a "sliding" feature similar to Snapchat possibly) 
@@ -35,6 +35,5 @@
 - See game-wide high scores of all players (either by sum of QR codes or by total amount of QR codes scanned)
 - If  the player viewing the ranking board can see themselves, they should be personally "highlighted" so they know where they are in the ranking board
 
-## What we could add for uniqueness (for fun):
-- Commenting from other players on QR codes
-- Private messaging system 
+## Notes:
+- When the player or owner first opens the app they will either see: log-in screen / registration UI or "home" UI 
