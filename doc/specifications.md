@@ -1,7 +1,10 @@
 # QRHunt Specs
 
 ## Owner Specifications: 
-
+ - Images are not stored online 
+ - Moderation
+   - Ability to delate QR codes that are bad or malicious 
+   - Able to delete players
 
 ## Player Profile Specifications:
 - Username 
