@@ -84,7 +84,7 @@
 
 ## To do (for next two weeks): 
  - Product Backlog created *.md -- Kezziah 
-  - Formatting as *.cvs file(?) -- Matt will confirm 
+   - Formatting as *.cvs file(?) -- Matt will confirm 
  - Interface Draft -- Alinn (approximately 7 *.png images)
  - App logo -- Omar, Matt
  - Activity diagrams for a better outline of the project (optional)
