@@ -1,9 +1,14 @@
 # Meet 0 
 
-### Date: [Insert]
+### Date: 2022-01-14
 
 ## Attendence: 
-[Insert]
+Matt Marcus
+Alinn Martinez
+Kezziah Ayuno 
+Anya Hanatuke 
+Omar Niazie
+Allan Ma
 
 ## Agenda: 
 - Division of tasks 
