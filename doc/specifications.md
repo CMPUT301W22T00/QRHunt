@@ -8,7 +8,7 @@
 
 ## Player Profile Specifications:
 - Username 
-- Contact information (Not sure what what implies, email maybe) -- we can add a feature where the player can toggle different contact info to be visible or not 
+- Contact information (Not sure what what implies, email maybe, potentially social media) -- we can add a feature where the player can toggle different contact info to be visible or not 
 - View + Add/Remove QR codes (need to update the total QR codes scanned + sum total score + ranking) that the player owns (when the player presses the QR card, it shows the information about the QR code such as the photo, comment, geolocation, value, ranking(?))
  - Additional: ability to sort the QR codes from highest value to lowest value/lowest value to highest value/by rank (?) -- can use this everywhere*
 - Player's current score (sum of QR code values)
