@@ -9,3 +9,13 @@ ID,As a...,I want to be able to...,So that...,Priority:,Status:
 8,Player,view my rankings (total sum QR code and most valuable QR code),I can know where I am placed in the ranking board,Must,To be started
 9,Player,view how many QR codes I have scanned,I can I know how much I scanned,Must,To be started
 10,Player,sort QR library with different sorting patterns (e.g. highest value to lowest value (vice versa)),I can organize my library,Must,To be started
+11,Player,stay logged in between sessions,I don't have to sign in every time,Must,To be started
+12,Player,add my geolocation,I can track my progress and activity with the app,Must,To be started
+13,Player,decine to add my geolocation,I can ensure my privacy is protected,Must,To be started
+14,Player,add a photo of the location and comments associated with the photo,keep track of my progress within the app,Must,To be started
+15,Player,see the number of other players who have scanned a given QR code,!!!!!!!!!!!!Idk it's cool,Must,To be started
+16,Player,generate a QR code to show my game status,I can share my profile with friends,Must,To be started
+17,Player,generate a QR to log into other devices,I can play on multiple devices,Must,To be started
+12,Owner,ensure images are not stored online,server space is limited,Must,To be started
+13,Owner,delete QR codes that are malicious or bad,prevent misuse of my software,Must,To be started
+14,Owner,delete player profiles,prevent misuse of my software,Must,To be started
