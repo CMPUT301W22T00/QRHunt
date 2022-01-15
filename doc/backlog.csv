@@ -14,7 +14,7 @@ ID,As a...,I want to be able to...,So that...,Priority:,Status:
 13,Player,add my geolocation,I can track my progress and activity with the app,Must,To be started
 14,Player,decine to add my geolocation,I can ensure my privacy is protected,Must,To be started
 15,Player,add a photo of the location and comments associated with the photo,keep track of my progress within the app,Must,To be started
-16,Player,see the number of other players who have scanned a given QR code,!!!!!!!!!!!!Idk it's cool,Must,To be started
+16,Player,see the number of other players who have scanned a given QR code,keep track of my progress compared to others,Must,To be started
 17,Player,generate a QR code to show my game status,I can share my profile with friends,Must,To be started
 18,Player,generate a QR to log into other devices,I can play on multiple devices,Must,To be started
 19,Player,search for other players by username,I can connect with my friends,Must,To be started
