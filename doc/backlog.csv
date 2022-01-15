@@ -1,1 +1,11 @@
 ID,As a...,I want to be able to...,So that...,Priority:,Status: 
+1,Player,create a username,I can be identifiable and be searchable,Must,To be started
+2,Player,add my email,I can share it on my profile, Must, To be started
+3,Player,toggle off and on my contacts to be viewable or non-viewable,I can control my privacy settings,Must,To be started
+4,Player,scan a QR code with my phone camera,I can save it to my profile and update my stats and ranking,Must,To be started
+5,Player,add a QR code after scanning,I can then add it to my profile and update my stats and ranking,Must,To be started
+6,Player,automatically updated my stats after adding or removing a QR code, I can have up-to-date information,Must,To be started
+7,Player,remove a QR code from my QR library,I can control which QR codes I want or don't want,Must,To be started
+8,Player,view my rankings (total sum QR code and most valuable QR code),I can know where I am placed in the ranking board,Must,To be started
+9,Player,view how many QR codes I have scanned,I can I know how much I scanned,Must,To be started
+10,Player,sort QR library with different sorting patterns (e.g., highest value to lowest value, vice versa),I can organize my library,Must,To be started
