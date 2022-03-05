@@ -11,8 +11,8 @@ public class QRProfile {
     private Boolean isHighestValue;
 
     // Need to check if they added a photo or not
-    public QRProfile(QRCode q, Boolean toHide){
-        QRRepresent = q;
+    public QRProfile(QRCode qr, Boolean toHide){
+        QRRepresent = qr;
         // No image -- set to default image
         hideLoc = toHide;
         // Need to find a way to check if it is the highesValuedQRCode the player has
