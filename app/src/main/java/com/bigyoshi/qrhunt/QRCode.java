@@ -1,10 +1,8 @@
 package com.bigyoshi.qrhunt;
 
 public abstract class QRCode {
-    // Needs to be a broad idea of a QRCode
-    protected Boolean internal;
-
-    public Boolean isInternal(){
-        return this.internal;
+    public String readQRData(){
+        // This will read the data to see if it is external or internal possibly
+        return "";
     }
 }

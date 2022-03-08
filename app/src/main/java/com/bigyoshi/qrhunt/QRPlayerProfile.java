@@ -2,7 +2,7 @@ package com.bigyoshi.qrhunt;
 
 import java.util.ArrayList;
 
-public class QRProfile {
+public class QRPlayerProfile {
     // Still need to decide on the actual type, for now, I'll make them String
     private QRCode QRRepresent;
     private ArrayList<String> comments;  // Confirmed to be the type?
@@ -11,14 +11,14 @@ public class QRProfile {
     private Boolean isHighestValue;
 
     // Need to check if they added a photo or not
-    public QRProfile(QRCode qr, Boolean toHide){
+    public QRPlayerProfile(QRCode qr, Boolean toHide){
         QRRepresent = qr;
         // No image -- set to default image
         hideLoc = toHide;
         // Need to find a way to check if it is the highesValuedQRCode the player has
     }
 
-    public QRProfile(QRCode q, String i, Boolean toHide){
+    public QRPlayerProfile(QRCode q, String i, Boolean toHide){
         QRRepresent = q;
         image = i;
         hideLoc = toHide;
