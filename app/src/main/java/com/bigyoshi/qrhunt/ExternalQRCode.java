@@ -10,7 +10,6 @@ public class ExternalQRCode extends QRCode {
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
     public ExternalQRCode(int longitude, int latitude, int value){
-        this.internal = false;
         this.value = value;
         this.longitude = longitude;
         this.latitude = latitude;
