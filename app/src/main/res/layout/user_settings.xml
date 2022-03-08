@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_grey"
-    android:padding="@dimen/padding">
+    android:padding="20dp">
 
     <!--Todo add content description for all images (?)-->
     <ImageView android:id="@+id/settings_back_arrow"
@@ -13,9 +13,7 @@
         android:src="@drawable/ic_baseline_arrow_back_24_light_off_white_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
+        android:padding="20dp"
         />
 
     <TextView
@@ -23,28 +21,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
-        android:padding="@dimen/padding"
+        android:padding="20dp"
         android:text="@string/title_settings"
         android:textColor="@color/main_blue"
-        android:textSize="@dimen/title_size"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Space android:id="@+id/buffer_space"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/large_vertical_space"
-        app:layout_constraintTop_toBottomOf="@id/settings_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
 
     <ImageView android:id="@+id/settings_edit_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_edit_24_light_off_white_blue"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space"
+        app:layout_constraintTop_toBottomOf="@id/settings_back_arrow"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"/>
+        android:padding="10dp"/>
 
     <TextView android:id="@+id/settings_edit_profile"
         android:layout_width="wrap_content"
@@ -52,25 +44,17 @@
         android:textColor="@color/main_blue"
         android:text="@string/settings_edit_profile"
         android:fontFamily="@font/quicksand"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space"
+        app:layout_constraintTop_toBottomOf="@id/settings_title"
         app:layout_constraintLeft_toRightOf="@id/settings_edit_image"
-        android:textSize="@dimen/subtitle_size"
-        android:padding="@dimen/padding"/>
+        android:padding="10dp"/>
 
-    <Space android:id="@+id/buffer_space_1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vertical_space"
-        app:layout_constraintTop_toBottomOf="@id/settings_edit_profile"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
 
     <ImageView android:id="@+id/settings_change_profile_picture_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
+        android:background="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space_1"
-        android:padding="@dimen/padding"/>
+        app:layout_constraintTop_toBottomOf="@id/settings_edit_image" />
 
     <TextView android:id="@+id/settings_profile_picture"
         android:layout_width="wrap_content"
@@ -79,25 +63,16 @@
         android:text="@string/settings_profile_picture"
         android:fontFamily="@font/quicksand"
         app:layout_constraintLeft_toRightOf="@id/settings_change_profile_picture_image"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space_1"
-        android:textSize="@dimen/subtitle_size"
-        android:padding="@dimen/padding"/>
+        app:layout_constraintTop_toBottomOf="@id/settings_edit_profile"
+        android:padding="10dp"/>
 
-
-    <Space android:id="@+id/buffer_space_2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vertical_space"
-        app:layout_constraintTop_toBottomOf="@id/settings_change_profile_picture_image"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
 
     <ImageView android:id="@+id/settings_generate_QR_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_exit_to_app_light_off_white_blue"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space_2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"/>
+        android:background="@drawable/ic_baseline_exit_to_app_light_off_white_blue"
+        app:layout_constraintTop_toBottomOf="@+id/settings_change_profile_picture_image"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView android:id="@+id/settings_generate_QR"
         android:layout_width="wrap_content"
@@ -105,10 +80,9 @@
         android:text="@string/settings_generate_qr"
         android:fontFamily="@font/quicksand"
         android:textColor="@color/main_blue"
-        app:layout_constraintTop_toBottomOf="@+id/buffer_space_2"
+        app:layout_constraintTop_toBottomOf="@id/settings_profile_picture"
         app:layout_constraintLeft_toRightOf="@id/settings_generate_QR_image"
-        android:textSize="@dimen/subtitle_size"
-        android:padding="@dimen/padding"/>
+        android:padding="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
