@@ -82,5 +82,7 @@ public class PlayerInfo {
         return "";
     }
 
+    public String getUniqueKey() { return this.uniqueKey; }
+
 
 }
