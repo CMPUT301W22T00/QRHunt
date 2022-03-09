@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720758025190",
+    "project_id": "sandbox-266120",
+    "storage_bucket": "sandbox-266120.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720758025190:android:2ef65f5fe82e463a228427",
+        "android_client_info": {
+          "package_name": "com.bigyoshi.qrhunt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720758025190-6hudemernn34dn4dgahkon2de91ej57c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkcg1b-rHTGFEJWTaIG11TTJ7qEDoEquU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720758025190-6hudemernn34dn4dgahkon2de91ej57c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
