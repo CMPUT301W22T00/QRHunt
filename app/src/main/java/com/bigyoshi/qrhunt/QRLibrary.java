@@ -34,19 +34,15 @@ public class QRLibrary {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        // No idea on which TAG to import - Allan
                         Log.d("ADD_QR", "Successfully added QR to player QR Library");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Same here - Allan
                         Log.w("ADD_QR", "Error adding QR to player QR Library", e);
                     }
-
                 });
-
     }
 
     public void DeleteQRCode(FirebaseFirestore db, ExternalQRCode deleteQR, Player player) {
