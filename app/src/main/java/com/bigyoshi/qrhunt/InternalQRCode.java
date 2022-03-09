@@ -3,7 +3,6 @@ package com.bigyoshi.qrhunt;
 public class InternalQRCode extends QRCode{
 
     public InternalQRCode(){
-        this.internal = true;
     }
 
     public Boolean isGameStatus(){
