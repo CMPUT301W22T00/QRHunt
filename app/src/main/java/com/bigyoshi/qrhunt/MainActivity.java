@@ -1,5 +1,6 @@
 package com.bigyoshi.qrhunt;
 
+
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,8 +13,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
 
+    //private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
 
     @Override
