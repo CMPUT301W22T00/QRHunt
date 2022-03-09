@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
+
         <entry key="..\:/Users/Kezziah C. Ayuno/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.365625" />
         <entry key="..\:/Users/Kezziah C. Ayuno/AndroidStudioProjects/QRHunt/app/src/main/res/layout/fragment_dashboard.xml" value="0.365625" />
+
       </map>
     </option>
   </component>
