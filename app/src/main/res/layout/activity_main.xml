@@ -11,7 +11,8 @@
     <!--We will need to remove the black top bar somehow-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/search"
@@ -27,11 +28,10 @@
             android:id="@+id/currentScore"
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:translationY="-30dp"
-            android:translationX="135dp"
             android:text="Score: XXXX"
-            android:textSize="20dp">
-        </TextView>
+            android:textSize="20dp"
+            android:translationX="135dp"
+            android:translationY="-30dp"></TextView>
 
         <Button
             android:id="@+id/playerProfile"
