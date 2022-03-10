@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.scanner_fragment_holder, CameraScannerFragment.class, null)
+                    .commit();
+        }
 
         if (!getPlayer()){
             player = new Player(); // Show generate a unique key that we will save into sharedPrefs
