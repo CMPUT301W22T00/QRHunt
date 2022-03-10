@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.databinding.FragmentHomeBinding;
+import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -24,7 +24,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 public class MapFragment extends Fragment {
 
     private MapView map = null;
-    private FragmentHomeBinding binding;
+    private FragmentMapBinding binding;
     private MyLocationNewOverlay mLocationOverlay;
 
     @Override
@@ -37,7 +37,7 @@ public class MapFragment extends Fragment {
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         //inflate and create the map
