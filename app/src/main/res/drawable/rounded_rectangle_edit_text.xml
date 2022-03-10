@@ -6,6 +6,9 @@
     <solid
         android:color="@color/accent_light_blue_50op"
         />
+    <stroke
+        android:width="2dp"
+        android:color="@color/accent_lilac"/>
 
     <corners
         android:bottomRightRadius="@dimen/padding"
