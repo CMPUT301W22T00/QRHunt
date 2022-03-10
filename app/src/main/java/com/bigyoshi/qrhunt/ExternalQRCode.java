@@ -8,10 +8,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ExternalQRCode extends QRCode {
     private String id; // Hash of the actual data from the scan
@@ -38,15 +40,8 @@ public class ExternalQRCode extends QRCode {
     public int getNumScanned() { return this.numScanned; }
 
     public void updateNumScanned(FirebaseFirestore db){
-        db.collectionGroup("qrCodes")
-                .whereEqualTo("id", this.id)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                    }
-                });
+        Query containsId = db.collectionGroup("qrCodes").whereEqualTo("id", this.id);
+        this.numScanned = Objects.requireNonNull(containsId.get().getResult()).size();
     }
 
     public int getValue() { return this.value; }
@@ -71,42 +66,42 @@ public class ExternalQRCode extends QRCode {
 
     public void AddQRCode(FirebaseFirestore db, String userId) {
         qrStuff = new HashMap<>();
-        qrStuff.put("contextImage", this.image64);
-        qrStuff.put("id", this.id);
         qrStuff.put("lat", this.latitude);
         qrStuff.put("long", this.longitude);
         qrStuff.put("score", this.value);
-        qrStuff.put("user", userId);
+        qrStuff.put("id", this.id);
 
-        db.collection("qrCodes").document(userId+this.id)
+        db.collection("users").document(userId)
+                .collection("qrCodes").document(this.id)
                 .set(qrStuff)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d("ADD_QR", "Successfully added QR to Database");
+                        Log.d("ADD_QR", "Successfully added QR to player");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("ADD_QR", "Error adding QR to Database", e);
+                        Log.w("ADD_QR", "Error adding QR to player", e);
                     }
                 });
     }
 
     public void DeleteQRCode(FirebaseFirestore db, String userId) {
-        db.collection("qrcoders").document(userId+this.id)
+        db.collection("user").document(userId)
+                .collection("qrCodes").document(this.id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d("Delete_QR", "Successfully removed QR from data base");
+                        Log.d("Delete_QR", "Successfully removed QR from player");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("Delete_QR", "Error removing QR from data base", e);
+                        Log.w("Delete_QR", "Error removing QR from player", e);
                     }
                 });
     }
