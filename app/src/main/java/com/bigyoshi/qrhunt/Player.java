@@ -3,7 +3,7 @@ package com.bigyoshi.qrhunt;
 public class Player {
     private PlayerInfo pI;
     private QRLibrary qL;
-    private String uniqueKey;
+    private String playerId;
 
     public Player(){
         pI = new PlayerInfo();
