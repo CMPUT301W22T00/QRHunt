@@ -9,4 +9,12 @@
     <string name="settings_profile_picture">Change Profile Picture</string>
     <string name="settings_generate_qr">Generate QR</string>
 
+    <!-- for user_settings_edit_profile -->
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="username_hint">User_345</string>
+    <string name="username_title">USERNAME</string>
+    <string name="email_hint">johndoe@domain.ca</string>
+    <string name="email_title">EMAIL</string>
+
+
 </resources>
