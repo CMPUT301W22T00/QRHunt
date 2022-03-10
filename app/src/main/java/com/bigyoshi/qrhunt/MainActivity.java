@@ -3,6 +3,7 @@ package com.bigyoshi.qrhunt;
 
 import android.Manifest;
 import android.app.ActionBar;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String UNIQUE_KEY = "uniqueKey";
+    private String uniqueKey;
+    private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,27 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        if (!getPlayer()){
+            player = new Player(); // Show generate a unique key that we will save into sharedPrefs
+            uniqueKey = player.getUniqueKey();
+            savePlayer();
+        }
+
+        // Gets the uniqueKey for the Player -> load data by using this key to access the correct
+        // player in the PlayerDataBase
+    }
+
+    public Boolean getPlayer(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        uniqueKey = sharedPreferences.getString(UNIQUE_KEY, "");
+        return uniqueKey.compareTo("") != 0;
+    }
+
+    public void savePlayer(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(UNIQUE_KEY, this.uniqueKey);
     }
 
     @Override
