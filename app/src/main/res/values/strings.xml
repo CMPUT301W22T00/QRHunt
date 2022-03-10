@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">QRHunt</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_map">Map</string>
+    <string name="title_rankBoard">Rank Board</string>
 
     <!-- for user_settings -->
     <string name="title_settings">Settings</string>
