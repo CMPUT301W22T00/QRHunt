@@ -3,8 +3,45 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Kezziah C. Ayuno/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.365625" />
-        <entry key="..\:/Users/Kezziah C. Ayuno/AndroidStudioProjects/QRHunt/app/src/main/res/layout/fragment_dashboard.xml" value="0.365625" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.198" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_baseline_face_24.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_button_camera.xml" value="0.2275" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_button_list.xml" value="0.2275" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_button_search.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.117" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.198" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_launcher_background.xml" value="0.198" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.198" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/main_off_white_blue_rectangle.xml" value="0.2425" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_add_comment.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_button_rank.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_button_take_photo.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_callout_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_caption.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_codes_scanned.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_divider.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_divider_left.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_divider_right.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_edit_field.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_fragment_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_fragment_edit_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_frame_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_highest_unique.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_image_holder.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_image_holder_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_list_item_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_list_item_highlight.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank_panel_bg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank_panel_fg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/secondary_blue_rectangle.xml" value="0.2425" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/top_rank_panels.xml" value="0.2425" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_leaderboard.xml" value="0.264" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.2562076749435666" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/leaderboard_list_content.xml" value="0.4" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/leaderboard_nav_menu.xml" value="0.4" />
       </map>
     </option>
   </component>
