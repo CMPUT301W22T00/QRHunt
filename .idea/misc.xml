@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.198" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_baseline_arrow_back_24_light_off_white_blue.xml" value="0.179" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_baseline_edit_24_light_off_white_blue.xml" value="0.179" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_baseline_face_24.xml" value="0.1" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_button_camera.xml" value="0.2275" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_button_list.xml" value="0.2275" />
@@ -35,16 +37,19 @@
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank.xml" value="0.1" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank_panel_bg.xml" value="0.1" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rec_rank_panel_fg.xml" value="0.1" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/rounded_rectangle_edit_text.xml" value="0.179" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/secondary_blue_rectangle.xml" value="0.2425" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/top_rank_panels.xml" value="0.2425" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_leaderboard.xml" value="0.264" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.2562076749435666" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/leaderboard_list_content.xml" value="0.4" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/qrprofile_comments_content.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/leaderboard_nav_menu.xml" value="0.4" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
