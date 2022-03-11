@@ -2,10 +2,12 @@ package com.bigyoshi.qrhunt;
 
 public class AugmentedCamera {
 
-    public void scanQRCode(){
+    public void scanQRCode(String scannedCode, Integer isExternal){
+        ExternalQRCode qrCode;
         // Scans QRCode -> reads whether it is a internal or external -> makes it either external or internal
         // -> If external -> calculate the value -> save into db -> player sets up QRProfile
         // -> If internal, show the game status (as a pop up) or log-in to the account
+        
     }
 
     private int calculateValue(){
