@@ -8,48 +8,45 @@
     tools:context=".Leaderboard">
 
 
-    <ImageButton
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
-
-
     <TextView
         android:id="@+id/textTitleLeaderboard"
-        android:layout_width="414dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
-        android:text="Leaderboard"
-        android:textSize="26dp"
-        android:textColor="@color/main_blue"
-        android:textStyle="bold"
+        android:layout_width="159dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/quicksand"
+        android:text="Leaderboard"
         android:textAlignment="center"
+        android:textColor="@color/main_blue"
+        android:textSize="26dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/textTopTwo"
-        android:layout_width="306dp"
-        android:layout_height="194dp"
+        android:layout_width="366dp"
+        android:layout_height="186dp"
+        android:alpha="0.75"
+        android:background="@drawable/rec_rank_panel_bg"
         android:text="rank panel 2 and 3"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="104dp" />
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="99dp" />
+
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="rank2"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="73dp" />
+        android:id="@+id/textRankOne"
+        android:layout_width="156dp"
+        android:layout_height="205dp"
+        android:background="@drawable/rec_rank_panel_bg"
+        android:gravity="center"
+        android:text="Rank One"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="127dp"
+        tools:layout_editor_absoluteY="90dp" />
+
 
     <Button
         android:id="@+id/my_rank"
@@ -64,6 +61,7 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:gravity="center"
+        android:background="@drawable/rec_button_rank"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -106,6 +104,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_back"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
