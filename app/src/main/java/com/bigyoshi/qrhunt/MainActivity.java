@@ -2,7 +2,6 @@ package com.bigyoshi.qrhunt;
 
 
 import android.Manifest;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -43,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // Get player
+        player = new Player(this);
+        player.getPlayerId(); // Get the id to get the information from the db about the player
+
     }
 
     @Override
