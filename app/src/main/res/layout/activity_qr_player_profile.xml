@@ -109,6 +109,7 @@
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="442dp" />
 
+
     <TextView
         android:id="@+id/textCaption"
         android:layout_width="258dp"
@@ -119,16 +120,15 @@
         android:text="This will be the user's caption"
         android:textColor="@color/main_off_white_blue_light"
         android:textSize="12dp"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="474dp" />
-
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="543dp" />
 
     <TextView
         android:layout_width="272dp"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@drawable/rec_divider"
         tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="538dp" />
+        tools:layout_editor_absoluteY="598dp" />
 
     <TextView
         android:id="@+id/titleComments"
@@ -140,24 +140,24 @@
         android:textSize="13dp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="563dp" />
+        tools:layout_editor_absoluteY="567dp" />
 
     <TextView
         android:id="@+id/editTextAddComment"
         android:layout_width="263dp"
         android:layout_height="24dp"
-        android:text="Add a comment..."
-        android:textSize="12dp"
-        android:textColor="@color/main_off_white_blue_light"
         android:fontFamily="@font/asap"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="586dp" />
-
+        android:text="Add a comment..."
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="12dp"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="606dp" />
 
     <ListView
         android:id="@+id/listComments"
-        android:layout_width="309dp"
-        android:layout_height="107dp"
+        android:layout_width="313dp"
+        android:layout_height="86dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="51dp" />
 
