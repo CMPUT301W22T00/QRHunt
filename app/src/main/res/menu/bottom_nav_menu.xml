@@ -7,6 +7,11 @@
         android:title="@string/title_map" />
 
     <item
+        android:id="@+id/navigation_scanner"
+        android:icon="@android:ic_button_camera"
+        android:title="Scanner" />
+
+    <item
         android:id="@+id/navigation_rankBoard"
         android:icon="?android:attr/actionModeFindDrawable"
         android:title="@string/title_rankBoard" />

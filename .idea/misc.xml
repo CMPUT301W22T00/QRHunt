@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/88dar/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.209" />
         <entry key="..\:/Users/88dar/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.325" />
         <entry key="..\:/Users/88dar/AndroidStudioProjects/QRHunt/app/src/main/res/layout/fragment_map.xml" value="0.325" />
         <entry key="..\:/Users/88dar/AndroidStudioProjects/QRHunt/app/src/main/res/layout/fragment_rank_board.xml" value="0.325" />

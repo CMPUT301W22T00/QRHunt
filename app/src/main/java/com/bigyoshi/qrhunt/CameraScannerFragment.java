@@ -28,17 +28,18 @@ public class CameraScannerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final Activity activity = getActivity();
-        View root = inflater.inflate(R.layout.scannner_fragment, container, false);
+        View root = inflater.inflate(R.layout.scanner_fragment, container, false);
 
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
         assert activity != null;
         codeScanner = new CodeScanner(activity, scannerView);
 
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.CONTINUOUS);
+        codeScanner.setScanMode(ScanMode.SINGLE);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
+        codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
