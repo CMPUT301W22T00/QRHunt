@@ -65,6 +65,7 @@ public class ExternalQRCode extends QRCode {
     public void setImage64(String image64) { this.image64 = image64; }
 
     public void AddQRCode(FirebaseFirestore db, String userId) {
+        // ADDS QR CODE TO PLAYER?
         qrStuff = new HashMap<>();
         qrStuff.put("lat", this.latitude);
         qrStuff.put("long", this.longitude);

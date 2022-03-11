@@ -7,7 +7,6 @@ public class PlayerInfo {
     private int highestValueQRRank;
     private Contact contact;
     private Boolean admin;
-    private String uniqueKey; // May not be a String; used to identify players (log-in specs)
 
     public PlayerInfo(){
         // Automatically generate a random unique username (changed later by Player if they want)
@@ -15,9 +14,33 @@ public class PlayerInfo {
         // Contact initialization needed
         // Automatically generate the uniqueKey (not visible to the Player)
         this.QRTotal = 0;
-        this.username = generateUsername();
-        this.uniqueKey = generateUniqueKey();
+        // this.username = generateUsername();
+        this.username = "Team00"; // CHECK LATER
+        this.admin = false;
+        this.contact = new Contact();
+        this.QRTotalRank = 1; // NOT FINAL, WE NEED TO FIND THE LOWEST RANK FOR A NEW PLAYER
+        this.highestValueQRRank = 1; // AGAIN, NOT FINAL
         // How will we decide who is an admin?
+    }
+
+    public Contact getContact(){
+        return this.contact;
+    }
+
+    public int getQRTotal(){
+        return this.QRTotal;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public int getQRTotalRank(){
+        return this.QRTotalRank;
+    }
+
+    public int getHighestValueQRRank(){
+        return this.highestValueQRRank;
     }
 
     public void updateRankTotal(){
@@ -35,7 +58,7 @@ public class PlayerInfo {
     }
 
     public void updateUsername(String newName){
-        username = newName;
+        this.username = newName;
     }
 
     public Boolean isAdmin(){
@@ -77,12 +100,4 @@ public class PlayerInfo {
         // Random unique username generated when account is first created
         return "";
     }
-
-    private String generateUniqueKey(){
-        return "";
-    }
-
-    public String getUniqueKey() { return this.uniqueKey; }
-
-
 }
