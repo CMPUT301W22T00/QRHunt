@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
                 // if you need to show the current location, uncomment the line below
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 // WRITE_EXTERNAL_STORAGE is required in order to show the map
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                // Required to use the camera
+                Manifest.permission.CAMERA
         });
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

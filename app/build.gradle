@@ -47,6 +47,8 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-wms:6.1.10'
     implementation 'org.osmdroid:osmdroid-mapsforge:6.1.10'
     implementation 'org.osmdroid:osmdroid-geopackage:6.1.10'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.1.2'
+
     
     testImplementation 'junit:junit:4.13.2'
 
