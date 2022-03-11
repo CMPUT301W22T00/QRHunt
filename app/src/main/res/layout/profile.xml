@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/accent_grey_dark"
+    android:paddingStart="@dimen/large_padding"
+    android:paddingEnd="@dimen/large_padding"
+    android:paddingTop="@dimen/padding"
+    android:paddingBottom="@dimen/padding">
+
+    <ImageButton android:id="@+id/profile_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <ImageButton android:id="@+id/profile_information_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView android:id="@+id/profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_title"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/title_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/padding"
+        />
+
+
+    <TextView android:id="@+id/profile_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
+        android:text="69420"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/text_off_white"
+        android:textSize="@dimen/statement_text"
+        app:layout_constraintTop_toBottomOf="@id/profile_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+
+    <TextView android:id="@+id/profile_username_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="placeholder"
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/asap"
+        android:padding="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@id/profile_score_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageButton android:id="@+id/profile_gen_QR_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView android:id="@+id/profile_rank_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView android:id="@+id/profile_rank_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,5 +14,6 @@
     <dimen name="subtitle_size">18sp</dimen>
     <dimen name="text_size">16sp</dimen>
     <dimen name="small_text">12sp</dimen>
+    <dimen name="statement_text">32sp</dimen>
 
 </resources>
