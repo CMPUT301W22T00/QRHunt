@@ -42,8 +42,9 @@
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/drawable/top_rank_panels.xml" value="0.2425" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_leaderboard.xml" value="0.264" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_main.xml" value="0.2562076749435666" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/activity_qr_player_profile.xml" value="0.264" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/leaderboard_list_content.xml" value="0.4" />
-        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/qrprofile_comments_content.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/layout/qrprofile_comments_content.xml" value="0.264" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/zznni/AndroidStudioProjects/QRHunt/app/src/main/res/menu/leaderboard_nav_menu.xml" value="0.4" />
       </map>
