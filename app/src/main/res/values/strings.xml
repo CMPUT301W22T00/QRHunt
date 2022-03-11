@@ -18,5 +18,9 @@
     <string name="socials_title">SOCIAL MEDIA</string>
     <string name="socials_hint">eg. Instagram, Twitch</string>
 
-
+    <!-- for profile -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_rank_title">Rank</string>
+    <string name="codes_scanned_title">QR Codes Scanned</string>
+    <string name="highest_unique_title">Highest Unique QR</string>
 </resources>
