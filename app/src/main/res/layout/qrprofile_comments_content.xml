@@ -11,8 +11,9 @@
         android:layout_width="272dp"
         android:layout_height="24dp"
         android:text="Player_Username"
-        android:textColor="@color/main_blue"
         android:textSize="14dp"
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/asap"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="2dp" />
@@ -22,8 +23,9 @@
         android:layout_width="275dp"
         android:layout_height="46dp"
         android:text="Player comment..."
-        android:textColor="@color/main_off_white_blue_light"
         android:textSize="12dp"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/asap"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="33dp" />
 

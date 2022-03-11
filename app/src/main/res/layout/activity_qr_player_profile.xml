@@ -21,11 +21,11 @@
         android:layout_width="191dp"
         android:layout_height="40dp"
         android:text="QR Profile"
-        android:fontFamily="@font/quicksand"
-        android:textAlignment="center"
-        android:textColor="@color/main_blue"
         android:textSize="26dp"
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/quicksand"
         android:textStyle="bold"
+        android:textAlignment="center"
         tools:layout_editor_absoluteX="109dp"
         tools:layout_editor_absoluteY="22dp" />
 
@@ -35,10 +35,11 @@
         android:layout_width="72dp"
         android:layout_height="42dp"
         android:text="XX"
-        android:textAlignment="center"
-        android:textColor="@color/accent_blue_light"
         android:textSize="30dp"
+        android:textColor="@color/accent_blue_light"
+        android:fontFamily="@font/quicksand"
         android:textStyle="bold"
+        android:textAlignment="center"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="65dp" />
 
@@ -47,8 +48,9 @@
         android:layout_width="190dp"
         android:layout_height="24dp"
         android:text="(Longitude, Latitude)"
-        android:textColor="@color/main_blue"
         android:textSize="20dp"
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/quicksand"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="118dp" />
 
@@ -58,8 +60,9 @@
         android:layout_width="85dp"
         android:layout_height="30dp"
         android:text="Scans: XX"
-        android:textColor="@color/accent_blue_light"
         android:textSize="16dp"
+        android:textColor="@color/accent_blue_light"
+        android:fontFamily="@font/quicksand"
         tools:layout_editor_absoluteX="261dp"
         tools:layout_editor_absoluteY="65dp" />
 
@@ -71,6 +74,7 @@
         android:text="User's Username"
         android:textSize="14dp"
         android:textColor="@color/accent_blue_light"
+        android:fontFamily="@font/asap"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="419dp" />
@@ -81,8 +85,9 @@
         android:layout_width="256dp"
         android:layout_height="29dp"
         android:text="This will be the user's caption"
-        android:textColor="@color/main_off_white_blue_light"
         android:textSize="12dp"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/asap"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="473dp" />
 
@@ -92,8 +97,9 @@
         android:layout_width="257dp"
         android:layout_height="23dp"
         android:text="Comments"
-        android:textColor="@color/main_off_white_blue_light"
         android:textSize="13dp"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/quicksand"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="535dp" />
@@ -104,8 +110,9 @@
         android:layout_width="263dp"
         android:layout_height="24dp"
         android:text="Add a comment..."
-        android:textColor="@color/main_off_white_blue_light"
         android:textSize="12dp"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/asap"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="586dp" />
 
