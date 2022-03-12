@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.bigyoshi.qrhunt.ui.profile.Profile"
+        android:name="com.bigyoshi.qrhunt.Profile"
         android:label="@string/title_profile"
-        tools:layout="@layout/profile" />
+        tools:layout="@layout/fragment_profile" />
 </navigation>
