@@ -13,4 +13,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!-- from https://stackoverflow.com/a/14211619 -->
+    <style name="MyTheme" parent="@style/Theme.QRHunt">
+        <item name="actionBarStyle">@style/MyActionBarStyle</item>
+        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="displayOptions">showCustom</item>
+        <item name="android:displayOptions">showCustom</item>
+    </style>
+
 </resources>
