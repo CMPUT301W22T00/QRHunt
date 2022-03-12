@@ -41,10 +41,10 @@ public class ExternalQRCode extends QRCode {
     // Just a bunch of getters and setters, delete if unneeded
     public int getNumScanned() { return this.numScanned; }
 
-    public void updateNumScanned(FirebaseFirestore db){
-        //not working
-        Query containsId = db.collectionGroup("qrCodes").whereEqualTo("id", this.id);
-        this.numScanned = Objects.requireNonNull(containsId.get().getResult()).size();
+    public void grabNumScanned(FirebaseFirestore db){
+        // Pulls the total number scanned from the db
+        Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
+        this.numScanned = Integer.parseInt((Objects.requireNonNull(Objects.requireNonNull(qrData.getResult()).getString("numScanned"))));
     }
 
     public int getValue() { return this.value; }
@@ -58,8 +58,7 @@ public class ExternalQRCode extends QRCode {
     }
 
     public boolean isLocation() {
-        if (this.location != null) { return true; }
-        return false;
+        return this.location != null;
     }
 
     public String getId() { return id; }
@@ -89,7 +88,7 @@ public class ExternalQRCode extends QRCode {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                qrStuff.put("numScanned", Integer.parseInt((Objects.requireNonNull(task.getResult().getString("numScanned")))) + 1);
+                                qrStuff.put("numScanned", Integer.parseInt((Objects.requireNonNull(document.getString("numScanned")))) + 1);
                             } else {
                                 qrPage.set(qrStuff)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
