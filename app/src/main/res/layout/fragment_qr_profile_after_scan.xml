@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_grey"
-    tools:context=".QRPlayerProfile">
+    android:background="@color/main_off_white_blue_light"
+    tools:context=".QRProfileAfterScan">
 
 
     <TextView
@@ -160,22 +159,5 @@
         tools:layout_editor_absoluteX="69dp"
         tools:layout_editor_absoluteY="606dp" />
 
-    <ListView
-        android:id="@+id/listComments"
-        android:layout_width="313dp"
-        android:layout_height="86dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="51dp" />
 
-    <!--
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="260dp"
-        android:layout_height="289dp"
-        android:src="@drawable/ic_image_gallery"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="206dp" />
-    -->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
