@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/top_nav"
-        layout="@layout/main_toolbar"
+        layout="@layout/custom_action_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
