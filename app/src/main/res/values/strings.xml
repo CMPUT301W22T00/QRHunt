@@ -2,6 +2,8 @@
     <string name="app_name">QRHunt</string>
     <string name="title_map">Map</string>
     <string name="title_rankBoard">Rank Board</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
 
     <!-- for user_settings -->
     <string name="title_settings">Settings</string>
