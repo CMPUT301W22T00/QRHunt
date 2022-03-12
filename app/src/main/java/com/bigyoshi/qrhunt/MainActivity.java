@@ -4,10 +4,16 @@ package com.bigyoshi.qrhunt;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,9 +22,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
+    private ImageButton navSearch, navProfile, mapMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class MainActivity extends AppCompatActivity{
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayShowTitleEnabled(false);
+        actionbar.setDisplayShowCustomEnabled(true);
+
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -64,8 +75,55 @@ public class MainActivity extends AppCompatActivity{
         // Get player
         player = new Player(this);
         player.getPlayerId(); // Get the id to get the information from the db about the player
+
+        navProfile = findViewById(R.id.navigation_profile);
+        navProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentProfile profile = new FragmentProfile(player);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, profile, "profile");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        navSearch = findViewById(R.id.navigation_search);
+        navSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
+        mapMenu = findViewById(R.id.map_list_button);
+        mapMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
+        // determines current fragment so the right button is visible
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+
+                if (navDestination.getId() == R.id.navigation_map) {
+                    navSearch.setVisibility(View.GONE);
+                    mapMenu.setVisibility(View.VISIBLE);
+                }
+                if (navDestination.getId() == R.id.navigation_scanner){
+                    navSearch.setVisibility(View.VISIBLE);
+                    mapMenu.setVisibility(View.GONE);
+
+                }
+            }
+        });
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_nav_menu, menu);
@@ -87,7 +145,7 @@ public class MainActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

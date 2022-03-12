@@ -5,7 +5,8 @@
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_button_search"
         android:title="@string/title_search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        />
 
     <item
         android:id="@+id/navigation_profile"

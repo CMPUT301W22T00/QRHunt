@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/accent_grey_dark">
+    android:background="@color/accent_grey_dark_50op">
 
     <TextView
         android:layout_width="120dp"
@@ -11,7 +11,9 @@
         android:translationY="10dp"
         android:text="Score: XXXX"
         android:textSize="20dp"
-        android:textColor="@color/white">
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/quicksand_medium"
+        android:layout_gravity="center">
 
     </TextView>
 
