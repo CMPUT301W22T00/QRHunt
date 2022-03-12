@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_frame_bg"
+    android:layout_margin="@dimen/padding"
     android:padding="@dimen/large_padding">
 
     <ImageView
