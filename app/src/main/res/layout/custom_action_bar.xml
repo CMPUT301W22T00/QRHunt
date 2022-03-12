@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- from https://stackoverflow.com/a/14211619 -->
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/accent_grey_dark_50op">
+
+    <ImageButton android:id="@+id/navigation_search"
+        android:src="@drawable/ic_button_search"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:layout_gravity="left"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:translationY="10dp"
+        android:text="Score: XXXX"
+        android:textSize="20dp"
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/quicksand_medium"
+        android:layout_gravity="center"        >
+    </TextView>
+
+    <ImageButton  android:id="@+id/navigation_profile"
+        android:src="@drawable/ic_pfp_light"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"/>
+</androidx.appcompat.widget.Toolbar>
