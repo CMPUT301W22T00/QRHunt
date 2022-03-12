@@ -2,6 +2,7 @@ package com.bigyoshi.qrhunt;
 
 public class PlayerInfo {
     private int QRTotal;
+    private int QRTotalScanned;
     private String username;
     private int QRTotalRank;
     private int highestValueQRRank;
@@ -14,6 +15,7 @@ public class PlayerInfo {
         // Contact initialization needed
         // Automatically generate the uniqueKey (not visible to the Player)
         this.QRTotal = 0;
+        this.QRTotalScanned = 0;
         // this.username = generateUsername();
         this.username = "Team00"; // CHECK LATER
         this.admin = false;
@@ -25,6 +27,10 @@ public class PlayerInfo {
 
     public Contact getContact(){
         return this.contact;
+    }
+
+    public int getQRTotalScanned(){
+        return this.QRTotalScanned;
     }
 
     public int getQRTotal(){
