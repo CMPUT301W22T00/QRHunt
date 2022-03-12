@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,9 +22,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity{
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
-    private ImageButton navSearch, navProfile;
+    private ImageButton navSearch, navProfile, mapMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +94,31 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 return;
+            }
+        });
+
+        mapMenu = findViewById(R.id.map_list_button);
+        mapMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
+        // determines current fragment so the right button is visible
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+
+                if (navDestination.getId() == R.id.navigation_map) {
+                    navSearch.setVisibility(View.GONE);
+                    mapMenu.setVisibility(View.VISIBLE);
+                }
+                if (navDestination.getId() == R.id.navigation_scanner){
+                    navSearch.setVisibility(View.VISIBLE);
+                    mapMenu.setVisibility(View.GONE);
+
+                }
             }
         });
     }
