@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.ui.rank_board;
+package com.bigyoshi.qrhunt.bottom_navigation.rank_board;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
