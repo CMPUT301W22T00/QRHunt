@@ -97,6 +97,7 @@
         tools:layout_editor_absoluteX="254dp"
         tools:layout_editor_absoluteY="169dp" />
 
+
     <TextView
         android:id="@+id/titleUserName"
         android:layout_width="138dp"
@@ -106,9 +107,8 @@
         android:textColor="@color/accent_blue_light"
         android:textSize="14dp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="442dp" />
-
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="500dp" />
 
     <TextView
         android:id="@+id/textCaption"
@@ -161,14 +161,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="51dp" />
 
-    <!--
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="260dp"
         android:layout_height="289dp"
-        android:src="@drawable/ic_image_gallery"
+        android:src="@mipmap/ic_image_holder"
         tools:layout_editor_absoluteX="75dp"
         tools:layout_editor_absoluteY="206dp" />
-    -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
