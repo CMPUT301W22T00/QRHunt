@@ -4,20 +4,28 @@ package com.bigyoshi.qrhunt;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
@@ -26,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get permissions first
         requestPermissionsIfNecessary(new String[] {
@@ -48,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
         // Get player
         player = new Player(this);
         player.getPlayerId(); // Get the id to get the information from the db about the player
+    }
 
+    // Menu icons are inflated just as they were with actionbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.top_nav_menu, menu);
+        return true;
     }
 
     @Override
