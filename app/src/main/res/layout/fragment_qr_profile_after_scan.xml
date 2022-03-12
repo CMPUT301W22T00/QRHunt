@@ -40,7 +40,8 @@
         app:layout_constraintBottom_toTopOf="@+id/text_scans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view_divider"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 
     <View
@@ -143,7 +144,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/image_holder"
-        tools:ignore="HardcodedText,RtlSymmetry" />
+        tools:ignore="HardcodedText,RtlSymmetry"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/button_ok"
