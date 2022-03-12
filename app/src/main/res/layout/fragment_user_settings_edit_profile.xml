@@ -4,8 +4,8 @@
     android:id="@+id/editPlayerProfile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rec_frame_bg"
     android:layout_margin="@dimen/padding"
+    android:background="@drawable/rec_frame_bg"
     android:padding="@dimen/large_padding">
 
     <ImageView
@@ -91,8 +91,7 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toBottomOf="@id/email_title">
-    </EditText>
+        app:layout_constraintTop_toBottomOf="@id/email_title"></EditText>
 
 
     <Space
@@ -117,23 +116,23 @@
         android:id="@+id/edit_socials"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding"
         android:background="@drawable/rounded_rectangle_edit_text"
         android:fontFamily="@font/quicksand"
         android:hint="@string/socials_hint"
         android:inputType="text"
+        android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
         app:layout_constraintBottom_toTopOf="@+id/edit_profile_buttons"
-        app:layout_constraintTop_toBottomOf="@id/socials_title">
-    </EditText>
+        app:layout_constraintTop_toBottomOf="@id/socials_title"
+        android:importantForAutofill="no" />
 
     <LinearLayout
         android:id="@+id/edit_profile_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/edit_socials"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_socials">
         <!-- this serves solely to push buttons to end -->
         <View
             android:layout_width="0dp"
