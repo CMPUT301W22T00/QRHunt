@@ -18,12 +18,13 @@
         android:fontFamily="@font/asap"
         android:text="Player_Username"
         android:textColor="@color/main_blue"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
@@ -35,10 +36,11 @@
         android:fontFamily="@font/asap"
         android:text="Player comment..."
         android:textColor="@color/main_off_white_blue_light"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:ignore="HardcodedText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

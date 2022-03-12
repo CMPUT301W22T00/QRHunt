@@ -48,7 +48,8 @@
         android:background="@drawable/ic_button_back"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 
     <TextView
@@ -63,12 +64,13 @@
         android:text="QR Profile"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toStartOf="@+id/imageButton2"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
 
     <ImageButton
@@ -81,7 +83,8 @@
         android:background="@drawable/ic_pfp_light"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 
     <TextView
@@ -95,11 +98,12 @@
         android:text="XX"
         android:textAlignment="center"
         android:textColor="@color/accent_blue_light"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="HardcodedText" />
 
 
     <ImageButton
@@ -113,7 +117,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/buttonVertDots"
         app:layout_constraintStart_toEndOf="@+id/textQRValue"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="ContentDescription" />
 
 
     <ImageButton
@@ -128,7 +133,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/buttonToggleVisibilityON"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textLonLat"
@@ -140,11 +146,12 @@
         android:fontFamily="@font/quicksand"
         android:text="(Longitude, Latitude)"
         android:textColor="@color/main_blue"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toStartOf="@+id/textScans"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
@@ -159,11 +166,12 @@
         android:text="Scans: XX"
         android:textAlignment="textEnd"
         android:textColor="@color/accent_blue_light"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textLonLat"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/titleUserName"
@@ -177,11 +185,12 @@
         android:text="User's Username"
         android:textAlignment="textStart"
         android:textColor="@color/accent_blue_light"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textCaption"
@@ -194,11 +203,12 @@
         android:fontFamily="@font/asap"
         android:text="This will be the user's caption"
         android:textColor="@color/main_off_white_blue_light"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/titleComments"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/titleUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/titleUserName"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView4"
@@ -223,13 +233,14 @@
         android:text="Comments"
         android:textAlignment="textStart"
         android:textColor="@color/main_off_white_blue_light"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:paddingTop="2dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textCaption" />
+        app:layout_constraintTop_toBottomOf="@+id/textCaption"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
@@ -248,13 +259,14 @@
         android:text="Add a comment..."
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/listComments"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText,RtlSymmetry" />
 
     <ImageButton
         android:id="@+id/buttonSendComment"
@@ -268,7 +280,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/editTextAddComment"
         app:layout_constraintEnd_toEndOf="@+id/editTextAddComment"
         app:layout_constraintStart_toStartOf="@+id/editTextAddComment"
-        app:layout_constraintTop_toTopOf="@+id/editTextAddComment" />
+        app:layout_constraintTop_toTopOf="@+id/editTextAddComment"
+        tools:ignore="ContentDescription" />
 
     <ListView
         android:id="@+id/listComments"
