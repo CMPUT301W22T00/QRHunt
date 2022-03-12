@@ -15,14 +15,14 @@ public class QRPlayerProfile {
         QRRepresent = qr;
         // No image -- set to default image
         hideLoc = toHide;
-        // Need to find a way to check if it is the highesValuedQRCode the player has
+        // Need to find a way to check if it is the highestValuedQRCode the player has
     }
 
     public QRPlayerProfile(QRCode q, String i, Boolean toHide){
         QRRepresent = q;
         image = i;
         hideLoc = toHide;
-        // Need to find a way to check if it is the highesValuedQRCode the player has -- check db
+        // Need to find a way to check if it is the highestValuedQRCode the player has -- check db
     }
 
     public void addComment(String newComment){

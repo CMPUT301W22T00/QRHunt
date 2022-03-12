@@ -4,30 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="1"
     android:orientation="vertical">
 
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="272dp"
-        android:layout_height="24dp"
-        android:text="Player_Username"
-        android:textSize="14dp"
-        android:textColor="@color/main_blue"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="131dp"
         android:fontFamily="@font/asap"
+        android:text="Player_Username"
+        android:textColor="@color/main_blue"
+        android:textSize="14dp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="2dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:layout_width="275dp"
+        android:id="@+id/textView6"
+        android:layout_width="272dp"
         android:layout_height="46dp"
-        android:text="Player comment..."
-        android:textSize="12dp"
-        android:textColor="@color/main_off_white_blue_light"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="120dp"
         android:fontFamily="@font/asap"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="33dp" />
+        android:text="Player comment..."
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
