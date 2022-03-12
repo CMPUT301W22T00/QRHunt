@@ -5,91 +5,129 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.LoadBundleTask;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+
+
+import java.util.HashMap;
+import java.util.Objects;
 
 public class ExternalQRCode extends QRCode {
     private String id; // Hash of the actual data from the scan
     private int value; // The score of the QR code
-    private int latitude;
-    private int longitude;
+    private Location location;
     private int numScanned;
-    private FirebaseFirestore db;
-    public boolean isInDB;
+    private String image64;
+    private HashMap<String, Object> qrStuff;
+    private HashMap<String, Object> locationStuff;
+
 
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
-    public ExternalQRCode(int longitude, int latitude, int value, String id){
+    public ExternalQRCode(int value, String id){
         this.value = value;
-        this.longitude = longitude;
-        this.latitude = latitude;
         this.id = id;
-        // Checks if the database contains this id
-        // If it does gets the num scanned from the database
-        // Else it sets it to 1
-        InDB(this.id);
-        if (isInDB) {
-            getNumScannedDB(this.id);
-        } else {
-            this.numScanned = 1;
-        }
+        this.numScanned = 1;
     }
 
-    // Just a bunch of getters and setters
+    // Just a bunch of getters and setters, delete if unneeded
     public int getNumScanned() { return this.numScanned; }
 
-    public void setNumScanned(int numScanned) { this.numScanned = numScanned; }
-
-    public void updateNumScanned(){ this.numScanned += 1; }
+    public void updateNumScanned(FirebaseFirestore db){
+        //not working
+        Query containsId = db.collectionGroup("qrCodes").whereEqualTo("id", this.id);
+        this.numScanned = Objects.requireNonNull(containsId.get().getResult()).size();
+    }
 
     public int getValue() { return this.value; }
 
-    public void setValue(int value) { this.value = value; }
+    public Location getLocation() { return this.location; }
 
-    public int getLatitude() { return latitude; }
+    public void setLocation(double lat, double lon) {
+        this.location.setLat(lat);
+        this.location.setLon(lon);
+        this.location.updateId();
+    }
 
-    public void setLatitude(int latitude) { this.latitude = latitude; }
-
-    public int getLongitude() { return longitude; }
-
-    public void setLongitude(int longitude) { this.longitude = longitude; }
+    public boolean isLocation() {
+        if (this.location != null) { return true; }
+        return false;
+    }
 
     public String getId() { return id; }
 
-    public void setId(String id) { this.id = id; }
+    public String getImage64() { return this.image64; }
 
-    private void InDB(String id) {
-        db.collection("qrcodes").document(id)
-                .get()
+    public void setImage64(String image64) { this.image64 = image64; }
+
+    public void AddQRCodeDB(FirebaseFirestore db) {
+        // ADDS QR CODE TO DataBase
+        DocumentReference qrPage = db.collection("qrCodes").document(this.id);
+        boolean isLocation = this.isLocation();
+        Location location = this.location;
+        if (isLocation) {
+            locationStuff.put("Latitude", location.getLat());
+            locationStuff.put("Longitude", location.getLon());
+        }
+
+        qrStuff = new HashMap<>();
+        qrStuff.put("value", this.value);
+        qrStuff.put("numScanned", this.numScanned);
+
+        qrPage.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot doc = task.getResult();
-                            if (doc.exists()) {
-                                isInDB = true;
-                                Log.d("QR_CODE", "QR is in the data base");
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                qrStuff.put("numScanned", Integer.parseInt((Objects.requireNonNull(task.getResult().getString("numScanned")))) + 1);
                             } else {
-                                isInDB = false;
-                                Log.d("QR_CODE", "QR is not in the data base");
+                                qrPage.set(qrStuff)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("ADD_QR", "Successfully added QR to data base");
+                                        }
+                                    })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("ADD_QR", "Error adding QR to player", e);
+                                            }
+                                        });
                             }
-                        } else {
-                            Log.d("QR_CODE", "Error getting QR from database.", task.getException());
+                            if (isLocation) {
+                                locationStuff = new HashMap<>();
+                                qrPage.collection("Locations").document(location.getId())
+                                        .set(locationStuff, SetOptions.merge());
+                            }
                         }
                     }
                 });
     }
 
-    private void getNumScannedDB(String id) {
-        db.collection("qrcodes").document(id)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void DeleteQRCodeDB(FirebaseFirestore db, String userId) {
+        db.collection("qrCodes").document(this.id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        ExternalQRCode qr = documentSnapshot.toObject(ExternalQRCode.class);
-                        setNumScanned(qr.getNumScanned());
+                    public void onSuccess(Void unused) {
+                        Log.d("Delete_QR", "Successfully removed QR from data base");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Delete_QR", "Error removing QR from data base", e);
                     }
                 });
     }

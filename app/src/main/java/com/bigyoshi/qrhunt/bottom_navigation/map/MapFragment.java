@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.ui.map;
+package com.bigyoshi.qrhunt.bottom_navigation.map;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -29,8 +29,6 @@ public class MapFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        //MapView mMapView = new MapView(inflater.getContext(), 256, getContext());
 
 
         //Load/Initialize osmdroid configuration

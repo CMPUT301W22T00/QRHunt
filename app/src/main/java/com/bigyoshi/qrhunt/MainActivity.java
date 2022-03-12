@@ -2,22 +2,21 @@ package com.bigyoshi.qrhunt;
 
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
@@ -25,55 +24,68 @@ import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String UNIQUE_KEY = "uniqueKey";
-    private String uniqueKey;
     private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         //Get permissions first
         requestPermissionsIfNecessary(new String[] {
                 // if you need to show the current location, uncomment the line below
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 // WRITE_EXTERNAL_STORAGE is required in order to show the map
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                // Required to use the camera
+                Manifest.permission.CAMERA
         });
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Toolbar toolbar = findViewById(R.id.top_nav);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayShowTitleEnabled(false);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        if (!getPlayer()){
-            player = new Player(); // Show generate a unique key that we will save into sharedPrefs
-            uniqueKey = player.getUniqueKey();
-            savePlayer();
+        // Get player
+        player = new Player(this);
+        player.getPlayerId(); // Get the id to get the information from the db about the player
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_nav_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.navigation_profile:
+                FragmentProfile profile = new FragmentProfile(player);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, profile, "profile");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            case R.id.navigation_search:
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        // Gets the uniqueKey for the Player -> load data by using this key to access the correct
-        // player in the PlayerDataBase
-    }
-
-    public Boolean getPlayer(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        uniqueKey = sharedPreferences.getString(UNIQUE_KEY, "");
-        return uniqueKey.compareTo("") != 0;
-    }
-
-    public void savePlayer(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(UNIQUE_KEY, this.uniqueKey);
     }
 
     @Override

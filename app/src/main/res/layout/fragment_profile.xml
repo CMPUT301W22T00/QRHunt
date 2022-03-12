@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/accent_grey_dark"
+    android:paddingStart="@dimen/large_padding"
+    android:paddingEnd="@dimen/large_padding"
+    android:paddingTop="@dimen/padding"
+    android:paddingBottom="@dimen/padding"
+    android:id="@+id/playerProfile">
+
+    <ImageButton android:id="@+id/profile_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_settings_gear"
+        android:padding="@dimen/padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageButton android:id="@+id/profile_information_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_pfp_light"
+        android:padding="@dimen/padding"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView android:id="@+id/profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_title"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/title_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/padding"
+        />
+
+
+    <Space android:id="@+id/profile_spacer0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_space"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_information_button"/>
+
+    <TextView android:id="@+id/profile_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
+        android:text="782785"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/text_off_white"
+        android:textSize="@dimen/statement_text"
+        app:layout_constraintTop_toBottomOf="@id/profile_spacer0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/profile_username_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_score_text">
+
+
+        <TextView android:id="@+id/profile_username_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="placeholder"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/main_off_white_blue_light"
+            android:fontFamily="@font/asap"
+            android:padding="@dimen/padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/profile_gen_QR_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_button_generate_profile"
+            app:layout_constraintLeft_toRightOf="@id/profile_username_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView android:id="@+id/profile_rank_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_rank_title"
+        android:textSize="@dimen/subtitle_size"
+        android:textColor="@color/text_off_white"
+        android:fontFamily="@font/asap"
+        android:paddingBottom="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@id/profile_username_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView android:id="@+id/profile_rank_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number 1"
+        android:textSize="@dimen/title_size"
+        android:fontFamily="@font/asap"
+        android:textColor="@color/background_grey"
+        android:paddingTop="@dimen/padding"
+        android:paddingBottom="@dimen/padding"
+        android:paddingEnd="@dimen/statement_padding"
+        android:paddingStart="@dimen/statement_padding"
+        app:layout_constraintTop_toBottomOf="@id/profile_rank_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/rec_rank"
+        />
+
+    <Space android:id="@+id/profile_spacer1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_space"
+        app:layout_constraintTop_toBottomOf="@id/profile_rank_text"/>
+
+    <LinearLayout android:id="@+id/profile_decorative_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/small_padding"
+        app:layout_constraintTop_toBottomOf="@id/profile_spacer1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:src="@drawable/rec_divider_left"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/rec_divider_right"/>
+    </LinearLayout>
+
+    <Space android:id="@+id/profile_spacer2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/profile_decorative_line"/>
+
+    <TextView android:id="@+id/profile_codes_scanned_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/codes_scanned_title"
+        android:textSize="@dimen/text_size"
+        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/text_off_white"
+        app:layout_constraintTop_toBottomOf="@id/profile_spacer2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/profile_highest_unique_title"
+        android:padding="@dimen/padding"/>
+
+    <TextView android:id="@+id/profile_highest_unique_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/highest_unique_title"
+        android:textSize="@dimen/text_size"
+        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/text_off_white"
+        app:layout_constraintTop_toBottomOf="@id/profile_spacer2"
+        app:layout_constraintLeft_toRightOf="@id/profile_codes_scanned_title"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="@dimen/padding"/>
+
+    <LinearLayout android:id="@+id/stats_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_highest_unique_title"
+        >
+        <TextView android:id="@+id/profile_codes_scanned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:textSize="@dimen/text_size"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="@color/secondary_blue_dark"
+            android:textAlignment="center"
+            android:background="@drawable/rec_codes_scanned"
+            android:layout_margin="@dimen/padding"
+            android:layout_weight="0.5"
+            android:padding="@dimen/padding"
+            android:paddingStart="@dimen/extra_large_padding"
+            android:paddingEnd="@dimen/extra_large_padding"/>
+
+        <TextView android:id="@+id/profile_highest_unique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:textSize="@dimen/text_size"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="@color/text_off_white"
+            android:textAlignment="center"
+
+            android:background="@drawable/rec_highest_unique"
+            android:layout_margin="@dimen/padding"
+            android:layout_weight="0.5"
+            android:padding="@dimen/padding"
+            android:paddingStart="@dimen/extra_large_padding"
+            android:paddingEnd="@dimen/extra_large_padding"/>
+
+    </LinearLayout>
+
+
+    <Space android:id="@+id/profile_spacer3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/stats_line"/>
+
+    <ImageButton android:id="@+id/profile_sort_by_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_sort"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_spacer3"
+        android:padding="@dimen/padding"
+        android:visibility="invisible"/>
+
+    <GridView android:id="@+id/profile_QR_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/profile_sort_by_button">
+
+
+    </GridView>
+</androidx.constraintlayout.widget.ConstraintLayout>
