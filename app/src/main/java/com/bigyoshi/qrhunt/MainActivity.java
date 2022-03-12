@@ -2,11 +2,11 @@ package com.bigyoshi.qrhunt;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.ActionBar;
@@ -14,13 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
-import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 
@@ -51,6 +51,12 @@ public class MainActivity extends AppCompatActivity{
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Toolbar toolbar = findViewById(R.id.top_nav);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayShowTitleEnabled(false);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -61,12 +67,26 @@ public class MainActivity extends AppCompatActivity{
         player.getPlayerId(); // Get the id to get the information from the db about the player
     }
 
-    // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.top_nav_menu, menu);
         return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.navigation_profile:
+                Profile profile = new Profile();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, profile, "profile");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            case R.id.navigation_search:
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
