@@ -33,5 +33,19 @@
         android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:layout_gravity="right"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:visibility="visible"/>
+
+    <ImageButton android:id="@+id/map_list_button"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_button_list"
+        android:background="?attr/actionBarItemBackground"
+
+        android:scaleType="centerInside"
+        android:layout_gravity="left"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
+
+
 </androidx.appcompat.widget.Toolbar>
