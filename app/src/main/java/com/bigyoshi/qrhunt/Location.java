@@ -18,14 +18,12 @@ public class Location {
 
     public void setLat(double lat) {
         this.lat = lat;
-        updateId();
     }
 
     public double getLon() { return lon; }
 
     public void setLon(double lon) {
         this.lon = lon;
-        updateId();
     }
 
     public String getId() { return this.id; }

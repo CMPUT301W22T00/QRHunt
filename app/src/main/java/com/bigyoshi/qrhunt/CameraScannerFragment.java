@@ -51,7 +51,7 @@ public class CameraScannerFragment extends Fragment {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                         camera = new AugmentedCamera();
-                        camera.scanQRCode(result.getText(), 1);
+                        camera.scanQRCode(result.getText());
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                     }
                 });

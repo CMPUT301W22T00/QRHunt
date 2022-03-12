@@ -32,7 +32,7 @@ public class ExternalQRCode extends QRCode {
 
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
-    public ExternalQRCode(int value, String id, FirebaseFirestore db, String userId){
+    public ExternalQRCode(int value, String id){
         this.value = value;
         this.id = id;
         this.numScanned = 1;
@@ -49,8 +49,6 @@ public class ExternalQRCode extends QRCode {
 
     public int getValue() { return this.value; }
 
-    public void setValue(int value) { this.value = value; }
-
     public Location getLocation() { return this.location; }
 
     public void setLocation(double lat, double lon) {
@@ -65,8 +63,6 @@ public class ExternalQRCode extends QRCode {
     }
 
     public String getId() { return id; }
-
-    public void setId(String id) { this.id = id; }
 
     public String getImage64() { return this.image64; }
 
