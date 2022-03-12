@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.bigyoshi.qrhunt.ui.map.MapFragment"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_rankBoard"
-        android:name="com.bigyoshi.qrhunt.ui.rank_board.RankBoardFragment"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.rank_board.RankBoardFragment"
         android:label="@string/title_rankBoard"
         tools:layout="@layout/fragment_rank_board" />
 
