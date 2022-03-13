@@ -19,33 +19,38 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AddQRCodeFragment extends DialogFragment {
     private String hash;
     private int value;
-    private QRLocation location;
+    //private QRLocation location;
+    private double lat;
+    private double lon;
     private TextView showHash;
     private TextView showValue;
-    private TextView showLat;
-    private TextView showLong;
+    private TextView showLatLong;
+    private TextView showNumScanned;
     private Button addImage;
     private FirebaseFirestore db;
 
-    public AddQRCodeFragment(String hash, int value, QRLocation location) {
+    //public AddQRCodeFragment(String hash, int value, QRLocation location) {
+    public AddQRCodeFragment(String hash, int value, double lat, double lon) {
         this.hash = hash;
         this.value = value;
-        this.location = location;
+        this.lat = lat;
+        this.lon = lon;
+        //this.location = location;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_qr_fragment, null);
-        showHash = view.findViewById((R.id.show_hash));
-        showValue = view.findViewById(R.id.show_score);
-        showLat = view.findViewById(R.id.show_latitude);
-        showLong = view.findViewById(R.id.show_longitude);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_qr_profile_after_scan, null);
+        //showHash = view.findViewById((R.id.));
+        showValue = view.findViewById(R.id.text_qr_value);
+        showLatLong = view.findViewById(R.id.text_lon_lat);
+        showNumScanned = view.findViewById(R.id.text_scans);
 
-        showHash.setText(hash);
+        //showHash.setText(hash);
         showValue.setText(String.valueOf(value));
-        showLat.setText(String.valueOf(location.getLat()));
-        showLong.setText(String.valueOf(location.getLong()));
+        showLatLong.setText(String.valueOf(lat)+", "+String.valueOf(lon));
+        showNumScanned.setText("01");
 
         db = FirebaseFirestore.getInstance();
 
@@ -57,7 +62,7 @@ public class AddQRCodeFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ExternalQRCode qrCode = new ExternalQRCode(hash, value);
-                        qrCode.setLocation(location.getLat(), location.getLong());
+                        qrCode.setLocation(lat, lon);
                         qrCode.AddToDB(db);
                         qrCode.AddToQRLibrary(db);
                     }

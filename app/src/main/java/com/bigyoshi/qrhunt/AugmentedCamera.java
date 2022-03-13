@@ -22,31 +22,25 @@ public class AugmentedCamera {
     private final Fragment frag;
     public String hash;
     public int value;
-    public QRLocation qrLocation;
+    //public QRLocation qrLocation;
+    private double[] location;
     public FusedLocationProviderClient fusedLocationClient;
 
     public AugmentedCamera(Fragment frag, String text) {
         this.frag = frag;
-
+        scanQRCode(text);
+        //getLocation();
+        Random rd1 = new Random();
+        Random rd2 = new Random();
+        location = new double[2];
+        location[0] = 53.5232 + rd1.nextDouble();
+        location[1] = 113.5263 + rd2.nextDouble();
+        //new AddQRCodeFragment(hash, value, qrLocation).show(this.frag.getChildFragmentManager(), "ADD QR");
+        new AddQRCodeFragment(hash, value, location[0], location[1]).show(this.frag.getChildFragmentManager(), "ADD QR");
 
     }
 
-    public void scanQRCode(String scannedCode) {
-        scanQRCode(text);
-        getLocation();
-        // can't seem to call the support fragment manager;
-        new AddQRCodeFragment(hash, value, qrLocation).show(this.frag.getChildFragmentManager(), "ADD QR");
-        ///////////////////////////////////////////////////////////////////
-        // testing
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        ExternalQRCode qrCode = new ExternalQRCode(hash, value);
-        Random rd1 = new Random();
-        Random rd2 = new Random();
-        qrCode.setLocation(53.5232 + rd1.nextDouble(), 113.5263 + rd2.nextDouble());
-        qrCode.AddToDB(db);
-        qrCode.AddToQRLibrary(db);
-        Toast.makeText(frag.getContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
-        ////////////////////////////////////////////////////////////////
+    private void scanQRCode(String scannedCode) {
         // Scans QRCode -> reads whether it is a internal or external -> makes it either external or internal
         // -> If external -> calculate the value -> save into db -> player sets up QRProfile
         // -> If internal, show the game status (as a pop up) or log-in to the account
