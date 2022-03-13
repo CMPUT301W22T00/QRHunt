@@ -12,6 +12,7 @@
         android:id="@+id/settings_edit_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/settings_icon_desc"
         android:padding="@dimen/padding"
         android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -91,7 +92,7 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toBottomOf="@id/email_title"></EditText>
+        app:layout_constraintTop_toBottomOf="@id/email_title" />
 
 
     <Space
@@ -119,13 +120,13 @@
         android:background="@drawable/rounded_rectangle_edit_text"
         android:fontFamily="@font/quicksand"
         android:hint="@string/socials_hint"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
         app:layout_constraintBottom_toTopOf="@+id/edit_profile_buttons"
-        app:layout_constraintTop_toBottomOf="@id/socials_title"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@id/socials_title" />
 
     <LinearLayout
         android:id="@+id/edit_profile_buttons"

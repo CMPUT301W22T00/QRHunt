@@ -27,4 +27,5 @@
     <string name="highest_unique_title">Highest Unique QR</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="settings_icon_desc">settings</string>
 </resources>
