@@ -120,11 +120,17 @@ public class MainActivity extends AppCompatActivity{
                 if (navDestination.getId() == R.id.navigation_map) {
                     navSearch.setVisibility(View.GONE);
                     mapMenu.setVisibility(View.VISIBLE);
+                    toolbar.setVisibility(View.VISIBLE);
                 }
                 if (navDestination.getId() == R.id.navigation_scanner){
                     navSearch.setVisibility(View.VISIBLE);
                     mapMenu.setVisibility(View.GONE);
-
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+                if (navDestination.getId() == R.id.navigation_rankBoard){
+                    navSearch.setVisibility(View.GONE);
+                    mapMenu.setVisibility(View.GONE);
+                    toolbar.setVisibility(View.GONE);
                 }
             }
         });
