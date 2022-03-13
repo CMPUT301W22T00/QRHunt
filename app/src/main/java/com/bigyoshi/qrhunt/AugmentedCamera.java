@@ -39,7 +39,11 @@ public class AugmentedCamera {
         // new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
         // testing
-
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ExternalQRCode qrCode = new ExternalQRCode(hash, value);
+        qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
+        qrCode.AddToDB(db);
+        qrCode.AddToQRLibrary(db);
         ////////////////////////////////////////////////////////////////
 
     }
@@ -89,11 +93,6 @@ public class AugmentedCamera {
                 if (location != null) {
                     Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
                     qrLocation = new QRLocation(location.getLatitude(), location.getLongitude());
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    ExternalQRCode qrCode = new ExternalQRCode(hash, value);
-                    qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
-                    qrCode.AddToDB(db);
-                    qrCode.AddToQRLibrary(db);
                 } else {
                     Toast.makeText(activity, "Last known location is not available!", Toast.LENGTH_SHORT).show();
                 }

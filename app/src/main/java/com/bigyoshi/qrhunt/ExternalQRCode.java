@@ -89,7 +89,7 @@ public class ExternalQRCode extends QRCode {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                qrStuff.put("numScanned", Integer.parseInt((Objects.requireNonNull(document.getString("numScanned")))) + 1);
+                                //qrStuff.put("numScanned", Integer.parseInt((Objects.requireNonNull(document.getString("numScanned")))) + 1);
                             } else {
                                 qrPage.set(qrStuff)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -134,8 +134,9 @@ public class ExternalQRCode extends QRCode {
     }
 
     public void AddToQRLibrary(FirebaseFirestore db) {
+        playerQrStuff = new HashMap<>();
         playerQrStuff.put("image", "hello");
-        db.collection("users").document("TEST PLAYER")
+        db.collection("users").document("04717e93-d613-46da-99e4-aa97e6fe8793")
                 .collection("qrCodes").document(this.id).set(playerQrStuff, SetOptions.merge());
     }
 }
