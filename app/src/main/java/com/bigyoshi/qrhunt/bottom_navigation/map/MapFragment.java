@@ -49,11 +49,12 @@ public class MapFragment extends Fragment {
 
         //Map Controller stuff to move the map on a default view point
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(18);
         GeoPoint startPoint = new GeoPoint(53.5461, -113.4938);
         mapController.setCenter(startPoint);
 
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx),map);
+        this.mLocationOverlay.enableFollowLocation();
         this.mLocationOverlay.enableMyLocation();
         map.getOverlays().add(this.mLocationOverlay);
 
