@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
     private PlayerInfo playerInfo;
     private TextView playerProfileSettings;
+    private ImageView backButton;
 
     public FragmentPlayerSetting(PlayerInfo playerInfo){
         this.playerInfo = playerInfo;
@@ -37,6 +39,7 @@ public class FragmentPlayerSetting extends Fragment {
         View root = binding.getRoot();
 
         playerProfileSettings = root.findViewById(R.id.settings_edit_profile);
+        backButton = root.findViewById(R.id.settings_back_arrow);
 
         playerProfileSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -49,6 +52,21 @@ public class FragmentPlayerSetting extends Fragment {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressedCustom();
+            }
+        });
+
         return root;
+    }
+
+    public void onBackPressedCustom() {
+        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            getActivity().finish();
+        } else {
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 }

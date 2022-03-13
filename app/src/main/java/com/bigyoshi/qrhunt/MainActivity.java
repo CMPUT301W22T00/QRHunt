@@ -4,6 +4,7 @@ package com.bigyoshi.qrhunt;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -129,29 +130,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_nav_menu, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()) {
-            case R.id.navigation_profile:
-                FragmentProfile profile = new FragmentProfile(player);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, profile, "profile");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            case R.id.navigation_search:
-                return false;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
