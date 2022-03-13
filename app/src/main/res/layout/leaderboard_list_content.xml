@@ -14,10 +14,10 @@
         android:layout_marginTop="8dp"
         android:padding="10dp"
         android:text="#"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".10" />
@@ -25,84 +25,102 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="52dp"
+        android:layout_width="0dp"
         android:layout_height="64dp"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
         android:padding="10dp"
         android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/textUsername"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".05"
-        tools:layout_editor_absoluteX="75dp" />
+        app:layout_constraintWidth_percent=".05" />
 
 
     <TextView
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
         android:padding="20dp"
         android:text="username"
-        android:textSize="30sp"
         android:textColor="@color/accent_grey_blue_dark"
-        app:layout_constraintWidth_percent=".21"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textHighestUnique"
+        app:layout_constraintEnd_toStartOf="@+id/textHighestUnique"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintWidth_percent=".21" />
 
 
     <TextView
         android:id="@+id/textHighestUnique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="37dp"
         android:padding="20dp"
         android:text="XX"
-        android:textSize="30sp"
-        android:textColor="@color/accent_grey_blue_dark"
         android:textAlignment="center"
-        app:layout_constraintWidth_percent=".21"
-        tools:layout_editor_absoluteX="317dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textUsername"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".21" />
 
 
     <TextView
         android:id="@+id/textDivider"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
         android:padding="20dp"
         android:text="|"
         android:textAlignment="center"
-        android:textSize="30sp"
         android:textColor="@color/black"
-        app:layout_constraintWidth_percent=".01"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="115dp" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textScans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHighestUnique"
+        app:layout_constraintWidth_percent=".01" />
 
 
     <TextView
         android:id="@+id/textScans"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="17dp"
         android:padding="20dp"
         android:text="XXXXX"
         android:textAlignment="center"
-        android:textSize="30sp"
         android:textColor="@color/accent_grey_blue_dark"
-        app:layout_constraintWidth_percent=".21"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="235dp" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDivider"
+        app:layout_constraintWidth_percent=".21" />
 
 
     <TextView
         android:id="@+id/textScore"
-        android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="315dp"
         android:padding="20dp"
         android:text="XXXXX"
         android:textAlignment="center"
-        android:textSize="30sp"
         android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintWidth_percent=".21"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="332dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textScans"
+        app:layout_constraintWidth_percent=".21" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
