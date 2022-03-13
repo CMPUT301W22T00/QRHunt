@@ -133,7 +133,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="23dp"
         android:fontFamily="@font/quicksand"
-        android:gravity="center"
+        android:gravity="end"
         android:text="Scans: XX"
         android:textAlignment="textEnd"
         android:textColor="@color/accent_blue_light"
