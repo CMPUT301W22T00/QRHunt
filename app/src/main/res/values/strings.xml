@@ -1,4 +1,8 @@
 <resources>
+    <!-- this is a hack, this should be generated at the build step,
+    \but osmdroid also generated this, and generates it to be 0, which breaks this
+       I think. Not completely sure. Anyway, this overrides both of them -->
+    <string name="google_play_services_version">12451000</string>
     <string name="app_name">QRHunt</string>
     <string name="title_map">Map</string>
     <string name="title_rankBoard">Rank Board</string>
