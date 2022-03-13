@@ -10,6 +10,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,14 +28,36 @@ public class AugmentedCamera {
     private final Fragment frag;
     private final String qrContent;
     private byte[] digest;
+    private LocationCallback hackyLocationCallback;
+    FusedLocationProviderClient client;
     public String hash;
     public int score;
-    public QRLocation qrLocation;
     public FusedLocationProviderClient fusedLocationClient;
 
     public AugmentedCamera(Fragment frag, String text) {
         this.frag = frag;
         this.qrContent = text;
+        client = LocationServices.getFusedLocationProviderClient(frag.getActivity());
+        pollLocation();
+    }
+
+    public void pollLocation() {
+        // alex please forgive me
+        // super, super hacky way to get location not to be null.
+        // apparently just requesting it is enough to get the location manager off it's ass
+        // even if we never care about the result
+        // it's super messed up
+        // if it break in the future, we may need to implement more of LocationCallback
+        // but it's working now
+        LocationRequest mLocationRequest = LocationRequest.create();
+        mLocationRequest.setInterval(10 * 1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        hackyLocationCallback = new LocationCallback() {};
+        if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.requestLocationUpdates(mLocationRequest, hackyLocationCallback, null);
     }
 
     public void processQRCode() {
@@ -49,14 +74,17 @@ public class AugmentedCamera {
                 if (location != null) {
                     qrCode.setLocation(location.getLatitude(), location.getLongitude());
                 }
-                new AddQRCodeFragment(hash, score, qrLocation).show(frag.getChildFragmentManager(), "ADD QR");
+                // this stops listening to the updates we didn't actually care about in the first place for
+                // see pollLocation
+                LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
+                // todo: do we really need a whole wrapper class?
+                // todo: handle cases where we can get the location gracefully
+                new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude())).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
-        new AddQRCodeFragment(hash, score, qrLocation).show(this.frag.getChildFragmentManager(), "ADD QR");
 
         Toast.makeText(frag.getContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
     }
-
 
 
     private void computeHash() {
@@ -90,7 +118,7 @@ public class AugmentedCamera {
         if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(frag.getActivity());
-        return fusedLocationClient.getLastLocation();
+        return client.getLastLocation();
     }
+
 }
