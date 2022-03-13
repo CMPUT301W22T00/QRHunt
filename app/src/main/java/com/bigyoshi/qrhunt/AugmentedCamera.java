@@ -86,7 +86,7 @@ public class AugmentedCamera {
             return;
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
-        fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        /*fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 Location location = task.getResult();
@@ -97,6 +97,6 @@ public class AugmentedCamera {
                     Toast.makeText(activity, "Last known location is not available!", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
 }
