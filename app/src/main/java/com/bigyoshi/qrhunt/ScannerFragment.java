@@ -20,7 +20,7 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
-public class CameraScannerFragment extends Fragment {
+public class ScannerFragment extends Fragment {
     private CodeScanner codeScanner;
     public AugmentedCamera camera;
 
