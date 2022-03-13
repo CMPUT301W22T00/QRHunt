@@ -33,6 +33,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView score;
     private FirebaseFirestore db;
     private DocumentReference playerRef;
+    private ListenerRegistration scoreListenerRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,7 +143,10 @@ public class MainActivity extends AppCompatActivity {
      so that the proper id is is listened to for changes
      */
     private void updateFirebaseListeners() {
-//        CollectionReference playerQrCodesRef = db.collection("users").document(player.getPlayerId()).collection("qrCodes");
+        // this isn't really how i want it to be spelled, at all
+        // ideally we can just watch score but this isn't feasible
+        // till i get my cloud functions idea together
+        playerRef = db.collection("users").document(player.getPlayerId());
         CollectionReference playerQrCodesRef = playerRef.collection("qrCodes");
         playerQrCodesRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -157,9 +162,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         int total = 0;
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            total += (int)document.getData().getOrDefault("score", 0);
+                            total += Math.toIntExact((long)document.getData().getOrDefault("value", 0));
                         }
                         Log.d(TAG, String.format("total score: %d", total));
+                        score.setText(String.format("%d points", total));
                     }
                 });
             }
