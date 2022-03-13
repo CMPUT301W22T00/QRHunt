@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -83,6 +84,7 @@ public class AugmentedCamera {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
