@@ -24,7 +24,7 @@
             android:scaleX="1.25"
             android:scaleY="1.25"
             android:padding="@dimen/padding"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             />
 
         <TextView
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_edit_24_light_off_white_blue"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:padding="@dimen/padding"/>
 
         <TextView android:id="@+id/settings_edit_profile"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spacer2"
         app:layout_constraintLeft_toLeftOf="parent"
         android:padding="@dimen/padding"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="bottom"/>
 
 
     <TextView android:id="@+id/settings_generate_QR"
@@ -119,12 +119,48 @@
         />
 
 
+    <LinearLayout android:id="@+id/delete_profile_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/spacer2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
+
+        <ImageView android:id="@+id/settings_delete_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacer1"
+            android:padding="@dimen/padding"
+            android:layout_gravity="bottom"/>
+
+        <TextView android:id="@+id/settings_delete_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_blue"
+            android:text="@string/settings_delete_profile"
+            android:fontFamily="@font/quicksand"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintLeft_toRightOf="@id/settings_change_profile_picture_image"
+            app:layout_constraintTop_toBottomOf="@id/spacer1"
+            android:padding="@dimen/padding"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <Space android:id="@+id/spacer3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/delete_profile_line"
+        />
+
 
     <LinearLayout android:id="@+id/profile_picture_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/spacer2"
+        app:layout_constraintTop_toBottomOf="@id/spacer3"
         app:layout_constraintLeft_toLeftOf="parent"
         android:visibility="gone"
         >
@@ -136,7 +172,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spacer1"
             android:padding="@dimen/padding"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="bottom"/>
 
         <TextView android:id="@+id/settings_profile_picture"
             android:layout_width="wrap_content"
@@ -150,6 +186,7 @@
             android:padding="@dimen/padding"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
+
 
 
 

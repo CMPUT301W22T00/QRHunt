@@ -15,6 +15,7 @@
     <string name="settings_edit_profile">Edit Profile</string>
     <string name="settings_profile_picture">Change Profile Picture</string>
     <string name="settings_generate_qr">Generate QR</string>
+    <string name="settings_delete_profile">Delete Profile</string>
 
     <!-- for user_settings_edit_profile -->
     <string name="edit_profile_title">Edit Profile</string>
