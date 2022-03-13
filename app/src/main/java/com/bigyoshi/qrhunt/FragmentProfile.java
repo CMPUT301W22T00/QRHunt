@@ -38,6 +38,7 @@ public class FragmentProfile extends Fragment {
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
     private ImageButton playerInfoButton;
+    private Contact contact;
 
     public FragmentProfile(Player player){
          this.playerInfo = player.getPlayerInfo();
@@ -58,6 +59,7 @@ public class FragmentProfile extends Fragment {
         totalRank = root.findViewById(R.id.profile_rank_text);
         totalScanned = root.findViewById(R.id.profile_codes_scanned);
         uniqueRank = root.findViewById(R.id.profile_highest_unique);
+        contact = playerInfo.getContact();
 
         settingButton = root.findViewById(R.id.profile_settings_button);
 
