@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import android.view.View;
-
-
-import com.bigyoshi.qrhunt.R;
 
 import java.util.ArrayList;
 
@@ -23,7 +19,7 @@ public class Leaderboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard);
+        setContentView(R.layout.fragment_leaderboard);
 
 
         rankList = findViewById(R.id.list_rankings);
