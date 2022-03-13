@@ -5,304 +5,188 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
+    android:padding="@dimen/extra_large_padding"
     tools:context=".QRPlayerProfile">
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="323dp"
-        android:layout_height="660dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="71dp"
-        android:layout_marginEnd="44dp"
-        android:alpha="0.25"
-        android:background="@drawable/rec_frame_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="272dp"
-        android:layout_height="319dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rec_image_holder_bg"
-        app:layout_constraintBottom_toTopOf="@+id/titleUserName"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
-
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="0dp"
+        android:id="@+id/qr_profile_back_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="17dp"
         android:background="@drawable/ic_button_back"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titleQRProfile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
         android:text="QR Profile"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
-        android:textSize="26sp"
+        android:textSize="26dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="0dp"
+        android:id="@+id/qr_profile_pfp_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/ic_pfp_light"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/textQRValue"
-        android:layout_width="59dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="256dp"
-        android:fontFamily="@font/quicksand"
-        android:text="XX"
-        android:textAlignment="center"
-        android:textColor="@color/accent_blue_light"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        tools:ignore="HardcodedText" />
-
-
-    <ImageButton
-        android:id="@+id/buttonToggleVisibilityON"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="47dp"
-        android:background="@drawable/ic_button_visibility_on_light"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/buttonVertDots"
-        app:layout_constraintStart_toEndOf="@+id/textQRValue"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        tools:ignore="ContentDescription" />
+        android:padding="@dimen/large_padding"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
+
+        <TextView
+            android:id="@+id/textQRValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:text="XX"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large_padding"
+            android:layout_marginTop="@dimen/large_padding"
+            android:fontFamily="@font/quicksand"
+            android:text="(Longitude, Latitude)"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textQRValue" />
+
+        <ImageView
+            android:id="@+id/qr_profile_bkg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.25"
+            android:background="@drawable/rec_frame_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageButton
-        android:id="@+id/buttonVertDots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="45dp"
-        android:background="@drawable/ic_button_vert_dot"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/buttonToggleVisibilityON"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/textScans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/large_padding"
+            android:fontFamily="@font/quicksand"
+            android:text="Scans: XX"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBaseline_toBaselineOf="@id/textLocation"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/textLonLat"
-        android:layout_width="163dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/quicksand"
-        android:text="(Longitude, Latitude)"
-        android:textColor="@color/main_blue"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/textScans"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        tools:ignore="HardcodedText" />
+        <ImageView
+            android:id="@+id/qr_profile_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@mipmap/ic_image_holder"
+            android:elevation="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textLocation" />
 
 
-    <TextView
-        android:id="@+id/textScans"
-        android:layout_width="90dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="59dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="3dp"
-        android:fontFamily="@font/quicksand"
-        android:paddingTop="4dp"
-        android:text="Scans: XX"
-        android:textAlignment="textEnd"
-        android:textColor="@color/accent_blue_light"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/textLonLat"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/titleUserName"
-        android:layout_width="272dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="26dp"
-        android:fontFamily="@font/asap"
-        android:paddingTop="2dp"
-        android:text="User's Username"
-        android:textAlignment="textStart"
-        android:textColor="@color/accent_blue_light"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/textCaption"
-        android:layout_width="266dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="5dp"
-        android:fontFamily="@font/asap"
-        android:text="This will be the user's caption"
-        android:textColor="@color/main_off_white_blue_light"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleComments"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/titleUserName"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="272dp"
-        android:layout_height="0.8dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="26dp"
-        android:background="@drawable/rec_divider"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/titleComments" />
-
-    <TextView
-        android:id="@+id/titleComments"
-        android:layout_width="266dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/quicksand"
-        android:text="Comments"
-        android:textAlignment="textStart"
-        android:textColor="@color/main_off_white_blue_light"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:paddingTop="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textCaption"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/titleUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large_padding"
+            android:fontFamily="@font/asap"
+            android:text="User's Username"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_profile_image" />
 
 
-    <TextView
-        android:id="@+id/editTextAddComment"
-        android:layout_width="272dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="11dp"
-        android:alpha="0.3"
-        android:background="@drawable/rec_add_comment"
-        android:fontFamily="@font/asap"
-        android:paddingStart="10dp"
-        android:paddingTop="4dp"
-        android:text="Add a comment..."
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/listComments"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="HardcodedText,RtlSymmetry" />
+        <TextView
+            android:id="@+id/textCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.3"
+            android:background="@drawable/rec_add_comment"
+            android:fontFamily="@font/asap"
+            android:padding="@dimen/padding"
+            android:text="This will be the user's caption"
+            android:textColor="@color/main_off_white_blue_light"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleUserName" />
 
-    <ImageButton
-        android:id="@+id/buttonSendComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="247dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/ic_button_send"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextAddComment"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAddComment"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddComment"
-        app:layout_constraintTop_toTopOf="@+id/editTextAddComment"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/titleComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:padding="@dimen/padding"
+            android:text="Comments"
+            android:textColor="@color/main_off_white_blue_light"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/textCaption" />
 
-    <ListView
-        android:id="@+id/listComments"
-        android:layout_width="272dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/large_padding"
+            android:layout_marginRight="@dimen/large_padding"
+            android:background="@drawable/rec_divider"
+            app:layout_constraintTop_toBottomOf="@id/titleComments" />
+
+        <EditText
+            android:id="@+id/editTextAddComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rec_add_comment"
+            android:fontFamily="@font/asap"
+            android:hint="Add a comment..."
+            android:padding="@dimen/padding"
+            android:textColor="@color/main_off_white_blue_light"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <ListView
+            android:id="@+id/listComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large_padding"
+            android:layout_marginRight="@dimen/large_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextAddComment" />
 
 
-    <!--
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="260dp"
-        android:layout_height="289dp"
-        android:src="@mipmap/ic_image_holder"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="206dp" />
--->
-
+        <!--
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="260dp"
+            android:layout_height="289dp"
+            android:src="@drawable/ic_image_gallery"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="206dp" />
+        -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

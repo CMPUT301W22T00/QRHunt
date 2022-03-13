@@ -3,9 +3,12 @@ package com.bigyoshi.qrhunt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import android.view.View;
+
 
 import com.bigyoshi.qrhunt.R;
 
@@ -22,7 +25,11 @@ public class Leaderboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
 
-        rankList = findViewById(R.id.rankings);
+
+        rankList = findViewById(R.id.list_rankings);
+
+       
+
         dataList = new ArrayList<>();
 
         rankAdapter = new ArrayAdapter<>(this, R.layout.leaderboard_list_content, dataList);

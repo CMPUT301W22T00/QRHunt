@@ -8,7 +8,8 @@
     android:paddingStart="@dimen/large_padding"
     android:paddingEnd="@dimen/large_padding"
     android:paddingTop="@dimen/padding"
-    android:paddingBottom="@dimen/padding">
+    android:paddingBottom="@dimen/padding"
+    android:id="@+id/playerProfile">
 
     <ImageButton android:id="@+id/profile_settings_button"
         android:layout_width="wrap_content"
@@ -19,7 +20,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
-    <ImageButton android:id="@+id/profile_information_button"
+    <ImageButton
+        android:id="@+id/profile_information_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_pfp_light"
@@ -45,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_information_button"/>
+        app:layout_constraintTop_toBottomOf="@id/profile_settings_button"/>
 
     <TextView android:id="@+id/profile_score_text"
         android:layout_width="wrap_content"
@@ -222,7 +224,8 @@
         android:background="@drawable/ic_button_sort"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_spacer3"
-        android:padding="@dimen/padding"/>
+        android:padding="@dimen/padding"
+        android:visibility="invisible"/>
 
     <GridView android:id="@+id/profile_QR_grid"
         android:layout_width="match_parent"
