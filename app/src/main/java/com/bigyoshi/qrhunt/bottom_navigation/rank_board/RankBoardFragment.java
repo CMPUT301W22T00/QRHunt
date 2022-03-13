@@ -10,20 +10,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.bigyoshi.qrhunt.databinding.FragmentRankBoardBinding;
+import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 
 import org.osmdroid.config.Configuration;
 
 public class RankBoardFragment extends Fragment {
 
-    private FragmentRankBoardBinding binding;
+    private FragmentLeaderboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Load/Initialize osmdroid configuration
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
-        binding = FragmentRankBoardBinding.inflate(inflater, container, false);
+        binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 

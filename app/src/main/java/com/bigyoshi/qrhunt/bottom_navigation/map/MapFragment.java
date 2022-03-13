@@ -1,6 +1,11 @@
 package com.bigyoshi.qrhunt.bottom_navigation.map;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -49,13 +54,18 @@ public class MapFragment extends Fragment {
 
         //Map Controller stuff to move the map on a default view point
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
-        GeoPoint startPoint = new GeoPoint(53.5461, -113.4938);
-        mapController.setCenter(startPoint);
+        mapController.setZoom(20);
 
+        // Follows user and centers on them
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx),map);
+        this.mLocationOverlay.enableFollowLocation();
         this.mLocationOverlay.enableMyLocation();
+
+        // Change person icon
+        Drawable icon = getResources().getDrawable(R.drawable.ic_player_nav, null);
+        this.mLocationOverlay.setPersonIcon(drawableToBitmap(icon));
         map.getOverlays().add(this.mLocationOverlay);
+
 
         return root;
     }
@@ -84,5 +94,23 @@ public class MapFragment extends Fragment {
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 //        Configuration.getInstance().save(this.getContext(), prefs);
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+    }
+
+    /**
+     * Converts a vector image to a bitmap
+     * @param drawable
+     *        - A vector image
+     * @return bitmap of the vector image
+     */
+    public static Bitmap drawableToBitmap (Drawable drawable){
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }
