@@ -11,9 +11,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.LoadBundleTask;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 
@@ -22,7 +19,7 @@ import java.util.Objects;
 
 public class ExternalQRCode extends QRCode {
     private String id; // Hash of the actual data from the scan
-    private int value; // The score of the QR code
+    private int score; // The score of the QR code
     private QRLocation location;
     private int numScanned;
     private String image64;
@@ -34,7 +31,7 @@ public class ExternalQRCode extends QRCode {
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
     public ExternalQRCode(String id, int value){
-        this.value = value;
+        this.score = value;
         this.id = id;
         this.numScanned = 1;
     }
@@ -48,19 +45,13 @@ public class ExternalQRCode extends QRCode {
         this.numScanned = Integer.parseInt((Objects.requireNonNull(Objects.requireNonNull(qrData.getResult()).getString("numScanned"))));
     }
 
-    public int getValue() { return this.value; }
+    public int getScore() { return this.score; }
 
     public QRLocation getLocation() { return this.location; }
 
-    public void setLocation(double lat, double lon) {
-        this.location.setLat(lat);
-        this.location.setLong(lon);
-        this.location.updateId();
-    }
+    public void setLocation(double lat, double lon) { this.location = new QRLocation(lat, lon); }
 
-    public boolean isLocation() {
-        return this.location != null;
-    }
+    public boolean isLocation() { return this.location != null; }
 
     public String getId() { return id; }
 
@@ -72,14 +63,15 @@ public class ExternalQRCode extends QRCode {
         // ADDS QR CODE TO DataBase
         DocumentReference qrPage = db.collection("qrCodes").document(this.id);
         boolean isLocation = this.isLocation();
-        QRLocation location = this.location;
+
         if (isLocation) {
-            locationStuff.put("latitude", location.getLat());
-            locationStuff.put("longitude", location.getLong());
+            locationStuff = new HashMap<>();
+            locationStuff.put("latitude", this.location.getLat());
+            locationStuff.put("longitude", this.location.getLong());
         }
 
         qrStuff = new HashMap<>();
-        qrStuff.put("value", this.value);
+        qrStuff.put("value", this.score);
         qrStuff.put("numScanned", this.numScanned);
 
         qrPage.get()
@@ -136,7 +128,7 @@ public class ExternalQRCode extends QRCode {
     public void AddToQRLibrary(FirebaseFirestore db) {
         playerQrStuff = new HashMap<>();
         playerQrStuff.put("image", "hello");
-        db.collection("users").document("04717e93-d613-46da-99e4-aa97e6fe8793")
+        db.collection("users").document("TEST USER")
                 .collection("qrCodes").document(this.id).set(playerQrStuff, SetOptions.merge());
     }
 }
