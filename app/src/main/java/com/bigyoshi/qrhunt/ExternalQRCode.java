@@ -23,16 +23,17 @@ import java.util.Objects;
 public class ExternalQRCode extends QRCode {
     private String id; // Hash of the actual data from the scan
     private int value; // The score of the QR code
-    private Location location;
+    private QRLocation location;
     private int numScanned;
     private String image64;
     private HashMap<String, Object> qrStuff;
+    private HashMap<String, Object> playerQrStuff;
     private HashMap<String, Object> locationStuff;
 
 
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
-    public ExternalQRCode(int value, String id){
+    public ExternalQRCode(String id, int value){
         this.value = value;
         this.id = id;
         this.numScanned = 1;
@@ -49,11 +50,11 @@ public class ExternalQRCode extends QRCode {
 
     public int getValue() { return this.value; }
 
-    public Location getLocation() { return this.location; }
+    public QRLocation getLocation() { return this.location; }
 
     public void setLocation(double lat, double lon) {
         this.location.setLat(lat);
-        this.location.setLon(lon);
+        this.location.setLong(lon);
         this.location.updateId();
     }
 
@@ -67,14 +68,14 @@ public class ExternalQRCode extends QRCode {
 
     public void setImage64(String image64) { this.image64 = image64; }
 
-    public void AddQRCodeDB(FirebaseFirestore db) {
+    public void AddToDB(FirebaseFirestore db) {
         // ADDS QR CODE TO DataBase
         DocumentReference qrPage = db.collection("qrCodes").document(this.id);
         boolean isLocation = this.isLocation();
-        Location location = this.location;
+        QRLocation location = this.location;
         if (isLocation) {
-            locationStuff.put("Latitude", location.getLat());
-            locationStuff.put("Longitude", location.getLon());
+            locationStuff.put("latitude", location.getLat());
+            locationStuff.put("longitude", location.getLong());
         }
 
         qrStuff = new HashMap<>();
@@ -106,15 +107,16 @@ public class ExternalQRCode extends QRCode {
                             }
                             if (isLocation) {
                                 locationStuff = new HashMap<>();
-                                qrPage.collection("Locations").document(location.getId())
+                                qrPage.collection("locations").document(location.getId())
                                         .set(locationStuff, SetOptions.merge());
                             }
                         }
                     }
                 });
+        grabNumScanned(db);
     }
 
-    public void DeleteQRCodeDB(FirebaseFirestore db, String userId) {
+    public void DeleteFromDB(FirebaseFirestore db) {
         db.collection("qrCodes").document(this.id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -129,5 +131,11 @@ public class ExternalQRCode extends QRCode {
                         Log.w("Delete_QR", "Error removing QR from data base", e);
                     }
                 });
+    }
+
+    public void AddToQRLibrary(FirebaseFirestore db) {
+        playerQrStuff.put("image", "hello");
+        db.collection("users").document("TEST PLAYER")
+                .collection("qrCodes").document(this.id).set(playerQrStuff, SetOptions.merge());
     }
 }

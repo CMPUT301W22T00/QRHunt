@@ -3,12 +3,12 @@ package com.bigyoshi.qrhunt;
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 
-public class Location {
+public class QRLocation {
     private double lat;
     private double lon;
     private String id;
 
-    public Location(double lat, double lon) {
+    public QRLocation(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
         updateId();
@@ -20,9 +20,9 @@ public class Location {
         this.lat = lat;
     }
 
-    public double getLon() { return lon; }
+    public double getLong() { return lon; }
 
-    public void setLon(double lon) {
+    public void setLong(double lon) {
         this.lon = lon;
     }
 
