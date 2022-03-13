@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.firebase.geofire.GeoFireUtils;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +25,9 @@ import java.util.Objects;
 public class ExternalQRCode extends QRCode {
     private String id; // Hash of the actual data from the scan
     private int value; // The score of the QR code
-    private QRLocation location;
+    //private QRLocation location;
+    private double[] location;
+    public String locationId;
     private int numScanned;
     private String image64;
     private HashMap<String, Object> qrStuff;
@@ -50,16 +54,18 @@ public class ExternalQRCode extends QRCode {
 
     public int getValue() { return this.value; }
 
-    public QRLocation getLocation() { return this.location; }
+    //public QRLocation getLocation() { return this.location; }
 
     public void setLocation(double lat, double lon) {
-        this.location.setLat(lat);
-        this.location.setLong(lon);
-        this.location.updateId();
+        this.location = new double[2];
+        this.location[0] = lat;
+        this.location[1] = lon;
+        this.locationId = GeoFireUtils.getGeoHashForLocation(new GeoLocation(lat, lon));
+        //this.location = new QRLocation(lat, lon);
     }
 
     public boolean isLocation() {
-        return this.location != null;
+        return this.location.length == 2;
     }
 
     public String getId() { return id; }
@@ -72,10 +78,16 @@ public class ExternalQRCode extends QRCode {
         // ADDS QR CODE TO DataBase
         DocumentReference qrPage = db.collection("qrCodes").document(this.id);
         boolean isLocation = this.isLocation();
-        QRLocation location = this.location;
+        //QRLocation location = this.location;
+
+
+
         if (isLocation) {
-            locationStuff.put("latitude", location.getLat());
-            locationStuff.put("longitude", location.getLong());
+            locationStuff = new HashMap<>();
+            locationStuff.put("latitude", this.location[0]);
+            locationStuff.put("longitude", this.location[1]);
+           // locationStuff.put("latitude", location.getLat());
+            //locationStuff.put("longitude", location.getLong());
         }
 
         qrStuff = new HashMap<>();
@@ -107,7 +119,7 @@ public class ExternalQRCode extends QRCode {
                             }
                             if (isLocation) {
                                 locationStuff = new HashMap<>();
-                                qrPage.collection("locations").document(location.getId())
+                                qrPage.collection("locations").document(locationId)
                                         .set(locationStuff, SetOptions.merge());
                             }
                         }
@@ -136,7 +148,7 @@ public class ExternalQRCode extends QRCode {
     public void AddToQRLibrary(FirebaseFirestore db) {
         playerQrStuff = new HashMap<>();
         playerQrStuff.put("image", "hello");
-        db.collection("users").document("04717e93-d613-46da-99e4-aa97e6fe8793")
+        db.collection("users").document("TEST USER")
                 .collection("qrCodes").document(this.id).set(playerQrStuff, SetOptions.merge());
     }
 }

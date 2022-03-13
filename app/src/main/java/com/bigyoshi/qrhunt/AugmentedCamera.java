@@ -32,6 +32,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+import java.util.Random;
 
 public class AugmentedCamera {
     private final Activity activity;
@@ -40,19 +41,23 @@ public class AugmentedCamera {
     public QRLocation qrLocation;
     public FusedLocationProviderClient fusedLocationClient;
 
-    public AugmentedCamera(Activity activity, String text, View root2) {
+    public AugmentedCamera(Activity activity, String text) {
         this.activity = activity;
         scanQRCode(text);
-        getLocation(root2);
+        getLocation();
         // can't seem to call the support fragment manager;
-        // new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
+        //new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
         // testing
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ExternalQRCode qrCode = new ExternalQRCode(hash, value);
         //qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
+        Random rd1 = new Random();
+        Random rd2 = new Random();
+        qrCode.setLocation(53.5232 + rd1.nextDouble(), 113.5263 + rd2.nextDouble());
         qrCode.AddToDB(db);
         qrCode.AddToQRLibrary(db);
+        Toast.makeText(activity, String.valueOf(value), Toast.LENGTH_SHORT).show();
         ////////////////////////////////////////////////////////////////
 
     }
@@ -90,18 +95,8 @@ public class AugmentedCamera {
         // Saves the photo and correlates it to QRProfile
     }
 
-    private void getLocation(View root) {
-        MapView map = (MapView) root.findViewById(R.id.mapview);
-        map.setTileSource(TileSourceFactory.MAPNIK);
-
-        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(activity),map);
-        mLocationOverlay.enableMyLocation();
-
-
-
-        qrLocation = new QRLocation(mLocationOverlay.getMyLocation().getLatitude(), mLocationOverlay.getMyLocation().getLongitude());
-
-        /*if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
@@ -112,10 +107,8 @@ public class AugmentedCamera {
                 if (location != null) {
                     Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
                     qrLocation = new QRLocation(location.getLatitude(), location.getLongitude());
-                } else {
-                    Toast.makeText(activity, "Last known location is not available!", Toast.LENGTH_SHORT).show();
                 }
             }
-        });*/
+        });
     }
 }
