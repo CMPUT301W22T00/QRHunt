@@ -34,7 +34,7 @@ public class AugmentedCamera {
     public AugmentedCamera(Activity activity, String text) {
         this.activity = activity;
         scanQRCode(text);
-        //getLocation();
+        getLocation();
         // can't seem to call the support fragment manager;
         // new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
