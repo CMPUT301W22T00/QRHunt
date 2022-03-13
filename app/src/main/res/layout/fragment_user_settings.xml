@@ -7,91 +7,86 @@
     android:padding="@dimen/padding"
     android:id="@+id/playerSettings">
 
-    <!--Todo add content description for all images (?)-->
-    <ImageView android:id="@+id/settings_back_arrow"
-        android:layout_width="wrap_content"
+    <LinearLayout android:id="@+id/title_line"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_arrow_back_24_light_off_white_blue"
+        android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/spacer0"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
-        android:padding="@dimen/padding"
-        />
+        >
+        <ImageView android:id="@+id/settings_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24_light_off_white_blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/spacer0"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+            android:padding="@dimen/padding"
+            />
 
-    <TextView
-        android:id="@+id/settings_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
-        android:text="@string/title_settings"
-        android:textColor="@color/main_blue"
-        android:textSize="@dimen/title_size"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="@dimen/padding"/>
+        <TextView
+            android:id="@+id/settings_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:text="@string/title_settings"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/title_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/padding"/>
+    </LinearLayout>
+    <!--Todo add content description for all images (?)-->
+
 
     <Space android:id="@+id/spacer0"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
-        app:layout_constraintTop_toBottomOf="@id/settings_title"
+        app:layout_constraintTop_toBottomOf="@id/title_line"
         />
 
-
-    <ImageView android:id="@+id/settings_edit_image"
-        android:layout_width="wrap_content"
+    <LinearLayout android:id="@+id/edit_profile_line"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_edit_24_light_off_white_blue"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/spacer0"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"/>
+        >
+        <ImageView android:id="@+id/settings_edit_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_edit_24_light_off_white_blue"
 
-    <TextView android:id="@+id/settings_edit_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_blue"
-        android:text="@string/settings_edit_profile"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toBottomOf="@id/spacer0"
-        app:layout_constraintLeft_toRightOf="@id/settings_edit_image"
-        android:padding="@dimen/padding"
-        android:clickable="true"/>
+            android:padding="@dimen/padding"/>
+
+        <TextView android:id="@+id/settings_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_blue"
+            android:text="@string/settings_edit_profile"
+            android:fontFamily="@font/quicksand"
+            android:textSize="@dimen/subtitle_size"
+
+            android:padding="@dimen/padding"
+            android:clickable="true"/>
+    </LinearLayout>
 
     <Space android:id="@+id/spacer1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/settings_edit_profile"/>
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_line"/>
 
 
-    <ImageView android:id="@+id/settings_change_profile_picture_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacer1"
-        android:padding="@dimen/padding"/>
-
-    <TextView android:id="@+id/settings_profile_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/main_blue"
-        android:text="@string/settings_profile_picture"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintLeft_toRightOf="@id/settings_change_profile_picture_image"
-        app:layout_constraintTop_toBottomOf="@id/spacer1"
-        android:padding="@dimen/padding"/>
-
-    <Space android:id="@+id/spacer2"
+    <LinearLayout android:id="@+id/generate_qr_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/settings_profile_picture"
-        />
-
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/spacer1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
     <ImageView android:id="@+id/settings_generate_QR_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,6 +106,45 @@
         app:layout_constraintTop_toBottomOf="@id/spacer2"
         app:layout_constraintLeft_toRightOf="@id/settings_generate_QR_image"
         android:padding="@dimen/padding"/>
+    </LinearLayout>
+
+    <Space android:id="@+id/spacer2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/generate_qr_line"
+        />
+
+
+
+    <LinearLayout android:id="@+id/profile_picture_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/spacer2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"
+        >
+
+        <ImageView android:id="@+id/settings_change_profile_picture_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacer1"
+            android:padding="@dimen/padding"/>
+
+        <TextView android:id="@+id/settings_profile_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_blue"
+            android:text="@string/settings_profile_picture"
+            android:fontFamily="@font/quicksand"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintLeft_toRightOf="@id/settings_change_profile_picture_image"
+            app:layout_constraintTop_toBottomOf="@id/spacer1"
+            android:padding="@dimen/padding"/>
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

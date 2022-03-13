@@ -1,5 +1,11 @@
 package com.bigyoshi.qrhunt;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import java.util.HashMap;
+import java.util.Random;
+
 public class PlayerInfo {
     private int QRTotal;
     private int QRTotalScanned;
@@ -9,20 +15,31 @@ public class PlayerInfo {
     private Contact contact;
     private Boolean admin;
 
-    public PlayerInfo() {
+    public PlayerInfo(Context context){
         // Automatically generate a random unique username (changed later by Player if they want)
         // QRTotalRank and highestValueQRRank need to be set to the lowest rank so far
         // Contact initialization needed
-        // Automatically generate the uniqueKey (not visible to the Player)
         this.QRTotal = 0;
         this.QRTotalScanned = 0;
-        // this.username = generateUsername();
-        this.username = "Team00"; // CHECK LATER
+        this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
         this.QRTotalRank = 1; // NOT FINAL, WE NEED TO FIND THE LOWEST RANK FOR A NEW PLAYER
         this.highestValueQRRank = 1; // AGAIN, NOT FINAL
         // How will we decide who is an admin?
+    }
+
+    public PlayerInfo(Integer qrTotalRank, Integer qrtotalScanned, HashMap<String,String> contactToUse, Boolean admin,
+                      Integer qrtotal, Integer highestValueQRRank, String username) {
+        this.QRTotalRank = qrTotalRank;
+        this.QRTotalScanned = qrtotalScanned;
+        this.contact = new Contact();
+        this.contact.updateSocial(contactToUse.get("social"));
+        this.contact.updateEmail(contactToUse.get("email"));
+        this.admin = admin;
+        this.QRTotal = qrtotal;
+        this.highestValueQRRank = highestValueQRRank;
+        this.username = username;
     }
 
     public Contact getContact(){

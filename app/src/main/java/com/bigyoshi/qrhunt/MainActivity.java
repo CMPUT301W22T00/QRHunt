@@ -103,16 +103,22 @@ public class MainActivity extends AppCompatActivity {
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
 
-            if (navDestination.getId() == R.id.navigation_map) {
-                navSearch.setVisibility(View.GONE);
-                mapMenu.setVisibility(View.VISIBLE);
-            }
-            if (navDestination.getId() == R.id.navigation_scanner) {
-                navSearch.setVisibility(View.VISIBLE);
-                mapMenu.setVisibility(View.GONE);
-            }
-        });
-    }
+                if (navDestination.getId() == R.id.navigation_map) {
+                    actionbar.show();
+                    navSearch.setVisibility(View.GONE);
+                    mapMenu.setVisibility(View.VISIBLE);
+                    score.setText("Map"); // i have become what i hate :( hardcoding
+
+                }
+                if (navDestination.getId() == R.id.navigation_scanner){
+                    actionbar.show();
+                    navSearch.setVisibility(View.VISIBLE);
+                    mapMenu.setVisibility(View.GONE);
+                    String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+                    score.setText(scoreText);
+                }
+                if (navDestination.getId() == R.id.navigation_rankBoard){
+                    actionbar.hide();
 
     /*
     This should be called whenever the user-id changes (eg, player transfers account)
