@@ -36,12 +36,13 @@
         android:layout_marginTop="13dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="25dp"
+        android:contentDescription="Location Toggle"
         android:background="@drawable/ic_button_location_on_dark"
         app:layout_constraintBottom_toTopOf="@+id/text_scans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view_divider"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="HardcodedText" />
 
 
     <View
