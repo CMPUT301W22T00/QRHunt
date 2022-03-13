@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         playerRef = db.collection("users").document(player.getPlayerId());
         playerRef.addSnapshotListener((snapshot, error) -> {
             if (error != null || snapshot == null) {
-                Log.w(TAG, "Listen failed.", error);
+                Log.w(TAG, "Listening for score update has failed.", error);
                 return;
             }
             String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
