@@ -71,7 +71,9 @@ public class MainActivity extends AppCompatActivity{
 
         // Get player
         player = new Player(this);
-        player.getPlayerId(); // Get the id to get the information from the db about the player
+        if (!player.getPlayerId().matches("")){
+            player.initialize();
+        } // Get the id to get the information from the db about the player
 
         score = toolbar.findViewById(R.id.score_on_cam);
         String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());

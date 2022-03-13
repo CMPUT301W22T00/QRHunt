@@ -5,11 +5,16 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -28,7 +33,7 @@ public class Player {
 
     public Player(Context context) {
         this.context = context;
-        playerInfo = new PlayerInfo();
+        playerInfo = new PlayerInfo(context);
         qrLibrary = new QRLibrary();
     }
 
@@ -40,7 +45,6 @@ public class Player {
             // generated lazily, only once
             if (playerId.isEmpty()) {
                 setPlayerId(UUID.randomUUID().toString());
-                this.getPlayerInfo().generateUsername();
             }
         }
         Log.d(TAG, String.format("retrieved uuid: %s", playerId));
@@ -62,7 +66,7 @@ public class Player {
         HashMap<String, Object> playerData = new HashMap<>();
         if (playerId.length() > 0) {
             // If there’s some data in the EditText field, then we create a new key-value pair.
-            playerData.put("Player Info", this.playerInfo);
+            playerData.put("PlayerInfo", this.playerInfo);
             // The set method sets a unique id for the document
             collectionReference
                     .document(playerId)
@@ -95,5 +99,26 @@ public class Player {
 
     public PlayerInfo getPlayerInfo() {
         return playerInfo;
+    }
+
+    public void initialize() {
+        HashMap<String, PlayerInfo> holdsPlayerInfo;
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+                for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
+                    if (doc.getId().matches(playerId)) {
+                        Log.d(TAG, String.valueOf(doc.getData().get("PlayerInfo")));
+                        HashMap<String, Object> holdsPlayerInfo = (HashMap<String, Object>) doc.getData().get("PlayerInfo");
+                        playerInfo = new PlayerInfo(Math.toIntExact((long) holdsPlayerInfo.get("qrtotalRank")),
+                                Math.toIntExact((long) holdsPlayerInfo.get("qrtotalScanned")), (HashMap<String,String>) holdsPlayerInfo.get("contact"),
+                                (Boolean) holdsPlayerInfo.get("admin"), Math.toIntExact((long) holdsPlayerInfo.get("qrtotal")),
+                                Math.toIntExact((long) holdsPlayerInfo.get("highestValueQRRank")),
+                                (String) holdsPlayerInfo.get("username"));
+                    }
+                }
+            }
+        });
+
     }
 }
