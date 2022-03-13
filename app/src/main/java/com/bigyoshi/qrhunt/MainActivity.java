@@ -1,16 +1,14 @@
 package com.bigyoshi.qrhunt;
 
 
+import static com.google.firebase.firestore.FieldPath.*;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -28,21 +26,29 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = MainActivity.class.getSimpleName();
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile, mapMenu;
     private TextView score;
     private FirebaseFirestore db;
+    private DocumentReference playerRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
+        playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         player = new Player(this);
 
         score = toolbar.findViewById(R.id.score_on_cam);
-        playerQrCodesRef = db.collection("players").document()
+        updateFirebaseListeners();
         String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
         score.setText(scoreText);
 
@@ -130,10 +137,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-    This should be called whenever the user-id changes so that the proper id is is listened to
+    This should be called whenever the user-id changes (eg, player transfers account)
+     so that the proper id is is listened to for changes
      */
     private void updateFirebaseListeners() {
+//        CollectionReference playerQrCodesRef = db.collection("users").document(player.getPlayerId()).collection("qrCodes");
+        CollectionReference playerQrCodesRef = playerRef.collection("qrCodes");
+        playerQrCodesRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<String> qrIds = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    qrIds.add(document.getId());
+                }
+                Log.d(TAG, String.format("got %d ids", qrIds.size()));
 
+                db.collection("qrCodes").whereIn(documentId(), qrIds).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int total = 0;
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            total += (int)document.getData().getOrDefault("score", 0);
+                        }
+                        Log.d(TAG, String.format("total score: %d", total));
+                    }
+                });
+            }
+        });
     }
 
     @Override
