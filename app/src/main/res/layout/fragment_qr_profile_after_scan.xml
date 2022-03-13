@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/main_off_white_blue_light"
+    android:padding="@dimen/large_padding"
+    tools:context=".QRProfileAfterScan">
+
+
+    <TextView
+        android:id="@+id/text_qr_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:text="XX"
+        android:textAlignment="textStart"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+
+    <ImageButton
+        android:id="@+id/button_toggle_visibility_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Location Toggle ON"
+        android:background="@drawable/ic_button_location_on_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:alpha="0.2"
+        android:background="@color/accent_grey_blue_dark"
+        app:layout_constraintEnd_toStartOf="@id/button_toggle_visibility_on"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_qr_value" />
+
+    <Space
+        android:id="@+id/qr_profile_space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_space"
+        app:layout_constraintTop_toBottomOf="@id/view_divider" />
+
+    <TextView
+        android:id="@+id/text_lon_lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:text="(Longitude, Latitude)"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qr_profile_space"
+        tools:ignore="HardcodedText" />
+
+
+    <TextView
+        android:id="@+id/text_scans"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:text="Scans: XX"
+        android:textAlignment="textEnd"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_space"
+        tools:ignore="HardcodedText" />
+
+
+    <!-- figure out how make square-->
+    <ImageView
+        android:id="@+id/image_holder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/rec_image_holder_bg"
+        android:contentDescription="Image Placeholder BG"
+        app:layout_constraintTop_toBottomOf="@id/text_lon_lat"
+        android:padding="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+        tools:ignore="HardcodedText" />
+
+
+    <Button
+        android:id="@+id/button_take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rec_button_take_photo"
+        android:fontFamily="@font/quicksand"
+        android:padding="@dimen/padding"
+        android:text="Take Photo"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_holder"
+        app:layout_constraintTop_toTopOf="@id/image_holder"
+        app:layout_constraintLeft_toLeftOf="@id/image_holder"
+        app:layout_constraintRight_toRightOf="@id/image_holder"
+        tools:ignore="HardcodedText" />
+
+
+    <EditText
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+        android:id="@+id/edit_text_caption"
+        android:padding="@dimen/padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rec_caption"
+        android:ems="10"
+        android:hint="Add a caption..."
+        android:inputType="textPersonName"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintTop_toBottomOf="@id/image_holder"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:lines="4"
+        android:minLines="3"
+        android:maxLines="5"
+        tools:ignore="HardcodedText,RtlSymmetry"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/button_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/quicksand"
+        android:gravity="center"
+        android:text="OK"
+        android:textColor="@color/black"
+        android:textSize="@dimen/subtitle_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_caption"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

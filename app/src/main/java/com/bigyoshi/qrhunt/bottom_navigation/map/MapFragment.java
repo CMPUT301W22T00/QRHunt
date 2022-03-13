@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.ui.map;
+package com.bigyoshi.qrhunt.bottom_navigation.map;
 
 import android.content.Context;
 import android.os.Bundle;
