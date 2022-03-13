@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+
+    android:orientation="horizontal"
+    >
+
 
     <TextView
         android:id="@+id/textRank"
@@ -14,10 +17,11 @@
         android:layout_marginTop="8dp"
         android:padding="10dp"
         android:text="#"
-        android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="30sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
+        android:textAlignment="center"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".10" />
@@ -25,102 +29,90 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
+
+        android:layout_width="52dp"
         android:layout_height="64dp"
-        android:layout_marginStart="75dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="13dp"
         android:padding="10dp"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/textUsername"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".05" />
+        app:layout_constraintWidth_percent=".05"
+        tools:layout_editor_absoluteX="75dp"
+        app:layout_constraintLeft_toRightOf="@id/textRank"/>
+
 
 
     <TextView
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
+
         android:padding="20dp"
         android:text="username"
-        android:textColor="@color/accent_grey_blue_dark"
         android:textSize="30sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textHighestUnique"
-        app:layout_constraintEnd_toStartOf="@+id/textHighestUnique"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintWidth_percent=".21" />
+        android:textColor="@color/accent_grey_blue_dark"
+        app:layout_constraintWidth_percent=".21"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageView"/>
+
 
 
     <TextView
         android:id="@+id/textHighestUnique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="37dp"
+
         android:padding="20dp"
         android:text="XX"
-        android:textAlignment="center"
-        android:textColor="@color/accent_grey_blue_dark"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textUsername"
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textAlignment="center"
+        app:layout_constraintWidth_percent=".21"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".21" />
+        app:layout_constraintLeft_toRightOf="@id/textUsername"/>
 
 
     <TextView
         android:id="@+id/textDivider"
-        android:layout_width="0dp"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
         android:padding="20dp"
         android:text="|"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textScans"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textHighestUnique"
-        app:layout_constraintWidth_percent=".01" />
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/textUsername" />
+
 
 
     <TextView
         android:id="@+id/textScans"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="17dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:padding="20dp"
         android:text="XXXXX"
         android:textAlignment="center"
-        android:textColor="@color/accent_grey_blue_dark"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDivider"
-        app:layout_constraintWidth_percent=".21" />
+        android:textColor="@color/accent_grey_blue_dark"
+        app:layout_constraintTop_toBottomOf="@id/textDivider" />
+
 
 
     <TextView
         android:id="@+id/textScore"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="315dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
         android:padding="20dp"
         android:text="XXXXX"
         android:textAlignment="center"
-        android:textColor="@color/accent_grey_blue_dark"
         android:textSize="30sp"
+        android:textColor="@color/accent_grey_blue_dark"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textScans"
-        app:layout_constraintWidth_percent=".21" />
+        app:layout_constraintTop_toBottomOf="@id/textScans" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
