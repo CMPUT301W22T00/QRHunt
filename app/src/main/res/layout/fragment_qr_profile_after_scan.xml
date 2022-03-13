@@ -23,13 +23,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
+
     <ImageButton
         android:id="@+id/button_toggle_visibility_on"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="Location Toggle ON"
         android:background="@drawable/ic_button_location_on_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
 
     <View
@@ -85,10 +88,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/rec_image_holder_bg"
+        android:contentDescription="Image Placeholder BG"
         app:layout_constraintTop_toBottomOf="@id/text_lon_lat"
         android:padding="@dimen/padding"
         android:layout_marginTop="@dimen/padding"
-        android:layout_marginBottom="@dimen/padding"/>
+        android:layout_marginBottom="@dimen/padding"
+        tools:ignore="HardcodedText" />
 
 
     <Button
@@ -109,8 +114,7 @@
         app:layout_constraintTop_toTopOf="@id/image_holder"
         app:layout_constraintLeft_toLeftOf="@id/image_holder"
         app:layout_constraintRight_toRightOf="@id/image_holder"
-        tools:ignore="HardcodedText"
-        />
+        tools:ignore="HardcodedText" />
 
 
     <EditText
@@ -132,7 +136,8 @@
         android:lines="4"
         android:minLines="3"
         android:maxLines="5"
-        tools:ignore="HardcodedText,RtlSymmetry" />
+        tools:ignore="HardcodedText,RtlSymmetry"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/button_ok"
