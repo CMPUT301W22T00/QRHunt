@@ -20,6 +20,11 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
 public class CameraScannerFragment extends Fragment {
     private CodeScanner codeScanner;
     public AugmentedCamera camera;
@@ -52,6 +57,7 @@ public class CameraScannerFragment extends Fragment {
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                         camera = new AugmentedCamera(activity, result.getText());
                         codeScanner.setScanMode(ScanMode.PREVIEW);
+                        Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
