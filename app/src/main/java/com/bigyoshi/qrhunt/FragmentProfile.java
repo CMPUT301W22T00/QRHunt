@@ -23,11 +23,11 @@ import org.osmdroid.config.Configuration;
 
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
-    private MaterialTextView QRTotalValue;
-    private MaterialTextView username;
-    private MaterialTextView totalRank;
-    private MaterialTextView totalScanned;
-    private MaterialTextView uniqueRank;
+    private TextView QRTotalValue;
+    private TextView username;
+    private TextView totalRank;
+    private TextView totalScanned;
+    private TextView uniqueRank;
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile, mapMenu;
+    private TextView score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +68,18 @@ public class MainActivity extends AppCompatActivity{
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
+        // Get player
+        player = new Player(this);
+        player.getPlayerId(); // Get the id to get the information from the db about the player
+
+        score = toolbar.findViewById(R.id.score_on_cam);
+        String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+        score.setText(scoreText);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        // Get player
-        player = new Player(this);
-        player.getPlayerId(); // Get the id to get the information from the db about the player
 
         navProfile = findViewById(R.id.navigation_profile);
         navProfile.setOnClickListener(new View.OnClickListener() {

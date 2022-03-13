@@ -23,7 +23,8 @@
         android:textSize="20dp"
         android:textColor="@color/main_blue"
         android:fontFamily="@font/quicksand_medium"
-        android:layout_gravity="center"        >
+        android:layout_gravity="center"
+        android:id="@+id/score_on_cam">
     </TextView>
 
     <ImageButton  android:id="@+id/navigation_profile"
