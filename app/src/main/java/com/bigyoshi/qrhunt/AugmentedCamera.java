@@ -1,68 +1,52 @@
 package com.bigyoshi.qrhunt;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.osmdroid.api.IMapController;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 import java.util.Random;
 
 public class AugmentedCamera {
-    private final Activity activity;
+    private final Fragment frag;
     public String hash;
     public int value;
     public QRLocation qrLocation;
     public FusedLocationProviderClient fusedLocationClient;
 
-    public AugmentedCamera(Activity activity, String text) {
-        this.activity = activity;
+    public AugmentedCamera(Fragment frag, String text) {
+        this.frag = frag;
+
+
+    }
+
+    public void scanQRCode(String scannedCode) {
         scanQRCode(text);
         getLocation();
         // can't seem to call the support fragment manager;
-        //new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
+        new AddQRCodeFragment(hash, value, qrLocation).show(this.frag.getChildFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
         // testing
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ExternalQRCode qrCode = new ExternalQRCode(hash, value);
-        //qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
         Random rd1 = new Random();
         Random rd2 = new Random();
         qrCode.setLocation(53.5232 + rd1.nextDouble(), 113.5263 + rd2.nextDouble());
         qrCode.AddToDB(db);
         qrCode.AddToQRLibrary(db);
-        Toast.makeText(activity, String.valueOf(value), Toast.LENGTH_SHORT).show();
+        Toast.makeText(frag.getContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
         ////////////////////////////////////////////////////////////////
-
-    }
-
-    public void scanQRCode(String scannedCode) {
         // Scans QRCode -> reads whether it is a internal or external -> makes it either external or internal
         // -> If external -> calculate the value -> save into db -> player sets up QRProfile
         // -> If internal, show the game status (as a pop up) or log-in to the account
@@ -95,20 +79,11 @@ public class AugmentedCamera {
         // Saves the photo and correlates it to QRProfile
     }
 
-    private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+    private Task<Location> getLocation() {
+        if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return null;
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
-        fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
-                if (location != null) {
-                    Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-                    qrLocation = new QRLocation(location.getLatitude(), location.getLongitude());
-                }
-            }
-        });
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(frag.getActivity());
+        return fusedLocationClient.getLastLocation();
     }
 }
