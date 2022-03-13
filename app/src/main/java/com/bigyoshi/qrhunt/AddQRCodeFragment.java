@@ -1,6 +1,5 @@
 package com.bigyoshi.qrhunt;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ public class AddQRCodeFragment extends DialogFragment {
     private TextView showScore;
     private TextView showLatLong;
     private TextView showNumScanned;
+
     private Button addImage;
     private FirebaseFirestore db;
 
@@ -56,6 +56,7 @@ public class AddQRCodeFragment extends DialogFragment {
         // after ok button → save to db
         return view;
     }
+
 
 
 }

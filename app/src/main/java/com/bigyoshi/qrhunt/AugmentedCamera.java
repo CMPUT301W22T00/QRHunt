@@ -55,14 +55,9 @@ public class AugmentedCamera {
         new AddQRCodeFragment(hash, score, qrLocation).show(this.frag.getChildFragmentManager(), "ADD QR");
 
         Toast.makeText(frag.getContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
-        ////////////////////////////////////////////////////////////////
-        // Scans QRCode -> reads whether it is a internal or external -> makes it either external or internal
-        // -> If external -> calculate the value -> save into db -> player sets up QRProfile
-        // -> If internal, show the game status (as a pop up) or log-in to the account
-
-        // Currently does not check if the QR is external or internal
-
     }
+
+
 
     private void computeHash() {
         MessageDigest md = null;
