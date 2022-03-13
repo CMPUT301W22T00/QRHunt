@@ -125,6 +125,7 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/spacer2"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"
         >
 
         <ImageView android:id="@+id/settings_delete_profile_image"
