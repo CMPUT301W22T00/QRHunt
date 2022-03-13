@@ -1,17 +1,41 @@
 package com.bigyoshi.qrhunt;
 
-public class AugmentedCamera {
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-    public void scanQRCode(){
+public class AugmentedCamera {
+    public String hash;
+    public int value;
+
+    public void scanQRCode(String scannedCode){
         // Scans QRCode -> reads whether it is a internal or external -> makes it either external or internal
         // -> If external -> calculate the value -> save into db -> player sets up QRProfile
         // -> If internal, show the game status (as a pop up) or log-in to the account
+
+        // Currently does not check if the QR is external or internal
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        assert md != null;
+        byte[] digest = md.digest(scannedCode.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : digest) {
+            sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+        }
+        hash = sb.toString();
+        calculateValue(digest);
+
     }
 
-    private int calculateValue(){
+    private void calculateValue(byte[] digest){
         // Need to calculate score here
         // Probably have to pass in the hash or whatever we use to calculate the value
-        return 0;
+        // sha1 gives 160 bits → max value is therefore 2¹⁶⁰
+        value = new BigInteger(1, digest).multiply(new BigInteger("100")).divide((new BigInteger("2").pow(160))).intValue();
     }
 
     private void capturePhoto(){
