@@ -19,8 +19,8 @@
 
     <TextView
         android:id="@+id/titleQRProfile"
-        android:layout_width="159dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
         android:text="QR Profile"
         android:textAlignment="center"
@@ -60,8 +60,8 @@
 
         <TextView
             android:id="@+id/textLocation"
-            android:layout_width="201dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_padding"
             android:layout_marginTop="@dimen/large_padding"
             android:fontFamily="@font/quicksand"
