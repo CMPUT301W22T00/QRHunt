@@ -40,6 +40,7 @@ public class Player {
             // generated lazily, only once
             if (playerId.isEmpty()) {
                 setPlayerId(UUID.randomUUID().toString());
+                this.getPlayerInfo().generateUsername();
             }
         }
         Log.d(TAG, String.format("retrieved uuid: %s", playerId));

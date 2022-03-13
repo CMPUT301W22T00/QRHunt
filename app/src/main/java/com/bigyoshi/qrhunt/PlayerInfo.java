@@ -102,8 +102,8 @@ public class PlayerInfo {
         return "";
     }
 
-    private String generateUsername(){
+    public void generateUsername(){
         // Random unique username generated when account is first created
-        return "";
+
     }
 }
