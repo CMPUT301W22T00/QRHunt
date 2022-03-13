@@ -129,7 +129,6 @@ public class PlayerInfo {
         String nounName = noun[rand.nextInt(noun.length - 1)];
         int upperbound = 100;
         String numName = Integer.toString(rand.nextInt(upperbound));
-        String newName = adjName + nounName + numName;
-        return newName;
+        return adjName + nounName + numName;
     }
 }

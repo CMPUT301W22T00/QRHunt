@@ -5,12 +5,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -28,39 +24,47 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class MainActivity extends AppCompatActivity{
-
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile, mapMenu;
-    private TextView score;
+    private TextView scoreView;
+    private FirebaseFirestore db;
+    private DocumentReference playerRef;
+    private ListenerRegistration scoreListenerRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get permissions first
-        requestPermissionsIfNecessary(new String[] {
-                // if you need to show the current location, uncomment the line below
+        requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                // WRITE_EXTERNAL_STORAGE is required in order to show the map
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                // Required to use the camera
                 Manifest.permission.CAMERA
         });
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        db = FirebaseFirestore.getInstance();
+        playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -69,15 +73,10 @@ public class MainActivity extends AppCompatActivity{
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
-        // Get player
         player = new Player(this);
-        if (!player.getPlayerId().matches("")){
-            player.initialize();
-        } // Get the id to get the information from the db about the player
 
-        score = toolbar.findViewById(R.id.score_on_cam);
-        String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
-        score.setText(scoreText);
+        scoreView = toolbar.findViewById(R.id.score_on_cam);
+        updateFirebaseListeners();
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -85,69 +84,69 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         navProfile = findViewById(R.id.navigation_profile);
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.navView.setVisibility(View.INVISIBLE);
-                FragmentProfile profile = new FragmentProfile(player);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, profile, "profile");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+        navProfile.setOnClickListener(view -> {
+            binding.navView.setVisibility(View.INVISIBLE);
+            FragmentProfile profile = new FragmentProfile(player);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, profile, "profile");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
 
         navSearch = findViewById(R.id.navigation_search);
-        navSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
+        navSearch.setOnClickListener(view -> {});
 
         mapMenu = findViewById(R.id.map_list_button);
-        mapMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
+        mapMenu.setOnClickListener(view -> {});
 
         // determines current fragment so the right button is visible
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+        navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
 
-                if (navDestination.getId() == R.id.navigation_map) {
-                    actionbar.show();
-                    navSearch.setVisibility(View.GONE);
-                    mapMenu.setVisibility(View.VISIBLE);
-                    score.setText("Map"); // i have become what i hate :( hardcoding
+            if (navDestination.getId() == R.id.navigation_map) {
+                actionbar.show();
+                navSearch.setVisibility(View.GONE);
+                mapMenu.setVisibility(View.VISIBLE);
+                scoreView.setText("Map"); // i have become what i hate :( hardcoding
 
-                }
-                if (navDestination.getId() == R.id.navigation_scanner){
-                    actionbar.show();
-                    navSearch.setVisibility(View.VISIBLE);
-                    mapMenu.setVisibility(View.GONE);
-                    String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
-                    score.setText(scoreText);
-                }
-                if (navDestination.getId() == R.id.navigation_rankBoard){
-                    actionbar.hide();
-
-                }
+            }
+            if (navDestination.getId() == R.id.navigation_scanner) {
+                actionbar.show();
+                navSearch.setVisibility(View.VISIBLE);
+                mapMenu.setVisibility(View.GONE);
+                String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+                scoreView.setText(scoreText);
+            }
+            if (navDestination.getId() == R.id.navigation_rankBoard) {
+                actionbar.hide();
             }
         });
     }
 
+    /*
+    This should be called whenever the user-id changes (eg, player transfers account)
+     so that the proper id is is listened to for changes
+     */
+    private void updateFirebaseListeners() {
+        // watch the score
+        // this method should be called whenever userid changes, but only once
+        playerRef = db.collection("users").document(player.getPlayerId());
+        playerRef.addSnapshotListener((snapshot, error) -> {
+            if (error != null || snapshot == null) {
+                Log.w(TAG, "Listening for score update has failed.", error);
+                return;
+            }
+            String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
+            Log.d(TAG, String.format("set the score to be %s", scoreVal));
+            scoreView.setText(String.format("Score: %s", scoreVal));
+        });
+    }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
+        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays.asList(permissions).subList(0, grantResults.length));
         if (permissionsToRequest.size() > 0) {
             ActivityCompat.requestPermissions(
                     this,
