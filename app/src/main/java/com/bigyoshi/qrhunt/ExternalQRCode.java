@@ -113,7 +113,7 @@ public class ExternalQRCode extends QRCode {
                         }
                     }
                 });
-        grabNumScanned(db);
+        //grabNumScanned(db);
     }
 
     public void DeleteFromDB(FirebaseFirestore db) {

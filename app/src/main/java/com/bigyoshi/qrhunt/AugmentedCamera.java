@@ -34,14 +34,14 @@ public class AugmentedCamera {
     public AugmentedCamera(Activity activity, String text) {
         this.activity = activity;
         scanQRCode(text);
-        getLocation();
+        //getLocation();
         // can't seem to call the support fragment manager;
         // new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
         // testing
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ExternalQRCode qrCode = new ExternalQRCode(hash, value);
-        qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
+        //qrCode.setLocation(qrLocation.getLat(), qrLocation.getLong());
         qrCode.AddToDB(db);
         qrCode.AddToQRLibrary(db);
         ////////////////////////////////////////////////////////////////
