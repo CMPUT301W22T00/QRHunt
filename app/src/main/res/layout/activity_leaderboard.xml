@@ -13,18 +13,18 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_button_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textTitleLeaderboard"
-        android:layout_width="414dp"
-        android:layout_height="58dp"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:text="Leaderboard"
         android:fontFamily="@font/quicksand"
+        android:text="Leaderboard"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
         android:textSize="26dp"
@@ -45,19 +45,22 @@
 
     <Button
         android:id="@+id/my_rank"
-        android:layout_width="126dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="32dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="16dp"
         android:text="My Rank"
+        android:textAllCaps="false"
         android:fontFamily="@font/quicksand"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:background="@drawable/rec_rank"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:padding="-20dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/divider"
