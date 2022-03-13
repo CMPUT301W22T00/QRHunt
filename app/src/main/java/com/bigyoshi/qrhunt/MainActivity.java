@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity{
         navProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.navView.setVisibility(View.INVISIBLE);
                 FragmentProfile profile = new FragmentProfile(player);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
