@@ -23,30 +23,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/textTopTwo"
         android:layout_width="366dp"
         android:layout_height="186dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="29dp"
         android:alpha="0.75"
         android:background="@drawable/rec_rank_panel_bg"
         android:text="rank panel 2 and 3"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="22dp"
-        tools:layout_editor_absoluteY="99dp" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleLeaderboard" />
 
     <TextView
         android:id="@+id/textRankOne"
         android:layout_width="156dp"
         android:layout_height="205dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/rec_rank_panel_bg"
         android:gravity="center"
         android:text="Rank One"
         android:textAlignment="center"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="90dp" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleLeaderboard" />
 
     <Button
         android:id="@+id/my_rank"
@@ -54,14 +57,15 @@
         android:layout_height="32dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="16dp"
-        android:text="My Rank"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/quicksand"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:gravity="center"
         android:background="@drawable/rec_button_rank"
+        android:fontFamily="@font/quicksand"
+        android:gravity="center"
+        android:text="My Rank"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -70,48 +74,57 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:background="@color/accent_blue_light"
-        android:foreground="@color/accent_blue_light"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/accent_blue_light"
+        android:foreground="@color/accent_blue_light"
+        app:layout_constraintBottom_toTopOf="@+id/titleColNames"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="333dp" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textRankOne"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/titleColNames"
-        android:layout_width="0dp"
-        android:layout_height="37dp"
+        android:layout_width="391dp"
+        android:layout_height="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Column Titles"
-        android:textSize="12dp"
-        android:textColor="@color/accent_blue_light"
         android:fontFamily="@font/quicksand"
+        android:text="Column Titles"
+        android:textColor="@color/accent_blue_light"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="347dp" />
+        tools:layout_editor_absoluteY="364dp" />
 
 
     <ListView
         android:id="@+id/rankings"
-        android:layout_width="0dp"
-        android:layout_height="333dp"
+        android:layout_width="391dp"
+        android:layout_height="338dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleColNames"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ic_button_back"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
