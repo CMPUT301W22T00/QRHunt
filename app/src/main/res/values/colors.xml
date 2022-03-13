@@ -26,6 +26,7 @@
     <color name="gradient_blue_unique_midtone_light">#4f839d</color>
     <color name="gradient_blue_unique_midtone_dark">#2d4b5a</color>
     <color name="gradient_blue_unique_dark">#203039</color>
+    <color name="main_red_midtone">#f85f6a</color>
 
     <color name="accent_light_blue_50op">#80c9f1fd</color>
     <color name="accent_grey_dark_50op">#8036393f</color>

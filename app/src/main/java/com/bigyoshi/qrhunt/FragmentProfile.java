@@ -35,6 +35,7 @@ public class FragmentProfile extends Fragment {
     private TextView uniqueRank;
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
+    private ImageButton playerInfoButton;
 
     public FragmentProfile(Player player){
          this.playerInfo = player.getPlayerInfo();
@@ -75,6 +76,13 @@ public class FragmentProfile extends Fragment {
             }
         });
 
+        playerInfoButton = root.findViewById(R.id.profile_information_button);
+        playerInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return root;
     }
 
