@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,58 +78,38 @@ public class MainActivity extends AppCompatActivity {
         scoreView = toolbar.findViewById(R.id.score_on_cam);
         updateFirebaseListeners();
 
-        String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
-        scoreView.setText(scoreText);
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         navProfile = findViewById(R.id.navigation_profile);
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.navView.setVisibility(View.INVISIBLE);
-                FragmentProfile profile = new FragmentProfile(player);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, profile, "profile");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+        navProfile.setOnClickListener(view -> {
+            binding.navView.setVisibility(View.INVISIBLE);
+            FragmentProfile profile = new FragmentProfile(player);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, profile, "profile");
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
 
         navSearch = findViewById(R.id.navigation_search);
-        navSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
+        navSearch.setOnClickListener(view -> {});
 
         mapMenu = findViewById(R.id.map_list_button);
-        mapMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
+        mapMenu.setOnClickListener(view -> {});
 
         // determines current fragment so the right button is visible
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+        navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
 
-                if (navDestination.getId() == R.id.navigation_map) {
-                    navSearch.setVisibility(View.GONE);
-                    mapMenu.setVisibility(View.VISIBLE);
-                }
-                if (navDestination.getId() == R.id.navigation_scanner) {
-                    navSearch.setVisibility(View.VISIBLE);
-                    mapMenu.setVisibility(View.GONE);
-
-                }
+            if (navDestination.getId() == R.id.navigation_map) {
+                navSearch.setVisibility(View.GONE);
+                mapMenu.setVisibility(View.VISIBLE);
+            }
+            if (navDestination.getId() == R.id.navigation_scanner) {
+                navSearch.setVisibility(View.VISIBLE);
+                mapMenu.setVisibility(View.GONE);
             }
         });
     }
@@ -141,27 +122,21 @@ public class MainActivity extends AppCompatActivity {
         // watch the score
         // this method should be called whenever userid changes, but only once
         playerRef = db.collection("users").document(player.getPlayerId());
-        playerRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-                if (error != null || snapshot != null) {
-                    Log.w(TAG, "Listen failed.", error);
-                    return;
-                }
-                String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
-                Log.d(TAG, String.format("set the score to be %s", scoreVal));
-                scoreView.setText(String.format("Score: %s", scoreVal));
+        playerRef.addSnapshotListener((snapshot, error) -> {
+            if (error != null || snapshot == null) {
+                Log.w(TAG, "Listen failed.", error);
+                return;
             }
+            String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
+            Log.d(TAG, String.format("set the score to be %s", scoreVal));
+            scoreView.setText(String.format("Score: %s", scoreVal));
         });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (int i = 0; i < grantResults.length; i++) {
-            permissionsToRequest.add(permissions[i]);
-        }
+        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays.asList(permissions).subList(0, grantResults.length));
         if (permissionsToRequest.size() > 0) {
             ActivityCompat.requestPermissions(
                     this,
