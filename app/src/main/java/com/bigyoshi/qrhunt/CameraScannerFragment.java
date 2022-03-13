@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -36,6 +37,9 @@ public class CameraScannerFragment extends Fragment {
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.scanner_fragment, container, false);
 
+        FragmentMapBinding binding = FragmentMapBinding.inflate(inflater, container, false);
+        View root2 = binding.getRoot();
+
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
         assert activity != null;
         codeScanner = new CodeScanner(activity, scannerView);
@@ -55,7 +59,7 @@ public class CameraScannerFragment extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(activity, result.getText());
+                        camera = new AugmentedCamera(activity, result.getText(), root2);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
                     }

@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -31,10 +40,10 @@ public class AugmentedCamera {
     public QRLocation qrLocation;
     public FusedLocationProviderClient fusedLocationClient;
 
-    public AugmentedCamera(Activity activity, String text) {
+    public AugmentedCamera(Activity activity, String text, View root2) {
         this.activity = activity;
         scanQRCode(text);
-        getLocation();
+        getLocation(root2);
         // can't seem to call the support fragment manager;
         // new AddQRCodeFragment(hash, value, qrLocation).show(getSupportFragmentManager(), "ADD QR");
         ///////////////////////////////////////////////////////////////////
@@ -81,12 +90,22 @@ public class AugmentedCamera {
         // Saves the photo and correlates it to QRProfile
     }
 
-    private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private void getLocation(View root) {
+        MapView map = (MapView) root.findViewById(R.id.mapview);
+        map.setTileSource(TileSourceFactory.MAPNIK);
+
+        MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(activity),map);
+        mLocationOverlay.enableMyLocation();
+
+
+
+        qrLocation = new QRLocation(mLocationOverlay.getMyLocation().getLatitude(), mLocationOverlay.getMyLocation().getLongitude());
+
+        /*if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
-        /*fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+        fusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 Location location = task.getResult();
