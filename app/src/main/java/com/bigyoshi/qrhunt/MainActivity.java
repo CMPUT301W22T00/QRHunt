@@ -30,37 +30,37 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile, mapMenu;
     private TextView score;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Get permissions first
-        requestPermissionsIfNecessary(new String[] {
-                // if you need to show the current location, uncomment the line below
+        requestPermissionsIfNecessary(new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                // WRITE_EXTERNAL_STORAGE is required in order to show the map
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                // Required to use the camera
                 Manifest.permission.CAMERA
         });
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        db = FirebaseFirestore.getInstance();
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -69,11 +69,10 @@ public class MainActivity extends AppCompatActivity{
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
-        // Get player
         player = new Player(this);
-        player.getPlayerId(); // Get the id to get the information from the db about the player
 
         score = toolbar.findViewById(R.id.score_on_cam);
+        playerQrCodesRef = db.collection("players").document()
         String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
         score.setText(scoreText);
 
@@ -121,13 +120,20 @@ public class MainActivity extends AppCompatActivity{
                     navSearch.setVisibility(View.GONE);
                     mapMenu.setVisibility(View.VISIBLE);
                 }
-                if (navDestination.getId() == R.id.navigation_scanner){
+                if (navDestination.getId() == R.id.navigation_scanner) {
                     navSearch.setVisibility(View.VISIBLE);
                     mapMenu.setVisibility(View.GONE);
 
                 }
             }
         });
+    }
+
+    /*
+    This should be called whenever the user-id changes so that the proper id is is listened to
+     */
+    private void updateFirebaseListeners() {
+
     }
 
     @Override

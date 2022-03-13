@@ -9,7 +9,7 @@ public class PlayerInfo {
     private Contact contact;
     private Boolean admin;
 
-    public PlayerInfo(){
+    public PlayerInfo() {
         // Automatically generate a random unique username (changed later by Player if they want)
         // QRTotalRank and highestValueQRRank need to be set to the lowest rank so far
         // Contact initialization needed
