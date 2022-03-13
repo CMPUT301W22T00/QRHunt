@@ -118,13 +118,21 @@ public class MainActivity extends AppCompatActivity{
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
 
                 if (navDestination.getId() == R.id.navigation_map) {
+                    actionbar.show();
                     navSearch.setVisibility(View.GONE);
                     mapMenu.setVisibility(View.VISIBLE);
+                    score.setText("Map"); // i have become what i hate :( hardcoding
+
                 }
                 if (navDestination.getId() == R.id.navigation_scanner){
+                    actionbar.show();
                     navSearch.setVisibility(View.VISIBLE);
                     mapMenu.setVisibility(View.GONE);
-
+                    String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+                    score.setText(scoreText);
+                }
+                if (navDestination.getId() == R.id.navigation_rankBoard){
+                    actionbar.hide();
                 }
             }
         });
