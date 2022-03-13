@@ -1,10 +1,13 @@
 package com.bigyoshi.qrhunt;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -21,13 +24,15 @@ import com.google.android.material.textview.MaterialTextView;
 
 import org.osmdroid.config.Configuration;
 
+import java.io.Serializable;
+
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
-    private MaterialTextView QRTotalValue;
-    private MaterialTextView username;
-    private MaterialTextView totalRank;
-    private MaterialTextView totalScanned;
-    private MaterialTextView uniqueRank;
+    private TextView QRTotalValue;
+    private TextView username;
+    private TextView totalRank;
+    private TextView totalScanned;
+    private TextView uniqueRank;
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
 

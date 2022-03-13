@@ -8,8 +8,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
@@ -41,5 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:elevation="100dp"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
