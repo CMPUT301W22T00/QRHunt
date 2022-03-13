@@ -49,6 +49,7 @@ public class AugmentedCamera {
         // it's super messed up
         // if it break in the future, we may need to implement more of LocationCallback
         // but it's working now
+        // https://stackoverflow.com/questions/29441384/fusedlocationapi-getlastlocation-always-null/29854418#29854418
         LocationRequest mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(10 * 1000);
         mLocationRequest.setFastestInterval(1000);
