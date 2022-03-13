@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="1"
     android:orientation="vertical">
 
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/text_player_username_comments_content_qr_profile"
         android:layout_width="272dp"
         android:layout_height="22dp"
         android:layout_marginStart="8dp"
@@ -20,7 +19,7 @@
         android:textColor="@color/main_blue"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/text_player_comment_comments_content_qr_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +27,7 @@
 
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/text_player_comment_comments_content_qr_profile"
         android:layout_width="272dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
@@ -39,7 +38,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/text_player_username_comments_content_qr_profile"
         tools:ignore="HardcodedText" />
 
 

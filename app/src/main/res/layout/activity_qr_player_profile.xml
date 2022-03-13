@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/rec_bg_qr_player_profile"
         android:layout_width="323dp"
         android:layout_height="660dp"
         android:layout_marginStart="44dp"
@@ -25,7 +25,7 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/rec_image_placeholder_qr_player_profile"
         android:layout_width="272dp"
         android:layout_height="319dp"
         android:layout_marginStart="26dp"
@@ -33,27 +33,27 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rec_image_holder_bg"
-        app:layout_constraintBottom_toTopOf="@+id/titleUserName"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintBottom_toTopOf="@+id/text_title_player_username_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/button_back_to_user_profile_qr_player_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="17dp"
         android:background="@drawable/ic_button_back"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_bg_qr_player_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
 
     <TextView
-        android:id="@+id/titleQRProfile"
+        android:id="@+id/text_title_qrprofile_qr_player_profile"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="48dp"
@@ -66,29 +66,29 @@
         android:textColor="@color/main_blue"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintBottom_toTopOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintEnd_toStartOf="@+id/button_profile_icon_qr_player_profile"
+        app:layout_constraintStart_toEndOf="@+id/button_back_to_user_profile_qr_player_profile"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/button_profile_icon_qr_player_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="41dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/ic_pfp_light"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_bg_qr_player_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
 
     <TextView
-        android:id="@+id/textQRValue"
+        android:id="@+id/text_qr_value_qr_player_profile"
         android:layout_width="59dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -100,29 +100,29 @@
         android:textColor="@color/accent_blue_light"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile"
         tools:ignore="HardcodedText" />
 
 
     <ImageButton
-        android:id="@+id/buttonToggleVisibilityON"
+        android:id="@+id/button_location_visibility_on_qr_player_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="172dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="47dp"
         android:background="@drawable/ic_button_visibility_on_light"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/buttonVertDots"
-        app:layout_constraintStart_toEndOf="@+id/textQRValue"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_image_placeholder_qr_player_profile"
+        app:layout_constraintEnd_toStartOf="@+id/button_edit_qr_callout_qr_player_profile"
+        app:layout_constraintStart_toEndOf="@+id/text_qr_value_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile"
         tools:ignore="ContentDescription" />
 
 
     <ImageButton
-        android:id="@+id/buttonVertDots"
+        android:id="@+id/button_edit_qr_callout_qr_player_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -130,14 +130,14 @@
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="45dp"
         android:background="@drawable/ic_button_vert_dot"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/buttonToggleVisibilityON"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_image_placeholder_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toEndOf="@+id/button_location_visibility_on_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/textLonLat"
+        android:id="@+id/text_lon_lat_coords_qr_player_profile"
         android:layout_width="163dp"
         android:layout_height="21dp"
         android:layout_marginStart="24dp"
@@ -147,15 +147,15 @@
         android:text="(Longitude, Latitude)"
         android:textColor="@color/main_blue"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/textScans"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_image_placeholder_qr_player_profile"
+        app:layout_constraintEnd_toStartOf="@+id/text_qr_num_scans_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile"
         tools:ignore="HardcodedText" />
 
 
     <TextView
-        android:id="@+id/textScans"
+        android:id="@+id/text_qr_num_scans_qr_player_profile"
         android:layout_width="90dp"
         android:layout_height="28dp"
         android:layout_marginTop="59dp"
@@ -167,14 +167,14 @@
         android:textAlignment="textEnd"
         android:textColor="@color/accent_blue_light"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/textLonLat"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/rec_image_placeholder_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toEndOf="@+id/text_lon_lat_coords_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/rec_bg_qr_player_profile"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/titleUserName"
+        android:id="@+id/text_title_player_username_qr_player_profile"
         android:layout_width="272dp"
         android:layout_height="20dp"
         android:layout_marginStart="25dp"
@@ -187,13 +187,13 @@
         android:textColor="@color/accent_blue_light"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toBottomOf="@+id/rec_image_placeholder_qr_player_profile"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/textCaption"
+        android:id="@+id/text_player_caption_qr_player_profile"
         android:layout_width="266dp"
         android:layout_height="30dp"
         android:layout_marginStart="31dp"
@@ -204,47 +204,47 @@
         android:text="This will be the user's caption"
         android:textColor="@color/main_off_white_blue_light"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleComments"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/titleUserName"
+        app:layout_constraintBottom_toTopOf="@+id/text_title_comments_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_player_username_qr_player_profile"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/rec_divider_qr_player_profile"
         android:layout_width="272dp"
         android:layout_height="0.8dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="26dp"
         android:background="@drawable/rec_divider"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/titleComments" />
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_comments_qr_player_profile" />
 
     <TextView
-        android:id="@+id/titleComments"
+        android:id="@+id/text_title_comments_qr_player_profile"
         android:layout_width="266dp"
         android:layout_height="20dp"
         android:layout_marginStart="31dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/quicksand"
+        android:paddingTop="2dp"
         android:text="Comments"
         android:textAlignment="textStart"
         android:textColor="@color/main_off_white_blue_light"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:paddingTop="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textCaption"
+        app:layout_constraintBottom_toTopOf="@+id/rec_divider_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toBottomOf="@+id/text_player_caption_qr_player_profile"
         tools:ignore="HardcodedText" />
 
 
     <TextView
-        android:id="@+id/editTextAddComment"
+        android:id="@+id/edit_text_add_comment_qr_player_profile"
         android:layout_width="272dp"
         android:layout_height="27dp"
         android:layout_marginStart="25dp"
@@ -260,16 +260,16 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/listComments"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/list_comments_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintTop_toBottomOf="@+id/rec_divider_qr_player_profile"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText,RtlSymmetry" />
 
     <ImageButton
-        android:id="@+id/buttonSendComment"
+        android:id="@+id/button_send_comment_qr_player_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="247dp"
@@ -277,27 +277,27 @@
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="3dp"
         android:background="@drawable/ic_button_send"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextAddComment"
-        app:layout_constraintEnd_toEndOf="@+id/editTextAddComment"
-        app:layout_constraintStart_toStartOf="@+id/editTextAddComment"
-        app:layout_constraintTop_toTopOf="@+id/editTextAddComment"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_add_comment_qr_player_profile"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_add_comment_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_add_comment_qr_player_profile"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_add_comment_qr_player_profile"
         tools:ignore="ContentDescription" />
 
     <ListView
-        android:id="@+id/listComments"
+        android:id="@+id/list_comments_qr_player_profile"
         android:layout_width="272dp"
         android:layout_height="110dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="@+id/rec_bg_qr_player_profile"
+        app:layout_constraintStart_toStartOf="@+id/rec_bg_qr_player_profile" />
 
 
     <!--
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_placeholder_qr_player_profile"
         android:layout_width="260dp"
         android:layout_height="289dp"
         android:src="@mipmap/ic_image_holder"
