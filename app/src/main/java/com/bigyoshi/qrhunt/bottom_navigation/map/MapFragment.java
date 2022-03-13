@@ -23,6 +23,10 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
+import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -31,40 +35,43 @@ public class MapFragment extends Fragment {
     private MapView map = null;
     private FragmentMapBinding binding;
     private MyLocationNewOverlay mLocationOverlay;
+    //private CompassOverlay mCompassOverlay;
+    private RotationGestureOverlay mRotationGestureOverlay;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-        //Load/Initialize osmdroid configuration
+        // Load/Initialize osmdroid configuration
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
         binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //inflate and create the map
-        //setContentView(R.layout.fragment_home);
+        // Inflate and create the map
+        //setContentView(R.layout.fragment_map);
         map = (MapView) root.findViewById(R.id.mapview);
         map.setTileSource(TileSourceFactory.MAPNIK);
 
-        //Map Zoom Controls
+        // Map Zoom Controls
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
 
-        //Map Controller stuff to move the map on a default view point
-        IMapController mapController = map.getController();
-        mapController.setZoom(20);
-
         // Follows user and centers on them
-        this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx),map);
-        this.mLocationOverlay.enableFollowLocation();
+        this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), map);
         this.mLocationOverlay.enableMyLocation();
+        this.mLocationOverlay.enableFollowLocation();
 
         // Change person icon
-        Drawable icon = getResources().getDrawable(R.drawable.ic_player_nav, null);
-        this.mLocationOverlay.setPersonIcon(drawableToBitmap(icon));
+        Drawable directionIcon = getResources().getDrawable(R.drawable.ic_player_nav, null);
+        Drawable personIcon = getResources().getDrawable(R.drawable.ic_person_icon, null);
+        this.mLocationOverlay.setDirectionArrow(drawableToBitmap(personIcon), drawableToBitmap(directionIcon));
+
+        // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
+        IMapController mapController = map.getController();
+        mapController.setZoom(20);
 
 
         return root;
