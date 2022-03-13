@@ -83,8 +83,6 @@ public class AugmentedCamera {
                 new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude())).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
-
-        Toast.makeText(frag.getContext(), String.valueOf(score), Toast.LENGTH_SHORT).show();
     }
 
 
