@@ -1,170 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/main_off_white_blue_light"
-    android:padding="@dimen/large_padding"
-    android:id="@+id/editPlayerProfile">
+    android:id="@+id/editPlayerProfile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding"
+    android:background="@drawable/rec_frame_bg"
+    android:padding="@dimen/large_padding">
 
-    <ImageView android:id="@+id/settings_edit_icon"
+    <ImageView
+        android:id="@+id/settings_edit_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"/>
-
-    <TextView android:id="@+id/edit_profile_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/settings_edit_icon"
-        android:text="@string/edit_profile_title"
+        android:contentDescription="@string/settings_icon_desc"
         android:padding="@dimen/padding"
-        android:textSize="@dimen/subtitle_size"
-        android:fontFamily="@font/quicksand"
-        android:textColor="@color/main_blue"
-        />
+        android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Space android:id="@+id/spacer0"
+    <TextView
+        android:id="@+id/edit_profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:padding="@dimen/padding"
+        android:text="@string/edit_profile_title"
+        android:textColor="@color/accent_grey_dark"
+        android:textSize="@dimen/title_size"
+        app:layout_constraintLeft_toRightOf="@id/settings_edit_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/spacer0"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
-        app:layout_constraintTop_toBottomOf="@id/edit_profile_title"
-        />
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_title" />
 
-    <TextView android:id="@+id/username_title"
+    <TextView
+        android:id="@+id/username_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spacer0"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/quicksand"
         android:text="@string/username_title"
-        android:textSize="@dimen/small_text" />
+        android:textSize="@dimen/small_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacer0" />
 
-    <EditText android:id="@+id/edit_username"
+    <EditText
+        android:id="@+id/edit_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/username_hint"
+        android:autofillHints="username"
+        android:background="@drawable/rounded_rectangle_edit_text"
         android:fontFamily="@font/quicksand"
+        android:hint="@string/username_hint"
+        android:inputType="text"
+        android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        android:background="@drawable/rounded_rectangle_edit_text"
-        android:padding="@dimen/padding"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/username_title"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:autofillHints="username"
-        />
+        app:layout_constraintTop_toBottomOf="@id/username_title" />
 
 
-    <Space android:id="@+id/spacer1"
+    <Space
+        android:id="@+id/spacer1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/edit_username"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_username" />
 
 
-    <TextView android:id="@+id/email_title"
+    <TextView
+        android:id="@+id/email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
         android:text="@string/email_title"
-        android:fontFamily="@font/quicksand"
         android:textSize="@dimen/small_text"
-        app:layout_constraintTop_toBottomOf="@id/spacer1"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacer1" />
 
-    <!--https://stackoverflow.com/a/10397929-->
-    <FrameLayout android:id="@+id/email_frame"
+    <EditText
+        android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/email_title">
+        android:autofillHints="emailAddress"
+        android:background="@drawable/rounded_rectangle_edit_text"
+        android:fontFamily="@font/quicksand"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/padding"
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintTop_toBottomOf="@id/email_title" />
 
-        <EditText android:id="@+id/edit_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email_hint"
-            android:fontFamily="@font/quicksand"
-            android:textColor="@color/accent_grey_blue_dark"
-            android:textSize="@dimen/subtitle_size"
-            android:background="@drawable/rounded_rectangle_edit_text"
-            android:padding="@dimen/padding"
-            android:autofillHints="emailAddress"
-            android:inputType="textEmailAddress">
 
-            <requestFocus/>
-
-        </EditText>
-
-        <ImageButton android:visibility="gone"
-            android:id="@+id/email_visibility"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/accent_grey_blue_dark"
-            android:background="@drawable/ic_baseline_visible_dark_blue_grey" />
-
-    </FrameLayout>
-
-    <Space android:id="@+id/spacer2"
+    <Space
+        android:id="@+id/spacer2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/email_frame"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_email" />
 
 
-    <TextView android:id="@+id/socials_title"
+    <TextView
+        android:id="@+id/socials_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/socials_title"
         android:fontFamily="@font/quicksand"
+        android:text="@string/socials_title"
         android:textSize="@dimen/small_text"
-        app:layout_constraintTop_toBottomOf="@id/spacer2"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spacer2" />
 
-    <FrameLayout android:id="@+id/socials_frame"
+    <EditText
+        android:id="@+id/edit_socials"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/socials_title">
+        android:background="@drawable/rounded_rectangle_edit_text"
+        android:fontFamily="@font/quicksand"
+        android:hint="@string/socials_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="@dimen/padding"
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBottom_toTopOf="@+id/edit_profile_buttons"
+        app:layout_constraintTop_toBottomOf="@id/socials_title" />
 
-        <EditText android:id="@+id/edit_socials"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/socials_hint"
-            android:fontFamily="@font/quicksand"
-            android:textColor="@color/accent_grey_blue_dark"
-            android:textSize="@dimen/subtitle_size"
-            android:paddingStart="@dimen/extra_large_padding"
-            android:paddingEnd="@dimen/extra_large_padding"
-            android:backgroundTint="@color/accent_grey_blue_dark"
-            android:inputType="text">
+    <LinearLayout
+        android:id="@+id/edit_profile_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_socials">
+        <!-- this serves solely to push buttons to end -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <requestFocus/>
-
-        </EditText>
-
-        <ImageButton android:visibility="gone"
-            android:id="@+id/socials_visibility"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/accent_grey_blue_dark"
-            android:background="@drawable/ic_baseline_visible_dark_blue_grey" />
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/ok"
+            android:textColor="@color/accent_grey_dark" />
 
-        <ImageView
+        <Button
+            android:id="@+id/cancel_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:src="@drawable/ic_baseline_social_media_dark_blue_grey"
-            android:padding="@dimen/padding"/>
-
-    </FrameLayout>
-
-
-
-
-
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/cancel"
+            android:textColor="@color/accent_grey_dark" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
