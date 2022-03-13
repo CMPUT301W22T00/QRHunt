@@ -14,8 +14,8 @@
     <fragment
         android:id="@+id/navigation_rankBoard"
         android:name="com.bigyoshi.qrhunt.bottom_navigation.rank_board.RankBoardFragment"
-        android:label="@string/title_rankBoard"
-        tools:layout="@layout/fragment_rank_board" />
+        android:label="@string/title_leaderBoard"
+        tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/navigation_scanner"
