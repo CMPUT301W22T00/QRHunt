@@ -103,22 +103,25 @@ public class MainActivity extends AppCompatActivity {
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
 
-                if (navDestination.getId() == R.id.navigation_map) {
-                    actionbar.show();
-                    navSearch.setVisibility(View.GONE);
-                    mapMenu.setVisibility(View.VISIBLE);
-                    score.setText("Map"); // i have become what i hate :( hardcoding
+            if (navDestination.getId() == R.id.navigation_map) {
+                actionbar.show();
+                navSearch.setVisibility(View.GONE);
+                mapMenu.setVisibility(View.VISIBLE);
+                scoreView.setText("Map"); // i have become what i hate :( hardcoding
 
-                }
-                if (navDestination.getId() == R.id.navigation_scanner){
-                    actionbar.show();
-                    navSearch.setVisibility(View.VISIBLE);
-                    mapMenu.setVisibility(View.GONE);
-                    String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
-                    score.setText(scoreText);
-                }
-                if (navDestination.getId() == R.id.navigation_rankBoard){
-                    actionbar.hide();
+            }
+            if (navDestination.getId() == R.id.navigation_scanner) {
+                actionbar.show();
+                navSearch.setVisibility(View.VISIBLE);
+                mapMenu.setVisibility(View.GONE);
+                String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+                scoreView.setText(scoreText);
+            }
+            if (navDestination.getId() == R.id.navigation_rankBoard) {
+                actionbar.hide();
+            }
+        });
+    }
 
     /*
     This should be called whenever the user-id changes (eg, player transfers account)
@@ -140,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays.asList(permissions).subList(0, grantResults.length));
         if (permissionsToRequest.size() > 0) {

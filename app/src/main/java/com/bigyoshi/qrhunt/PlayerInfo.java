@@ -119,8 +119,16 @@ public class PlayerInfo {
         return "";
     }
 
-    private String generateUsername(){
+    public String generateUsername(Context context){
         // Random unique username generated when account is first created
-        return "";
+        Random rand = new Random();
+        Resources res = context.getResources();
+        String[] adj = res.getStringArray(R.array.adjectives);
+        String[] noun = res.getStringArray(R.array.noun);
+        String adjName = adj[rand.nextInt(adj.length - 1)];
+        String nounName = noun[rand.nextInt(noun.length - 1)];
+        int upperbound = 100;
+        String numName = Integer.toString(rand.nextInt(upperbound));
+        return adjName + nounName + numName;
     }
 }
