@@ -22,6 +22,7 @@ import com.google.zxing.Result;
 
 public class CameraScannerFragment extends Fragment {
     private CodeScanner codeScanner;
+    public AugmentedCamera camera;
 
     @Nullable
     @Override
@@ -35,7 +36,7 @@ public class CameraScannerFragment extends Fragment {
         codeScanner = new CodeScanner(activity, scannerView);
 
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.SINGLE);
+        codeScanner.setScanMode(ScanMode.PREVIEW);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
@@ -47,8 +48,11 @@ public class CameraScannerFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-
+                        camera = new AugmentedCamera();
+                        camera.scanQRCode(result.getText());
+                        codeScanner.setScanMode(ScanMode.PREVIEW);
                     }
                 });
             }
@@ -65,6 +69,7 @@ public class CameraScannerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 codeScanner.startPreview();
+                codeScanner.setScanMode(ScanMode.SINGLE);
             }
         });
         return root;

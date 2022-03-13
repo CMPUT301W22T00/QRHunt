@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="horizontal"
     >
+
 
     <TextView
         android:id="@+id/textRank"
@@ -19,6 +21,7 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textAlignment="center"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".10" />
@@ -26,6 +29,7 @@
 
     <ImageView
         android:id="@+id/imageView"
+
         android:layout_width="52dp"
         android:layout_height="64dp"
         android:layout_marginTop="8dp"
@@ -37,10 +41,12 @@
         app:layout_constraintLeft_toRightOf="@id/textRank"/>
 
 
+
     <TextView
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:padding="20dp"
         android:text="username"
         android:textSize="30sp"
@@ -50,10 +56,12 @@
         app:layout_constraintLeft_toRightOf="@id/imageView"/>
 
 
+
     <TextView
         android:id="@+id/textHighestUnique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:padding="20dp"
         android:text="XX"
         android:textSize="30sp"
@@ -66,6 +74,7 @@
 
     <TextView
         android:id="@+id/textDivider"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
@@ -76,8 +85,10 @@
         app:layout_constraintTop_toBottomOf="@id/textUsername" />
 
 
+
     <TextView
         android:id="@+id/textScans"
+
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:padding="20dp"
@@ -88,8 +99,10 @@
         app:layout_constraintTop_toBottomOf="@id/textDivider" />
 
 
+
     <TextView
         android:id="@+id/textScore"
+
         android:layout_width="match_parent"
         android:layout_height="84dp"
         android:padding="20dp"
@@ -99,6 +112,7 @@
         android:textColor="@color/accent_grey_blue_dark"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/textScans" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

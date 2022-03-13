@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
+
     tools:context=".Leaderboard">
 
 
@@ -74,6 +75,7 @@
         tools:ignore="HardcodedText" />
 
 
+
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
@@ -100,6 +102,7 @@
         android:text="Column Titles"
         android:textColor="@color/accent_blue_light"
         android:textSize="12sp"
+
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +135,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
+
+        
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
