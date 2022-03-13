@@ -1,8 +1,6 @@
 package com.bigyoshi.qrhunt;
 
 
-import static com.google.firebase.firestore.FieldPath.*;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -27,18 +25,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile, mapMenu;
-    private TextView score;
+    private TextView scoreView;
     private FirebaseFirestore db;
     private DocumentReference playerRef;
     private ListenerRegistration scoreListenerRegistration;
@@ -80,10 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
         player = new Player(this);
 
-        score = toolbar.findViewById(R.id.score_on_cam);
+        scoreView = toolbar.findViewById(R.id.score_on_cam);
         updateFirebaseListeners();
+
         String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
-        score.setText(scoreText);
+        scoreView.setText(scoreText);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -143,31 +138,19 @@ public class MainActivity extends AppCompatActivity {
      so that the proper id is is listened to for changes
      */
     private void updateFirebaseListeners() {
-        // this isn't really how i want it to be spelled, at all
-        // ideally we can just watch score but this isn't feasible
-        // till i get my cloud functions idea together
+        // watch the score
+        // this method should be called whenever userid changes, but only once
         playerRef = db.collection("users").document(player.getPlayerId());
-        CollectionReference playerQrCodesRef = playerRef.collection("qrCodes");
-        playerQrCodesRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        playerRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<String> qrIds = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    qrIds.add(document.getId());
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                if (error != null || snapshot != null) {
+                    Log.w(TAG, "Listen failed.", error);
+                    return;
                 }
-                Log.d(TAG, String.format("got %d ids", qrIds.size()));
-
-                db.collection("qrCodes").whereIn(documentId(), qrIds).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        int total = 0;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            total += Math.toIntExact((long)document.getData().getOrDefault("value", 0));
-                        }
-                        Log.d(TAG, String.format("total score: %d", total));
-                        score.setText(String.format("%d points", total));
-                    }
-                });
+                String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
+                Log.d(TAG, String.format("set the score to be %s", scoreVal));
+                scoreView.setText(String.format("Score: %s", scoreVal));
             }
         });
     }
