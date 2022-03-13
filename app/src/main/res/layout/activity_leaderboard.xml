@@ -5,58 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
-    tools:context=".Leaderboard">
+    tools:context=".Leaderboard"
+    android:padding="@dimen/padding"
+    >
 
 
     <ImageButton
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <TextView
-        android:id="@+id/textTitleLeaderboard"
-        android:layout_width="414dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/text_title_leaderboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Leaderboard"
         android:fontFamily="@font/quicksand"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
-        android:textSize="26dp"
+        android:textSize="@dimen/title_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Space android:id="@+id/leaderboard_space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_space"
+        app:layout_constraintTop_toBottomOf="@id/text_title_leaderboard"/>
 
     <TextView
         android:id="@+id/textTopTwo"
         android:layout_width="306dp"
         android:layout_height="194dp"
-        android:text="rank panel 2 and 3"
+        android:text="rank panel 2 and 3 PLACEHOLDER"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="73dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_space" />
 
     <Button
         android:id="@+id/my_rank"
-        android:layout_width="126dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="My Rank"
         android:fontFamily="@font/quicksand"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:padding="-20dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+        android:layout_margin="@dimen/padding"
+        android:layout_marginTop="@dimen/extra_large_padding"
+        android:padding="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@id/textTopTwo"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <View
@@ -69,11 +73,12 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_rank"
         tools:layout_editor_absoluteY="333dp" />
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/leaderboard_ranks_text"
         android:layout_width="0dp"
         android:layout_height="37dp"
         android:layout_marginStart="10dp"
@@ -85,18 +90,18 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         tools:layout_editor_absoluteY="347dp" />
 
 
     <ListView
         android:id="@+id/rankings"
-        android:layout_width="0dp"
-        android:layout_height="333dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_ranks_text"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
