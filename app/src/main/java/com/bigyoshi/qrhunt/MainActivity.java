@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity{
                     navSearch.setVisibility(View.GONE);
                     mapMenu.setVisibility(View.GONE);
                     toolbar.setVisibility(View.GONE);
+                    binding.navView.setVisibility(View.INVISIBLE);
                 }
             }
         });
