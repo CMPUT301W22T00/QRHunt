@@ -3,13 +3,16 @@ package com.bigyoshi.qrhunt;
 public class Ranking {
 
     private String playerUsername;
-    private String playerRank;
-    private String highestUnique;
-    private String scansTotal;
-    private String scoreTotal;
 
-    public Ranking(String playerUsername, String playerRank, String highestUnique,
-                   String scansTotal, String scoreTotal) {
+    private int playerRank;
+    private int highestUnique;
+    private int scansTotal;
+    private int scoreTotal;
+
+    public Ranking(String playerUsername, int playerRank, int highestUnique,
+                   int scansTotal, int scoreTotal) {
+
+    
         this.playerUsername = playerUsername;
         this.playerRank = playerRank;
         this.highestUnique = highestUnique;
@@ -21,19 +24,20 @@ public class Ranking {
         this.playerUsername = playerUsername;
     }
 
-    public void setPlayerRank(String playerRank) {
+    public void setPlayerRank(int playerRank) {
         this.playerRank = playerRank;
     }
 
-    public void setHighestUnique(String highestUnique) {
+    public void setHighestUnique(int highestUnique) {
         this.highestUnique = highestUnique;
     }
 
-    public void setScansTotal(String scansTotal) {
+    public void setScansTotal(int scansTotal) {
         this.scansTotal = scansTotal;
     }
 
-    public void setScoreTotal(String scoreTotal) {
+    public void setScoreTotal(int scoreTotal) {
+
         this.scoreTotal = scoreTotal;
     }
 }
