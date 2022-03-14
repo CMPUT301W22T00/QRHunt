@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         player = new Player(this);
         // This will check if the player already has an account
         if (!player.getPlayerId().matches("")){
-            //player.initialize();
+            player.initialize();
         }
 
         scoreView = toolbar.findViewById(R.id.score_on_cam);
