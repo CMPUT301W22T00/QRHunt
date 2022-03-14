@@ -23,7 +23,7 @@ import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import org.osmdroid.config.Configuration;
 
 /**
- * Definition:
+ * Definition: Fragment class for the player profile screen
  *
  *
  */
@@ -40,7 +40,7 @@ public class FragmentProfile extends Fragment {
     private Player player;
 
     /**
-     *
+     * constructor
      * @param player
      * @param lastDestination
      */
@@ -51,7 +51,8 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     *
+     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * (eg, either to scanner or map)
      * @param savedInstanceState
      */
     @Override
@@ -70,7 +71,7 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     *
+     * sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      * @param inflater
      * @param container
      * @param savedInstanceState
