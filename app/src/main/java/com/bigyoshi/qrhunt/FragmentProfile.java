@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavDestination;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.google.android.material.textview.MaterialTextView;
@@ -35,9 +37,26 @@ public class FragmentProfile extends Fragment {
     private TextView uniqueRank;
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
+    private int lastDestination;
 
-    public FragmentProfile(Player player){
+    public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player.getPlayerInfo();
+         this.lastDestination = lastDestination;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                Bundle prevNav = new Bundle();
+                prevNav.putSerializable("previous", lastDestination);
+                intent.putExtras(prevNav);
+                startActivity(intent);
+            }
+        });
     }
 
     @Nullable
