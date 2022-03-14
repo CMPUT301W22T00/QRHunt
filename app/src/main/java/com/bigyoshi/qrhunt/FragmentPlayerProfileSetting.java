@@ -12,33 +12,48 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
 
-
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentPlayerProfileSetting extends DialogFragment {
+    private Player playerInfo;
     private EditText username;
     private EditText email;
     private EditText socials;
-    private Player playerInfo;
     private Button ok;
     private Button cancel;
 
     private FragmentUserSettingsEditProfileBinding binding;
 
+    /**
+     *
+     * @param playerInfo
+     */
     public FragmentPlayerProfileSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
+    /**
+     *
+     */
     public FragmentPlayerProfileSetting(){
         super();
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,11 +73,11 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (!username.getText().toString().matches("")){
-                    playerInfo.updateUsername(username.getText().toString());
+                    playerInfo.setUsername(username.getText().toString());
                 } else if (!email.getText().toString().matches("")){
-                    playerInfo.getContact().updateEmail(email.getText().toString());
+                    playerInfo.getContact().setEmail(email.getText().toString());
                 } else if (!socials.getText().toString().matches("")){
-                    playerInfo.getContact().updateSocial(socials.getText().toString());
+                    playerInfo.getContact().setSocial(socials.getText().toString());
                 }
                 Bundle result = new Bundle();
                 result.putSerializable("newInfo", playerInfo);

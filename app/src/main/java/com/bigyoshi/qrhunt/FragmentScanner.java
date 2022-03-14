@@ -21,12 +21,23 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
-public class ScannerFragment extends Fragment {
+/**
+ * Definition:
+ *
+ *
+ */
+public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
     private AugmentedCamera camera;
     private String playerId;
 
-
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -62,7 +73,7 @@ public class ScannerFragment extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(ScannerFragment.this, result.getText(), playerId);
+                        camera = new AugmentedCamera(FragmentScanner.this, result.getText(), playerId);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
@@ -88,12 +99,18 @@ public class ScannerFragment extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     @Override
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
     }
 
+    /**
+     *
+     */
     @Override
     public void onPause() {
         codeScanner.releaseResources();

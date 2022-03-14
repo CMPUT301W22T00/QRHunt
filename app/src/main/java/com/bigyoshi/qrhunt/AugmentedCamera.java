@@ -20,6 +20,11 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class AugmentedCamera {
     private final Fragment frag;
     private final String qrContent;
@@ -31,6 +36,12 @@ public class AugmentedCamera {
     public int score;
     public FusedLocationProviderClient fusedLocationClient;
 
+    /**
+     *
+     * @param frag
+     * @param text
+     * @param playerId
+     */
     public AugmentedCamera(Fragment frag, String text, String playerId) {
         this.frag = frag;
         this.qrContent = text;
@@ -39,6 +50,10 @@ public class AugmentedCamera {
         pollLocation();
     }
 
+    /**
+     *
+     *
+     */
     public void pollLocation() {
         // alex please forgive me
         // super, super hacky way to get location not to be null.
@@ -59,11 +74,15 @@ public class AugmentedCamera {
         client.requestLocationUpdates(mLocationRequest, hackyLocationCallback, null);
     }
 
+    /**
+     *
+     *
+     */
     public void processQRCode() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // todo check here: is this an internal code
         computeHash();
-        ExternalQRCode qrCode = new ExternalQRCode(hash, score);
+        PlayableQRCode qrCode = new PlayableQRCode(hash, score);
         computeScore();
 
         getLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -78,12 +97,15 @@ public class AugmentedCamera {
                 LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
                 // todo: do we really need a whole wrapper class?
                 // todo: handle cases where we can get the location gracefully
-                new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
+                new FragmentAddQRCode(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
     }
 
-
+    /**
+     *
+     *
+     */
     private void computeHash() {
         MessageDigest md = null;
         try {
@@ -100,17 +122,30 @@ public class AugmentedCamera {
         hash = sb.toString();
     }
 
+    /**
+     *
+     *
+     */
     private void computeScore() {
         // Need to calculate score here
         // Probably have to pass in the hash or whatever we use to calculate the value
-        // sha1 gives 160 bits → max value is therefore 2¹⁶⁰
+        // sha1 gives 160 bits → max value is therefore 2^160
         score = new BigInteger(1, digest).multiply(new BigInteger("100")).divide((new BigInteger("2").pow(160))).intValue();
     }
 
+    /**
+     *
+     *
+     */
     private void capturePhoto() {
         // Saves the photo and correlates it to QRProfile
     }
 
+    /**
+     *
+     *
+     * @return
+     */
     private Task<Location> getLocation() {
         if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;

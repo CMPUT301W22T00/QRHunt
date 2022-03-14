@@ -30,7 +30,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * Definition:
+ *
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -41,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference playerRef;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
     This should be called whenever the user-id changes (eg, player transfers account)
      so that the proper id is is listened to for changes
      */
+    /**
+     *
+     *
+     */
     private void updateFirebaseListeners() {
         // watch the score
         // this method should be called whenever userid changes, but only once
@@ -162,6 +174,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -175,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     * @param permissions
+     */
     private void requestPermissionsIfNecessary(String[] permissions) {
         ArrayList<String> permissionsToRequest = new ArrayList<>();
         for (String permission : permissions) {

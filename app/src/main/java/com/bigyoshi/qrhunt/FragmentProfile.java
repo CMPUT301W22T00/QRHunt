@@ -22,6 +22,11 @@ import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 
 import org.osmdroid.config.Configuration;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
@@ -34,12 +39,21 @@ public class FragmentProfile extends Fragment {
     private int lastDestination;
     private Player player;
 
+    /**
+     *
+     * @param player
+     * @param lastDestination
+     */
     public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player;
          this.player = player;
          this.lastDestination = lastDestination;
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +69,13 @@ public class FragmentProfile extends Fragment {
         });
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -95,8 +116,8 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("info");
-                playerInfo.updateUsername(newInfo.getUsername());
-                playerInfo.updateContact(newInfo.getContact());
+                playerInfo.setUsername(newInfo.getUsername());
+                playerInfo.setContact(newInfo.getContact());
                 username.setText(playerInfo.getUsername());
                 playerInfo.updateDB();
             }

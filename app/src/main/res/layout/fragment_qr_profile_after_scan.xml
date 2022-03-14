@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/main_off_white_blue_light"
     android:padding="@dimen/large_padding"
-    tools:context=".QRProfileAfterScan">
+    tools:context=".FragmentQRProfileAfterScan">
 
 
     <TextView
