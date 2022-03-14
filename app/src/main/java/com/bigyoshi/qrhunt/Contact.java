@@ -1,4 +1,10 @@
 package com.bigyoshi.qrhunt;
+/*
+Stores user's social contact information
+ - Email
+ - One social media handle
+ */
+
 
 /**
  * Definition:
