@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:background="@color/accent_grey_dark_50op"
+        android:background="@color/accent_grey_dark_60op"
         app:itemIconSize="@dimen/bottom_nav_icons"
         app:itemIconTint="@color/main_off_white_blue_light"
         app:layout_constraintBottom_toBottomOf="parent"
