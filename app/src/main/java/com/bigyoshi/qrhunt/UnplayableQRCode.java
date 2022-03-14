@@ -1,8 +1,8 @@
 package com.bigyoshi.qrhunt;
 
-public class InternalQRCode {
+public class UnplayableQRCode {
 
-    public InternalQRCode(){
+    public UnplayableQRCode(){
     }
 
     public Boolean isGameStatus(){

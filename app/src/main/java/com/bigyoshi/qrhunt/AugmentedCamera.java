@@ -63,7 +63,7 @@ public class AugmentedCamera {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // todo check here: is this an internal code
         computeHash();
-        ExternalQRCode qrCode = new ExternalQRCode(hash, score);
+        PlayableQRCode qrCode = new PlayableQRCode(hash, score);
         computeScore();
 
         getLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -78,11 +78,10 @@ public class AugmentedCamera {
                 LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
                 // todo: do we really need a whole wrapper class?
                 // todo: handle cases where we can get the location gracefully
-                new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
+                new FragmentAddQRCode(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
     }
-
 
     private void computeHash() {
         MessageDigest md = null;

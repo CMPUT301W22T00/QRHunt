@@ -67,8 +67,8 @@ public class FragmentPlayerSetting extends Fragment {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("newInfo");
-                playerInfo.updateUsername(newInfo.getUsername());
-                playerInfo.updateContact(newInfo.getContact());
+                playerInfo.setUsername(newInfo.getUsername());
+                playerInfo.setContact(newInfo.getContact());
             }
         });
 
