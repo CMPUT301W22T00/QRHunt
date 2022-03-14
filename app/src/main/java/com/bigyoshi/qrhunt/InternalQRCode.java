@@ -1,6 +1,6 @@
 package com.bigyoshi.qrhunt;
 
-public class InternalQRCode extends QRCode{
+public class InternalQRCode {
 
     public InternalQRCode(){
     }
