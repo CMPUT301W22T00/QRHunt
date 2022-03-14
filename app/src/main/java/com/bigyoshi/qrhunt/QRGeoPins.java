@@ -1,10 +1,16 @@
 package com.bigyoshi.qrhunt;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -13,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
@@ -24,14 +31,14 @@ public class QRGeoPins extends MapFragment {
     private ArrayList<OverlayItem> geoPins;
     private MyLocationNewOverlay mLocationOverlay;
     private FirebaseFirestore db;
+    private LocationCallback hackyLocationCallback;
+    FusedLocationProviderClient client;
 
     public QRGeoPins(ArrayList<OverlayItem> geoPins){
         this.geoPins = geoPins;
     }
 
     public void getQRLocation(){
-        super.mLocationOverlay.getMyLocation();
-
 //        DisplayMetrics displayMetrics = new DisplayMetrics();
 //        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 //        int height = displayMetrics.heightPixels;
@@ -49,6 +56,7 @@ public class QRGeoPins extends MapFragment {
                                 Task<QuerySnapshot> latitude = document.getReference().collection("qrCodes").get(Source.valueOf("latitude"));
                                 Task<QuerySnapshot> longitude = document.getReference().collection("qrCodes").get(Source.valueOf("longitude"));
                                         // ARRAY LIST STUFF HERE
+                                geoPins.add(new OverlayItem("", "", new GeoPoint( Double.valueOf(String.valueOf(latitude)), Double.valueOf(String.valueOf(longitude)))));
                                         Log.d("MONKE", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -57,7 +65,6 @@ public class QRGeoPins extends MapFragment {
                     }
                 });
 
-        //geoPins.add(new OverlayItem("", "", new GeoPoint()));
     }
 
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.QRGeoPins;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 
@@ -23,6 +24,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
@@ -30,13 +32,15 @@ import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.ArrayList;
+
 public class MapFragment extends Fragment {
 
-    private MapView map = null;
+    public MapView map = null;
     private FragmentMapBinding binding;
     public MyLocationNewOverlay mLocationOverlay;
-    //private CompassOverlay mCompassOverlay;
     private RotationGestureOverlay mRotationGestureOverlay;
+    private ArrayList<OverlayItem> overlayPins;
 
 
     @Override
@@ -72,8 +76,9 @@ public class MapFragment extends Fragment {
         map.getOverlays().add(this.mLocationOverlay);
         IMapController mapController = map.getController();
         mapController.setZoom(20);
-
-
+        QRGeoPins qrPins = new QRGeoPins(overlayPins);
+        qrPins.getQRLocation();
+        
         return root;
     }
 
