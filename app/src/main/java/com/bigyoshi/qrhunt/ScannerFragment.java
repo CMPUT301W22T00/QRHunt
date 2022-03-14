@@ -23,11 +23,7 @@ import com.google.zxing.Result;
 public class ScannerFragment extends Fragment {
     private CodeScanner codeScanner;
     public AugmentedCamera camera;
-    private String playerId;
 
-    public ScannerFragment(String playerId) {
-        this.playerId = playerId;
-    }
 
     @Nullable
     @Override
