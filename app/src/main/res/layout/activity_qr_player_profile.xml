@@ -144,7 +144,7 @@
         android:layout_marginTop="63dp"
         android:layout_marginBottom="6dp"
         android:fontFamily="@font/quicksand"
-        android:text="(Longitude, Latitude)"
+        android:text="Latitude, Longitude"
         android:textColor="@color/main_blue"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/rec_image_placeholder_qr_player_profile"
