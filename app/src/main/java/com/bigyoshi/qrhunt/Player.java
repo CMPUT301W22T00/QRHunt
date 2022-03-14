@@ -38,7 +38,7 @@ public class Player implements Serializable {
     private String username;
     private Contact contact;
     private Boolean admin;
-    private QRLibrary qrLibrary; // DO YOU NEED TO IMPLEMENT THIS?
+    public QRLibrary qrLibrary;
     private String playerId = null;
     private Context context;
 
@@ -52,6 +52,7 @@ public class Player implements Serializable {
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
+        this.qrLibrary = new QRLibrary(db, getPlayerId());
     }
 
     /**

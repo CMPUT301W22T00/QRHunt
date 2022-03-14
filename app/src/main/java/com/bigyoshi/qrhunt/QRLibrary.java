@@ -40,7 +40,11 @@ public class QRLibrary {
             this.playerId = "c6670e44-1fe2-4b98-acfd-98c55767cf3c";
         }
         this.db = db;
+        this.update();
+    }
 
+
+    public void update() {
         Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -62,6 +66,8 @@ public class QRLibrary {
             }
         });
     }
+
+    public HashMap<String, PlayableQRCode> getQrCodes() { return qrCodes; }
 
     /**
      *
