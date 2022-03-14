@@ -1,16 +1,6 @@
 package com.bigyoshi.qrhunt;
 
-import java.util.HashMap;
-
 public class QRLibrary {
-
-    HashMap<Integer, QRPlayerProfile> qrCodes;
-
-    public QRLibrary(){
-        qrCodes = new HashMap<>();
-    }
-
-
 
     public void sortLowestToHighest(){
         // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
