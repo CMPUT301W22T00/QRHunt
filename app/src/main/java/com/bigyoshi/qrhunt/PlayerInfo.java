@@ -3,10 +3,11 @@ package com.bigyoshi.qrhunt;
 import android.content.Context;
 import android.content.res.Resources;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
 
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
     private int QRTotal;
     private int QRTotalScanned;
     private String username;
@@ -76,8 +77,10 @@ public class PlayerInfo {
         // May need to take in the new QR code to update it to the unique on for the Player and to compare it against the ranks
     }
 
-    public void updateContact(String editTextId, String toUpdate){
+    public void updateContact(Contact contact){
         // Use the editTextId to identify which contact to update (with toUpdate)
+        this.contact.updateSocial(contact.getSocial());
+        this.contact.updateEmail(contact.getEmail());
     }
 
     public void updateUsername(String newName){

@@ -19,8 +19,7 @@ import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 import org.osmdroid.config.Configuration;
 
 public class RankBoardFragment extends Fragment {
-    ImageButton back;
-    int prevDestination;
+    private ImageButton back;
 
     private FragmentLeaderboardBinding binding;
 
