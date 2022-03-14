@@ -120,4 +120,10 @@ public class Player {
         });
 
     }
+
+    public void updateUsernameInDB(PlayerInfo newInfo) {
+        collectionReference
+                .document(playerId)
+                .update("PlayerInfo", newInfo);
+    }
 }

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
@@ -31,9 +32,11 @@ public class FragmentProfile extends Fragment {
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
     private int lastDestination;
+    private Player player;
 
     public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player.getPlayerInfo();
+         this.player = player;
          this.lastDestination = lastDestination;
     }
 
@@ -84,6 +87,17 @@ public class FragmentProfile extends Fragment {
                 fragmentTransaction.replace(R.id.playerProfile, profileSetting, "setting");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+            }
+        });
+
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                PlayerInfo newInfo = (PlayerInfo) result.getSerializable("info");
+                playerInfo.updateUsername(newInfo.getUsername());
+                playerInfo.updateContact(newInfo.getContact());
+                username.setText(playerInfo.getUsername());
+                player.updateUsernameInDB(playerInfo);
             }
         });
 
