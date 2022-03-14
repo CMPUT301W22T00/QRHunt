@@ -22,11 +22,11 @@ import org.osmdroid.config.Configuration;
 
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
-    private PlayerInfo playerInfo;
+    private Player playerInfo;
     private TextView playerProfileSettings;
     private ImageView backButton;
 
-    public FragmentPlayerSetting(PlayerInfo playerInfo){
+    public FragmentPlayerSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
@@ -66,7 +66,7 @@ public class FragmentPlayerSetting extends Fragment {
         getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                PlayerInfo newInfo = (PlayerInfo) result.getSerializable("newInfo");
+                Player newInfo = (Player) result.getSerializable("newInfo");
                 playerInfo.updateUsername(newInfo.getUsername());
                 playerInfo.updateContact(newInfo.getContact());
             }

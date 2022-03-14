@@ -25,13 +25,13 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private EditText username;
     private EditText email;
     private EditText socials;
-    private PlayerInfo playerInfo;
+    private Player playerInfo;
     private Button ok;
     private Button cancel;
 
     private FragmentUserSettingsEditProfileBinding binding;
 
-    public FragmentPlayerProfileSetting(PlayerInfo playerInfo){
+    public FragmentPlayerProfileSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
