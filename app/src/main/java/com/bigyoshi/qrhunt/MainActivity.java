@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
-        playerRef = db.collection("users").document("TEST USER");
+        // playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayShowCustomEnabled(true);
 
         player = new Player(this);
+        // This will check if the player already has an account
+        if (!player.getPlayerId().matches("")){
+            player.initialize();
+        }
 
         scoreView = toolbar.findViewById(R.id.score_on_cam);
         updateFirebaseListeners();
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_rankBoard) {
                 actionbar.hide();
+                binding.navView.setVisibility(View.INVISIBLE);
             }
         });
     }
