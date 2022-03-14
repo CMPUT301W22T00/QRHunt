@@ -21,7 +21,7 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
 import org.osmdroid.config.Configuration;
 
 /**
- * Definition:
+ * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
  *
  *
  */
@@ -32,7 +32,7 @@ public class FragmentPlayerSetting extends Fragment {
     private ImageView backButton;
 
     /**
-     *
+     * Constructor
      * @param playerInfo
      */
     public FragmentPlayerSetting(Player playerInfo){
@@ -40,11 +40,11 @@ public class FragmentPlayerSetting extends Fragment {
     }
 
     /**
-     *
+     * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return root
      */
     @Nullable
     @Override
