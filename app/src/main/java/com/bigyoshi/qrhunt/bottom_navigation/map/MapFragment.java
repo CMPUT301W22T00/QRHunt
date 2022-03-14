@@ -54,6 +54,8 @@ public class MapFragment extends Fragment {
     private MyLocationNewOverlay mLocationOverlay;
     private Marker geoPin;
     private FirebaseFirestore db;
+    Double lat;
+    Double lng;
 
 
     @Override
@@ -95,75 +97,27 @@ public class MapFragment extends Fragment {
         qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot doc : task.getResult()) {
-                    Double lat = (Double) doc.getData().getOrDefault("latitude", (double)0);
-                    Double lon = (Double) doc.getData().getOrDefault("longitude", (double)0);
-                    Log.d(TAG, String.format("lat %f long %f", lat, lon));
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot doc : task.getResult()){
+                        if (doc.exists()) {
+                            lat = doc.getDouble("latitude");
+                            lng = doc.getDouble("longitude");
+                            if (lat != null && lng != null){
+                                Log.d("Monke", String.format("lat %f long %f", lat, lng));
+                                geoPin = new Marker(map);
+                                geoPin.setPosition(new GeoPoint(lat, lng));
+                                geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                map.getOverlays().add(geoPin);
+                            }
+                        } else {
+                            Log.d("Monke", "No such document");
+                        }
+                    }
+                } else {
+                    Log.d("Monke", "get failed with ", task.getException());
                 }
             }
         });
-
-//        qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot documentSnapshots : task.getResult()){
-//                        if (documentSnapshots.exists()) {
-//                            double latitude = documentSnapshots.get("latitude");
-//                            double longitude = documentSnapshots.get("longitude");
-//                            geoPin = new Marker(map);
-//                            geoPin.setPosition(new GeoPoint(latitude, longitude));
-//                            geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                            map.getOverlays().add(geoPin);
-//                            Log.d("Monke", "DocumentSnapshot data: " + documentSnapshots.getData());
-//                        } else {
-//                            Log.d("Monke", "No such document");
-//                        }
-//                    }
-//                } else {
-//                    Log.d("Monke", "get failed with ", task.getException());
-//                }
-//            }
-//        });
-
-
-
-//        qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot documentSnapshots : task.getResult()){
-//                        if (documentSnapshots.exists()) {
-//                            double latitude = documentSnapshots.get("latitude");
-//                            double longitude = documentSnapshots.get("longitude");
-//                            geoPin = new Marker(map);
-//                            geoPin.setPosition(new GeoPoint(latitude, longitude));
-//                            geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                            map.getOverlays().add(geoPin);
-//                            Log.d("Monke", "DocumentSnapshot data: " + documentSnapshots.getData());
-//                        } else {
-//                            Log.d("Monke", "No such document");
-//                        }
-//                    }
-//                } else {
-//                    Log.d("Monke", "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//        qrLocation.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                if (documentSnapshot != null){
-//                    Double latitude = documentSnapshot.getDouble("latitude");
-//                    Double longitude = documentSnapshot.getDouble("longitude");
-//                    geoPin = new Marker(map);
-//                    geoPin.setPosition(new GeoPoint(latitude, longitude));
-//                    geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                    map.getOverlays().add(geoPin);
-//                }
-//            }
-//        });
-
 
         return root;
     }
