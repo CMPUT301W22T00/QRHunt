@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
@@ -22,13 +23,23 @@ import com.google.zxing.Result;
 
 public class ScannerFragment extends Fragment {
     private CodeScanner codeScanner;
-    public AugmentedCamera camera;
+    private AugmentedCamera camera;
+    private String playerId;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                Player player = (Player) result.getSerializable("player");
+                playerId = player.getPlayerId();
+            }
+        });
+
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.scanner_fragment, container, false);
 
@@ -51,7 +62,7 @@ public class ScannerFragment extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(ScannerFragment.this, result.getText());
+                        camera = new AugmentedCamera(ScannerFragment.this, result.getText(), playerId);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
