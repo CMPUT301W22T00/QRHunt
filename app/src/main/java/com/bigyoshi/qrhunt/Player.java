@@ -35,7 +35,7 @@ public class Player implements Serializable {
     private String username;
     private Contact contact;
     private Boolean admin;
-    private QRLibrary qrLibrary;
+//    private QRLibrary qrLibrary;
     private String playerId = null;
     private Context context;
 
