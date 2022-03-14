@@ -34,7 +34,7 @@ public class MapFragment extends Fragment {
 
     private MapView map = null;
     private FragmentMapBinding binding;
-    private MyLocationNewOverlay mLocationOverlay;
+    public MyLocationNewOverlay mLocationOverlay;
     //private CompassOverlay mCompassOverlay;
     private RotationGestureOverlay mRotationGestureOverlay;
 
