@@ -27,12 +27,14 @@ public class AugmentedCamera {
     private LocationCallback hackyLocationCallback;
     FusedLocationProviderClient client;
     public String hash;
+    private String playerId;
     public int score;
     public FusedLocationProviderClient fusedLocationClient;
 
-    public AugmentedCamera(Fragment frag, String text) {
+    public AugmentedCamera(Fragment frag, String text, String playerId) {
         this.frag = frag;
         this.qrContent = text;
+        this.playerId = playerId;
         client = LocationServices.getFusedLocationProviderClient(frag.getActivity());
         pollLocation();
     }
@@ -76,7 +78,7 @@ public class AugmentedCamera {
                 LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
                 // todo: do we really need a whole wrapper class?
                 // todo: handle cases where we can get the location gracefully
-                new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude())).show(frag.getChildFragmentManager(), "ADD QR");
+                new AddQRCodeFragment(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
     }
