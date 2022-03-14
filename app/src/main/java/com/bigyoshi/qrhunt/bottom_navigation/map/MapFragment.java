@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,28 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+//import com.bigyoshi.qrhunt.QRGeoPins;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
@@ -30,19 +45,24 @@ import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-public class MapFragment extends Fragment {
+import java.util.ArrayList;
 
+public class MapFragment extends Fragment {
+    private final String TAG = MapFragment.class.getSimpleName();
     private MapView map = null;
     private FragmentMapBinding binding;
     private MyLocationNewOverlay mLocationOverlay;
-    //private CompassOverlay mCompassOverlay;
-    private RotationGestureOverlay mRotationGestureOverlay;
+    private Marker geoPin;
+    private FirebaseFirestore db;
+    Double lat;
+    Double lng;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Load/Initialize osmdroid configuration
+        // Load/Initialize osmdroid configuration and database
+        db = FirebaseFirestore.getInstance();
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -73,6 +93,31 @@ public class MapFragment extends Fragment {
         IMapController mapController = map.getController();
         mapController.setZoom(20);
 
+        Query qrLocation =  db.collectionGroup("qrCodes");
+        qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot doc : task.getResult()){
+                        if (doc.exists()) {
+                            lat = doc.getDouble("latitude");
+                            lng = doc.getDouble("longitude");
+                            if (lat != null && lng != null){
+                                Log.d("Monke", String.format("lat %f long %f", lat, lng));
+                                geoPin = new Marker(map);
+                                geoPin.setPosition(new GeoPoint(lat, lng));
+                                geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                map.getOverlays().add(geoPin);
+                            }
+                        } else {
+                            Log.d("Monke", "No such document");
+                        }
+                    }
+                } else {
+                    Log.d("Monke", "get failed with ", task.getException());
+                }
+            }
+        });
 
         return root;
     }
