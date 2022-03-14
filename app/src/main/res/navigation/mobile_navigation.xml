@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_scanner"
-        android:name="com.bigyoshi.qrhunt.CameraScannerFragment"
+        android:name="com.bigyoshi.qrhunt.ScannerFragment"
         android:label="Scanner"
         tools:layout="@layout/scanner_fragment" />
 </navigation>
