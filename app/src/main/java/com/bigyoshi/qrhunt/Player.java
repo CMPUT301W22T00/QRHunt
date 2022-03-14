@@ -22,6 +22,11 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
     private static final String SHARED_PREFS = "sharedPrefs";
@@ -37,6 +42,10 @@ public class Player implements Serializable {
     private String playerId = null;
     private Context context;
 
+    /**
+     *
+     * @param context
+     */
     public Player(Context context) {
         this.context = context;
         this.totalScore = 0;
@@ -45,18 +54,34 @@ public class Player implements Serializable {
         this.contact = new Contact();
     }
 
+    /**
+     *
+     * @return
+     */
     public Contact getContact(){
         return this.contact;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTotalScore(){
         return this.totalScore;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPlayerId() {
         // fetched lazily, but only once
         if (playerId == null) {
@@ -71,16 +96,30 @@ public class Player implements Serializable {
         return playerId;
     }
 
+    /**
+     *
+     * @param contact
+     */
     public void setContact(Contact contact){
         // Use the editTextId to identify which contact to update (with toUpdate)
         this.contact.setSocial(contact.getSocial());
         this.contact.setEmail(contact.getEmail());
     }
 
+    /**
+     *
+     * @param newName
+     */
     public void setUsername(String newName){
         this.username = newName;
     }
 
+    /**
+     *
+     * @param newAdmin
+     * @param approvingAdmin
+     * @return
+     */
     public String makeAdmin(Player newAdmin, Player approvingAdmin){
         if (approvingAdmin.isAdmin()){
             newAdmin.admin = true;
@@ -91,6 +130,10 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setPlayerId(String id) {
         // to think about: when the id is changed, it's essentially a new player?
         playerId = id;
@@ -102,10 +145,18 @@ public class Player implements Serializable {
         savePlayer();
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean isAdmin(){
         return admin;
     }
 
+    /**
+     *
+     *
+     */
     public void savePlayer() {
         HashMap<String, Object> playerData = new HashMap<>();
         if (playerId.length() > 0) {
@@ -136,6 +187,10 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     *
+     *
+     */
     public void initialize() {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -160,6 +215,10 @@ public class Player implements Serializable {
 
     }
 
+    /**
+     *
+     *
+     */
     public void updateDB() {
         collectionReference
                 .document(playerId)
@@ -175,6 +234,11 @@ public class Player implements Serializable {
                 .update("username", this.username);
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
     public String generateUsername(Context context){
         // Random unique username generated when account is first created
         Random rand = new Random();

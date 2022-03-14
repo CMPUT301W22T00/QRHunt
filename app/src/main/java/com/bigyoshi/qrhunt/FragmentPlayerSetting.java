@@ -20,16 +20,32 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
 
 import org.osmdroid.config.Configuration;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
     private Player playerInfo;
     private TextView playerProfileSettings;
     private ImageView backButton;
 
+    /**
+     *
+     * @param playerInfo
+     */
     public FragmentPlayerSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

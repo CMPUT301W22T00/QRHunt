@@ -14,22 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 //import com.bigyoshi.qrhunt.QRGeoPins;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -37,15 +33,8 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
-import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.mylocation.DirectedLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-
-import java.util.ArrayList;
 
 public class MapFragment extends Fragment {
     private final String TAG = MapFragment.class.getSimpleName();
@@ -71,7 +60,7 @@ public class MapFragment extends Fragment {
 
         // Inflate and create the map
         //setContentView(R.layout.fragment_map);
-        map = (MapView) root.findViewById(R.id.mapview);
+        map = (MapView) binding.mapview;
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
@@ -84,8 +73,8 @@ public class MapFragment extends Fragment {
         this.mLocationOverlay.enableFollowLocation();
 
         // Change person icon
-        Drawable directionIcon = getResources().getDrawable(R.drawable.ic_player_nav, null);
-        Drawable personIcon = getResources().getDrawable(R.drawable.ic_person_icon, null);
+        Drawable directionIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_player_nav);
+        Drawable personIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_icon);
         this.mLocationOverlay.setDirectionArrow(drawableToBitmap(personIcon), drawableToBitmap(directionIcon));
 
         // Adding the overlays

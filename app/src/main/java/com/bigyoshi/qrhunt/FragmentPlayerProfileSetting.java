@@ -17,7 +17,11 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
 
-
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentPlayerProfileSetting extends DialogFragment {
     private Player playerInfo;
     private EditText username;
@@ -28,14 +32,28 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
 
     private FragmentUserSettingsEditProfileBinding binding;
 
+    /**
+     *
+     * @param playerInfo
+     */
     public FragmentPlayerProfileSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
+    /**
+     *
+     */
     public FragmentPlayerProfileSetting(){
         super();
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
