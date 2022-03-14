@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.bigyoshi.qrhunt.QRGeoPins;
+//import com.bigyoshi.qrhunt.QRGeoPins;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
@@ -36,17 +48,18 @@ import java.util.ArrayList;
 
 public class MapFragment extends Fragment {
 
-    public MapView map = null;
+    private MapView map = null;
     private FragmentMapBinding binding;
-    public MyLocationNewOverlay mLocationOverlay;
-    private RotationGestureOverlay mRotationGestureOverlay;
-    private ArrayList<OverlayItem> overlayPins;
+    private MyLocationNewOverlay mLocationOverlay;
+    private Marker geoPin;
+    private FirebaseFirestore db;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Load/Initialize osmdroid configuration
+        // Load/Initialize osmdroid configuration and database
+        db = FirebaseFirestore.getInstance();
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -76,9 +89,45 @@ public class MapFragment extends Fragment {
         map.getOverlays().add(this.mLocationOverlay);
         IMapController mapController = map.getController();
         mapController.setZoom(20);
-        QRGeoPins qrPins = new QRGeoPins(overlayPins);
-        qrPins.getQRLocation();
-        
+
+        CollectionReference qrLocation = db.collection("users").document().collection("qrCodes");
+        qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot documentSnapshots : task.getResult()){
+                        if (documentSnapshots.exists()) {
+                            double latitude = documentSnapshots.get("latitude");
+                            double longitude = documentSnapshots.get("longitude");
+                            geoPin = new Marker(map);
+                            geoPin.setPosition(new GeoPoint(latitude, longitude));
+                            geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            map.getOverlays().add(geoPin);
+                            Log.d("Monke", "DocumentSnapshot data: " + documentSnapshots.getData());
+                        } else {
+                            Log.d("Monke", "No such document");
+                        }
+                    }
+                } else {
+                    Log.d("Monke", "get failed with ", task.getException());
+                }
+            }
+        });
+//        qrLocation.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if (documentSnapshot != null){
+//                    Double latitude = documentSnapshot.getDouble("latitude");
+//                    Double longitude = documentSnapshot.getDouble("longitude");
+//                    geoPin = new Marker(map);
+//                    geoPin.setPosition(new GeoPoint(latitude, longitude));
+//                    geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+//                    map.getOverlays().add(geoPin);
+//                }
+//            }
+//        });
+
+
         return root;
     }
 
