@@ -16,7 +16,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ExternalQRCode extends QRCode {
+public class ExternalQRCode {
     private String id; // Hash of the actual data from the scan
     private int score; // The score of the QR code
     private QRLocation location;

@@ -2,6 +2,7 @@ package com.bigyoshi.qrhunt;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,17 +20,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView scoreView;
     private FirebaseFirestore db;
     private DocumentReference playerRef;
-    private ListenerRegistration scoreListenerRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
-        playerRef = db.collection("users").document("TEST USER");
+        // playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -74,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayShowCustomEnabled(true);
 
         player = new Player(this);
+        // This will check if the player already has an account
+        if (!player.getPlayerId().matches("")){
+            player.initialize();
+        }
 
         scoreView = toolbar.findViewById(R.id.score_on_cam);
         updateFirebaseListeners();
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         navProfile = findViewById(R.id.navigation_profile);
         navProfile.setOnClickListener(view -> {
             binding.navView.setVisibility(View.INVISIBLE);
-            FragmentProfile profile = new FragmentProfile(player);
+            FragmentProfile profile = new FragmentProfile(player, navController.getCurrentDestination().getId());
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container, profile, "profile");
@@ -107,8 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 actionbar.show();
                 navSearch.setVisibility(View.GONE);
                 mapMenu.setVisibility(View.VISIBLE);
-                scoreView.setText("Map"); // i have become what i hate :( hardcoding
-
+                scoreView.setText("Map"); // May need to fix later
+                navProfile.setVisibility(View.GONE); // TEMPORARY
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
@@ -116,11 +114,34 @@ public class MainActivity extends AppCompatActivity {
                 mapMenu.setVisibility(View.GONE);
                 String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
                 scoreView.setText(scoreText);
+                navProfile.setVisibility(View.VISIBLE);
             }
             if (navDestination.getId() == R.id.navigation_rankBoard) {
                 actionbar.hide();
+                binding.navView.setVisibility(View.INVISIBLE);
             }
         });
+
+        Intent intent = this.getIntent();
+        Bundle s = intent.getExtras();
+        int prevFrag = -1;
+        if (s != null) {
+            prevFrag = (int) s.getSerializable("previous");
+        }
+        if (prevFrag == R.id.navigation_map) {
+            actionbar.show();
+            navSearch.setVisibility(View.GONE);
+            mapMenu.setVisibility(View.VISIBLE);
+            scoreView.setText("Map"); // May need to fix later
+            // Need to figure out how to go to the Map -> currently goes to Scanner (start dest)
+            // For now I made this invisible
+        } else if (prevFrag == R.id.navigation_scanner){
+            actionbar.show();
+            navSearch.setVisibility(View.VISIBLE);
+            mapMenu.setVisibility(View.GONE);
+            String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+            scoreView.setText(scoreText);
+        }
     }
 
     /*

@@ -1,18 +1,16 @@
 package com.bigyoshi.qrhunt;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,11 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
-import com.google.android.material.textview.MaterialTextView;
 
 import org.osmdroid.config.Configuration;
-
-import java.io.Serializable;
 
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
@@ -35,9 +30,26 @@ public class FragmentProfile extends Fragment {
     private TextView uniqueRank;
     private PlayerInfo playerInfo;
     private ImageButton settingButton;
+    private int lastDestination;
 
-    public FragmentProfile(Player player){
+    public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player.getPlayerInfo();
+         this.lastDestination = lastDestination;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                Bundle prevNav = new Bundle();
+                prevNav.putSerializable("previous", lastDestination);
+                intent.putExtras(prevNav);
+                startActivity(intent);
+            }
+        });
     }
 
     @Nullable
