@@ -47,7 +47,7 @@ public class Player implements Serializable {
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
-        qrLibrary = new QRLibrary();
+//        qrLibrary = new QRLibrary();
     }
 
     public Contact getContact(){
