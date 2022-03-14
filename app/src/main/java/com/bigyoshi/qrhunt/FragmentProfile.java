@@ -29,13 +29,13 @@ public class FragmentProfile extends Fragment {
     private TextView totalRank;
     private TextView totalScanned;
     private TextView uniqueRank;
-    private PlayerInfo playerInfo;
+    private Player playerInfo;
     private ImageButton settingButton;
     private int lastDestination;
     private Player player;
 
     public FragmentProfile(Player player, int lastDestination){
-         this.playerInfo = player.getPlayerInfo();
+         this.playerInfo = player;
          this.player = player;
          this.lastDestination = lastDestination;
     }
@@ -75,9 +75,9 @@ public class FragmentProfile extends Fragment {
 
         QRTotalValue.setText(Integer.toString(playerInfo.getQRTotal()));
         username.setText(playerInfo.getUsername());
-        totalRank.setText(Integer.toString(playerInfo.getQRTotalRank()));
+        totalRank.setText("0"); // NEED TO UPDATE
         totalScanned.setText(Integer.toString(playerInfo.getQRTotalScanned()));
-        uniqueRank.setText(Integer.toString(playerInfo.getHighestValueQRRank()));
+        uniqueRank.setText(Integer.toString(0)); // NEED TO UPDATE
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,11 +93,11 @@ public class FragmentProfile extends Fragment {
         getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                PlayerInfo newInfo = (PlayerInfo) result.getSerializable("info");
+                Player newInfo = (Player) result.getSerializable("info");
                 playerInfo.updateUsername(newInfo.getUsername());
                 playerInfo.updateContact(newInfo.getContact());
                 username.setText(playerInfo.getUsername());
-                player.updateUsernameInDB(playerInfo);
+                playerInfo.updateDB();
             }
         });
 

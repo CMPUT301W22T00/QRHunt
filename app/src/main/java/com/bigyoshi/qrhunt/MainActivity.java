@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 actionbar.show();
                 navSearch.setVisibility(View.VISIBLE);
                 mapMenu.setVisibility(View.GONE);
-                String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+                String scoreText = "Score: " + Integer.toString(player.getQRTotal());
                 scoreView.setText(scoreText);
                 navProfile.setVisibility(View.VISIBLE);
             }
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             actionbar.show();
             navSearch.setVisibility(View.VISIBLE);
             mapMenu.setVisibility(View.GONE);
-            String scoreText = "Score: " + Integer.toString(player.getPlayerInfo().getQRTotal());
+            String scoreText = "Score: " + Integer.toString(player.getQRTotal());
             scoreView.setText(scoreText);
         }
     }
