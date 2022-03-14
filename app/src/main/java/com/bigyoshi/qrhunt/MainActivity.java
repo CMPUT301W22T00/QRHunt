@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Definition: Builds app, manages fragments
+ * Definition: Builds app, manages fragments, and accesses database
  *
  *
  */
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
      so that the proper id is is listened to for changes
      */
     /**
-     * updates the database when score is updated
+     * Updates the database when score is updated
      *
      */
     private void updateFirebaseListeners() {
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Invokes parent method and...?
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Checks permission for...?
      * @param permissions
      */
     private void requestPermissionsIfNecessary(String[] permissions) {
