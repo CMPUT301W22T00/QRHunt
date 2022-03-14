@@ -36,6 +36,9 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+/**
+ * code for mapFragment
+ */
 public class MapFragment extends Fragment {
     private final String TAG = MapFragment.class.getSimpleName();
     private MapView map = null;
@@ -45,6 +48,7 @@ public class MapFragment extends Fragment {
     private FirebaseFirestore db;
     Double lat;
     Double lng;
+
 
 
     @Override
@@ -111,29 +115,34 @@ public class MapFragment extends Fragment {
         return root;
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
+    /**
+     * this will refresh the osmdroid configuration on resuming.
+     */
     @Override
     public void onResume() {
         super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-//        Configuration.getInstance().load(this.getContext(), PreferenceManager.getDefaultSharedPreferences(this.getContext()));
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        //Configuration.getInstance().load(this.getContext(), PreferenceManager.getDefaultSharedPreferences(this.getContext()));
         map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
     }
 
+    /**
+     * this will refresh the osmdroid configuration on resuming.
+     */
     @Override
     public void onPause() {
         super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
         //if you make changes to the configuration, use
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-//        Configuration.getInstance().save(this.getContext(), prefs);
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        //Configuration.getInstance().save(this.getContext(), prefs);
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
