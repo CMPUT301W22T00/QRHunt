@@ -1,9 +1,6 @@
 package com.bigyoshi.qrhunt;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -14,8 +11,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
-import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
 
