@@ -1,6 +1,13 @@
 package com.bigyoshi.qrhunt;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
@@ -33,8 +40,12 @@ public class QRLibrary {
             this.playerId = "c6670e44-1fe2-4b98-acfd-98c55767cf3c";
         }
         this.db = db;
+        update();
+    }
 
-        /*Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
+
+    public void update() {
+        Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -45,16 +56,19 @@ public class QRLibrary {
                             lon = doc.getDouble("longitude");
                             score = Integer.valueOf(doc.getString("score"));
                             qrHash = doc.getId();
-                            qrCode = new ExternalQRCode(qrHash, score);
+                            qrCode = new PlayableQRCode(qrHash, score);
                             qrCode.setLocation(lat, lon);
+                            assert(qrCode.getId()==null);
                             qrCodes.put(qrHash, qrCode);
 
                         }
                     }
                 }
             }
-        });*/
+        });
     }
+
+    public HashMap<String, PlayableQRCode> getQrCodes() { return qrCodes; }
 
     /**
      *
