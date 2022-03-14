@@ -19,7 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
- * Definition:
+ * Definition: After scan fragment popup - displays values information and handles location photo
  *
  *
  */
