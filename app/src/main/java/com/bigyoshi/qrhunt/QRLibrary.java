@@ -4,6 +4,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class QRLibrary {
 
     private HashMap<String, PlayableQRCode> qrCodes;
@@ -15,6 +20,11 @@ public class QRLibrary {
     private int score;
     private PlayableQRCode qrCode;
 
+    /**
+     *
+     * @param db
+     * @param playerId
+     */
     public QRLibrary(FirebaseFirestore db, String playerId){
         qrCodes = new HashMap<>();
         if (playerId != null) {
@@ -46,10 +56,16 @@ public class QRLibrary {
         });*/
     }
 
+    /**
+     *
+     */
     public void sortLowestToHighest(){
         // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
     }
 
+    /**
+     *
+     */
     public void sortHighestToLowest(){
         // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
     }

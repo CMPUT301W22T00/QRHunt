@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass. // PLEASE REFORMAT THIS ANYA! <3
  * Use the {@link FragmentQRProfileAfterScan#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -24,6 +24,9 @@ public class FragmentQRProfileAfterScan extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    /**
+     *
+     */
     public FragmentQRProfileAfterScan() {
         // Required empty public constructor
     }
@@ -46,6 +49,10 @@ public class FragmentQRProfileAfterScan extends Fragment {
         return fragment;
     }
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +62,13 @@ public class FragmentQRProfileAfterScan extends Fragment {
         }
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

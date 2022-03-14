@@ -18,7 +18,11 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentAddQRCode extends DialogFragment {
     private String hash;
     private String playerId;
@@ -34,6 +38,13 @@ public class FragmentAddQRCode extends DialogFragment {
     private Bitmap bitmap;
     private FirebaseFirestore db;
 
+    /**
+     *
+     * @param hash
+     * @param score
+     * @param location
+     * @param playerId
+     */
     public FragmentAddQRCode(String hash, int score, QRLocation location, String playerId) {
         this.hash = hash;
         this.score = score;
@@ -41,6 +52,13 @@ public class FragmentAddQRCode extends DialogFragment {
         this.playerId = playerId;
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,7 +95,6 @@ public class FragmentAddQRCode extends DialogFragment {
                 }
             });
 
-
         // todo: all other stuff
         // caption
         // disable location (toggle not present in UI right now but should be probably?)
@@ -107,6 +124,12 @@ public class FragmentAddQRCode extends DialogFragment {
         return view;
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

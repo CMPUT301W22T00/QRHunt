@@ -16,6 +16,11 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class PlayableQRCode {
     private String id; // Hash of the actual data from the scan
     private int score; // The score of the QR code
@@ -24,6 +29,11 @@ public class PlayableQRCode {
     private Bitmap image;
     private HashMap<String, Object> qrStuff;
 
+    /**
+     *
+     * @param id
+     * @param score
+     */
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
     public PlayableQRCode(String id, int score){
@@ -32,29 +42,71 @@ public class PlayableQRCode {
         this.numScanned = 1;
     }
 
+    /**
+     *
+     * @return
+     */
     // Just a bunch of getters and setters, delete if unneeded
     public int getNumScanned() { return this.numScanned; }
 
+    /**
+     *
+     * @return
+     */
     public int getScore() { return this.score; }
 
+    /**
+     *
+     * @return
+     */
     public QRLocation getLocation() { return this.location; }
 
+    /**
+     *
+     * @return
+     */
     public Bitmap getImage() { return this.image; }
 
+    /**
+     *
+     * @return
+     */
     public String getId() { return id; }
 
+    /**
+     *
+     * @param lat
+     * @param lon
+     */
     public void setLocation(double lat, double lon) { this.location = new QRLocation(lat, lon); }
 
+    /**
+     *
+     * @param image
+     */
     public void setImage(Bitmap image) { this.image = image; }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLocation() { return this.location != null; }
 
+    /**
+     *
+     * @param db
+     */
     public void grabNumScanned(FirebaseFirestore db){
         // Pulls the total number scanned from the db
         Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
         this.numScanned = Integer.parseInt((Objects.requireNonNull(Objects.requireNonNull(qrData.getResult()).getString("numScanned"))));
     }
 
+    /**
+     *
+     * @param db
+     * @param playerId
+     */
     public void DeleteFromDB(FirebaseFirestore db, String playerId) {
         db.collection("qrCodes").document(id)
                 .delete()
@@ -75,6 +127,11 @@ public class PlayableQRCode {
 
     }
 
+    /**
+     *
+     * @param db
+     * @param playerId
+     */
     public void AddToQRLibrary(FirebaseFirestore db, String playerId) {
         qrStuff = new HashMap<>();
         // todo check size of image

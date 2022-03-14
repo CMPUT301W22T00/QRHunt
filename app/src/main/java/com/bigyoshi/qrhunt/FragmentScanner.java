@@ -21,12 +21,23 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
+/**
+ * Definition:
+ *
+ *
+ */
 public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
     private AugmentedCamera camera;
     private String playerId;
 
-
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -88,12 +99,18 @@ public class FragmentScanner extends Fragment {
         return root;
     }
 
+    /**
+     *
+     */
     @Override
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
     }
 
+    /**
+     *
+     */
     @Override
     public void onPause() {
         codeScanner.releaseResources();
