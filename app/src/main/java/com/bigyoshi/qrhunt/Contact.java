@@ -5,8 +5,8 @@ public class Contact {
     private String email;
 
     public Contact(){
-        this.socialMedia = "Empty";
-        this.email = "Empty";
+        this.socialMedia = "";
+        this.email = "";
     }
 
     public void updateSocial(String newSocial){
