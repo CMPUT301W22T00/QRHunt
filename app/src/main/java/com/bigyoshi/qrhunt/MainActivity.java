@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Invokes parent method and...?
+     * Invokes parent method and checks for...?
      * @param requestCode
      * @param permissions
      * @param grantResults
