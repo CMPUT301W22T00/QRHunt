@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
-        // playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 actionbar.show();
                 navSearch.setVisibility(View.VISIBLE);
                 mapMenu.setVisibility(View.GONE);
-                String scoreText = "Score: " + Integer.toString(player.getQRTotal());
+                String scoreText = "Score: " + Integer.toString(player.getTotalScore()); // NEED TO UPDATE
                 scoreView.setText(scoreText);
                 navProfile.setVisibility(View.VISIBLE);
             }
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             actionbar.show();
             navSearch.setVisibility(View.VISIBLE);
             mapMenu.setVisibility(View.GONE);
-            String scoreText = "Score: " + Integer.toString(player.getQRTotal());
+            String scoreText = "Score: " + Integer.toString(player.getTotalScore());
             scoreView.setText(scoreText);
         }
     }

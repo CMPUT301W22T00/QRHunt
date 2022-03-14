@@ -73,10 +73,10 @@ public class FragmentProfile extends Fragment {
 
         settingButton = root.findViewById(R.id.profile_settings_button);
 
-        QRTotalValue.setText(Integer.toString(playerInfo.getQRTotal()));
+        QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
         totalRank.setText("0"); // NEED TO UPDATE
-        totalScanned.setText(Integer.toString(playerInfo.getQRTotalScanned()));
+        totalScanned.setText(Integer.toString(0)); // NEED TO UPDATE
         uniqueRank.setText(Integer.toString(0)); // NEED TO UPDATE
 
         settingButton.setOnClickListener(new View.OnClickListener() {
