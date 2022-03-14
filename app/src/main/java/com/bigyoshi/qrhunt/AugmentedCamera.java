@@ -21,7 +21,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Definition:
+ * Definition: Camera functionalities
  *
  *
  */
@@ -37,7 +37,7 @@ public class AugmentedCamera {
     public FusedLocationProviderClient fusedLocationClient;
 
     /**
-     *
+     * Constructor
      * @param frag
      * @param text
      * @param playerId
@@ -51,7 +51,7 @@ public class AugmentedCamera {
     }
 
     /**
-     *
+     * Gets user's geolocation
      *
      */
     public void pollLocation() {
@@ -75,7 +75,7 @@ public class AugmentedCamera {
     }
 
     /**
-     *
+     * Processes QR code to be added
      *
      */
     public void processQRCode() {
@@ -103,7 +103,7 @@ public class AugmentedCamera {
     }
 
     /**
-     *
+     * Decodes QR code(?)
      *
      */
     private void computeHash() {
@@ -123,7 +123,7 @@ public class AugmentedCamera {
     }
 
     /**
-     *
+     * Calculates QR score
      *
      */
     private void computeScore() {
@@ -134,7 +134,7 @@ public class AugmentedCamera {
     }
 
     /**
-     *
+     *  Saves the user's photo and correlates it to QRProfile
      *
      */
     private void capturePhoto() {
@@ -142,9 +142,9 @@ public class AugmentedCamera {
     }
 
     /**
+     * Gets location if permission is enabled(?)
      *
-     *
-     * @return
+     * @return client.getLastLocation()
      */
     private Task<Location> getLocation() {
         if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
