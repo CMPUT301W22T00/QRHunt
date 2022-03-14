@@ -37,7 +37,9 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 /**
- * code for mapFragment
+ * Definition: Map API
+ *
+ *
  */
 public class MapFragment extends Fragment {
     private final String TAG = MapFragment.class.getSimpleName();
@@ -50,7 +52,13 @@ public class MapFragment extends Fragment {
     Double lng;
 
 
-
+    /**
+     * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return root
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -116,6 +124,9 @@ public class MapFragment extends Fragment {
     }
 
 
+    /**
+     * ...?
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -123,7 +134,8 @@ public class MapFragment extends Fragment {
     }
 
     /**
-     * this will refresh the osmdroid configuration on resuming.
+     * Refreshes the osmdroid configuration on resuming
+     *
      */
     @Override
     public void onResume() {
@@ -135,7 +147,8 @@ public class MapFragment extends Fragment {
     }
 
     /**
-     * this will refresh the osmdroid configuration on resuming.
+     * Refreshes the osmdroid configuration on resuming
+     *
      */
     @Override
     public void onPause() {
