@@ -30,8 +30,8 @@ public class Player implements Serializable {
     final CollectionReference collectionReference = db.collection("users");
 
 //    private PlayerInfo playerInfo;
-    private int QRTotal;
-    private int QRTotalScanned;
+    private int totalScore;
+//    private int QRTotalScanned;
     private String username;
     private Contact contact;
     private Boolean admin;
@@ -42,8 +42,8 @@ public class Player implements Serializable {
     public Player(Context context) {
         this.context = context;
 //        playerInfo = new PlayerInfo(context);
-        this.QRTotal = 0;
-        this.QRTotalScanned = 0;
+        this.totalScore = 0;
+//        this.QRTotalScanned = 0;
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
@@ -54,12 +54,12 @@ public class Player implements Serializable {
         return this.contact;
     }
 
-    public int getQRTotalScanned(){
-        return this.QRTotalScanned;
-    }
+//    public int getQRTotalScanned(){
+//        return this.QRTotalScanned;
+//    }
 
-    public int getQRTotal(){
-        return this.QRTotal;
+    public int getTotalScore(){
+        return this.totalScore;
     }
 
     public String getUsername(){
@@ -121,8 +121,8 @@ public class Player implements Serializable {
             // If there’s some data in the EditText field, then we create a new key-value pair.
             playerData.put("admin", this.admin);
             playerData.put("contact", this.contact);
-            playerData.put("QRTotal", this.QRTotal);
-            playerData.put("QRTotalScanned", this.QRTotalScanned);
+            playerData.put("totalScore", this.totalScore);
+//            playerData.put("qrTotalScanned", this.QRTotalScanned);
             playerData.put("username", this.username);
             // The set method sets a unique id for the document
             collectionReference
@@ -154,16 +154,16 @@ public class Player implements Serializable {
                     if (doc.getId().matches(playerId)) {
                         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
                         Log.d(TAG, String.valueOf(doc.getData().get("contact")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("QRTotal")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("QRTotalScanned")));
+                        Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
+//                        Log.d(TAG, String.valueOf(doc.getData().get("qrTotalScanned")));
                         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
                         admin = (Boolean) doc.getData().get("admin");
                         HashMap<String,String> contactMap = (HashMap<String,String>) doc.getData().get("contact");
                         contact.updateEmail(contactMap.get("email"));
                         contact.updateEmail(contactMap.get("social"));
-                        QRTotal = Math.toIntExact((long) doc.getData().get("QRTotal"));
-                        QRTotalScanned = Math.toIntExact((long) doc.getData().get("QRTotalScanned"));
+                        totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
+//                        QRTotalScanned = Math.toIntExact((long) doc.getData().get("qrTotalScanned"));
                         username = (String) doc.getData().get("username");
                     }
                 }
@@ -181,10 +181,10 @@ public class Player implements Serializable {
                 .update("contact", this.contact);
         collectionReference
                 .document(playerId)
-                .update("QRTotal", this.QRTotal);
-        collectionReference
-                .document(playerId)
-                .update("QRTotalScanned", this.QRTotalScanned);
+                .update("totalScore", this.totalScore);
+//        collectionReference
+//                .document(playerId)
+//                .update("QRTotalScanned", this.QRTotalScanned);
         collectionReference
                 .document(playerId)
                 .update("username", this.username);
