@@ -85,6 +85,7 @@ public class ExternalQRCode {
         qrStuff.put("score", score);
         qrStuff.put("latitude", location.getLat());
         qrStuff.put("longitude", location.getLong());
+        qrStuff.put("geoHash", location.getId());
 
         db.collection("users").document(playerId)
                 .collection("qrCodes").document(id).set(qrStuff, SetOptions.merge());

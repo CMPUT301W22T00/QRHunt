@@ -20,9 +20,14 @@ import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
-public class CameraScannerFragment extends Fragment {
+public class ScannerFragment extends Fragment {
     private CodeScanner codeScanner;
     public AugmentedCamera camera;
+    private String playerId;
+
+    public ScannerFragment(String playerId) {
+        this.playerId = playerId;
+    }
 
     @Nullable
     @Override
@@ -50,7 +55,7 @@ public class CameraScannerFragment extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(CameraScannerFragment.this, result.getText());
+                        camera = new AugmentedCamera(ScannerFragment.this, result.getText());
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();

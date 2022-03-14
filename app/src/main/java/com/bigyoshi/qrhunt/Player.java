@@ -34,7 +34,8 @@ public class Player {
     public Player(Context context) {
         this.context = context;
         playerInfo = new PlayerInfo(context);
-        qrLibrary = new QRLibrary();
+        playerId = getPlayerId();
+        qrLibrary = new QRLibrary(db, playerId);
     }
 
     public String getPlayerId() {
