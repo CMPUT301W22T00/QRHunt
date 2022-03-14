@@ -30,7 +30,7 @@ public class FragmentProfile extends Fragment {
     private TextView totalScanned;
     private TextView uniqueRank;
     private Player playerInfo;
-    private ImageButton settingButton;
+    private ImageButton settingButton, profileInfoButton;
     private int lastDestination;
     private Player player;
 
@@ -72,6 +72,7 @@ public class FragmentProfile extends Fragment {
         uniqueRank = root.findViewById(R.id.profile_highest_unique);
 
         settingButton = root.findViewById(R.id.profile_settings_button);
+        profileInfoButton = root.findViewById(R.id.profile_information_button);
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
@@ -101,6 +102,25 @@ public class FragmentProfile extends Fragment {
             }
         });
 
+        profileInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentPlayerInfoDisplay fragmentPlayerInfoDisplay = new FragmentPlayerInfoDisplay();
+                FragmentManager fragmentManager = getChildFragmentManager();
+                Bundle playerInfoBundle = new Bundle();
+                playerInfoBundle.putString("email", playerInfo.getContact().getEmail());
+                playerInfoBundle.putString("social",playerInfo.getContact().getSocial());
+
+                fragmentPlayerInfoDisplay.setArguments(playerInfoBundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.playerProfile,fragmentPlayerInfoDisplay,null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("playerInfo")
+                        .commit();
+
+            }
+        });
         return root;
     }
 
