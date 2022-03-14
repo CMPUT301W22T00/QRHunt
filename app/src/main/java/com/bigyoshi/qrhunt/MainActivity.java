@@ -117,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
+                Bundle result = new Bundle();
+                result.putSerializable("player", player);
+                getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 mapMenu.setVisibility(View.GONE);
                 String scoreText = "Score: " + Integer.toString(player.getTotalScore()); // NEED TO UPDATE

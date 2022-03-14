@@ -21,5 +21,11 @@
         android:id="@+id/navigation_scanner"
         android:name="com.bigyoshi.qrhunt.FragmentScanner"
         android:label="Scanner"
-        tools:layout="@layout/scanner_fragment" />
+        tools:layout="@layout/scanner_fragment">
+
+        <argument
+            android:name="playerId"
+            app:argType="string"
+            android:defaultValue="0"/>
+    </fragment>
 </navigation>
