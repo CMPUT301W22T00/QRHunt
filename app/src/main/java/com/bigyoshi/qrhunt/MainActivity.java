@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = FirebaseFirestore.getInstance();
-        // playerRef = db.collection("users").document("TEST USER");
 
         Toolbar toolbar = findViewById(R.id.top_nav);
         setSupportActionBar(toolbar);

@@ -29,34 +29,25 @@ public class Player implements Serializable {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference collectionReference = db.collection("users");
 
-//    private PlayerInfo playerInfo;
     private int totalScore;
-//    private int QRTotalScanned;
     private String username;
     private Contact contact;
     private Boolean admin;
-    private QRLibrary qrLibrary;
+    private QRLibrary qrLibrary; // DO YOU NEED TO IMPLEMENT THIS?
     private String playerId = null;
     private Context context;
 
     public Player(Context context) {
         this.context = context;
-//        playerInfo = new PlayerInfo(context);
         this.totalScore = 0;
-//        this.QRTotalScanned = 0;
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
-//        qrLibrary = new QRLibrary();
     }
 
     public Contact getContact(){
         return this.contact;
     }
-
-//    public int getQRTotalScanned(){
-//        return this.QRTotalScanned;
-//    }
 
     public int getTotalScore(){
         return this.totalScore;
@@ -122,7 +113,6 @@ public class Player implements Serializable {
             playerData.put("admin", this.admin);
             playerData.put("contact", this.contact);
             playerData.put("totalScore", this.totalScore);
-//            playerData.put("qrTotalScanned", this.QRTotalScanned);
             playerData.put("username", this.username);
             // The set method sets a unique id for the document
             collectionReference
@@ -155,7 +145,6 @@ public class Player implements Serializable {
                         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
                         Log.d(TAG, String.valueOf(doc.getData().get("contact")));
                         Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
-//                        Log.d(TAG, String.valueOf(doc.getData().get("qrTotalScanned")));
                         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
                         admin = (Boolean) doc.getData().get("admin");
@@ -163,7 +152,6 @@ public class Player implements Serializable {
                         contact.updateEmail(contactMap.get("email"));
                         contact.updateEmail(contactMap.get("social"));
                         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
-//                        QRTotalScanned = Math.toIntExact((long) doc.getData().get("qrTotalScanned"));
                         username = (String) doc.getData().get("username");
                     }
                 }
@@ -182,9 +170,6 @@ public class Player implements Serializable {
         collectionReference
                 .document(playerId)
                 .update("totalScore", this.totalScore);
-//        collectionReference
-//                .document(playerId)
-//                .update("QRTotalScanned", this.QRTotalScanned);
         collectionReference
                 .document(playerId)
                 .update("username", this.username);
