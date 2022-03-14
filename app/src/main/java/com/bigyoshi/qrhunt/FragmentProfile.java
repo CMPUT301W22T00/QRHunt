@@ -107,11 +107,12 @@ public class FragmentProfile extends Fragment {
         totalRank = root.findViewById(R.id.profile_rank_text);
         totalScanned = root.findViewById(R.id.profile_codes_scanned);
         uniqueRank = root.findViewById(R.id.profile_highest_unique);
+
         showAll = root.findViewById(R.id.profile_QR_grid);
         qrCodes = player.qrLibrary.getQrCodes();
         Collection<PlayableQRCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
-        qrCodesAdapter = new QrLibraryGridViewAdapter(getContext(), qrCodesList);
+        qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
 
 

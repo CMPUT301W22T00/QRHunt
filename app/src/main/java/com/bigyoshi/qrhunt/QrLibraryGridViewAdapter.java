@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,8 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
 
         ImageView imageView = view.findViewById(R.id.imageView2);
         //imageView.setImageBitmap();
+        Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);
+        imageView.setImageDrawable(icon);
 
         return view;
     }

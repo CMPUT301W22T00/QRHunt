@@ -40,7 +40,7 @@ public class QRLibrary {
             this.playerId = "c6670e44-1fe2-4b98-acfd-98c55767cf3c";
         }
         this.db = db;
-        this.update();
+        update();
     }
 
 
@@ -58,6 +58,7 @@ public class QRLibrary {
                             qrHash = doc.getId();
                             qrCode = new PlayableQRCode(qrHash, score);
                             qrCode.setLocation(lat, lon);
+                            assert(qrCode.getId()==null);
                             qrCodes.put(qrHash, qrCode);
 
                         }
