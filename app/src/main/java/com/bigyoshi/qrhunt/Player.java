@@ -102,7 +102,6 @@ public class Player {
     }
 
     public void initialize() {
-        HashMap<String, PlayerInfo> holdsPlayerInfo;
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
