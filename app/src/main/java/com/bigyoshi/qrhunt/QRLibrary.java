@@ -1,6 +1,13 @@
 package com.bigyoshi.qrhunt;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
@@ -34,7 +41,7 @@ public class QRLibrary {
         }
         this.db = db;
 
-        /*Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
+        Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -45,7 +52,7 @@ public class QRLibrary {
                             lon = doc.getDouble("longitude");
                             score = Integer.valueOf(doc.getString("score"));
                             qrHash = doc.getId();
-                            qrCode = new ExternalQRCode(qrHash, score);
+                            qrCode = new PlayableQRCode(qrHash, score);
                             qrCode.setLocation(lat, lon);
                             qrCodes.put(qrHash, qrCode);
 
@@ -53,7 +60,7 @@ public class QRLibrary {
                     }
                 }
             }
-        });*/
+        });
     }
 
     /**
