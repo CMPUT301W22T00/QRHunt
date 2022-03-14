@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Definition:
+ * Definition: Builds app, manages fragments
  *
  *
  */
@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private DocumentReference playerRef;
 
     /**
-     *
+     * OnCreate: sets up screen (toolbar, bottom menu), initializes player if need be
+     * manages which fragment the app is in and adjusts accordingly, & passes things from
+     * fragment to fragment
      * @param savedInstanceState
      */
     @Override
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
      so that the proper id is is listened to for changes
      */
     /**
-     *
+     * updates the database when score is updated
      *
      */
     private void updateFirebaseListeners() {
