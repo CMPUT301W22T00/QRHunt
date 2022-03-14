@@ -1,26 +1,19 @@
 package com.bigyoshi.qrhunt;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
 public class QRLibrary {
 
-    private HashMap<String, ExternalQRCode> qrCodes;
+    private HashMap<String, PlayableQRCode> qrCodes;
     private String playerId;
     private FirebaseFirestore db;
     private double lat;
     private double lon;
     private String qrHash;
     private int score;
-    private ExternalQRCode qrCode;
+    private PlayableQRCode qrCode;
 
     public QRLibrary(FirebaseFirestore db, String playerId){
         qrCodes = new HashMap<>();
@@ -57,7 +50,7 @@ public class QRLibrary {
         // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
     }
 
-    public void HighestToLowest(){
+    public void sortHighestToLowest(){
         // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
     }
 }

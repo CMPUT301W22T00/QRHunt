@@ -16,17 +16,17 @@ public class QRLocation {
 
     public double getLat() { return lat; }
 
+    public double getLong() { return lon; }
+
+    public String getId() { return this.id; }
+
     public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public double getLong() { return lon; }
-
     public void setLong(double lon) {
         this.lon = lon;
     }
-
-    public String getId() { return this.id; }
 
     public void updateId() {
         this.id = GeoFireUtils.getGeoHashForLocation(new GeoLocation(this.lat, this.lon));

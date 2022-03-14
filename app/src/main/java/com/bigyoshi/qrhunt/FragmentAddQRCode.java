@@ -19,22 +19,22 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-public class AddQRCodeFragment extends DialogFragment {
+public class FragmentAddQRCode extends DialogFragment {
     private String hash;
     private String playerId;
     private int score;
     private QRLocation location;
+    private PlayableQRCode qrCode;
     private TextView showScore;
     private TextView showLatLong;
     private TextView showNumScanned;
-    private Button okayButton;
-    private ExternalQRCode qrCode;
-    private FirebaseFirestore db;
-    private Button addPic;
     private ImageView showPic;
+    private Button okayButton;
+    private Button addPic;
     private Bitmap bitmap;
+    private FirebaseFirestore db;
 
-    public AddQRCodeFragment(String hash, int score, QRLocation location, String playerId) {
+    public FragmentAddQRCode(String hash, int score, QRLocation location, String playerId) {
         this.hash = hash;
         this.score = score;
         this.location = location;
@@ -89,7 +89,7 @@ public class AddQRCodeFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 db = FirebaseFirestore.getInstance();
-                qrCode = new ExternalQRCode(hash, score);
+                qrCode = new PlayableQRCode(hash, score);
                 if (location != null) {
                     qrCode.setLocation(location.getLat(), location.getLong());
                 }
@@ -101,7 +101,7 @@ public class AddQRCodeFragment extends DialogFragment {
                 } else {
                     qrCode.AddToQRLibrary(db, "c6670e44-1fe2-4b98-acfd-98c55767cf3c"); // Hard coded userId
                 }
-                getFragmentManager().beginTransaction().remove(AddQRCodeFragment.this).commit();
+                getFragmentManager().beginTransaction().remove(FragmentAddQRCode.this).commit();
             }
         });
         return view;

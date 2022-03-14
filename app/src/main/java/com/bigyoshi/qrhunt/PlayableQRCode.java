@@ -16,7 +16,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class ExternalQRCode {
+public class PlayableQRCode {
     private String id; // Hash of the actual data from the scan
     private int score; // The score of the QR code
     private QRLocation location;
@@ -24,11 +24,9 @@ public class ExternalQRCode {
     private Bitmap image;
     private HashMap<String, Object> qrStuff;
 
-
-
     // We need to distinguish QRCodes already scanned and those who have not been scanned yet
     //  Since initialization of numScanned would either be an update OR just 1
-    public ExternalQRCode(String id, int score){
+    public PlayableQRCode(String id, int score){
         this.score = score;
         this.id = id;
         this.numScanned = 1;
@@ -37,25 +35,25 @@ public class ExternalQRCode {
     // Just a bunch of getters and setters, delete if unneeded
     public int getNumScanned() { return this.numScanned; }
 
+    public int getScore() { return this.score; }
+
+    public QRLocation getLocation() { return this.location; }
+
+    public Bitmap getImage() { return this.image; }
+
+    public String getId() { return id; }
+
+    public void setLocation(double lat, double lon) { this.location = new QRLocation(lat, lon); }
+
+    public void setImage(Bitmap image) { this.image = image; }
+
+    public boolean isLocation() { return this.location != null; }
+
     public void grabNumScanned(FirebaseFirestore db){
         // Pulls the total number scanned from the db
         Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
         this.numScanned = Integer.parseInt((Objects.requireNonNull(Objects.requireNonNull(qrData.getResult()).getString("numScanned"))));
     }
-
-    public int getScore() { return this.score; }
-
-    public QRLocation getLocation() { return this.location; }
-
-    public void setLocation(double lat, double lon) { this.location = new QRLocation(lat, lon); }
-
-    public boolean isLocation() { return this.location != null; }
-
-    public String getId() { return id; }
-
-    public Bitmap getImage() { return this.image; }
-
-    public void setImage(Bitmap image) { this.image = image; }
 
     public void DeleteFromDB(FirebaseFirestore db, String playerId) {
         db.collection("qrCodes").document(id)

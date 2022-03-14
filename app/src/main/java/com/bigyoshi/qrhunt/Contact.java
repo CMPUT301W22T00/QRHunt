@@ -9,19 +9,19 @@ public class Contact {
         this.email = "";
     }
 
-    public void updateSocial(String newSocial){
-        socialMedia = newSocial;
-    }
-
-    public void updateEmail(String newEmail){
-        email = newEmail;
-    }
-
     public String getSocial(){
         return socialMedia;
     }
 
     public String getEmail(){
         return email;
+    }
+
+    public void setSocial(String newSocial){
+        socialMedia = newSocial;
+    }
+
+    public void setEmail(String newEmail){
+        email = newEmail;
     }
 }

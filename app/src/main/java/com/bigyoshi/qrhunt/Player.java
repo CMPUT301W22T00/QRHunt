@@ -57,30 +57,6 @@ public class Player implements Serializable {
         return this.username;
     }
 
-    public Boolean isAdmin(){
-        return admin;
-    }
-
-    public void updateContact(Contact contact){
-        // Use the editTextId to identify which contact to update (with toUpdate)
-        this.contact.updateSocial(contact.getSocial());
-        this.contact.updateEmail(contact.getEmail());
-    }
-
-    public void updateUsername(String newName){
-        this.username = newName;
-    }
-
-    public String makeAdmin(Player newAdmin, Player approvingAdmin){
-        if (approvingAdmin.isAdmin()){
-            newAdmin.admin = true;
-            return "PlayerInfo now admin.";
-        } else {
-            newAdmin.admin = false;
-            return "PlayerInfo did not become admin.";
-        }
-    }
-
     public String getPlayerId() {
         // fetched lazily, but only once
         if (playerId == null) {
@@ -95,6 +71,26 @@ public class Player implements Serializable {
         return playerId;
     }
 
+    public void setContact(Contact contact){
+        // Use the editTextId to identify which contact to update (with toUpdate)
+        this.contact.setSocial(contact.getSocial());
+        this.contact.setEmail(contact.getEmail());
+    }
+
+    public void setUsername(String newName){
+        this.username = newName;
+    }
+
+    public String makeAdmin(Player newAdmin, Player approvingAdmin){
+        if (approvingAdmin.isAdmin()){
+            newAdmin.admin = true;
+            return "PlayerInfo now admin.";
+        } else {
+            newAdmin.admin = false;
+            return "PlayerInfo did not become admin.";
+        }
+    }
+
     public void setPlayerId(String id) {
         // to think about: when the id is changed, it's essentially a new player?
         playerId = id;
@@ -104,6 +100,10 @@ public class Player implements Serializable {
         editor.apply();
         Log.d(TAG, String.format("set uuid: %s", playerId));
         savePlayer();
+    }
+
+    public Boolean isAdmin(){
+        return admin;
     }
 
     public void savePlayer() {
@@ -149,8 +149,8 @@ public class Player implements Serializable {
 
                         admin = (Boolean) doc.getData().get("admin");
                         HashMap<String,String> contactMap = (HashMap<String,String>) doc.getData().get("contact");
-                        contact.updateEmail(contactMap.get("email"));
-                        contact.updateEmail(contactMap.get("social"));
+                        contact.setEmail(contactMap.get("email"));
+                        contact.setEmail(contactMap.get("social"));
                         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
                         username = (String) doc.getData().get("username");
                     }
