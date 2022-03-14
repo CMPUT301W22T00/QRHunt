@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
@@ -21,11 +22,11 @@ import org.osmdroid.config.Configuration;
 
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
-    private PlayerInfo playerInfo;
+    private Player playerInfo;
     private TextView playerProfileSettings;
     private ImageView backButton;
 
-    public FragmentPlayerSetting(PlayerInfo playerInfo){
+    public FragmentPlayerSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
@@ -55,18 +56,22 @@ public class FragmentPlayerSetting extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressedCustom();
+                Bundle result = new Bundle();
+                result.putSerializable("info", playerInfo);
+                getParentFragmentManager().setFragmentResult("getInfo", result);
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                Player newInfo = (Player) result.getSerializable("newInfo");
+                playerInfo.updateUsername(newInfo.getUsername());
+                playerInfo.updateContact(newInfo.getContact());
             }
         });
 
         return root;
-    }
-
-    public void onBackPressedCustom() {
-        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            getActivity().finish();
-        } else {
-            getActivity().getSupportFragmentManager().popBackStack();
-        }
     }
 }

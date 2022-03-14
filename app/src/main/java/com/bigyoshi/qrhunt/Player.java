@@ -2,6 +2,7 @@ package com.bigyoshi.qrhunt;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,25 +17,68 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.UUID;
 
-public class Player {
+public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String PLAYER_ID_PREF = "playerId";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference collectionReference = db.collection("users");
 
-    private PlayerInfo playerInfo;
-    private QRLibrary qrLibrary;
+    private int totalScore;
+    private String username;
+    private Contact contact;
+    private Boolean admin;
+    private QRLibrary qrLibrary; // DO YOU NEED TO IMPLEMENT THIS?
     private String playerId = null;
     private Context context;
 
     public Player(Context context) {
         this.context = context;
-        playerInfo = new PlayerInfo(context);
-        qrLibrary = new QRLibrary();
+        this.totalScore = 0;
+        this.username = generateUsername(context);
+        this.admin = false;
+        this.contact = new Contact();
+    }
+
+    public Contact getContact(){
+        return this.contact;
+    }
+
+    public int getTotalScore(){
+        return this.totalScore;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public Boolean isAdmin(){
+        return admin;
+    }
+
+    public void updateContact(Contact contact){
+        // Use the editTextId to identify which contact to update (with toUpdate)
+        this.contact.updateSocial(contact.getSocial());
+        this.contact.updateEmail(contact.getEmail());
+    }
+
+    public void updateUsername(String newName){
+        this.username = newName;
+    }
+
+    public String makeAdmin(Player newAdmin, Player approvingAdmin){
+        if (approvingAdmin.isAdmin()){
+            newAdmin.admin = true;
+            return "PlayerInfo now admin.";
+        } else {
+            newAdmin.admin = false;
+            return "PlayerInfo did not become admin.";
+        }
     }
 
     public String getPlayerId() {
@@ -66,7 +110,10 @@ public class Player {
         HashMap<String, Object> playerData = new HashMap<>();
         if (playerId.length() > 0) {
             // If there’s some data in the EditText field, then we create a new key-value pair.
-            playerData.put("PlayerInfo", this.playerInfo);
+            playerData.put("admin", this.admin);
+            playerData.put("contact", this.contact);
+            playerData.put("totalScore", this.totalScore);
+            playerData.put("username", this.username);
             // The set method sets a unique id for the document
             collectionReference
                     .document(playerId)
@@ -89,36 +136,55 @@ public class Player {
         }
     }
 
-    public void deletePlayer(PlayerInfo playerToDelete, Player admin) {
-        PlayerInfo adminInfo = admin.getPlayerInfo();
-        if (adminInfo.isAdmin()) {
-            // Delete Player from database
-            adminInfo.deletePlayerInfo(playerToDelete);
-        }
-    }
-
-    public PlayerInfo getPlayerInfo() {
-        return playerInfo;
-    }
-
     public void initialize() {
-        HashMap<String, PlayerInfo> holdsPlayerInfo;
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
                     if (doc.getId().matches(playerId)) {
-                        Log.d(TAG, String.valueOf(doc.getData().get("PlayerInfo")));
-                        HashMap<String, Object> holdsPlayerInfo = (HashMap<String, Object>) doc.getData().get("PlayerInfo");
-                        playerInfo = new PlayerInfo(Math.toIntExact((long) holdsPlayerInfo.get("qrtotalRank")),
-                                Math.toIntExact((long) holdsPlayerInfo.get("qrtotalScanned")), (HashMap<String,String>) holdsPlayerInfo.get("contact"),
-                                (Boolean) holdsPlayerInfo.get("admin"), Math.toIntExact((long) holdsPlayerInfo.get("qrtotal")),
-                                Math.toIntExact((long) holdsPlayerInfo.get("highestValueQRRank")),
-                                (String) holdsPlayerInfo.get("username"));
+                        Log.d(TAG, String.valueOf(doc.getData().get("admin")));
+                        Log.d(TAG, String.valueOf(doc.getData().get("contact")));
+                        Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
+                        Log.d(TAG, String.valueOf(doc.getData().get("username")));
+
+                        admin = (Boolean) doc.getData().get("admin");
+                        HashMap<String,String> contactMap = (HashMap<String,String>) doc.getData().get("contact");
+                        contact.updateEmail(contactMap.get("email"));
+                        contact.updateEmail(contactMap.get("social"));
+                        totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
+                        username = (String) doc.getData().get("username");
                     }
                 }
             }
         });
 
+    }
+
+    public void updateDB() {
+        collectionReference
+                .document(playerId)
+                .update("admin", this.admin);
+        collectionReference
+                .document(playerId)
+                .update("contact", this.contact);
+        collectionReference
+                .document(playerId)
+                .update("totalScore", this.totalScore);
+        collectionReference
+                .document(playerId)
+                .update("username", this.username);
+    }
+
+    public String generateUsername(Context context){
+        // Random unique username generated when account is first created
+        Random rand = new Random();
+        Resources res = context.getResources();
+        String[] adj = res.getStringArray(R.array.adjectives);
+        String[] noun = res.getStringArray(R.array.noun);
+        String adjName = adj[rand.nextInt(adj.length - 1)];
+        String nounName = noun[rand.nextInt(noun.length - 1)];
+        int upperbound = 100;
+        String numName = Integer.toString(rand.nextInt(upperbound));
+        return adjName + nounName + numName;
     }
 }
