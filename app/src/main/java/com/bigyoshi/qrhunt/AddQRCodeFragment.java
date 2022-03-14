@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddQRCodeFragment extends DialogFragment {
     private String hash;
+    private String playerId;
     private int score;
     private QRLocation location;
     private TextView showScore;
@@ -33,10 +34,11 @@ public class AddQRCodeFragment extends DialogFragment {
     private ImageView showPic;
     private Bitmap bitmap;
 
-    public AddQRCodeFragment(String hash, int score, QRLocation location) {
+    public AddQRCodeFragment(String hash, int score, QRLocation location, String playerId) {
         this.hash = hash;
         this.score = score;
         this.location = location;
+        this.playerId = playerId;
     }
 
     @Nullable
@@ -94,7 +96,11 @@ public class AddQRCodeFragment extends DialogFragment {
                 if (bitmap != null) {
                     qrCode.setImage(bitmap);
                 }
-                qrCode.AddToQRLibrary(db, "c6670e44-1fe2-4b98-acfd-98c55767cf3c"); // Hard coded userId
+                if (playerId != null) {
+                    qrCode.AddToQRLibrary(db, playerId);
+                } else {
+                    qrCode.AddToQRLibrary(db, "c6670e44-1fe2-4b98-acfd-98c55767cf3c"); // Hard coded userId
+                }
                 getFragmentManager().beginTransaction().remove(AddQRCodeFragment.this).commit();
             }
         });
