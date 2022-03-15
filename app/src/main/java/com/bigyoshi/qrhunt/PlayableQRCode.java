@@ -35,8 +35,10 @@ public class PlayableQRCode {
      * @param id
      * @param score
      */
-    // We need to distinguish QRCodes already scanned and those who have not been scanned yet
-    //  Since initialization of numScanned would either be an update OR just 1
+    /* We need to distinguish QRCodes already scanned and those who have not been scanned yet
+        Since initialization of numScanned would either be an update OR just 1
+
+     */
     public PlayableQRCode(String id, int score){
         this.score = score;
         this.id = id;
@@ -48,50 +50,67 @@ public class PlayableQRCode {
      * @return numScanned
      */
     // Just a bunch of getters and setters, delete if unneeded
-    public int getNumScanned() { return this.numScanned; }
+    public int getNumScanned() {
+
+        return this.numScanned;
+    }
 
     /**
      *
      * @return score
      */
-    public int getScore() { return this.score; }
+    public int getScore() {
+        return this.score;
+    }
 
     /**
      *
      * @return location
      */
-    public QRLocation getLocation() { return this.location; }
+    public QRLocation getLocation() {
+        return this.location;
+    }
 
     /**
      *
      * @return image
      */
-    public Bitmap getImage() { return this.image; }
+    public Bitmap getImage() {
+        return this.image;
+    }
 
     /**
      *
      * @return id
      */
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     /**
      *
      * @param lat
      * @param lon
      */
-    public void setLocation(double lat, double lon) { this.location = new QRLocation(lat, lon); }
+    public void setLocation(double lat, double lon) {
+        this.location = new QRLocation(lat, lon);
+    }
 
     /**
      *
      * @param image
      */
-    public void setImage(Bitmap image) { this.image = image; }
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
 
     /**
      *
      * @return location
      */
-    public boolean isLocation() { return this.location != null; }
+    public boolean isLocation() {
+        return this.location != null;
+    }
 
     /**
      * Getter like method for the database - pulls total number scanned
@@ -100,7 +119,9 @@ public class PlayableQRCode {
     public void grabNumScanned(FirebaseFirestore db){
         // Pulls the total number scanned from the db
         Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
-        this.numScanned = Integer.parseInt((Objects.requireNonNull(Objects.requireNonNull(qrData.getResult()).getString("numScanned"))));
+        this.numScanned = Integer.parseInt((Objects.requireNonNull
+                (Objects.requireNonNull(qrData.getResult())
+                        .getString("numScanned"))));
     }
 
     /**
@@ -146,4 +167,5 @@ public class PlayableQRCode {
         db.collection("users").document(playerId)
                 .collection("qrCodes").document(id).set(qrStuff, SetOptions.merge());
     }
+
 }

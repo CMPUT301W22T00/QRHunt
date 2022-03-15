@@ -43,7 +43,9 @@ public class FragmentScanner extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player player = (Player) result.getSerializable("player");
@@ -73,7 +75,8 @@ public class FragmentScanner extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(FragmentScanner.this, result.getText(), playerId);
+                        camera = new AugmentedCamera(FragmentScanner.this,
+                                result.getText(), playerId);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
