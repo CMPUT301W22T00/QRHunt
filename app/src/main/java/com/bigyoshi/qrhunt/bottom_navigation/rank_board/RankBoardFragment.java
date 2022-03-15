@@ -18,11 +18,24 @@ import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 
 import org.osmdroid.config.Configuration;
 
+
+/**
+ *  Definition: List for ranks setup
+ *
+ *
+ */
 public class RankBoardFragment extends Fragment {
     private ImageButton back;
 
     private FragmentLeaderboardBinding binding;
 
+    /**
+     * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return root
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Load/Initialize osmdroid configuration
         Context ctx = getActivity().getApplicationContext();
@@ -45,6 +58,10 @@ public class RankBoardFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Invokes parent method and...
+     *
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

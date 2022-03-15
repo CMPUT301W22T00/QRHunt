@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,8 +21,14 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
+import com.google.common.collect.ArrayListMultimap;
 
 import org.osmdroid.config.Configuration;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 /**
  * Definition: Fragment class for the player profile screen
@@ -38,6 +46,13 @@ public class FragmentProfile extends Fragment {
     private ImageButton settingButton;
     private int lastDestination;
     private Player player;
+    private GridView showAll;
+    private HashMap<String, PlayableQRCode> qrCodes;
+    private ArrayList<PlayableQRCode> qrCodesList;
+    private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
+    private QrLibraryGridViewAdapter qrListAdapter;
+
+
 
     /**
      * constructor
@@ -92,6 +107,15 @@ public class FragmentProfile extends Fragment {
         totalRank = root.findViewById(R.id.profile_rank_text);
         totalScanned = root.findViewById(R.id.profile_codes_scanned);
         uniqueRank = root.findViewById(R.id.profile_highest_unique);
+
+        showAll = root.findViewById(R.id.profile_QR_grid);
+        qrCodes = player.qrLibrary.getQrCodes();
+        Collection<PlayableQRCode> temp = qrCodes.values();
+        qrCodesList = new ArrayList<>(temp);
+        qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
+        showAll.setAdapter(qrCodesAdapter);
+
+
 
         settingButton = root.findViewById(R.id.profile_settings_button);
 
