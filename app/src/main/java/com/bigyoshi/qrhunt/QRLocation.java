@@ -28,25 +28,32 @@ public class QRLocation {
      * Getter method
      * @return latitude
      */
-    public double getLat() { return lat; }
+    public double getLat() {
+        return lat;
+    }
 
     /**
      * Getter method
      * @return longitude
      */
-    public double getLong() { return lon; }
+    public double getLong() {
+        return lon;
+    }
 
     /**
      * Getter method
      * @return QR id
      */
-    public String getId() { return this.id; }
+    public String getId() {
+        return this.id;
+    }
 
     /**
      * Setter method
      * @param lat latitude
      */
     public void setLat(double lat) {
+
         this.lat = lat;
     }
 
@@ -55,6 +62,7 @@ public class QRLocation {
      * @param lon longitude
      */
     public void setLong(double lon) {
+
         this.lon = lon;
     }
 

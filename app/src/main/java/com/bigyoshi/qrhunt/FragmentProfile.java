@@ -58,6 +58,7 @@ public class FragmentProfile extends Fragment {
      * @param lastDestination Previous navigation destination (by bottom navigation)
      */
     public FragmentProfile(Player player, int lastDestination){
+
          this.playerInfo = player;
          this.lastDestination = lastDestination;
     }
@@ -69,10 +70,14 @@ public class FragmentProfile extends Fragment {
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        getActivity().getOnBackPressedDispatcher().addCallback(this,
+                new OnBackPressedCallback(true) {
+
             @Override
             public void handleOnBackPressed() {
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 Bundle prevNav = new Bundle();
                 prevNav.putSerializable("previous", lastDestination);
@@ -91,7 +96,10 @@ public class FragmentProfile extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         //Load/Initialize osmdroid configuration
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -127,8 +135,9 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        // https://www.youtube.com/watch?v=IxHfWg-M0bI
-        // https://github.com/douglasjunior/android-simple-tooltip
+        /* https://www.youtube.com/watch?v=IxHfWg-M0bI
+           https://github.com/douglasjunior/android-simple-tooltip
+         */
         contactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +158,9 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("info");

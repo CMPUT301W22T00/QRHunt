@@ -87,13 +87,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         navProfile = findViewById(R.id.navigation_profile);
         navProfile.setOnClickListener(view -> {
             binding.navView.setVisibility(View.INVISIBLE);
-            FragmentProfile profile = new FragmentProfile(player, navController.getCurrentDestination().getId());
+
+            FragmentProfile profile = new FragmentProfile(player,
+                    navController.getCurrentDestination().getId());
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container, profile, "profile");
@@ -181,7 +185,10 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays.asList(permissions).subList(0, grantResults.length));
+        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays
+                .asList(permissions)
+                .subList(0, grantResults.length));
+
         if (permissionsToRequest.size() > 0) {
             ActivityCompat.requestPermissions(
                     this,

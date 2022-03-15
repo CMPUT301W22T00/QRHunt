@@ -60,6 +60,7 @@ public class Player implements Serializable {
      * @return Contact contact
      */
     public Contact getContact(){
+
         return this.contact;
     }
 
@@ -68,6 +69,7 @@ public class Player implements Serializable {
      * @return Integer score
      */
     public int getTotalScore(){
+
         return this.totalScore;
     }
 
@@ -76,6 +78,7 @@ public class Player implements Serializable {
      * @return String username
      */
     public String getUsername(){
+
         return this.username;
     }
 
@@ -87,7 +90,9 @@ public class Player implements Serializable {
     public String getPlayerId() {
         // fetched lazily, but only once
         if (playerId == null) {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,
+                    Context.MODE_PRIVATE);
+
             playerId = sharedPreferences.getString(PLAYER_ID_PREF, "");
             // generated lazily, only once
             if (playerId.isEmpty()) {
@@ -138,7 +143,9 @@ public class Player implements Serializable {
     public void setPlayerId(String id) {
         // to think about: when the id is changed, it's essentially a new player?
         playerId = id;
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,
+                Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(PLAYER_ID_PREF, playerId);
         editor.apply();
@@ -193,7 +200,8 @@ public class Player implements Serializable {
     public void initialize() {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException error) {
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
                     if (doc.getId().matches(playerId)) {
                         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
@@ -202,7 +210,10 @@ public class Player implements Serializable {
                         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
                         admin = (Boolean) doc.getData().get("admin");
-                        HashMap<String,String> contactMap = (HashMap<String,String>) doc.getData().get("contact");
+
+                        HashMap<String,String> contactMap = (HashMap<String,String>)
+                                doc.getData().get("contact");
+
                         contact.setEmail(contactMap.get("email"));
                         contact.setSocial(contactMap.get("social"));
                         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));

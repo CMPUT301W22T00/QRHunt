@@ -42,7 +42,9 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.qr_grid_element, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.qr_grid_element,
+                    parent,
+                    false);
 
         }
 
@@ -50,7 +52,10 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
 
         ImageView imageView = view.findViewById(R.id.imageView2);
         //imageView.setImageBitmap();
-        Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);
+
+        Drawable icon = ContextCompat.getDrawable(context,
+                R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);
+
         imageView.setImageDrawable(icon);
 
         return view;

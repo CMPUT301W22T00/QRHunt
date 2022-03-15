@@ -23,6 +23,7 @@ public class Contact {
      * @return socialMedia
      */
     public String getSocial(){
+
         return socialMedia;
     }
 
@@ -31,6 +32,7 @@ public class Contact {
      * @return email
      */
     public String getEmail(){
+
         return email;
     }
 
@@ -39,6 +41,7 @@ public class Contact {
      * @param newSocial
      */
     public void setSocial(String newSocial){
+
         socialMedia = newSocial;
     }
 
@@ -47,6 +50,7 @@ public class Contact {
      * @param newEmail
      */
     public void setEmail(String newEmail){
+
         email = newEmail;
     }
 }
