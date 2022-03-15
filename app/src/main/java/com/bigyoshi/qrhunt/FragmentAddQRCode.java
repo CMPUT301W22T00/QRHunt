@@ -118,9 +118,9 @@ public class FragmentAddQRCode extends DialogFragment {
                 if (location != null) {
                     qrCode.setLocation(location.getLat(), location.getLong());
                 }
-                if (bitmap != null) {
-                    qrCode.setImage(bitmap);
-                }
+                //if (bitmap != null) {
+                    //qrCode.setUrl(bitmap) need to change this to give url;
+                //}
                 if (playerId != null) {
                     qrCode.AddToQRLibrary(db, playerId);
                 } else {

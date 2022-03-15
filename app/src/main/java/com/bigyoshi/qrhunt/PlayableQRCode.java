@@ -1,6 +1,5 @@
 package com.bigyoshi.qrhunt;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ public class PlayableQRCode {
     private int score; // The score of the QR code
     private QRLocation location;
     private int numScanned;
-    private Bitmap image;
+    private String url;
     private HashMap<String, Object> qrStuff;
 
     /**
@@ -74,8 +73,8 @@ public class PlayableQRCode {
      * Getter method
      * @return image
      */
-    public Bitmap getImage() {
-        return this.image;
+    public String getUrl() {
+        return this.url;
     }
 
     /**
@@ -97,10 +96,10 @@ public class PlayableQRCode {
 
     /**
      * Setter method
-     * @param image QR image
+     * @param url QR image
      */
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     /**
