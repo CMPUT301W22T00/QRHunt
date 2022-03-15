@@ -38,7 +38,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 /**
  * Definition: Fragment representing the map
- * Note: NA
+ * Note: N/A
  * Issues: Slow to load
  */
 public class MapFragment extends Fragment {
@@ -77,7 +77,7 @@ public class MapFragment extends Fragment {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
-        map.setBuiltInZoomControls(true);//todo is there anything we can do about this? (deprecated)
+        // map.setBuiltInZoomControls(true);//todo is there anything we can do about this? (deprecated)
         map.setMultiTouchControls(true);
 
         // Follows user and centers on them
@@ -151,7 +151,7 @@ public class MapFragment extends Fragment {
     }
 
     /**
-     * Refreshes the osmdroid configuration on resuming
+     * Pauses the osmdroid configuration when moving to a new fragment/activity
      *
      */
     @Override
