@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -22,15 +23,13 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
-import com.google.common.collect.ArrayListMultimap;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.osmdroid.config.Configuration;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -52,21 +51,23 @@ public class FragmentProfile extends Fragment {
     private HashMap<String, PlayableQRCode> qrCodes;
     private ArrayList<PlayableQRCode> qrCodesList;
     private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
-    private QrLibraryGridViewAdapter qrListAdapter;
+    private FirebaseFirestore db;
 
     /**
      * constructor
+     *
      * @param player
      * @param lastDestination
      */
-    public FragmentProfile(Player player, int lastDestination){
-         this.playerInfo = player;
-         this.lastDestination = lastDestination;
+    public FragmentProfile(Player player, int lastDestination) {
+        this.playerInfo = player;
+        this.lastDestination = lastDestination;
     }
 
     /**
      * creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
+     *
      * @param savedInstanceState
      */
     @Override
@@ -86,6 +87,7 @@ public class FragmentProfile extends Fragment {
 
     /**
      * sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -113,6 +115,12 @@ public class FragmentProfile extends Fragment {
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
+        showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new FragmentLibraryRemoveQR(i, qrCodesList.get(i)).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+            }
+        });
 
 
         settingButton = root.findViewById(R.id.profile_settings_button);
@@ -169,5 +177,14 @@ public class FragmentProfile extends Fragment {
         return root;
     }
 
-
+    /**
+     * Deletes a QR form the QR Library
+     * @param pos
+     */
+    public void libraryRemoveQR(int pos, PlayableQRCode removeQR) {
+        qrCodesList.remove(pos);
+        qrCodesAdapter.notifyDataSetChanged();
+        db = FirebaseFirestore.getInstance();
+        removeQR.DeleteFromDB(db, playerInfo.getPlayerId());
+    }
 }
