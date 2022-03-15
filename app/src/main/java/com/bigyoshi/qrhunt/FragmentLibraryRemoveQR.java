@@ -48,7 +48,7 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
         showLatLong = view.findViewById(R.id.text_lon_lat);
         //        if (removeQR.getLocation() != null) {
         //            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
-        //            String strLongitude = Location.convert(removeQR.getLocation().getLong(), Location.FORMAT_DEGREES);
+        //            String strLongitude = Location.convert(removeQR.getLocation().getLongitude(), Location.FORMAT_DEGREES);
         //            showLatLong.setText(strLatitude + ", " + strLongitude);
         //        } else {
         //            showLatLong.setText("LOCATION NOT GIVEN");

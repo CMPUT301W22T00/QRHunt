@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -101,8 +99,8 @@ public class FragmentAddQRCode extends DialogFragment {
         TextView showLatLong = view.findViewById(R.id.text_lon_lat);
         QRLocation qrLocation = qrCode.getLocation();
         if (qrLocation.exists()) {
-            String strLatitude = Location.convert(qrLocation.getLat(), Location.FORMAT_DEGREES);
-            String strLongitude = Location.convert(qrLocation.getLong(), Location.FORMAT_DEGREES);
+            String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
+            String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
         } else {
             showLatLong.setText("LOCATION NOT GIVEN");
