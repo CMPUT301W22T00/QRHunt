@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.MainActivity;
@@ -28,6 +30,24 @@ public class RankBoardFragment extends Fragment {
     private ImageButton back;
 
     private FragmentLeaderboardBinding binding;
+
+    /**
+     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * (eg, either to scanner or map)
+     * @param savedInstanceState
+     */
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
