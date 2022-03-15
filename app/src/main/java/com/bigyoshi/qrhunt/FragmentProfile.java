@@ -109,6 +109,7 @@ public class FragmentProfile extends Fragment {
         uniqueRank = root.findViewById(R.id.profile_highest_unique);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
+        qrCodes = new HashMap<>();
         qrCodes = player.qrLibrary.getQrCodes();
         Collection<PlayableQRCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
@@ -121,7 +122,7 @@ public class FragmentProfile extends Fragment {
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
-        totalRank.setText("0"); // NEED TO UPDATE
+        totalRank.setText("1"); // NEED TO UPDATE
         totalScanned.setText(Integer.toString(0)); // NEED TO UPDATE
         uniqueRank.setText(Integer.toString(0)); // NEED TO UPDATE
 
