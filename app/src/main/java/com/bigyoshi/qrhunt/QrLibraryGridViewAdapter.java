@@ -51,9 +51,7 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
         PlayableQRCode qrCode = qrCodes.get(position);
 
         ImageView imageView = view.findViewById(R.id.imageView2);
-        //new DownloadImageTask((ImageView) view.findViewById(R.id.imageView2))
-                //.execute(qrCode.getUrl());
-        //imageView.setImageBitmap();
+        new DownloadImageTask(imageView).execute();
 
         Drawable icon = ContextCompat.getDrawable(context,
                 R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);

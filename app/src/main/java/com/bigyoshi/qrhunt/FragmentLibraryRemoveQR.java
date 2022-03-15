@@ -46,13 +46,13 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
 
         // Display location
         showLatLong = view.findViewById(R.id.text_lon_lat);
-        if (removeQR.getLocation() != null) {
-            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
-            String strLongitude = Location.convert(removeQR.getLocation().getLong(), Location.FORMAT_DEGREES);
-            showLatLong.setText(strLatitude + ", " + strLongitude);
-        } else {
-            showLatLong.setText("LOCATION NOT GIVEN");
-        }
+        //        if (removeQR.getLocation() != null) {
+        //            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
+        //            String strLongitude = Location.convert(removeQR.getLocation().getLong(), Location.FORMAT_DEGREES);
+        //            showLatLong.setText(strLatitude + ", " + strLongitude);
+        //        } else {
+        //            showLatLong.setText("LOCATION NOT GIVEN");
+        //        }
 
         // attach photo
         showPic = view.findViewById(R.id.image_holder);
@@ -61,13 +61,10 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
 
         okayButton = view.findViewById(R.id.qr_button_ok);
         okayButton.setText("REMOVE");
-        okayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentProfile parentFrag = ((FragmentProfile)FragmentLibraryRemoveQR.this.getParentFragment());
-                parentFrag.libraryRemoveQR(pos, removeQR);
-                getFragmentManager().beginTransaction().remove(FragmentLibraryRemoveQR.this).commit();
-            }
+        okayButton.setOnClickListener(view1 -> {
+            FragmentProfile parentFrag = ((FragmentProfile)FragmentLibraryRemoveQR.this.getParentFragment());
+            parentFrag.libraryRemoveQR(pos, removeQR);
+            getFragmentManager().beginTransaction().remove(FragmentLibraryRemoveQR.this).commit();
         });
 
         cancelButton = view.findViewById(R.id.qr_button_cancel);

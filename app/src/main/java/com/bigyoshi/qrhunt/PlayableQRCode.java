@@ -7,12 +7,13 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -20,14 +21,22 @@ import java.util.Objects;
  * Note: Stores and pulls values related to the QR from database
  * Issues: TBA
  */
-public class PlayableQRCode {
-    private static final String TAG = PlayableQRCode.class.getSimpleName();
+public class PlayableQRCode implements Serializable {
+    public static final String TAG = PlayableQRCode.class.getSimpleName();
     private String id; // Hash of the actual data from the scan
-    private int score; // The score of the QR code
+    private String playerId;
+    private Integer score;
     private QRLocation location;
-    private int numScanned;
     private String imageUrl;
-    private HashMap<String, Object> qrStuff;
+    private int numScanned;
+    // transient → will not be serialized
+    private transient FirebaseFirestore db;
+
+
+    public PlayableQRCode() {
+        this.numScanned = 1;
+        db = FirebaseFirestore.getInstance();
+    }
 
     /**
      * Constructor method
@@ -37,12 +46,13 @@ public class PlayableQRCode {
      */
     /* We need to distinguish QRCodes already scanned and those who have not been scanned yet
         Since initialization of numScanned would either be an update OR just 1
-
      */
-    public PlayableQRCode(String id, int score) {
-        this.score = score;
+    public PlayableQRCode(String playerId, String id, int score) {
+        this.playerId = playerId;
         this.id = id;
+        this.score = score;
         this.numScanned = 1;
+        db = FirebaseFirestore.getInstance();
     }
 
     /**
@@ -50,9 +60,8 @@ public class PlayableQRCode {
      *
      * @return numScanned
      */
-    // Just a bunch of getters and setters, delete if unneeded
+    @Exclude
     public int getNumScanned() {
-
         return this.numScanned;
     }
 
@@ -65,21 +74,13 @@ public class PlayableQRCode {
         return this.score;
     }
 
-    /**
-     * Getter method
-     *
-     * @return location
-     */
-    public QRLocation getLocation() {
-        return this.location;
-    }
-
 
     /**
      * Getter method
      *
      * @return id
      */
+    @DocumentId
     public String getId() {
         return id;
     }
@@ -87,20 +88,10 @@ public class PlayableQRCode {
     /**
      * Setter method
      *
-     * @param lat latitude
-     * @param lon longitude
+     * @param imageUrl QR image
      */
-    public void setLocation(double lat, double lon) {
-        this.location = new QRLocation(lat, lon);
-    }
-
-    /**
-     * Setter method
-     *
-     * @param url QR image
-     */
-    public void setImageUrl(String url) {
-        this.imageUrl = url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /**
@@ -108,17 +99,8 @@ public class PlayableQRCode {
      *
      * @return String url of image
      */
-    public void getImageUrl(String url) {
-
-    }
-
-    /**
-     * Checks if the location is null
-     *
-     * @return location
-     */
-    public boolean isLocation() {
-        return this.location != null;
+    public String getImageUrl(String url) {
+        return imageUrl;
     }
 
     /**
@@ -128,7 +110,7 @@ public class PlayableQRCode {
      */
     public void grabNumScanned(FirebaseFirestore db) {
         // Pulls the total number scanned from the db
-        Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
+        Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(getId()).get();
         this.numScanned = Integer.parseInt((Objects.requireNonNull
                 (Objects.requireNonNull(qrData.getResult())
                         .getString("numScanned"))));
@@ -140,42 +122,43 @@ public class PlayableQRCode {
      * @param db       qrMetadata collection
      * @param playerId Current player
      */
-    public void DeleteFromDB(FirebaseFirestore db, String playerId) {
+    public void deleteFromDb(FirebaseFirestore db, String playerId) {
+        // todo: toast here for confirmation either way?
         db.collection("users").document(playerId)
                 .collection("qrCodes").document(id)
                 .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        db.collection("user").document(playerId)
-                                .collection("qrCodes").document(id).delete();
-                        Log.d(TAG, "Successfully removed QR from data base");
-                    }
+                .addOnSuccessListener(unused -> {
+                    db.collection("user").document(playerId)
+                            .collection("qrCodes").document(id).delete();
+                    Log.d(TAG, "Successfully removed QR from data base");
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error removing QR from data base", e);
-                    }
-                });
+                .addOnFailureListener(e -> Log.w(TAG, "Error removing QR from data base", e));
 
     }
 
     /**
      * Adds QR to QR profile and database
      *
-     * @param db       qrMetadata collection
-     * @param playerId Current player
      */
-    public void addToDb(FirebaseFirestore db, String playerId) {
-        qrStuff = new HashMap<>();
-        qrStuff.put("image", imageUrl);
-        qrStuff.put("score", score);
-        qrStuff.put("latitude", location.getLat());
-        qrStuff.put("longitude", location.getLong());
-        qrStuff.put("geoHash", location.getGeoHash());
+    public void addToDb() {
+        db.collection("users").document(getPlayerId())
+                .collection("qrCodes").document(getId()).set(this);
+    }
 
-        db.collection("users").document(playerId)
-                .collection("qrCodes").document(id).set(qrStuff, SetOptions.merge());
+    @Exclude
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
+    }
+
+    public QRLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(QRLocation location) {
+        this.location = location;
     }
 }

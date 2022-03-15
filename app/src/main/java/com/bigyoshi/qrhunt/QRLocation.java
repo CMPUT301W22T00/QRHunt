@@ -1,16 +1,20 @@
 package com.bigyoshi.qrhunt;
 
+import android.location.Location;
+
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 
+import java.io.Serializable;
+
 /**
- * Definition: Keeping track of location and id of QR
+ * Definition: Keeping track of location and geohash of a pair of latitude and longitude points
  * Note: NA
  * Issues: TBA
  */
-public class QRLocation {
-    private double lat;
-    private double lon;
+public class QRLocation implements Serializable {
+    private Double lat;
+    private Double lon;
     private String geoHash;
 
     public QRLocation() {}
@@ -20,10 +24,18 @@ public class QRLocation {
      * @param lat latitude
      * @param lon longitude
      */
-    public QRLocation(double lat, double lon) {
+    public QRLocation(Double lat, Double lon) {
         this.lat = lat;
         this.lon = lon;
         computeGeoHash();
+    }
+
+    public QRLocation(Location location) {
+        if (location != null) {
+            this.lat = location.getLatitude();
+            this.lon = location.getLongitude();
+            computeGeoHash();
+        }
     }
 
     private void computeGeoHash() {
@@ -35,7 +47,7 @@ public class QRLocation {
      *
      * @return latitude
      */
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
 
@@ -44,7 +56,7 @@ public class QRLocation {
      *
      * @return longitude
      */
-    public double getLong() {
+    public Double getLong() {
         return lon;
     }
 
@@ -75,5 +87,12 @@ public class QRLocation {
     public void setLong(double lon) {
         this.lon = lon;
         computeGeoHash();
+    }
+
+    /*
+     * Returns whether or not the location exists, ie, is a latitude and longitude specified
+     */
+    public boolean exists() {
+        return getLat() != null && getLong() != null && getGeoHash() != null;
     }
 }

@@ -1,19 +1,17 @@
 package com.bigyoshi.qrhunt;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
  * Issues: TBA
  */
 public class AugmentedCamera {
+    public static final String TAG = AugmentedCamera.class.getSimpleName();
     private final Fragment frag;
     private final String qrContent;
     private byte[] digest;
@@ -36,6 +35,7 @@ public class AugmentedCamera {
     private String playerId;
     public int score;
     public FusedLocationProviderClient fusedLocationClient;
+    private Context activity;
 
     /**
      * Constructor method
@@ -48,14 +48,15 @@ public class AugmentedCamera {
         this.frag = frag;
         this.qrContent = text;
         this.playerId = playerId;
-        client = LocationServices.getFusedLocationProviderClient(frag.getActivity());
-        pollLocation();
+        activity = frag.getActivity();
+        client = LocationServices.getFusedLocationProviderClient(activity);
+        startPollingLocation();
     }
 
     /**
      * Gets player's geolocation
      */
-    public void pollLocation() {
+    public void startPollingLocation() {
 
         /* alex please forgive me
            super, super hacky way to get location not to be null.
@@ -72,10 +73,10 @@ public class AugmentedCamera {
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         hackyLocationCallback = new LocationCallback() {};
-        if (ActivityCompat.checkSelfPermission(frag.getActivity(),
+        if (ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(frag.getActivity(),
+                && ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -90,30 +91,23 @@ public class AugmentedCamera {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // todo check here: is this an internal code
         computeHash();
-        PlayableQRCode qrCode = new PlayableQRCode(hash, score);
         computeScore();
+        PlayableQRCode qrCode = new PlayableQRCode(playerId, hash, score);
 
-        getLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                if (task.isSuccessful()) {
-                    Location location = task.getResult();
-                    if (location != null) {
-                        qrCode.setLocation(location.getLatitude(), location.getLongitude());
-                    }
-                /* this stops listening to the updates that
-                we didn't actually care about in the first place for; see pollLocation
-                 */
-                    LocationServices.getFusedLocationProviderClient(
-                            frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
-                    // todo: do we really need a whole wrapper class?
-                    // todo: handle cases where we can get the location gracefully
-                    new FragmentAddQRCode(hash,
-                            score,
-                            new QRLocation(location.getLatitude(), location.getLongitude()),
-                            playerId).show(frag.getChildFragmentManager(),
-                            "ADD QR");
+        getLocation().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Location location = task.getResult();
+                if (location != null) {
+                    qrCode.setLocation(new QRLocation(location));
                 }
+                /* this stops listening to the updates that
+                we didn't actually care about in the first place for; see startPollingLocation
+                 */
+                LocationServices.getFusedLocationProviderClient(
+                        activity).removeLocationUpdates(hackyLocationCallback);
+
+                FragmentAddQRCode addQrCode = FragmentAddQRCode.newInstance(qrCode);
+                addQrCode.show(frag.getChildFragmentManager(), FragmentAddQRCode.TAG);
             }
         });
     }
@@ -157,9 +151,9 @@ public class AugmentedCamera {
      * @return client.getLastLocation()
      */
     private Task<Location> getLocation() {
-        if (ActivityCompat.checkSelfPermission(frag.getActivity(),
+        if (ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(frag.getActivity(),
+                && ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
