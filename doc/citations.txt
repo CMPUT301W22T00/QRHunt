@@ -5,3 +5,20 @@ Nouns retrieved from: https://github.com/hugsy/stuff/blob/main/random-word/engli
 Camera UI: 
 
 Map UI:
+
+
+Images 
+    - https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android/10868129#10868129
+Scanner 
+    - https://github.com/yuriy-budiyev/code-scanner
+Location 
+    - https://developers.google.com/android/reference/com/google/android/gms/location/package-summary
+    - https://javapapers.com/android/get-current-location-in-android/
+Accessing Parent Functions 
+    - https://stackoverflow.com/questions/42695866/access-parent-fragment-by-child-fragment
+Camera 
+     - https://www.youtube.com/watch?v=XRD-lVwlSjU
+
+
+AndroidStudio Documentation
+Firebase Documentation
