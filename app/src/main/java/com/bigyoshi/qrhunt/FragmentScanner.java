@@ -23,8 +23,8 @@ import com.google.zxing.Result;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
- *
- *
+ * Note: NA
+ * Issues: TBA
  */
 public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
@@ -33,9 +33,9 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Nullable
@@ -100,7 +100,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     * Invokes parent method and ...
+     * Handles when the state is resumed (starts camera previous)
      */
     @Override
     public void onResume() {
@@ -109,7 +109,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     * Invokes parent method and ...
+     * Handles when the state is paused (release resources)
      */
     @Override
     public void onPause() {
