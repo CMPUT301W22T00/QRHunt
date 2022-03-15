@@ -54,8 +54,9 @@ public class FragmentAddQRCode extends DialogFragment {
 
     /**
      * Constructor method
-     * @param hash QR hash
-     * @param score QR score
+     *
+     * @param hash     QR hash
+     * @param score    QR score
      * @param location QR location
      * @param playerId Current player id
      */
@@ -70,10 +71,11 @@ public class FragmentAddQRCode extends DialogFragment {
     }
 
     /**
-     *  After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
-     *  and is responsible for attaching the user's photo in the proper position
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
+     * and is responsible for attaching the user's photo in the proper position
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return view
      */
@@ -101,8 +103,7 @@ public class FragmentAddQRCode extends DialogFragment {
 
         numScannedTextView = view.findViewById(R.id.text_scans);
         numScannedTextView.setText("0 Scans");
-        db.collection("users").document(playerId).get().addOnCompleteListener(
-                task -> {
+        db.collection("users").document(playerId).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot res = task.getResult();
                         if (res != null && res.exists()) {
@@ -127,16 +128,6 @@ public class FragmentAddQRCode extends DialogFragment {
         } else {
             showLatLong.setText("LOCATION NOT GIVEN");
         }
-
-        // Get a photo to attach
-        //        imageView.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View view) {
-        //                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //                imageView.setVisibility(View.GONE);
-        //                imageView.setClickable(false);
-        //            }
-        //        });
 
         addPicButton = view.findViewById(R.id.button_take_photo);
         addPicButton.setOnClickListener(new View.OnClickListener() {
@@ -172,13 +163,13 @@ public class FragmentAddQRCode extends DialogFragment {
                             qrCode.setImageUrl(uriTask.getResult().toString());
                             Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
                         }
-                        qrCode.AddToQRLibrary(db, playerId);
+                        qrCode.addToDb(db, playerId);
                         overlay.setVisibility(View.INVISIBLE);
                         dismiss();
                     });
                 });
             } else {
-                qrCode.AddToQRLibrary(db, playerId);
+                qrCode.addToDb(db, playerId);
                 overlay.setVisibility(View.INVISIBLE);
                 dismiss();
             }
