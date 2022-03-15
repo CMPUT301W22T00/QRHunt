@@ -21,9 +21,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Definition: Camera functionalities
- *
- *
+ * Definition: Interprets the information that the scanner scans and gets the current location
+ * Note: Gives the ability to take a picture for the QR
+ * Issues: TBA
  */
 public class AugmentedCamera {
     private final Fragment frag;
@@ -37,10 +37,10 @@ public class AugmentedCamera {
     public FusedLocationProviderClient fusedLocationClient;
 
     /**
-     * Constructor
-     * @param frag
-     * @param text
-     * @param playerId
+     * Constructor method
+     * @param frag TBA
+     * @param text QR Content
+     * @param playerId Current player's unique id
      */
     public AugmentedCamera(Fragment frag, String text, String playerId) {
         this.frag = frag;
@@ -51,10 +51,10 @@ public class AugmentedCamera {
     }
 
     /**
-     * Gets user's geolocation
-     *
+     * Gets player's geolocation
      */
     public void pollLocation() {
+
         /* alex please forgive me
            super, super hacky way to get location not to be null.
            apparently just requesting it is enough to get the location manager off it's ass
@@ -64,6 +64,7 @@ public class AugmentedCamera {
            but it's working now
            https://stackoverflow.com/questions/29441384/fusedlocationapi-getlastlocation-always-null/29854418#29854418
             */
+
         LocationRequest mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(10 * 1000);
         mLocationRequest.setFastestInterval(1000);
@@ -82,7 +83,6 @@ public class AugmentedCamera {
 
     /**
      * Processes QR code to be added
-     *
      */
     public void processQRCode() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

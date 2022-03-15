@@ -18,9 +18,8 @@ import java.util.Objects;
 
 /**
  * Definition: Playing QR - Players can scan this and get points
- *             Stores and pulls values related to the QR from database
- *
- *
+ * Note: Stores and pulls values related to the QR from database
+ * Issues: TBA
  */
 public class PlayableQRCode {
     private String id; // Hash of the actual data from the scan
@@ -31,9 +30,9 @@ public class PlayableQRCode {
     private HashMap<String, Object> qrStuff;
 
     /**
-     * Constructor
-     * @param id
-     * @param score
+     * Constructor method
+     * @param id QRCode id
+     * @param score QRCode score
      */
     /* We need to distinguish QRCodes already scanned and those who have not been scanned yet
         Since initialization of numScanned would either be an update OR just 1
@@ -46,7 +45,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Getter method
      * @return numScanned
      */
     // Just a bunch of getters and setters, delete if unneeded
@@ -56,7 +55,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Getter method
      * @return score
      */
     public int getScore() {
@@ -64,7 +63,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Getter method
      * @return location
      */
     public QRLocation getLocation() {
@@ -72,7 +71,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Getter method
      * @return image
      */
     public Bitmap getImage() {
@@ -80,7 +79,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Getter method
      * @return id
      */
     public String getId() {
@@ -88,24 +87,24 @@ public class PlayableQRCode {
     }
 
     /**
-     *
-     * @param lat
-     * @param lon
+     * Setter method
+     * @param lat latitude
+     * @param lon longitude
      */
     public void setLocation(double lat, double lon) {
         this.location = new QRLocation(lat, lon);
     }
 
     /**
-     *
-     * @param image
+     * Setter method
+     * @param image QR image
      */
     public void setImage(Bitmap image) {
         this.image = image;
     }
 
     /**
-     *
+     * Checks if the location is null
      * @return location
      */
     public boolean isLocation() {
@@ -113,8 +112,8 @@ public class PlayableQRCode {
     }
 
     /**
-     * Getter like method for the database - pulls total number scanned
-     * @param db
+     * Getter method for the database - pulls total number scanned
+     * @param db qrMetadata collection
      */
     public void grabNumScanned(FirebaseFirestore db){
         // Pulls the total number scanned from the db
@@ -125,9 +124,9 @@ public class PlayableQRCode {
     }
 
     /**
-     *  Deletes QR from QR profile and database
-     * @param db
-     * @param playerId
+     * Deletes QR from QR profile and database
+     * @param db qrMetadata collection
+     * @param playerId Current player
      */
     public void DeleteFromDB(FirebaseFirestore db, String playerId) {
         db.collection("qrCodes").document(id)
@@ -151,8 +150,8 @@ public class PlayableQRCode {
 
     /**
      * Adds QR to QR profile and database
-     * @param db
-     * @param playerId
+     * @param db qrMetadata collection
+     * @param playerId Current player
      */
     public void AddToQRLibrary(FirebaseFirestore db, String playerId) {
         qrStuff = new HashMap<>();

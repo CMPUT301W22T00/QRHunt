@@ -13,8 +13,8 @@ import java.util.HashMap;
 
 /**
  * Definition: Library to keep track of QR codes scanned by a certain player
- *
- *
+ * Note: NA
+ * Issues: TBA
  */
 public class QRLibrary {
 
@@ -29,8 +29,8 @@ public class QRLibrary {
 
     /**
      * Finds player in database by ID and grabs all QR codes associated w/ them
-     * @param db
-     * @param playerId
+     * @param db Player's QRDatabase
+     * @param playerId Current player
      */
     public QRLibrary(FirebaseFirestore db, String playerId){
         qrCodes = new HashMap<>();
@@ -43,7 +43,9 @@ public class QRLibrary {
         update();
     }
 
-
+    /**
+     * Updates the QRLibrary of the player (aligning to the their QR database)
+     */
     public void update() {
         Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -71,7 +73,7 @@ public class QRLibrary {
     public HashMap<String, PlayableQRCode> getQrCodes() { return qrCodes; }
 
     /**
-     * sorts all QRs in library from lowest to highest scoring
+     * Sorts all QRs in library from lowest to highest scoring
      */
     public void sortLowestToHighest(){
         /* Integer in HashMap would either be the value of the QRCode
@@ -80,7 +82,7 @@ public class QRLibrary {
     }
 
     /**
-     * sorts all QRs in Library from highest to lowest scoring
+     * Sorts all QRs in Library from highest to lowest scoring
      */
     public void sortHighestToLowest(){
         /* Integer in HashMap would either be the value of the QRCode

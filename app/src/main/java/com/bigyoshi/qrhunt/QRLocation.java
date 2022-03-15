@@ -4,9 +4,9 @@ import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 
 /**
- * Definition: class for keeping track of location and id of QR
- *
- *
+ * Definition: Keeping track of location and id of QR
+ * Note: NA
+ * Issues: TBA
  */
 public class QRLocation {
     private double lat;
@@ -14,9 +14,9 @@ public class QRLocation {
     private String id;
 
     /**
-     * constructor: assigns lat and lon and updates id
-     * @param lat
-     * @param lon
+     * Constructor method
+     * @param lat latitude
+     * @param lon longitude
      */
     public QRLocation(double lat, double lon) {
         this.lat = lat;
@@ -25,32 +25,32 @@ public class QRLocation {
     }
 
     /**
-     *
-     * @return
+     * Getter method
+     * @return latitude
      */
     public double getLat() {
         return lat;
     }
 
     /**
-     *
-     * @return
+     * Getter method
+     * @return longitude
      */
     public double getLong() {
         return lon;
     }
 
     /**
-     *
-     * @return
+     * Getter method
+     * @return QR id
      */
     public String getId() {
         return this.id;
     }
 
     /**
-     *
-     * @param lat
+     * Setter method
+     * @param lat latitude
      */
     public void setLat(double lat) {
 
@@ -58,8 +58,8 @@ public class QRLocation {
     }
 
     /**
-     *
-     * @param lon
+     * Setter method
+     * @param lon longitude
      */
     public void setLong(double lon) {
 
@@ -67,7 +67,7 @@ public class QRLocation {
     }
 
     /**
-     *
+     * Updates the QR location
      */
     public void updateId() {
         this.id = GeoFireUtils.getGeoHashForLocation(new GeoLocation(this.lat, this.lon));

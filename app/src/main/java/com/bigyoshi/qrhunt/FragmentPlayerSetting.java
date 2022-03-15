@@ -22,8 +22,8 @@ import org.osmdroid.config.Configuration;
 
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
- *
- *
+ * Note: NA
+ * Issues: Currently does not implement generating a log-in QR code
  */
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
@@ -32,8 +32,8 @@ public class FragmentPlayerSetting extends Fragment {
     private ImageView backButton;
 
     /**
-     * Constructor
-     * @param playerInfo
+     * Constructor method
+     * @param playerInfo Current player
      */
     public FragmentPlayerSetting(Player playerInfo){
         this.playerInfo = playerInfo;
@@ -41,9 +41,9 @@ public class FragmentPlayerSetting extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Nullable

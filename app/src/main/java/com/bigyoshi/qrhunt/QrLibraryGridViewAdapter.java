@@ -14,6 +14,11 @@ import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
+/**
+ * Description: Creates the grid on player's profile to show the player's QRLibrary
+ * Note: NA
+ * Issues: TBA
+ */
 public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
     private Context context;
     private ArrayList<PlayableQRCode> qrCodes;
@@ -24,7 +29,13 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
         this.qrCodes = qrCodes;
     }
 
-
+    /**
+     * Retrieves the view
+     * @param position Position
+     * @param convertView View to convert
+     * @param parent Parent view
+     * @return View
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
