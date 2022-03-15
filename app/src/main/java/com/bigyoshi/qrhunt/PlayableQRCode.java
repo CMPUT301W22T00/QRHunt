@@ -155,7 +155,7 @@ public class PlayableQRCode {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("Delete_QR", "Error removing QR from data base", e);
+                        Log.w(TAG, "Error removing QR from data base", e);
                     }
                 });
 
@@ -167,15 +167,13 @@ public class PlayableQRCode {
      * @param db       qrMetadata collection
      * @param playerId Current player
      */
-    public void AddToQRLibrary(FirebaseFirestore db, String playerId) {
+    public void addToDb(FirebaseFirestore db, String playerId) {
         qrStuff = new HashMap<>();
-        // todo check size of image
-        // not adding yet so we don't go over the free usage amount for firestore
-        //playerQrStuff.put("image", image);
+        qrStuff.put("image", imageUrl);
         qrStuff.put("score", score);
         qrStuff.put("latitude", location.getLat());
         qrStuff.put("longitude", location.getLong());
-        qrStuff.put("geoHash", location.getId());
+        qrStuff.put("geoHash", location.getGeoHash());
 
         db.collection("users").document(playerId)
                 .collection("qrCodes").document(id).set(qrStuff, SetOptions.merge());

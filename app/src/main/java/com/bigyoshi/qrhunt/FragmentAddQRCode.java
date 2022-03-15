@@ -103,16 +103,18 @@ public class FragmentAddQRCode extends DialogFragment {
         numScannedTextView.setText("0 Scans");
         db.collection("users").document(playerId).get().addOnCompleteListener(
                 task -> {
-                    DocumentSnapshot res = task.getResult();
-                    if (res != null && res.exists()) {
-                        Double numScanned = res.getDouble("numScanned");
-                        int intNumScanned;
-                        if (numScanned != null) {
-                            intNumScanned = numScanned.intValue();
-                        } else {
-                            intNumScanned = 0;
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot res = task.getResult();
+                        if (res != null && res.exists()) {
+                            Double numScanned = res.getDouble("numScanned");
+                            int intNumScanned;
+                            if (numScanned != null) {
+                                intNumScanned = numScanned.intValue();
+                            } else {
+                                intNumScanned = 0;
+                            }
+                            numScannedTextView.setText(String.format("%d Scans", intNumScanned));
                         }
-                        numScannedTextView.setText(String.format("%d Scans", intNumScanned));
                     }
                 }
         );
