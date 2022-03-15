@@ -37,7 +37,7 @@ public class QRLibrary {
         if (playerId != null) {
         this.playerId = playerId;
         } else {
-            this.playerId = "c6670e44-1fe2-4b98-acfd-98c55767cf3c";
+            this.playerId = "2c5ed7c6-545a-4a8d-bb90-f817e004f4a8";
         }
         this.db = db;
         update();
@@ -47,7 +47,7 @@ public class QRLibrary {
      * Updates the QRLibrary of the player (aligning to the their QR database)
      */
     public void update() {
-        Query qrList =  db.collection("users").document("2c5ed7c6-545a-4a8d-bb90-f817e004f4a8").collection("qrCodes");
+        Query qrList =  db.collection("users").document(playerId).collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
