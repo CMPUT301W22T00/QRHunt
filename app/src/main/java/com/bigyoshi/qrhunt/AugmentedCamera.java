@@ -115,7 +115,7 @@ public class AugmentedCamera {
     }
 
     /**
-     * Decodes QR code(?)
+     * Hashes the QR code
      *
      */
     private void computeHash() {
@@ -147,15 +147,6 @@ public class AugmentedCamera {
                 .multiply(new BigInteger("100"))
                 .divide((new BigInteger("2").pow(160)))
                 .intValue();
-    }
-
-    /**
-     *  Saves the user's photo and correlates it to QRProfile
-     *
-     */
-    private void capturePhoto() {
-        // Saves the photo and correlates it to QRProfile
-        //Todo finish capturePhoto
     }
 
     /**

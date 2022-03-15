@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -22,14 +23,13 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
-import com.google.common.collect.ArrayListMultimap;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.osmdroid.config.Configuration;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -42,6 +42,7 @@ public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
     private TextView username;
+    private TextView totalScanned;
     private Player playerInfo;
     private ImageButton settingButton;
     private ImageButton contactsButton;
@@ -50,7 +51,7 @@ public class FragmentProfile extends Fragment {
     private HashMap<String, PlayableQRCode> qrCodes;
     private ArrayList<PlayableQRCode> qrCodesList;
     private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
-    private QrLibraryGridViewAdapter qrListAdapter;
+    private FirebaseFirestore db;
 
     /**
      * Constructor method
@@ -110,19 +111,28 @@ public class FragmentProfile extends Fragment {
         QRTotalValue = root.findViewById(R.id.profile_score_text);
         username = root.findViewById(R.id.profile_username_title);
         contactsButton = root.findViewById(R.id.profile_information_button);
+        totalScanned = root.findViewById(R.id.profile_codes_scanned);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
+        qrCodes = new HashMap<>();
         qrCodes = playerInfo.qrLibrary.getQrCodes();
         Collection<PlayableQRCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
+        showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new FragmentLibraryRemoveQR(i, qrCodesList.get(i)).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+            }
+        });
 
 
         settingButton = root.findViewById(R.id.profile_settings_button);
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
+        totalScanned.setText(Integer.toString(qrCodesList.size()));
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -175,5 +185,14 @@ public class FragmentProfile extends Fragment {
         return root;
     }
 
-
+    /**
+     * Deletes a QR form the QR Library
+     * @param pos
+     */
+    public void libraryRemoveQR(int pos, PlayableQRCode removeQR) {
+        qrCodesList.remove(pos);
+        qrCodesAdapter.notifyDataSetChanged();
+        db = FirebaseFirestore.getInstance();
+        removeQR.DeleteFromDB(db, playerInfo.getPlayerId());
+    }
 }
