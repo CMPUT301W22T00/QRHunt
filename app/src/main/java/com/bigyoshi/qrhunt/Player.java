@@ -204,7 +204,7 @@ public class Player implements Serializable {
                         admin = (Boolean) doc.getData().get("admin");
                         HashMap<String,String> contactMap = (HashMap<String,String>) doc.getData().get("contact");
                         contact.setEmail(contactMap.get("email"));
-                        contact.setEmail(contactMap.get("social"));
+                        contact.setSocial(contactMap.get("social"));
                         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
                         username = (String) doc.getData().get("username");
                     }

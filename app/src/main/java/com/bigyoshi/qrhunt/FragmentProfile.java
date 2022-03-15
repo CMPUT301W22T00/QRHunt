@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
+
 /**
  * Definition: Fragment class for the player profile screen
  * Note: NA
@@ -39,19 +42,15 @@ public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
     private TextView username;
-    private TextView totalRank;
-    private TextView totalScanned;
-    private TextView uniqueRank;
     private Player playerInfo;
     private ImageButton settingButton;
+    private ImageButton contactsButton;
     private int lastDestination;
-    private Player player;
     private GridView showAll;
     private HashMap<String, PlayableQRCode> qrCodes;
     private ArrayList<PlayableQRCode> qrCodesList;
     private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
     private QrLibraryGridViewAdapter qrListAdapter;
-
 
     /**
      * Constructor method
@@ -60,7 +59,6 @@ public class FragmentProfile extends Fragment {
      */
     public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player;
-         this.player = player;
          this.lastDestination = lastDestination;
     }
 
@@ -103,26 +101,20 @@ public class FragmentProfile extends Fragment {
 
         QRTotalValue = root.findViewById(R.id.profile_score_text);
         username = root.findViewById(R.id.profile_username_title);
-        totalRank = root.findViewById(R.id.profile_rank_text);
-        totalScanned = root.findViewById(R.id.profile_codes_scanned);
-        uniqueRank = root.findViewById(R.id.profile_highest_unique);
+        contactsButton = root.findViewById(R.id.profile_information_button);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
-        qrCodes = player.qrLibrary.getQrCodes();
+        qrCodes = playerInfo.qrLibrary.getQrCodes();
         Collection<PlayableQRCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
 
 
-
         settingButton = root.findViewById(R.id.profile_settings_button);
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
-        totalRank.setText("0"); // NEED TO UPDATE
-        totalScanned.setText(Integer.toString(0)); // NEED TO UPDATE
-        uniqueRank.setText(Integer.toString(0)); // NEED TO UPDATE
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -135,12 +127,35 @@ public class FragmentProfile extends Fragment {
             }
         });
 
+        // https://www.youtube.com/watch?v=IxHfWg-M0bI
+        // https://github.com/douglasjunior/android-simple-tooltip
+        contactsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = playerInfo.getContact().getEmail();
+                String social = playerInfo.getContact().getSocial();
+                String together = email + "\n" + social;
+                new SimpleTooltip.Builder(getContext())
+                        .anchorView(contactsButton)
+                        .text(together)
+                        .gravity(Gravity.BOTTOM)
+                        .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                        .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                        .textColor(getResources().getColor(R.color.text_off_white))
+                        .animated(true)
+                        .transparentOverlay(true)
+                        .build()
+                        .show();
+            }
+        });
+
         getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("info");
                 playerInfo.setUsername(newInfo.getUsername());
-                playerInfo.setContact(newInfo.getContact());
+                playerInfo.getContact().setEmail(newInfo.getContact().getEmail());
+                playerInfo.getContact().setSocial(newInfo.getContact().getSocial());
                 username.setText(playerInfo.getUsername());
                 playerInfo.updateDB();
             }
