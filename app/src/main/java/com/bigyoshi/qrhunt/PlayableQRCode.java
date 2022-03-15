@@ -129,7 +129,8 @@ public class PlayableQRCode {
      * @param playerId Current player
      */
     public void DeleteFromDB(FirebaseFirestore db, String playerId) {
-        db.collection("qrCodes").document(id)
+        db.collection("users").document(playerId)
+                .collection("qrCodes").document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -47,7 +47,7 @@ public class QRLibrary {
      * Updates the QRLibrary of the player (aligning to the their QR database)
      */
     public void update() {
-        Query qrList =  db.collection("user").document(playerId).collection("qrCodes");
+        Query qrList =  db.collection("users").document("2c5ed7c6-545a-4a8d-bb90-f817e004f4a8").collection("qrCodes");
         qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -56,11 +56,10 @@ public class QRLibrary {
                         if (doc.exists()) {
                             lat = doc.getDouble("latitude");
                             lon = doc.getDouble("longitude");
-                            score = Integer.valueOf(doc.getString("score"));
+                            score = doc.getLong("score").intValue();
                             qrHash = doc.getId();
                             qrCode = new PlayableQRCode(qrHash, score);
                             qrCode.setLocation(lat, lon);
-                            assert(qrCode.getId()==null);
                             qrCodes.put(qrHash, qrCode);
 
                         }
