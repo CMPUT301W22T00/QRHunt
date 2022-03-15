@@ -2,19 +2,19 @@ package com.bigyoshi.qrhunt;
 
 /**
  * Definition: Generates a QR code with the account specifications to access the account on other devices
- *
- *
+ * Note: NA
+ * Issues: This is not implement yet
  */
 public class UnplayableQRCode {
 
     /**
-     * Constructor
+     * Constructor method
      */
     public UnplayableQRCode(){
     }
 
     /**
-     *
+     * Checks if it has stored a player's game status
      * @return true
      */
     public Boolean isGameStatus(){
@@ -23,14 +23,14 @@ public class UnplayableQRCode {
     }
 
     /**
-     *  Gets game status features and displays it in a view (if getter method - delete description)
+     *  Gets game status features and displays it in a view
      */
     public void getGameStatusInfo(){
         // Function used to get game status features and displaying it in a view (UI)
     }
 
     /**
-     * Gets accessing account or "log-in" specifications (if getter method - delete description)
+     * Gets accessing account or "log-in" specifications
      */
     public void getLogInInfo(){
         // Function used to get log-in specifications

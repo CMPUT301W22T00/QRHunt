@@ -23,9 +23,9 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * Definition: object representing player, keeps track of all player data and
- * deals with db functions regarding players
- *
+ * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
+ * Note: NA
+ * Issues: NA
  */
 public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
@@ -43,8 +43,8 @@ public class Player implements Serializable {
     private Context context;
 
     /**
-     * constructor: sets all player data to defaults
-     * @param context
+     * Constructor method
+     * @param context context
      */
     public Player(Context context) {
         this.context = context;
@@ -56,7 +56,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * returns contact object associated w/ player
+     * Getter method
      * @return Contact contact
      */
     public Contact getContact(){
@@ -64,7 +64,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * returns score integer associated w/ player
+     * Getter method
      * @return Integer score
      */
     public int getTotalScore(){
@@ -72,7 +72,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * returns username String associated w/ player
+     * Getter method
      * @return String username
      */
     public String getUsername(){
@@ -80,8 +80,8 @@ public class Player implements Serializable {
     }
 
     /**
-     * returns playerId String associated w/ player
-     * if null, it generates the player ID
+     * Getter method
+     * Note: If null, it generates the player ID
      * @return String playerId
      */
     public String getPlayerId() {
@@ -99,9 +99,8 @@ public class Player implements Serializable {
     }
 
     /**
-     * accesses contact object to set strings as social media and email
+     * Setter method (both email and social media contact)
      * @param contact
-     *      sets email and social from this object as the players' contacts
      */
     public void setContact(Contact contact){
         // Use the editTextId to identify which contact to update (with toUpdate)
@@ -110,16 +109,16 @@ public class Player implements Serializable {
     }
 
     /**
-     * sets players Username String
-     * @param newName
+     * Setter method
+     * @param newName new username to assign
      */
     public void setUsername(String newName){
         this.username = newName;
     }
 
     /**
-     * assigns another player admin if this player is admin
-     * @param newAdmin
+     * Assigns another player admin if this player is admin
+     * @param newAdmin new Admin to assign
      * @return String describing whether or not player was made admin
      */
     public String makeAdmin(Player newAdmin){
@@ -133,8 +132,8 @@ public class Player implements Serializable {
     }
 
     /**
-     * sets Player's PlayerId to String id
-     * @param id
+     * Setter method
+     * @param id player's supposed id
      */
     public void setPlayerId(String id) {
         // to think about: when the id is changed, it's essentially a new player?
@@ -148,16 +147,15 @@ public class Player implements Serializable {
     }
 
     /**
-     * returns a Boolean of whether or not player is Admin
-     * @return
+     * Checks whether a player is an admin
+     * @return Boolean representing whether a player is an admin or not
      */
     public Boolean isAdmin(){
         return admin;
     }
 
     /**
-     * saves PlayerData in HashMap to databse associated w/ PlayerID
-     *
+     * Saves PlayerData in HashMap to database associated with playerId
      */
     public void savePlayer() {
         HashMap<String, Object> playerData = new HashMap<>();
@@ -190,8 +188,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * gets playerData from database by matching against playerIds in database
-     *
+     * Gets playerData from database by matching against playerIds in database
      */
     public void initialize() {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -218,8 +215,7 @@ public class Player implements Serializable {
     }
 
     /**
-     * Updates db within the document associated w/playerId
-     * updates all player data
+     * Updates db within the document associated with playerId
      */
     public void updateDB() {
         collectionReference
@@ -238,8 +234,8 @@ public class Player implements Serializable {
 
     /**
      * Generates random unique username when account is created
-     * @param context
-     * @return
+     * @param context context
+     * @return String representing generatedUsername
      */
     public String generateUsername(Context context){
         // Random unique username generated when account is first created

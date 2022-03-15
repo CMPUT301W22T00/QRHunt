@@ -35,8 +35,8 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * Definition: Fragment class for the player profile screen
- *
- *
+ * Note: NA
+ * Issues: Rankings are not implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
  */
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
@@ -53,9 +53,9 @@ public class FragmentProfile extends Fragment {
     private QrLibraryGridViewAdapter qrListAdapter;
 
     /**
-     * constructor
-     * @param player
-     * @param lastDestination
+     * Constructor method
+     * @param player Current player
+     * @param lastDestination Previous navigation destination (by bottom navigation)
      */
     public FragmentProfile(Player player, int lastDestination){
          this.playerInfo = player;
@@ -63,9 +63,9 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * Creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
-     * @param savedInstanceState
+     * @param savedInstanceState SavedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,10 +84,10 @@ public class FragmentProfile extends Fragment {
 
     /**
      * sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
+     * @return View
      */
     @Nullable
     @Override

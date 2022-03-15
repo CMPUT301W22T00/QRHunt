@@ -32,8 +32,8 @@ import java.util.Arrays;
 
 /**
  * Definition: Builds app, manages fragments, and accesses database
- *
- *
+ * Note: Mainly controls the bottom navigation and top navigation bars
+ * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play)
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private DocumentReference playerRef;
 
     /**
-     * OnCreate: sets up screen (toolbar, bottom menu), initializes player if need be
+     * Sets up screen (toolbar, bottom menu), initializes player if need be
      * manages which fragment the app is in and adjusts accordingly, & passes things from
      * fragment to fragment
-     * @param savedInstanceState
+     * @param savedInstanceState SavedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,13 +152,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    This should be called whenever the user-id changes (eg, player transfers account)
-     so that the proper id is is listened to for changes
-     */
     /**
      * Updates the database when score is updated
-     *
+     * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
      */
     private void updateFirebaseListeners() {
         // watch the score
@@ -176,10 +172,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Invokes parent method and checks for...?
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * Provides permissions (consent from the user)
+     * @param requestCode request code
+     * @param permissions permissions
+     * @param grantResults grant results
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
