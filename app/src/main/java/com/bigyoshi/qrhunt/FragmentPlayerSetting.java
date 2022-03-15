@@ -48,7 +48,10 @@ public class FragmentPlayerSetting extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -60,7 +63,8 @@ public class FragmentPlayerSetting extends Fragment {
 
         playerProfileSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentPlayerProfileSetting profileSetting = new FragmentPlayerProfileSetting(playerInfo);
+                FragmentPlayerProfileSetting profileSetting =
+                        new FragmentPlayerProfileSetting(playerInfo);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.playerSettings, profileSetting, "setting");
@@ -79,7 +83,9 @@ public class FragmentPlayerSetting extends Fragment {
             }
         });
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("newInfo");

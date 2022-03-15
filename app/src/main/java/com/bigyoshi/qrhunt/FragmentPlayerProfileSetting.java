@@ -56,11 +56,15 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         Context ctx = getActivity();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
-        binding = FragmentUserSettingsEditProfileBinding.inflate(inflater, container, false);
+        binding = FragmentUserSettingsEditProfileBinding.inflate(inflater,
+                container,
+                false);
         View root = binding.getRoot();
 
         username = root.findViewById(R.id.edit_username);
