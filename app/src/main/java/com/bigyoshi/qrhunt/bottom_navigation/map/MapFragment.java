@@ -37,9 +37,9 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 /**
- * Definition: Map API
- *
- *
+ * Definition: Fragment representing the map
+ * Note: N/A
+ * Issues: Slow to load
  */
 public class MapFragment extends Fragment {
     private final String TAG = MapFragment.class.getSimpleName();
@@ -51,16 +51,17 @@ public class MapFragment extends Fragment {
     Double lat;
     Double lng;
 
-
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState){
 
         // Load/Initialize osmdroid configuration and database
         db = FirebaseFirestore.getInstance();
@@ -70,13 +71,13 @@ public class MapFragment extends Fragment {
         binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Inflate and create the map
-        //setContentView(R.layout.fragment_map);
+        /* Inflate and create the map
+           setContentView(R.layout.fragment_map); */
         map = (MapView) binding.mapview;
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
-        map.setBuiltInZoomControls(true);
+        // map.setBuiltInZoomControls(true);//todo is there anything we can do about this? (deprecated)
         map.setMultiTouchControls(true);
 
         // Follows user and centers on them
@@ -125,7 +126,7 @@ public class MapFragment extends Fragment {
 
 
     /**
-     * ...?
+     * Destroys the view and makes binding null
      */
     @Override
     public void onDestroyView() {
@@ -135,27 +136,30 @@ public class MapFragment extends Fragment {
 
     /**
      * Refreshes the osmdroid configuration on resuming
-     *
      */
     @Override
     public void onResume() {
         super.onResume();
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        //Configuration.getInstance().load(this.getContext(), PreferenceManager.getDefaultSharedPreferences(this.getContext()));
+        /* if you make changes to the configuration, use:
+           SharedPreferences prefs = PreferenceManager
+                                         .getDefaultSharedPreferences(this.getContext());
+           Configuration.getInstance().load(this.getContext(),
+                                          PreferenceManager
+                                                .getDefaultSharedPreferences(this.getContext()));
+         */
         map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
     }
 
     /**
-     * Refreshes the osmdroid configuration on resuming
+     * Pauses the osmdroid configuration when moving to a new fragment/activity
      *
      */
     @Override
     public void onPause() {
         super.onPause();
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        //Configuration.getInstance().save(this.getContext(), prefs);
+        /* if you make changes to the configuration, use
+           SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+           Configuration.getInstance().save(this.getContext(), prefs); */
         map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
     }
 
@@ -169,7 +173,9 @@ public class MapFragment extends Fragment {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable)drawable).getBitmap();
         }
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);

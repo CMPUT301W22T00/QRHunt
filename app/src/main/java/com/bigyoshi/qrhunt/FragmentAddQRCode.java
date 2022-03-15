@@ -33,6 +33,8 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * Definition: After scan fragment popup - displays values information and handles location photo
+ * Note: NA
+ * Issues: TBA
  */
 public class FragmentAddQRCode extends DialogFragment {
     private static final String TAG = FragmentAddQRCode.class.getSimpleName();
@@ -51,12 +53,11 @@ public class FragmentAddQRCode extends DialogFragment {
     private FirebaseStorage storage;
 
     /**
-     * Constructor
-     *
-     * @param hash
-     * @param score
-     * @param location
-     * @param playerId
+     * Constructor method
+     * @param hash QR hash
+     * @param score QR score
+     * @param location QR location
+     * @param playerId Current player id
      */
     public FragmentAddQRCode(String hash, int score, QRLocation location, String playerId) {
         this.hash = hash;
@@ -69,12 +70,11 @@ public class FragmentAddQRCode extends DialogFragment {
     }
 
     /**
-     * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
-     * and is responsible for attaching the user's photo in the proper position
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     *  After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
+     *  and is responsible for attaching the user's photo in the proper position
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return view
      */
     @Nullable
