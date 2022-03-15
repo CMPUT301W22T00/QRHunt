@@ -74,13 +74,17 @@ public class QRLibrary {
      * sorts all QRs in library from lowest to highest scoring
      */
     public void sortLowestToHighest(){
-        // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
+        /* Integer in HashMap would either be the value of the QRCode
+        or just some sort of order we use to rank the QRCodes (ie the values)
+         */
     }
 
     /**
      * sorts all QRs in Library from highest to lowest scoring
      */
     public void sortHighestToLowest(){
-        // Integer in HashMap would either be the value of the QRCode or just some sort of order we use to rank the QRCodes (ie the values)
+        /* Integer in HashMap would either be the value of the QRCode
+        or just some sort of order we use to rank the QRCodes (ie the values)
+         */
     }
 }

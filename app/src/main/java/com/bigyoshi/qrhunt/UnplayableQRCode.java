@@ -1,7 +1,8 @@
 package com.bigyoshi.qrhunt;
 
 /**
- * Definition: Generates a QR code with the account specifications to access the account on other devices
+ * Definition: Generates a QR code with the account specifications
+ * to access the account on other devices
  *
  *
  */
@@ -18,7 +19,9 @@ public class UnplayableQRCode {
      * @return true
      */
     public Boolean isGameStatus(){
-        // True if it is game status, false then it is LogIn; could have a isLogIn for completeness though
+        /* True if it is game status, false then it is LogIn;
+           could have a isLogIn for completeness though
+         */
         return true;
     }
 
