@@ -1,6 +1,5 @@
 package com.bigyoshi.qrhunt;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
@@ -60,7 +59,7 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
         addPic = view.findViewById(R.id.button_take_photo);
         addPic.setVisibility(View.GONE);
 
-        okayButton = view.findViewById(R.id.button_ok);
+        okayButton = view.findViewById(R.id.qr_button_ok);
         okayButton.setText("REMOVE");
         okayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +70,7 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
             }
         });
 
-        cancelButton = view.findViewById(R.id.button_cancel);
+        cancelButton = view.findViewById(R.id.qr_button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
