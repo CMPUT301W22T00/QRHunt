@@ -103,7 +103,7 @@ public class AugmentedCamera {
     }
 
     /**
-     * Decodes QR code(?)
+     * Hashes the QR code
      *
      */
     private void computeHash() {
@@ -131,14 +131,6 @@ public class AugmentedCamera {
         // Probably have to pass in the hash or whatever we use to calculate the value
         // sha1 gives 160 bits → max value is therefore 2^160
         score = new BigInteger(1, digest).multiply(new BigInteger("100")).divide((new BigInteger("2").pow(160))).intValue();
-    }
-
-    /**
-     *  Saves the user's photo and correlates it to QRProfile
-     *
-     */
-    private void capturePhoto() {
-        // Saves the photo and correlates it to QRProfile
     }
 
     /**

@@ -26,6 +26,7 @@ import com.google.common.collect.ArrayListMultimap;
 
 import org.osmdroid.config.Configuration;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
     private TextView username;
+    private TextView totalScanned;
     private Player playerInfo;
     private ImageButton settingButton;
     private ImageButton contactsButton;
@@ -102,10 +104,11 @@ public class FragmentProfile extends Fragment {
         QRTotalValue = root.findViewById(R.id.profile_score_text);
         username = root.findViewById(R.id.profile_username_title);
         contactsButton = root.findViewById(R.id.profile_information_button);
+        totalScanned = root.findViewById(R.id.profile_codes_scanned);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
         qrCodes = new HashMap<>();
-        qrCodes = player.qrLibrary.getQrCodes();
+        qrCodes = playerInfo.qrLibrary.getQrCodes();
         Collection<PlayableQRCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
@@ -116,9 +119,7 @@ public class FragmentProfile extends Fragment {
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
-        totalRank.setText("1"); // NEED TO UPDATE
-        totalScanned.setText(Integer.toString(0)); // NEED TO UPDATE
-        uniqueRank.setText(Integer.toString(0)); // NEED TO UPDATE
+        totalScanned.setText(Integer.toString(qrCodesList.size()));
 
         settingButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

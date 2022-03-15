@@ -34,6 +34,7 @@ public class FragmentAddQRCode extends DialogFragment {
     private TextView showNumScanned;
     private ImageView showPic;
     private Button okayButton;
+    private Button cancelButton;
     private Button addPic;
     private Bitmap bitmap;
     private FirebaseFirestore db;
@@ -122,6 +123,15 @@ public class FragmentAddQRCode extends DialogFragment {
                 getFragmentManager().beginTransaction().remove(FragmentAddQRCode.this).commit();
             }
         });
+
+        cancelButton = view.findViewById(R.id.button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().remove(FragmentAddQRCode.this).commit();
+            }
+        });
+        
         return view;
     }
 
@@ -140,7 +150,4 @@ public class FragmentAddQRCode extends DialogFragment {
             showPic.setImageBitmap(bitmap);
         }
     }
-
-
-
 }
