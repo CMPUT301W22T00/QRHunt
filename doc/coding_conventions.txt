@@ -1,0 +1,16 @@
+Coding Conventions
+
+General
+-Lines limited to 100 characters in length
+-Multi-line comments use /* ... */ and not // ... // ...
+-End brackets must be their own line and match indentation of the declaration
+-Use correct indentation
+-Function definitions and body should always be on separate lines
+
+
+Names
+-in xml, ids use snake case
+-function and method names use camel case
+-Constructors use pascal case
+-Variable and object names use camel case
+

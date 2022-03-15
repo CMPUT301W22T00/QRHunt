@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt;
 
 import android.app.Activity;
+import android.widget.EditText;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -9,6 +10,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -55,6 +57,17 @@ public class MainActivityTest {
         assertNotNull(solo.getView(R.id.leaderboard));
     }
 
-    // To do: Search button, MapList in MapNavigation
-    // To do: check score, player(?)
+    @After
+    public void tearDown() throws Exception {
+        solo.finishOpenedActivities();
+    }
+
+    // Search button (NOT IMPLEMENTED)
+
+
+    // MapList in top bar of Map (NOT IMPLEMENTED)
+
+    // Check score is the same as in PlayerDB
+
+    // Check player is initialized possibly
 }

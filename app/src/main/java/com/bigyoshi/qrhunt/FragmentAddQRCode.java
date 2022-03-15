@@ -20,8 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * Definition: After scan fragment popup - displays values information and handles location photo
- *
- *
+ * Note: NA
+ * Issues: TBA
  */
 public class FragmentAddQRCode extends DialogFragment {
     private String hash;
@@ -40,11 +40,11 @@ public class FragmentAddQRCode extends DialogFragment {
     private FirebaseFirestore db;
 
     /**
-     * Constructor
-     * @param hash
-     * @param score
-     * @param location
-     * @param playerId
+     * Constructor method
+     * @param hash QR hash
+     * @param score QR score
+     * @param location QR location
+     * @param playerId Current player id
      */
     public FragmentAddQRCode(String hash, int score, QRLocation location, String playerId) {
         this.hash = hash;
@@ -56,15 +56,19 @@ public class FragmentAddQRCode extends DialogFragment {
     /**
      *  After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
      *  and is responsible for attaching the user's photo in the proper position
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return view
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_qr_profile_after_scan, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_qr_profile_after_scan,
+                container,
+                false);
 
         // Display score
         showScore = view.findViewById(R.id.text_qr_score);
@@ -98,11 +102,13 @@ public class FragmentAddQRCode extends DialogFragment {
             });
 
         // todo: all other stuff
-        // caption
-        // disable location (toggle not present in UI right now but should be probably?)   I wll have this added in for project 4 - Alinn
-        // probably skip num scanned for now, it's obnoxious
-        // need to have a cancel button as well
-        // after ok button → save to db
+        /* caption
+           disable location (toggle not present in UI right now but should be probably?)
+                I wll have this added in for project 4 - Alinn
+           probably skip num scanned for now, it's obnoxious
+           need to have a cancel button as well
+           after ok button → save to db
+         */
         okayButton = view.findViewById(R.id.button_ok);
         okayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +124,8 @@ public class FragmentAddQRCode extends DialogFragment {
                 if (playerId != null) {
                     qrCode.AddToQRLibrary(db, playerId);
                 } else {
-                    qrCode.AddToQRLibrary(db, "c6670e44-1fe2-4b98-acfd-98c55767cf3c"); // Hard coded userId
+                    qrCode.AddToQRLibrary(db, "c6670e44-1fe2-4b98-acfd-98c55767cf3c");
+                    // Hard coded userId todo remove this or explain why it's here
                 }
                 getFragmentManager().beginTransaction().remove(FragmentAddQRCode.this).commit();
             }
@@ -136,10 +143,10 @@ public class FragmentAddQRCode extends DialogFragment {
     }
 
     /**
-     * Displays user's photo
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * Displays player's photo
+     * @param requestCode request code
+     * @param resultCode result code
+     * @param data data associated with player's photo
      * @deprecated onActivityResult
      */
     @Override

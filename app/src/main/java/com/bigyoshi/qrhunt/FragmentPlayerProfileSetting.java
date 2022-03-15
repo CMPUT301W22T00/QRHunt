@@ -18,9 +18,9 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 import org.osmdroid.config.Configuration;
 
 /**
- * Definition: Setting for user to edit their account information (username, email, socials handle)
- *
- *
+ * Definition: Setting for user to edit their account information (username, email, social handle)
+ * Note: NA
+ * Issues: NA
  */
 public class FragmentPlayerProfileSetting extends DialogFragment {
     private Player playerInfo;
@@ -33,34 +33,39 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private FragmentUserSettingsEditProfileBinding binding;
 
     /**
-     * Constructor
-     * @param playerInfo
+     * Constructor method
+     * @param playerInfo current Player
      */
     public FragmentPlayerProfileSetting(Player playerInfo){
         this.playerInfo = playerInfo;
     }
 
     /**
-     *  Invokes parent constructor
+     *  Constructor method
+     *  Note: Invokes parent constructor
      */
     public FragmentPlayerProfileSetting(){
         super();
     }
 
     /**
-     *  Creates view and handles user button clicks
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     *  Creates view and handles user button clicks within UI
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         Context ctx = getActivity();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
-        binding = FragmentUserSettingsEditProfileBinding.inflate(inflater, container, false);
+        binding = FragmentUserSettingsEditProfileBinding.inflate(inflater,
+                container,
+                false);
         View root = binding.getRoot();
 
         username = root.findViewById(R.id.edit_username);

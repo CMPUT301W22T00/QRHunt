@@ -22,8 +22,8 @@ import org.osmdroid.config.Configuration;
 
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
- *
- *
+ * Note: NA
+ * Issues: Currently does not implement generating a log-in QR code
  */
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
@@ -32,8 +32,8 @@ public class FragmentPlayerSetting extends Fragment {
     private ImageView backButton;
 
     /**
-     * Constructor
-     * @param playerInfo
+     * Constructor method
+     * @param playerInfo Current player
      */
     public FragmentPlayerSetting(Player playerInfo){
         this.playerInfo = playerInfo;
@@ -41,14 +41,17 @@ public class FragmentPlayerSetting extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
@@ -60,7 +63,8 @@ public class FragmentPlayerSetting extends Fragment {
 
         playerProfileSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                FragmentPlayerProfileSetting profileSetting = new FragmentPlayerProfileSetting(playerInfo);
+                FragmentPlayerProfileSetting profileSetting =
+                        new FragmentPlayerProfileSetting(playerInfo);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.playerSettings, profileSetting, "setting");
@@ -79,7 +83,9 @@ public class FragmentPlayerSetting extends Fragment {
             }
         });
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("newInfo");

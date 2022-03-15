@@ -23,8 +23,8 @@ import com.google.zxing.Result;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
- *
- *
+ * Note: NA
+ * Issues: TBA
  */
 public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
@@ -33,9 +33,9 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Nullable
@@ -43,7 +43,9 @@ public class FragmentScanner extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player player = (Player) result.getSerializable("player");
@@ -73,7 +75,8 @@ public class FragmentScanner extends Fragment {
                     public void run() {
                         //Leave this here for now, but will need to remove later
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(FragmentScanner.this, result.getText(), playerId);
+                        camera = new AugmentedCamera(FragmentScanner.this,
+                                result.getText(), playerId);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
                         Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
@@ -100,7 +103,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     * Invokes parent method and ...
+     * Handles when the state is resumed (starts camera previous)
      */
     @Override
     public void onResume() {
@@ -109,7 +112,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     * Invokes parent method and ...
+     * Handles when the state is paused (release resources)
      */
     @Override
     public void onPause() {

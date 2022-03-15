@@ -35,8 +35,8 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * Definition: Fragment class for the player profile screen
- *
- *
+ * Note: NA
+ * Issues: Rankings are not implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
  */
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
@@ -54,28 +54,31 @@ public class FragmentProfile extends Fragment {
     private FirebaseFirestore db;
 
     /**
-     * constructor
-     *
-     * @param player
-     * @param lastDestination
+     * Constructor method
+     * @param player Current player
+     * @param lastDestination Previous navigation destination (by bottom navigation)
      */
-    public FragmentProfile(Player player, int lastDestination) {
-        this.playerInfo = player;
-        this.lastDestination = lastDestination;
+    public FragmentProfile(Player player, int lastDestination){
+
+         this.playerInfo = player;
+         this.lastDestination = lastDestination;
     }
 
     /**
-     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * Creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
-     *
-     * @param savedInstanceState
+     * @param savedInstanceState SavedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        getActivity().getOnBackPressedDispatcher().addCallback(this,
+                new OnBackPressedCallback(true) {
+
             @Override
             public void handleOnBackPressed() {
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 Bundle prevNav = new Bundle();
                 prevNav.putSerializable("previous", lastDestination);
@@ -87,15 +90,17 @@ public class FragmentProfile extends Fragment {
 
     /**
      * sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
+     * @return View
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         //Load/Initialize osmdroid configuration
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -140,8 +145,9 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        // https://www.youtube.com/watch?v=IxHfWg-M0bI
-        // https://github.com/douglasjunior/android-simple-tooltip
+        /* https://www.youtube.com/watch?v=IxHfWg-M0bI
+           https://github.com/douglasjunior/android-simple-tooltip
+         */
         contactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,7 +168,9 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo", this, new FragmentResultListener() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo",
+                this,
+                new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                 Player newInfo = (Player) result.getSerializable("info");
