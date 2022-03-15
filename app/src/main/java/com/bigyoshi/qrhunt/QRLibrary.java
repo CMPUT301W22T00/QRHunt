@@ -53,12 +53,6 @@ public class QRLibrary {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
                     if (doc.exists()) {
                         doc.toObject(PlayableQRCode.class);
-                        lat = doc.getDouble("latitude");
-                        lon = doc.getDouble("longitude");
-                        score = doc.getLong("score").intValue();
-                        qrHash = doc.getId();
-                        qrCodes.put(qrHash, qrCode);
-
                     }
                 }
             }

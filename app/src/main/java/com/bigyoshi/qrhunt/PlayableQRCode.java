@@ -86,24 +86,6 @@ public class PlayableQRCode implements Serializable {
     }
 
     /**
-     * Setter method
-     *
-     * @param imageUrl QR image
-     */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    /**
-     * Getter method
-     *
-     * @return String url of image
-     */
-    public String getImageUrl(String url) {
-        return imageUrl;
-    }
-
-    /**
      * Getter method for the database - pulls total number scanned
      *
      * @param db qrMetadata collection
@@ -160,5 +142,13 @@ public class PlayableQRCode implements Serializable {
 
     public void setLocation(QRLocation location) {
         this.location = location;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
