@@ -21,6 +21,7 @@ import java.util.Objects;
  * Issues: TBA
  */
 public class PlayableQRCode {
+    private static final String TAG = PlayableQRCode.class.getSimpleName();
     private String id; // Hash of the actual data from the scan
     private int score; // The score of the QR code
     private QRLocation location;
@@ -30,14 +31,15 @@ public class PlayableQRCode {
 
     /**
      * Constructor method
-     * @param id QRCode id
+     *
+     * @param id    QRCode id
      * @param score QRCode score
      */
     /* We need to distinguish QRCodes already scanned and those who have not been scanned yet
         Since initialization of numScanned would either be an update OR just 1
 
      */
-    public PlayableQRCode(String id, int score){
+    public PlayableQRCode(String id, int score) {
         this.score = score;
         this.id = id;
         this.numScanned = 1;
@@ -45,6 +47,7 @@ public class PlayableQRCode {
 
     /**
      * Getter method
+     *
      * @return numScanned
      */
     // Just a bunch of getters and setters, delete if unneeded
@@ -55,6 +58,7 @@ public class PlayableQRCode {
 
     /**
      * Getter method
+     *
      * @return score
      */
     public int getScore() {
@@ -63,6 +67,7 @@ public class PlayableQRCode {
 
     /**
      * Getter method
+     *
      * @return location
      */
     public QRLocation getLocation() {
@@ -72,6 +77,7 @@ public class PlayableQRCode {
 
     /**
      * Getter method
+     *
      * @return id
      */
     public String getId() {
@@ -80,6 +86,7 @@ public class PlayableQRCode {
 
     /**
      * Setter method
+     *
      * @param lat latitude
      * @param lon longitude
      */
@@ -89,14 +96,25 @@ public class PlayableQRCode {
 
     /**
      * Setter method
+     *
      * @param url QR image
      */
-    public void setUrl(String url) {
+    public void setImageUrl(String url) {
         this.imageUrl = url;
     }
 
     /**
+     * Getter method
+     *
+     * @return String url of image
+     */
+    public void getImageUrl(String url) {
+
+    }
+
+    /**
      * Checks if the location is null
+     *
      * @return location
      */
     public boolean isLocation() {
@@ -105,9 +123,10 @@ public class PlayableQRCode {
 
     /**
      * Getter method for the database - pulls total number scanned
+     *
      * @param db qrMetadata collection
      */
-    public void grabNumScanned(FirebaseFirestore db){
+    public void grabNumScanned(FirebaseFirestore db) {
         // Pulls the total number scanned from the db
         Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(this.id).get();
         this.numScanned = Integer.parseInt((Objects.requireNonNull
@@ -117,7 +136,8 @@ public class PlayableQRCode {
 
     /**
      * Deletes QR from QR profile and database
-     * @param db qrMetadata collection
+     *
+     * @param db       qrMetadata collection
      * @param playerId Current player
      */
     public void DeleteFromDB(FirebaseFirestore db, String playerId) {
@@ -129,7 +149,7 @@ public class PlayableQRCode {
                     public void onSuccess(Void unused) {
                         db.collection("user").document(playerId)
                                 .collection("qrCodes").document(id).delete();
-                        Log.d("Delete_QR", "Successfully removed QR from data base");
+                        Log.d(TAG, "Successfully removed QR from data base");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -143,7 +163,8 @@ public class PlayableQRCode {
 
     /**
      * Adds QR to QR profile and database
-     * @param db qrMetadata collection
+     *
+     * @param db       qrMetadata collection
      * @param playerId Current player
      */
     public void AddToQRLibrary(FirebaseFirestore db, String playerId) {

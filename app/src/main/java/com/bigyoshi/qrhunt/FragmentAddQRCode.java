@@ -167,7 +167,7 @@ public class FragmentAddQRCode extends DialogFragment {
                 }).addOnSuccessListener(taskSnapshot -> {
                     ref.getDownloadUrl().addOnCompleteListener(uriTask -> {
                         if (uriTask.isSuccessful() && uriTask.getResult() != null) {
-                            qrCode.setImage(uriTask.getResult().toString());
+                            qrCode.setImageUrl(uriTask.getResult().toString());
                             Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
                         }
                         qrCode.AddToQRLibrary(db, playerId);
