@@ -71,12 +71,9 @@ public class FragmentScanner extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Leave this here for now, but will need to remove later
-                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                         camera = new AugmentedCamera(FragmentScanner.this, result.getText(), playerId);
                         codeScanner.setScanMode(ScanMode.PREVIEW);
                         camera.processQRCode();
-                        Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

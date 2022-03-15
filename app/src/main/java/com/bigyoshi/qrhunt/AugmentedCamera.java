@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,7 +68,12 @@ public class AugmentedCamera {
         mLocationRequest.setInterval(10 * 1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        hackyLocationCallback = new LocationCallback() {};
+        hackyLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+            }
+        };
         if (ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(frag.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -88,16 +94,18 @@ public class AugmentedCamera {
         getLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                Location location = task.getResult();
-                if (location != null) {
-                    qrCode.setLocation(location.getLatitude(), location.getLongitude());
+                if (task.isSuccessful()) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        qrCode.setLocation(location.getLatitude(), location.getLongitude());
+                    }
+                    // this stops listening to the updates we didn't actually care about in the first place for
+                    // see pollLocation
+                    LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
+                    // todo: do we really need a whole wrapper class?
+                    // todo: handle cases where we can get the location gracefully
+                    new FragmentAddQRCode(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
                 }
-                // this stops listening to the updates we didn't actually care about in the first place for
-                // see pollLocation
-                LocationServices.getFusedLocationProviderClient(frag.getActivity()).removeLocationUpdates(hackyLocationCallback);
-                // todo: do we really need a whole wrapper class?
-                // todo: handle cases where we can get the location gracefully
-                new FragmentAddQRCode(hash, score, new QRLocation(location.getLatitude(), location.getLongitude()), playerId).show(frag.getChildFragmentManager(), "ADD QR");
             }
         });
     }

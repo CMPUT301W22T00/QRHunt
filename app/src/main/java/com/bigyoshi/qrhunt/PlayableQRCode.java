@@ -27,7 +27,7 @@ public class PlayableQRCode {
     private int score; // The score of the QR code
     private QRLocation location;
     private int numScanned;
-    private Bitmap image;
+    private String image;
     private HashMap<String, Object> qrStuff;
 
     /**
@@ -66,7 +66,7 @@ public class PlayableQRCode {
      *
      * @return image
      */
-    public Bitmap getImage() { return this.image; }
+    public String getImage() { return this.image; }
 
     /**
      *
@@ -83,9 +83,9 @@ public class PlayableQRCode {
 
     /**
      *
-     * @param image
+     * @param imageUrl
      */
-    public void setImage(Bitmap image) { this.image = image; }
+    public void setImage(String imageUrl) { this.image = imageUrl; }
 
     /**
      *
@@ -135,8 +135,6 @@ public class PlayableQRCode {
      */
     public void AddToQRLibrary(FirebaseFirestore db, String playerId) {
         qrStuff = new HashMap<>();
-        // todo check size of image
-        // not adding yet so we don't go over the free usage amount for firestore
         //playerQrStuff.put("image", image);
         qrStuff.put("score", score);
         qrStuff.put("latitude", location.getLat());
