@@ -193,6 +193,6 @@ public class FragmentProfile extends Fragment {
         qrCodesList.remove(pos);
         qrCodesAdapter.notifyDataSetChanged();
         db = FirebaseFirestore.getInstance();
-        removeQR.DeleteFromDB(db, playerInfo.getPlayerId());
+        removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
 }

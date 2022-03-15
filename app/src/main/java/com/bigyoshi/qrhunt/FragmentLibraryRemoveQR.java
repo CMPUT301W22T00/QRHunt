@@ -1,6 +1,5 @@
 package com.bigyoshi.qrhunt;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
@@ -47,31 +46,28 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
 
         // Display location
         showLatLong = view.findViewById(R.id.text_lon_lat);
-        if (removeQR.getLocation() != null) {
-            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
-            String strLongitude = Location.convert(removeQR.getLocation().getLong(), Location.FORMAT_DEGREES);
-            showLatLong.setText(strLatitude + ", " + strLongitude);
-        } else {
-            showLatLong.setText("LOCATION NOT GIVEN");
-        }
+        //        if (removeQR.getLocation() != null) {
+        //            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
+        //            String strLongitude = Location.convert(removeQR.getLocation().getLongitude(), Location.FORMAT_DEGREES);
+        //            showLatLong.setText(strLatitude + ", " + strLongitude);
+        //        } else {
+        //            showLatLong.setText("LOCATION NOT GIVEN");
+        //        }
 
         // attach photo
         showPic = view.findViewById(R.id.image_holder);
         addPic = view.findViewById(R.id.button_take_photo);
         addPic.setVisibility(View.GONE);
 
-        okayButton = view.findViewById(R.id.button_ok);
+        okayButton = view.findViewById(R.id.qr_button_ok);
         okayButton.setText("REMOVE");
-        okayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentProfile parentFrag = ((FragmentProfile)FragmentLibraryRemoveQR.this.getParentFragment());
-                parentFrag.libraryRemoveQR(pos, removeQR);
-                getFragmentManager().beginTransaction().remove(FragmentLibraryRemoveQR.this).commit();
-            }
+        okayButton.setOnClickListener(view1 -> {
+            FragmentProfile parentFrag = ((FragmentProfile)FragmentLibraryRemoveQR.this.getParentFragment());
+            parentFrag.libraryRemoveQR(pos, removeQR);
+            getFragmentManager().beginTransaction().remove(FragmentLibraryRemoveQR.this).commit();
         });
 
-        cancelButton = view.findViewById(R.id.button_cancel);
+        cancelButton = view.findViewById(R.id.qr_button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

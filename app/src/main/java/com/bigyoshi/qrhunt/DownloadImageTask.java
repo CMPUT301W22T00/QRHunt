@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import java.io.InputStream;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    private final static String TAG = DownloadImageTask.class.getSimpleName();
     private ImageView bmImage;
 
     public DownloadImageTask(ImageView bmImage) {
@@ -16,16 +17,15 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
+        String urlToDownload = urls[0];
+        Bitmap bm = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
+            InputStream in = new java.net.URL(urlToDownload).openStream();
+            bm = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
-        return mIcon11;
+        return bm;
     }
 
     protected void onPostExecute(Bitmap result) {

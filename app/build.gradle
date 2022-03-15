@@ -16,8 +16,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    testOptions{
-        unitTests.all{
+    testOptions {
+        unitTests.all {
             useJUnitPlatform()
         }
     }
@@ -37,7 +37,8 @@ android {
     }
 }
 
-task javadoc(type: Javadoc) {java
+task javadoc(type: Javadoc) {
+    java
 
     doFirst {
         configurations.implementation
@@ -67,6 +68,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
 
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-storage'
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

@@ -48,21 +48,11 @@ public class QRLibrary {
      */
     public void update() {
         Query qrList =  db.collection("users").document(playerId).collection("qrCodes");
-        qrList.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                        if (doc.exists()) {
-                            lat = doc.getDouble("latitude");
-                            lon = doc.getDouble("longitude");
-                            score = doc.getLong("score").intValue();
-                            qrHash = doc.getId();
-                            qrCode = new PlayableQRCode(qrHash, score);
-                            qrCode.setLocation(lat, lon);
-                            qrCodes.put(qrHash, qrCode);
-
-                        }
+        qrList.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot doc : task.getResult()) {
+                    if (doc.exists()) {
+                        doc.toObject(PlayableQRCode.class);
                     }
                 }
             }

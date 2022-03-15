@@ -6,20 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
-import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
-import com.google.zxing.Result;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
@@ -27,8 +21,9 @@ import com.google.zxing.Result;
  * Issues: TBA
  */
 public class FragmentScanner extends Fragment {
+    public static final String TAG = FragmentScanner.class.getSimpleName();
     private CodeScanner codeScanner;
-    private AugmentedCamera camera;
+    private QRCodeProcessor camera;
     private String playerId;
 
     /**
@@ -45,13 +40,10 @@ public class FragmentScanner extends Fragment {
 
         getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
                 this,
-                new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                Player player = (Player) result.getSerializable("player");
-                playerId = player.getPlayerId();
-            }
-        });
+                (requestKey, result) -> {
+                    Player player = (Player) result.getSerializable("player");
+                    playerId = player.getPlayerId();
+                });
 
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.scanner_fragment, container, false);
@@ -67,37 +59,17 @@ public class FragmentScanner extends Fragment {
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
-        codeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Leave this here for now, but will need to remove later
-                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
-                        camera = new AugmentedCamera(FragmentScanner.this,
-                                result.getText(), playerId);
-                        codeScanner.setScanMode(ScanMode.PREVIEW);
-                        camera.processQRCode();
-                        Toast.makeText(activity, "QR ADDED", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
+            camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
+            codeScanner.setScanMode(ScanMode.PREVIEW);
+            camera.processQRCode();
+        }));
 
-        codeScanner.setErrorCallback(new ErrorCallback() {
-            @Override
-            public void onError(@NonNull Throwable thrown) {
-                Log.e("CAMERA", "Camera has failed: ", thrown );
-            }
-        });
+        codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
 
-        scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                codeScanner.startPreview();
-                codeScanner.setScanMode(ScanMode.SINGLE);
-            }
+        scannerView.setOnClickListener(view -> {
+            codeScanner.startPreview();
+            codeScanner.setScanMode(ScanMode.SINGLE);
         });
         return root;
     }

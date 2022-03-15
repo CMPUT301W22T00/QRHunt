@@ -1,75 +1,104 @@
 package com.bigyoshi.qrhunt;
 
+import android.location.Location;
+
 import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 
+import java.io.Serializable;
+
 /**
- * Definition: Keeping track of location and id of QR
+ * Definition: Keeping track of location and geohash of a pair of latitude and longitude points
  * Note: NA
  * Issues: TBA
  */
-public class QRLocation {
-    private double lat;
-    private double lon;
-    private String id;
+public class QRLocation implements Serializable {
+    private Double latitude;
+    private Double longitude;
+    private String geoHash;
 
+    public QRLocation() {}
     /**
      * Constructor method
-     * @param lat latitude
+     *
+     * @param latitude latitude
      * @param lon longitude
      */
-    public QRLocation(double lat, double lon) {
-        this.lat = lat;
-        this.lon = lon;
-        updateId();
+    public QRLocation(Double latitude, Double lon) {
+        this.latitude = latitude;
+        this.longitude = lon;
+        computeGeoHash();
+    }
+
+    public QRLocation(Location location) {
+        if (location != null) {
+            this.latitude = location.getLatitude();
+            this.longitude = location.getLongitude();
+            computeGeoHash();
+        }
+    }
+
+    /*
+     * Tries to set geoHash if it can. In cases where the object is deserialized from the database,
+     * latitude and longitude are set one by one, so we can't be sure if we have one we have both
+     */
+    private void computeGeoHash() {
+        if (getLongitude() != null && getLatitude() != null) {
+            this.geoHash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(getLatitude(), getLongitude()));
+        }
     }
 
     /**
      * Getter method
+     *
      * @return latitude
      */
-    public double getLat() {
-        return lat;
+    public Double getLatitude() {
+        return latitude;
     }
 
     /**
      * Getter method
+     *
      * @return longitude
      */
-    public double getLong() {
-        return lon;
+    public Double getLongitude() {
+        return longitude;
     }
 
     /**
      * Getter method
+     *
      * @return QR id
      */
-    public String getId() {
-        return this.id;
+    public String getGeoHash() {
+        return this.geoHash;
     }
 
     /**
      * Setter method
-     * @param lat latitude
+     *
+     * @param latitude latitude
      */
-    public void setLat(double lat) {
-
-        this.lat = lat;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+        computeGeoHash();
     }
 
     /**
      * Setter method
-     * @param lon longitude
+     *
+     * @param longitude longitude
      */
-    public void setLong(double lon) {
-
-        this.lon = lon;
+    public void setLong(double longitude) {
+        this.longitude = longitude;
+        computeGeoHash();
     }
 
-    /**
-     * Updates the QR location
+    /*
+     * Returns whether or not the location exists, ie, is a latitude and longitude specified
      */
-    public void updateId() {
-        this.id = GeoFireUtils.getGeoHashForLocation(new GeoLocation(this.lat, this.lon));
+    public boolean exists() {
+        return getLatitude() != null && getLongitude() != null && getGeoHash() != null;
     }
 }
