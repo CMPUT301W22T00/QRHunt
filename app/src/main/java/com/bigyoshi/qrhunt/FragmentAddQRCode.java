@@ -1,5 +1,6 @@
 package com.bigyoshi.qrhunt;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -16,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -31,7 +35,7 @@ public class FragmentAddQRCode extends DialogFragment {
     private PlayableQRCode qrCode;
     private TextView showScore;
     private TextView showLatLong;
-    private TextView showNumScanned;
+    private TextView numScannedTextView;
     private ImageView showPic;
     private Button okayButton;
     private Button cancelButton;
@@ -67,13 +71,22 @@ public class FragmentAddQRCode extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_qr_profile_after_scan, container, false);
 
         // Display score
-        showScore = view.findViewById(R.id.text_qr_score);
-        showScore.setText(String.valueOf(score));
+        ((TextView) view.findViewById(R.id.text_qr_score)).setText(String.valueOf(score));
 
-        // Display numScan
-        showNumScanned = view.findViewById(R.id.text_scans);
-        showNumScanned.setText("01"); // HARD CODED FOR NOW
-
+        numScannedTextView = view.findViewById(R.id.text_scans);
+        numScannedTextView.setText("0 Scans");
+        db.collection("users").document(playerId).get().addOnCompleteListener(
+                new OnCompleteListener<DocumentSnapshot>() {
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot res = task.getResult();
+                        if (res != null && res.exists()) {
+                            numScannedTextView.setText(String.format("%d Scans", res.getDouble("numScanned").intValue()));
+                        }
+                    }
+                }
+        );
         // Display location
         showLatLong = view.findViewById(R.id.text_lon_lat);
         if (location != null) {
