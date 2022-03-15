@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.Objects;
 
 /**
- * Definition:
+ * Definition: Playing QR - Players can scan this and get points
+ *             Stores and pulls values related to the QR from database
  *
  *
  */
@@ -30,7 +31,7 @@ public class PlayableQRCode {
     private HashMap<String, Object> qrStuff;
 
     /**
-     *
+     * Constructor
      * @param id
      * @param score
      */
@@ -44,32 +45,32 @@ public class PlayableQRCode {
 
     /**
      *
-     * @return
+     * @return numScanned
      */
     // Just a bunch of getters and setters, delete if unneeded
     public int getNumScanned() { return this.numScanned; }
 
     /**
      *
-     * @return
+     * @return score
      */
     public int getScore() { return this.score; }
 
     /**
      *
-     * @return
+     * @return location
      */
     public QRLocation getLocation() { return this.location; }
 
     /**
      *
-     * @return
+     * @return image
      */
     public Bitmap getImage() { return this.image; }
 
     /**
      *
-     * @return
+     * @return id
      */
     public String getId() { return id; }
 
@@ -88,12 +89,12 @@ public class PlayableQRCode {
 
     /**
      *
-     * @return
+     * @return location
      */
     public boolean isLocation() { return this.location != null; }
 
     /**
-     *
+     * Getter like method for the database - pulls total number scanned
      * @param db
      */
     public void grabNumScanned(FirebaseFirestore db){
@@ -103,7 +104,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     *  Deletes QR from QR profile and database
      * @param db
      * @param playerId
      */
@@ -128,7 +129,7 @@ public class PlayableQRCode {
     }
 
     /**
-     *
+     * Adds QR to QR profile and database
      * @param db
      * @param playerId
      */

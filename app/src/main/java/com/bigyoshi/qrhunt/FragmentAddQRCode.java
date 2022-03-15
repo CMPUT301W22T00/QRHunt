@@ -19,7 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
- * Definition:
+ * Definition: After scan fragment popup - displays values information and handles location photo
  *
  *
  */
@@ -39,7 +39,7 @@ public class FragmentAddQRCode extends DialogFragment {
     private FirebaseFirestore db;
 
     /**
-     *
+     * Constructor
      * @param hash
      * @param score
      * @param location
@@ -53,11 +53,12 @@ public class FragmentAddQRCode extends DialogFragment {
     }
 
     /**
-     *
+     *  After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
+     *  and is responsible for attaching the user's photo in the proper position
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return view
      */
     @Nullable
     @Override
@@ -97,7 +98,7 @@ public class FragmentAddQRCode extends DialogFragment {
 
         // todo: all other stuff
         // caption
-        // disable location (toggle not present in UI right now but should be probably?)
+        // disable location (toggle not present in UI right now but should be probably?)   I wll have this added in for project 4 - Alinn
         // probably skip num scanned for now, it's obnoxious
         // need to have a cancel button as well
         // after ok button → save to db
@@ -125,10 +126,11 @@ public class FragmentAddQRCode extends DialogFragment {
     }
 
     /**
-     *
+     * Displays user's photo
      * @param requestCode
      * @param resultCode
      * @param data
+     * @deprecated onActivityResult
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

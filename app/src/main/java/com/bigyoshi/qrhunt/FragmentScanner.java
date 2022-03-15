@@ -22,7 +22,7 @@ import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
 /**
- * Definition:
+ * Definition: Scanner with camera - Scans and decodes QR code
  *
  *
  */
@@ -32,11 +32,11 @@ public class FragmentScanner extends Fragment {
     private String playerId;
 
     /**
-     *
+     * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return root
      */
     @Nullable
     @Override
@@ -100,7 +100,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     *
+     * Invokes parent method and ...
      */
     @Override
     public void onResume() {
@@ -109,7 +109,7 @@ public class FragmentScanner extends Fragment {
     }
 
     /**
-     *
+     * Invokes parent method and ...
      */
     @Override
     public void onPause() {

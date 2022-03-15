@@ -23,8 +23,8 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * Definition:
- *
+ * Definition: object representing player, keeps track of all player data and
+ * deals with db functions regarding players
  *
  */
 public class Player implements Serializable {
@@ -43,7 +43,7 @@ public class Player implements Serializable {
     private Context context;
 
     /**
-     *
+     * constructor: sets all player data to defaults
      * @param context
      */
     public Player(Context context) {
@@ -56,32 +56,33 @@ public class Player implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * returns contact object associated w/ player
+     * @return Contact contact
      */
     public Contact getContact(){
         return this.contact;
     }
 
     /**
-     *
-     * @return
+     * returns score integer associated w/ player
+     * @return Integer score
      */
     public int getTotalScore(){
         return this.totalScore;
     }
 
     /**
-     *
-     * @return
+     * returns username String associated w/ player
+     * @return String username
      */
     public String getUsername(){
         return this.username;
     }
 
     /**
-     *
-     * @return
+     * returns playerId String associated w/ player
+     * if null, it generates the player ID
+     * @return String playerId
      */
     public String getPlayerId() {
         // fetched lazily, but only once
@@ -98,8 +99,9 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * accesses contact object to set strings as social media and email
      * @param contact
+     *      sets email and social from this object as the players' contacts
      */
     public void setContact(Contact contact){
         // Use the editTextId to identify which contact to update (with toUpdate)
@@ -108,7 +110,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * sets players Username String
      * @param newName
      */
     public void setUsername(String newName){
@@ -116,13 +118,12 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * assigns another player admin if this player is admin
      * @param newAdmin
-     * @param approvingAdmin
-     * @return
+     * @return String describing whether or not player was made admin
      */
-    public String makeAdmin(Player newAdmin, Player approvingAdmin){
-        if (approvingAdmin.isAdmin()){
+    public String makeAdmin(Player newAdmin){
+        if (this.isAdmin()){
             newAdmin.admin = true;
             return "PlayerInfo now admin.";
         } else {
@@ -132,7 +133,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * sets Player's PlayerId to String id
      * @param id
      */
     public void setPlayerId(String id) {
@@ -147,7 +148,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * returns a Boolean of whether or not player is Admin
      * @return
      */
     public Boolean isAdmin(){
@@ -155,7 +156,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * saves PlayerData in HashMap to databse associated w/ PlayerID
      *
      */
     public void savePlayer() {
@@ -189,7 +190,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * gets playerData from database by matching against playerIds in database
      *
      */
     public void initialize() {
@@ -217,8 +218,8 @@ public class Player implements Serializable {
     }
 
     /**
-     *
-     *
+     * Updates db within the document associated w/playerId
+     * updates all player data
      */
     public void updateDB() {
         collectionReference
@@ -236,7 +237,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * Generates random unique username when account is created
      * @param context
      * @return
      */

@@ -1,13 +1,7 @@
 package com.bigyoshi.qrhunt;
-/*
-Stores user's social contact information
- - Email
- - One social media handle
- */
-
 
 /**
- * Definition:
+ * Definition: Stores the user's contact information
  *
  *
  */
@@ -16,7 +10,7 @@ public class Contact {
     private String email;
 
     /**
-     *
+     * Constructor
      *
      */
     public Contact(){
@@ -26,7 +20,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return socialMedia
      */
     public String getSocial(){
         return socialMedia;
@@ -34,7 +28,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return email
      */
     public String getEmail(){
         return email;
