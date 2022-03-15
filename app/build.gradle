@@ -22,7 +22,6 @@ android {
         }
     }
 
-
     buildTypes {
         release {
             minifyEnabled false
@@ -87,6 +86,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.firebase:geofire-android-common:3.1.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.github.douglasjunior:android-simple-tooltip:1.0.0-rc.0'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.1'
