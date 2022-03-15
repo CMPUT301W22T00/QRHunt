@@ -13,33 +13,39 @@ import java.io.Serializable;
  * Issues: TBA
  */
 public class QRLocation implements Serializable {
-    private Double lat;
-    private Double lon;
+    private Double latitude;
+    private Double longitude;
     private String geoHash;
 
     public QRLocation() {}
     /**
      * Constructor method
      *
-     * @param lat latitude
+     * @param latitude latitude
      * @param lon longitude
      */
-    public QRLocation(Double lat, Double lon) {
-        this.lat = lat;
-        this.lon = lon;
+    public QRLocation(Double latitude, Double lon) {
+        this.latitude = latitude;
+        this.longitude = lon;
         computeGeoHash();
     }
 
     public QRLocation(Location location) {
         if (location != null) {
-            this.lat = location.getLatitude();
-            this.lon = location.getLongitude();
+            this.latitude = location.getLatitude();
+            this.longitude = location.getLongitude();
             computeGeoHash();
         }
     }
 
+    /*
+     * Tries to set geoHash if it can. In cases where the object is deserialized from the database,
+     * latitude and longitude are set one by one, so we can't be sure if we have one we have both
+     */
     private void computeGeoHash() {
-        this.geoHash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(this.lat, this.lon));
+        if (getLongitude() != null && getLatitude() != null) {
+            this.geoHash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(getLatitude(), getLongitude()));
+        }
     }
 
     /**
@@ -47,8 +53,8 @@ public class QRLocation implements Serializable {
      *
      * @return latitude
      */
-    public Double getLat() {
-        return lat;
+    public Double getLatitude() {
+        return latitude;
     }
 
     /**
@@ -56,8 +62,8 @@ public class QRLocation implements Serializable {
      *
      * @return longitude
      */
-    public Double getLong() {
-        return lon;
+    public Double getLongitude() {
+        return longitude;
     }
 
     /**
@@ -72,20 +78,20 @@ public class QRLocation implements Serializable {
     /**
      * Setter method
      *
-     * @param lat latitude
+     * @param latitude latitude
      */
-    public void setLat(double lat) {
-        this.lat = lat;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
         computeGeoHash();
     }
 
     /**
      * Setter method
      *
-     * @param lon longitude
+     * @param longitude longitude
      */
-    public void setLong(double lon) {
-        this.lon = lon;
+    public void setLong(double longitude) {
+        this.longitude = longitude;
         computeGeoHash();
     }
 
@@ -93,6 +99,6 @@ public class QRLocation implements Serializable {
      * Returns whether or not the location exists, ie, is a latitude and longitude specified
      */
     public boolean exists() {
-        return getLat() != null && getLong() != null && getGeoHash() != null;
+        return getLatitude() != null && getLongitude() != null && getGeoHash() != null;
     }
 }
