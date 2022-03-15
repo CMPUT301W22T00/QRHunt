@@ -4,7 +4,7 @@ import com.firebase.geofire.GeoFireUtils;
 import com.firebase.geofire.GeoLocation;
 
 /**
- * Definition:
+ * Definition: class for keeping track of location and id of QR
  *
  *
  */
@@ -14,7 +14,7 @@ public class QRLocation {
     private String id;
 
     /**
-     *
+     * constructor: assigns lat and lon and updates id
      * @param lat
      * @param lon
      */

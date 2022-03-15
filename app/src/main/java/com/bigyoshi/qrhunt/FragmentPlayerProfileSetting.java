@@ -18,7 +18,7 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 import org.osmdroid.config.Configuration;
 
 /**
- * Definition:
+ * Definition: Setting for user to edit their account information (username, email, socials handle)
  *
  *
  */
@@ -33,7 +33,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private FragmentUserSettingsEditProfileBinding binding;
 
     /**
-     *
+     * Constructor
      * @param playerInfo
      */
     public FragmentPlayerProfileSetting(Player playerInfo){
@@ -41,18 +41,18 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     }
 
     /**
-     *
+     *  Invokes parent constructor
      */
     public FragmentPlayerProfileSetting(){
         super();
     }
 
     /**
-     *
+     *  Creates view and handles user button clicks
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return root
      */
     @Nullable
     @Override
@@ -74,9 +74,11 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
             public void onClick(View view) {
                 if (!username.getText().toString().matches("")){
                     playerInfo.setUsername(username.getText().toString());
-                } else if (!email.getText().toString().matches("")){
+                }
+                if (!email.getText().toString().matches("")){
                     playerInfo.getContact().setEmail(email.getText().toString());
-                } else if (!socials.getText().toString().matches("")){
+                }
+                if (!socials.getText().toString().matches("")){
                     playerInfo.getContact().setSocial(socials.getText().toString());
                 }
                 Bundle result = new Bundle();

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingEnd="@dimen/padding"
     android:paddingStart="@dimen/padding"
-    android:background="@color/accent_grey_dark_50op">
+    android:background="@color/accent_grey_dark_70op">
 
     <ImageButton android:id="@+id/navigation_search"
         android:src="@drawable/ic_button_search"
@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: XXXX"
+        android:text=""
         android:textSize="@dimen/title_size"
         android:textColor="@color/main_blue"
         android:fontFamily="@font/quicksand_medium"

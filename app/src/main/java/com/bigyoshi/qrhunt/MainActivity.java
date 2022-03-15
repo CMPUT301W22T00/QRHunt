@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Definition:
+ * Definition: Builds app, manages fragments, and accesses database
  *
  *
  */
@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private DocumentReference playerRef;
 
     /**
-     *
+     * OnCreate: sets up screen (toolbar, bottom menu), initializes player if need be
+     * manages which fragment the app is in and adjusts accordingly, & passes things from
+     * fragment to fragment
      * @param savedInstanceState
      */
     @Override
@@ -122,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 mapMenu.setVisibility(View.GONE);
-                String scoreText = "Score: " + Integer.toString(player.getTotalScore()); // NEED TO UPDATE
-                scoreView.setText(scoreText);
                 navProfile.setVisibility(View.VISIBLE);
             }
             if (navDestination.getId() == R.id.navigation_rankBoard) {
@@ -149,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
             actionbar.show();
             navSearch.setVisibility(View.VISIBLE);
             mapMenu.setVisibility(View.GONE);
-            String scoreText = "Score: " + Integer.toString(player.getTotalScore());
-            scoreView.setText(scoreText);
         }
     }
 
@@ -159,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
      so that the proper id is is listened to for changes
      */
     /**
-     *
+     * Updates the database when score is updated
      *
      */
     private void updateFirebaseListeners() {
@@ -178,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Invokes parent method and checks for...?
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -197,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Checks permission for...?
      * @param permissions
      */
     private void requestPermissionsIfNecessary(String[] permissions) {
