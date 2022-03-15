@@ -74,9 +74,11 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
             public void onClick(View view) {
                 if (!username.getText().toString().matches("")){
                     playerInfo.setUsername(username.getText().toString());
-                } else if (!email.getText().toString().matches("")){
+                }
+                if (!email.getText().toString().matches("")){
                     playerInfo.getContact().setEmail(email.getText().toString());
-                } else if (!socials.getText().toString().matches("")){
+                }
+                if (!socials.getText().toString().matches("")){
                     playerInfo.getContact().setSocial(socials.getText().toString());
                 }
                 Bundle result = new Bundle();

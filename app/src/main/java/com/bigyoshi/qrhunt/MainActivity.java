@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 mapMenu.setVisibility(View.GONE);
-                String scoreText = "Score: " + Integer.toString(player.getTotalScore()); // NEED TO UPDATE
-                scoreView.setText(scoreText);
                 navProfile.setVisibility(View.VISIBLE);
             }
             if (navDestination.getId() == R.id.navigation_rankBoard) {
@@ -151,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
             actionbar.show();
             navSearch.setVisibility(View.VISIBLE);
             mapMenu.setVisibility(View.GONE);
-            String scoreText = "Score: " + Integer.toString(player.getTotalScore());
-            scoreView.setText(scoreText);
         }
     }
 
