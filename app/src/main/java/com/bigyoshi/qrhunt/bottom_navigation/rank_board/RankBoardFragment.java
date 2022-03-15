@@ -20,9 +20,9 @@ import org.osmdroid.config.Configuration;
 
 
 /**
- *  Definition: List for ranks setup
- *
- *
+ * Definition: Fragment representing the leaderboard
+ * Note: NA
+ * Issues: This is not implemented yet
  */
 public class RankBoardFragment extends Fragment {
     private ImageButton back;
@@ -31,9 +31,9 @@ public class RankBoardFragment extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * @param inflater inflater
+     * @param container Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
      * @return root
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,14 +53,11 @@ public class RankBoardFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
         return root;
     }
 
     /**
-     * Invokes parent method and...
-     *
+     * Destroys the view and makes binding null
      */
     @Override
     public void onDestroyView() {
