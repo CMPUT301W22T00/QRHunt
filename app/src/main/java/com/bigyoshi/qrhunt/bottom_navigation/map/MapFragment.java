@@ -1,25 +1,32 @@
 package com.bigyoshi.qrhunt.bottom_navigation.map;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-//import com.bigyoshi.qrhunt.QRGeoPins;
+import com.google.android.gms.location.FusedLocationProviderClient;
+// import com.bigyoshi.qrhunt.QRGeoPins;
+import com.bigyoshi.qrhunt.PlayableQRCode;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,160 +34,157 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+import java.util.Locale;
 
 /**
- * Definition: Fragment representing the map
- * Note: N/A
- * Issues: Slow to load
+ * Definition: Fragment representing the map Note: N/A Issues: Slow to load
+ * https://stackoverflow.com/questions/19353255/how-to-put-google-maps-v2-on-a-fragment-using-viewpager
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     private final String TAG = MapFragment.class.getSimpleName();
-    private MapView map = null;
-    private FragmentMapBinding binding;
-    private MyLocationNewOverlay mLocationOverlay;
-    private Marker geoPin;
+    private static final String KEY_VIEWPORT_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+    private static final Integer DEFAULT_ZOOM = 15;
+
+    private MapView mapView;
+    FragmentMapBinding binding;
     private FirebaseFirestore db;
-    Double lat;
-    Double lng;
+    private GoogleMap googleMap;
+    private Location lastKnownLocation;
+    private Parcelable viewportPosition;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
+     *
      * @param inflater inflater
      * @param container Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState){
+    public View onCreateView(
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = FragmentMapBinding.inflate(inflater, container, false).getRoot();
 
-        // Load/Initialize osmdroid configuration and database
+        if (savedInstanceState != null) {
+            lastKnownLocation = (Location) savedInstanceState.getParcelable(KEY_LOCATION);
+            viewportPosition = savedInstanceState.getParcelable(KEY_VIEWPORT_POSITION);
+        }
+
         db = FirebaseFirestore.getInstance();
-        Context ctx = getActivity().getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        mapView = root.findViewById(R.id.map_view);
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume(); // this is necessary to get the map to be shown ASAP
 
-        binding = FragmentMapBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        /* Inflate and create the map
-           setContentView(R.layout.fragment_map); */
-        map = (MapView) binding.mapview;
-        map.setTileSource(TileSourceFactory.MAPNIK);
-
-        // Map Zoom Controls
-        // map.setBuiltInZoomControls(true);
-        // todo is there anything we can do about this? (deprecated)
-        map.setMultiTouchControls(true);
-
-        // Follows user and centers on them
-        this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), map);
-        this.mLocationOverlay.enableMyLocation();
-        this.mLocationOverlay.enableFollowLocation();
-
-        // Change person icon
-        Drawable directionIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_player_nav);
-        Drawable personIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_icon);
-        this.mLocationOverlay.setDirectionArrow(drawableToBitmap(personIcon), drawableToBitmap(directionIcon));
-
-        // Adding the overlays
-        map.getOverlays().add(this.mLocationOverlay);
-        IMapController mapController = map.getController();
-        mapController.setZoom(20);
-
-        Query qrLocation =  db.collectionGroup("qrCodes");
-        qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot doc : task.getResult()){
-                        if (doc.exists()) {
-                            lat = doc.getDouble("latitude");
-                            lng = doc.getDouble("longitude");
-                            if (lat != null && lng != null){
-                                Log.d("Monke", String.format("lat %f long %f", lat, lng));
-                                geoPin = new Marker(map);
-                                geoPin.setPosition(new GeoPoint(lat, lng));
-                                geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                                map.getOverlays().add(geoPin);
-                            }
-                        } else {
-                            Log.d("Monke", "No such document");
-                        }
-                    }
-                } else {
-                    Log.d("Monke", "get failed with ", task.getException());
-                }
-            }
-        });
+        SupportMapFragment mapFrag =
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFrag.getMapAsync(this);
 
         return root;
     }
 
-
-    /**
-     * Destroys the view and makes binding null
-     */
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void setLocation() {
+        new FusedLocationProviderClient(this.getActivity())
+                .getLastLocation()
+                .addOnCompleteListener(
+                        locationTask -> {
+                            if (locationTask.isSuccessful() && locationTask.getResult() != null) {
+                                lastKnownLocation = locationTask.getResult();
+                                if (googleMap != null) {
+                                    googleMap.moveCamera(
+                                            CameraUpdateFactory.newLatLngZoom(
+                                                    new LatLng(
+                                                            lastKnownLocation.getLatitude(),
+                                                            lastKnownLocation.getLongitude()),
+                                                    DEFAULT_ZOOM));
+                                }
+                            }
+                        });
     }
-
-    /**
-     * Refreshes the osmdroid configuration on resuming
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
-        /* if you make changes to the configuration, use:
-           SharedPreferences prefs = PreferenceManager
-                                         .getDefaultSharedPreferences(this.getContext());
-           Configuration.getInstance().load(this.getContext(),
-                                          PreferenceManager
-                                                .getDefaultSharedPreferences(this.getContext()));
-         */
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
-    }
-
-    /**
-     * Pauses the osmdroid configuration when moving to a new fragment/activity
-     *
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-        /* if you make changes to the configuration, use
-           SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-           Configuration.getInstance().save(this.getContext(), prefs); */
-        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
-    }
-
     /**
      * Converts a vector image to a bitmap
-     * @param drawable
-     *        - A vector image
+     *
+     * @param drawable - A vector image
      * @return bitmap of the vector image
      */
-    public static Bitmap drawableToBitmap (Drawable drawable){
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
+            return ((BitmapDrawable) drawable).getBitmap();
         }
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(),
-                Bitmap.Config.ARGB_8888);
+        Bitmap bitmap =
+                Bitmap.createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
 
         return bitmap;
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        setLocation();
+        Query qrLocation = db.collectionGroup("qrCodes");
+        qrLocation
+                .get()
+                .addOnCompleteListener(
+                        new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        if (doc.exists()) {
+                                            PlayableQRCode qrCode =
+                                                    doc.toObject(PlayableQRCode.class);
+                                            if (qrCode.getLocation() != null && qrCode.getLocation().exists()) {
+                                                googleMap.addMarker(new MarkerOptions().position(
+                                                        new LatLng(qrCode.getLocation().getLatitude(), qrCode.getLocation().getLongitude())));
+                                            }
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                        }
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
+                                }
+                            }
+                        });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (googleMap != null) {
+            outState.putParcelable(KEY_VIEWPORT_POSITION, viewportPosition);
+            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+        binding = null;
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }

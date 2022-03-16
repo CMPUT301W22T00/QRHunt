@@ -4,13 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottom_navigation.map.MapFragment"
-    android:id="@+id/map">
+    tools:context=".bottom_navigation.map.MapFragment">
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapview"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tilesource="Mapnik" />
+        android:layout_marginBottom="-30dp"/>
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
