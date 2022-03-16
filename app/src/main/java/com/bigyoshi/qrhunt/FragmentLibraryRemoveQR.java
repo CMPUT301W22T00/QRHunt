@@ -15,6 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * Definition: Fragment used when the player wishes to delete their QR code
+ * Note: NA
+ * Issues: NA
+ */
 public class FragmentLibraryRemoveQR extends DialogFragment {
 
     private int pos;
@@ -28,11 +33,25 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
     private Button addPic;
     private Bitmap bitmap;
 
+    /**
+     * Constructor method
+     *
+     * @param i int
+     * @param removeQR QR to remove
+     */
     public FragmentLibraryRemoveQR(int i, PlayableQRCode removeQR) {
         this.pos = pos;
         this.removeQR = removeQR;
     }
 
+    /**
+     * Creates the view for deleting a QR code
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
+     * @param savedInstanceState SavedInstanceState
+     * @return View
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr_profile_after_scan, container, false);
 

@@ -44,6 +44,7 @@ public class Player implements Serializable {
 
     /**
      * Constructor method
+     *
      * @param context context
      */
     public Player(Context context) {
@@ -57,6 +58,7 @@ public class Player implements Serializable {
 
     /**
      * Getter method
+     *
      * @return Contact contact
      */
     public Contact getContact(){
@@ -66,6 +68,7 @@ public class Player implements Serializable {
 
     /**
      * Getter method
+     *
      * @return Integer score
      */
     public int getTotalScore(){
@@ -75,6 +78,7 @@ public class Player implements Serializable {
 
     /**
      * Getter method
+     *
      * @return String username
      */
     public String getUsername(){
@@ -85,6 +89,7 @@ public class Player implements Serializable {
     /**
      * Getter method
      * Note: If null, it generates the player ID
+     *
      * @return String playerId
      */
     public String getPlayerId() {
@@ -105,6 +110,7 @@ public class Player implements Serializable {
 
     /**
      * Setter method (both email and social media contact)
+     *
      * @param contact
      */
     public void setContact(Contact contact){
@@ -115,6 +121,7 @@ public class Player implements Serializable {
 
     /**
      * Setter method
+     *
      * @param newName new username to assign
      */
     public void setUsername(String newName){
@@ -123,6 +130,7 @@ public class Player implements Serializable {
 
     /**
      * Assigns another player admin if this player is admin
+     *
      * @param newAdmin new Admin to assign
      * @return String describing whether or not player was made admin
      */
@@ -138,6 +146,7 @@ public class Player implements Serializable {
 
     /**
      * Setter method
+     *
      * @param id player's supposed id
      */
     public void setPlayerId(String id) {
@@ -155,6 +164,7 @@ public class Player implements Serializable {
 
     /**
      * Checks whether a player is an admin
+     *
      * @return Boolean representing whether a player is an admin or not
      */
     public Boolean isAdmin(){
@@ -163,6 +173,7 @@ public class Player implements Serializable {
 
     /**
      * Saves PlayerData in HashMap to database associated with playerId
+     *
      */
     public void savePlayer() {
         HashMap<String, Object> playerData = new HashMap<>();
@@ -196,6 +207,7 @@ public class Player implements Serializable {
 
     /**
      * Gets playerData from database by matching against playerIds in database
+     *
      */
     public void initialize() {
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -227,6 +239,7 @@ public class Player implements Serializable {
 
     /**
      * Updates db within the document associated with playerId
+     *
      */
     public void updateDB() {
         collectionReference
@@ -245,6 +258,7 @@ public class Player implements Serializable {
 
     /**
      * Generates random unique username when account is created
+     *
      * @param context context
      * @return String representing generatedUsername
      */

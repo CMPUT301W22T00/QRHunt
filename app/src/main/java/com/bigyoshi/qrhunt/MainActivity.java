@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
      * Sets up screen (toolbar, bottom menu), initializes player if need be
      * manages which fragment the app is in and adjusts accordingly, & passes things from
      * fragment to fragment
+     *
      * @param savedInstanceState SavedInstanceState
      */
     @Override
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Updates the database when score is updated
      * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
+     *
      */
     private void updateFirebaseListeners() {
         // watch the score
@@ -177,8 +179,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Provides permissions (consent from the user)
-     * @param requestCode request code
-     * @param permissions permissions
+     *
+     * @param requestCode  request code
+     * @param permissions  permissions
      * @param grantResults grant results
      */
     @Override
@@ -198,8 +201,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Checks permission for...?
-     * @param permissions
+     * Requests permissions
+     *
+     * @param permissions list of strings for permissions
      */
     private void requestPermissionsIfNecessary(String[] permissions) {
         ArrayList<String> permissionsToRequest = new ArrayList<>();

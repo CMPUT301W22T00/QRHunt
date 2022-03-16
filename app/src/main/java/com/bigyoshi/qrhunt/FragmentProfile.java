@@ -55,7 +55,8 @@ public class FragmentProfile extends Fragment {
 
     /**
      * Constructor method
-     * @param player Current player
+     *
+     * @param player          Current player
      * @param lastDestination Previous navigation destination (by bottom navigation)
      */
     public FragmentProfile(Player player, int lastDestination){
@@ -67,6 +68,7 @@ public class FragmentProfile extends Fragment {
     /**
      * Creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
+     *
      * @param savedInstanceState SavedInstanceState
      */
     @Override
@@ -89,9 +91,10 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     * sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return View
      */
@@ -145,8 +148,9 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        /* https://www.youtube.com/watch?v=IxHfWg-M0bI
-           https://github.com/douglasjunior/android-simple-tooltip
+        /*
+            https://www.youtube.com/watch?v=IxHfWg-M0bI
+            https://github.com/douglasjunior/android-simple-tooltip
          */
         contactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,7 +191,8 @@ public class FragmentProfile extends Fragment {
 
     /**
      * Deletes a QR form the QR Library
-     * @param pos
+     *
+     * @param pos position in library
      */
     public void libraryRemoveQR(int pos, PlayableQRCode removeQR) {
         qrCodesList.remove(pos);

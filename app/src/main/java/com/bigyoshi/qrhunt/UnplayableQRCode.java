@@ -9,12 +9,14 @@ public class UnplayableQRCode {
 
     /**
      * Constructor method
+     *
      */
     public UnplayableQRCode(){
     }
 
     /**
      * Checks if it has stored a player's game status
+     *
      * @return true
      */
     public Boolean isGameStatus(){
@@ -25,7 +27,8 @@ public class UnplayableQRCode {
     }
 
     /**
-     *  Gets game status features and displays it in a view
+     * Gets game status features and displays it in a view
+     *
      */
     public void getGameStatusInfo(){
         // Function used to get game status features and displaying it in a view (UI)
@@ -33,6 +36,7 @@ public class UnplayableQRCode {
 
     /**
      * Gets accessing account or "log-in" specifications
+     *
      */
     public void getLogInInfo(){
         // Function used to get log-in specifications

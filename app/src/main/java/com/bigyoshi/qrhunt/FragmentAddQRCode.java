@@ -148,6 +148,12 @@ public class FragmentAddQRCode extends DialogFragment {
         return view;
     }
 
+    /**
+     * Creates new instance for QR to add
+     *
+     * @param playableQRCode QR to add
+     * @return QR to add
+     */
     public static FragmentAddQRCode newInstance(PlayableQRCode playableQRCode) {
         FragmentAddQRCode fragmentAddQRCode = new FragmentAddQRCode();
         Bundle args = new Bundle();
