@@ -98,7 +98,7 @@ public class FragmentAddQRCode extends DialogFragment {
         // Display location
         TextView showLatLong = view.findViewById(R.id.text_lon_lat);
         QRLocation qrLocation = qrCode.getLocation();
-        if (qrLocation.exists()) {
+        if (qrLocation != null && qrLocation.exists()) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
