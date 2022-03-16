@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/main_off_white_blue_light"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
-            android:text="(Longitude, Latitude)"
+            android:text="(Latitude, Longitude)"
             android:textColor="@color/secondary_blue_dark"
             android:textSize="@dimen/text_size"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +141,9 @@
             android:id="@+id/qr_button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/padding"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginRight="200dp"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="@font/quicksand"
             android:gravity="center"
@@ -151,6 +152,7 @@
             android:textSize="@dimen/subtitle_size"
             android:textStyle="bold"
             app:layout_constraintRight_toLeftOf="@id/qr_button_ok"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_holder" />
 
 
