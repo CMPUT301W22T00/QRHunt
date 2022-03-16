@@ -68,7 +68,7 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
         // Display location
         showLatLong = view.findViewById(R.id.text_lon_lat);
         QRLocation qrLocation = removeQR.getLocation();
-        if (qrLocation.exists()) {
+        if (qrLocation != null) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
