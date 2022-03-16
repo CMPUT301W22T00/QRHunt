@@ -29,12 +29,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+
+import java.io.File;
 
 /**
  * Definition: Fragment representing the map
@@ -68,6 +71,15 @@ public class MapFragment extends Fragment {
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
+        IConfigurationProvider osmConf = Configuration.getInstance();
+        File basePath = new File(this.getActivity().getCacheDir().getAbsolutePath(), "osmdroid");
+        basePath.mkdirs();
+        osmConf.setOsmdroidBasePath(basePath);
+        File tileCache = new File(osmConf.getOsmdroidBasePath().getAbsolutePath(), "tile");
+        tileCache.mkdirs();
+        osmConf.setOsmdroidTileCache(tileCache);
+        osmConf.setUserAgentValue("QRHunt");
+
         binding = FragmentMapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -75,6 +87,8 @@ public class MapFragment extends Fragment {
            setContentView(R.layout.fragment_map); */
         map = (MapView) binding.mapview;
         map.setTileSource(TileSourceFactory.MAPNIK);
+
+
 
         // Map Zoom Controls
         // map.setBuiltInZoomControls(true);
