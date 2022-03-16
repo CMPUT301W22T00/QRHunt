@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
-    private ImageButton navSearch, navProfile, mapMenu;
+    private ImageButton navSearch, navProfile;
     private TextView scoreView;
     private FirebaseFirestore db;
     private DocumentReference playerRef;
@@ -109,16 +109,12 @@ public class MainActivity extends AppCompatActivity {
         navSearch = findViewById(R.id.navigation_search);
         navSearch.setOnClickListener(view -> {});
 
-        mapMenu = findViewById(R.id.map_list_button);
-        mapMenu.setOnClickListener(view -> {});
-
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
 
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
                 navSearch.setVisibility(View.GONE);
-                mapMenu.setVisibility(View.VISIBLE);
                 scoreView.setText("Map"); // May need to fix later
                 navProfile.setVisibility(View.GONE); // TEMPORARY
             }
@@ -128,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 result.putSerializable("player", player);
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
-                mapMenu.setVisibility(View.GONE);
                 navProfile.setVisibility(View.VISIBLE);
             }
             if (navDestination.getId() == R.id.navigation_rankBoard) {
@@ -146,14 +141,12 @@ public class MainActivity extends AppCompatActivity {
         if (prevFrag == R.id.navigation_map) {
             actionbar.show();
             navSearch.setVisibility(View.GONE);
-            mapMenu.setVisibility(View.VISIBLE);
             scoreView.setText("Map"); // May need to fix later
             // Need to figure out how to go to the Map -> currently goes to Scanner (start dest)
             // For now I made this invisible
         } else if (prevFrag == R.id.navigation_scanner){
             actionbar.show();
             navSearch.setVisibility(View.VISIBLE);
-            mapMenu.setVisibility(View.GONE);
         }
     }
 
