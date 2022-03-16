@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
                 navSearch.setVisibility(View.GONE);
-                scoreView.setText("Map"); // May need to fix later
                 navProfile.setVisibility(View.GONE); // TEMPORARY
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
@@ -141,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         if (prevFrag == R.id.navigation_map) {
             actionbar.show();
             navSearch.setVisibility(View.GONE);
-            scoreView.setText("Map"); // May need to fix later
             // Need to figure out how to go to the Map -> currently goes to Scanner (start dest)
             // For now I made this invisible
         } else if (prevFrag == R.id.navigation_scanner){
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         // this method should be called whenever userid changes, but only once
         playerRef = db.collection("users").document(player.getPlayerId());
         playerRef.addSnapshotListener((snapshot, error) -> {
-            if (error != null || snapshot == null) {
+            if (error != null || snapshot == null || !snapshot.exists()) {
                 Log.w(TAG, "Listening for score update has failed.", error);
                 return;
             }
