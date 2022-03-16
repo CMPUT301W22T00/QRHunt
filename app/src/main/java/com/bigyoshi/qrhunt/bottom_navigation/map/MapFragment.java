@@ -92,6 +92,8 @@ public class MapFragment extends Fragment {
         // Map Zoom Controls
         map.setBuiltInZoomControls(false);
         map.setMultiTouchControls(true);
+        IMapController mapController = map.getController();
+        mapController.setZoom(20);
 
         // Follows user and centers on them
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), map);
@@ -105,8 +107,6 @@ public class MapFragment extends Fragment {
 
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
-        IMapController mapController = map.getController();
-        mapController.setZoom(20);
 
         Query qrLocation =  db.collectionGroup("qrCodes");
         qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
