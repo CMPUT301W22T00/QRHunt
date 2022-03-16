@@ -34,6 +34,7 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -92,22 +93,28 @@ public class MapFragment extends Fragment {
         // Map Zoom Controls
         map.setBuiltInZoomControls(false);
         map.setMultiTouchControls(true);
+        IMapController mapController = map.getController();
+        mapController.setZoom(20);
 
-        // Follows user and centers on them
+        // Creates user location
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), map);
-        this.mLocationOverlay.enableMyLocation();
-        this.mLocationOverlay.enableFollowLocation();
 
-        // Change person icon
+        // Change person and directional icon
         Drawable directionIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_player_nav);
         Drawable personIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_icon);
         this.mLocationOverlay.setDirectionArrow(drawableToBitmap(personIcon), drawableToBitmap(directionIcon));
 
+        // Enables and follows user location
+        this.mLocationOverlay.enableMyLocation();
+        this.mLocationOverlay.enableFollowLocation();
+        this.mLocationOverlay.setPersonHotspot(30.0f, 30.0f);
+
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
-        IMapController mapController = map.getController();
-        mapController.setZoom(20);
+        //map.getOverlays().add(compassOverlay);
 
+
+        Drawable pinIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_qr_pin);
         Query qrLocation =  db.collectionGroup("qrCodes");
         qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -122,6 +129,7 @@ public class MapFragment extends Fragment {
                                 geoPin = new Marker(map);
                                 geoPin.setPosition(new GeoPoint(lat, lng));
                                 geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                geoPin.setIcon(pinIcon);
                                 map.getOverlays().add(geoPin);
                             }
                         } else {
