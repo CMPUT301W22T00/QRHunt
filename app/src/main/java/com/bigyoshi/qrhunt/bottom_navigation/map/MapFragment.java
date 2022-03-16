@@ -111,8 +111,6 @@ public class MapFragment extends Fragment {
 
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
-        //map.getOverlays().add(compassOverlay);
-
 
         Drawable pinIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_qr_pin);
         Query qrLocation =  db.collectionGroup("qrCodes");
