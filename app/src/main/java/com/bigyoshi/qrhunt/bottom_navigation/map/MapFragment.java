@@ -71,6 +71,7 @@ public class MapFragment extends Fragment {
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
+        // Makes the map load faster via caching
         IConfigurationProvider osmConf = Configuration.getInstance();
         File basePath = new File(this.getActivity().getCacheDir().getAbsolutePath(), "osmdroid");
         basePath.mkdirs();
@@ -88,11 +89,8 @@ public class MapFragment extends Fragment {
         map = (MapView) binding.mapview;
         map.setTileSource(TileSourceFactory.MAPNIK);
 
-
-
         // Map Zoom Controls
-        // map.setBuiltInZoomControls(true);
-        // todo is there anything we can do about this? (deprecated)
+        map.setBuiltInZoomControls(false);
         map.setMultiTouchControls(true);
 
         // Follows user and centers on them
