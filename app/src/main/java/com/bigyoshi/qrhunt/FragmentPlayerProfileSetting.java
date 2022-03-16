@@ -34,6 +34,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
 
     /**
      * Constructor method
+     *
      * @param playerInfo current Player
      */
     public FragmentPlayerProfileSetting(Player playerInfo){
@@ -42,6 +43,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
 
     /**
      *  Constructor method
+     *
      *  Note: Invokes parent constructor
      */
     public FragmentPlayerProfileSetting(){
@@ -49,9 +51,10 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     }
 
     /**
-     *  Creates view and handles user button clicks within UI
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     * Creates view and handles user button clicks within UI
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */

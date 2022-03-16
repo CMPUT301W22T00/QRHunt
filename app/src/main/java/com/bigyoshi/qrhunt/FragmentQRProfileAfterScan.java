@@ -27,6 +27,7 @@ public class FragmentQRProfileAfterScan extends Fragment {
 
     /**
      * Constructor method (required)
+     *
      */
     public FragmentQRProfileAfterScan() {
         // Required empty public constructor
@@ -52,6 +53,7 @@ public class FragmentQRProfileAfterScan extends Fragment {
 
     /**
      * Creates instance of fragment assigning appropriate params
+     *
      * @param savedInstanceState SavedInstanceState
      */
     @Override
@@ -65,8 +67,9 @@ public class FragmentQRProfileAfterScan extends Fragment {
 
     /**
      * Creates instance of fragment
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return View
      */

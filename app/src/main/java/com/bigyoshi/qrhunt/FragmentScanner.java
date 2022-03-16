@@ -28,8 +28,9 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */
@@ -76,6 +77,7 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Handles when the state is resumed (starts camera previous)
+     *
      */
     @Override
     public void onResume() {
@@ -85,6 +87,7 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Handles when the state is paused (release resources)
+     *
      */
     @Override
     public void onPause() {

@@ -29,7 +29,8 @@ public class QRLibrary {
 
     /**
      * Finds player in database by ID and grabs all QR codes associated w/ them
-     * @param db Player's QRDatabase
+     *
+     * @param db       Player's QRDatabase
      * @param playerId Current player
      */
     public QRLibrary(FirebaseFirestore db, String playerId){
@@ -45,6 +46,7 @@ public class QRLibrary {
 
     /**
      * Updates the QRLibrary of the player (aligning to the their QR database)
+     *
      */
     public void update() {
         Query qrList =  db.collection("users").document(playerId).collection("qrCodes");
@@ -63,6 +65,7 @@ public class QRLibrary {
 
     /**
      * Sorts all QRs in library from lowest to highest scoring
+     *
      */
     public void sortLowestToHighest(){
         /* Integer in HashMap would either be the value of the QRCode
@@ -72,6 +75,7 @@ public class QRLibrary {
 
     /**
      * Sorts all QRs in Library from highest to lowest scoring
+     *
      */
     public void sortHighestToLowest(){
         /* Integer in HashMap would either be the value of the QRCode

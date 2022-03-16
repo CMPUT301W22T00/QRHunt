@@ -32,7 +32,10 @@ public class PlayableQRCode implements Serializable {
     // transient → will not be serialized
     private transient FirebaseFirestore db;
 
-
+    /**
+     * Constructor method
+     *
+     */
     public PlayableQRCode() {
         this.numScanned = 1;
         db = FirebaseFirestore.getInstance();
@@ -40,12 +43,11 @@ public class PlayableQRCode implements Serializable {
 
     /**
      * Constructor method
+     * Note: We need to distinguish QRCodes already scanned and those who have not been scanned yet
+     *         Since initialization of numScanned would either be an update OR just 1
      *
      * @param id    QRCode id
      * @param score QRCode score
-     */
-    /* We need to distinguish QRCodes already scanned and those who have not been scanned yet
-        Since initialization of numScanned would either be an update OR just 1
      */
     public PlayableQRCode(String playerId, String id, int score) {
         this.playerId = playerId;
@@ -86,6 +88,34 @@ public class PlayableQRCode implements Serializable {
     }
 
     /**
+     * Getter method
+     *
+     * @return Player id
+     */
+    @Exclude
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    /**
+     * Getter method
+     *
+     * @return QR Location
+     */
+    public QRLocation getLocation() {
+        return location;
+    }
+
+    /**
+     * Getter method
+     *
+     * @return Image URL
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
      * Getter method for the database - pulls total number scanned
      *
      * @param db qrMetadata collection
@@ -96,6 +126,33 @@ public class PlayableQRCode implements Serializable {
         this.numScanned = Integer.parseInt((Objects.requireNonNull
                 (Objects.requireNonNull(qrData.getResult())
                         .getString("numScanned"))));
+    }
+
+    /**
+     * Setter method
+     *
+     * @param playerId Player id to set
+     */
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
+    }
+
+    /**
+     * Setter method
+     *
+     * @param location QR Location to set
+     */
+    public void setLocation(QRLocation location) {
+        this.location = location;
+    }
+
+    /**
+     * Setter method
+     *
+     * @param imageUrl Image URL to set
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /**
@@ -127,28 +184,4 @@ public class PlayableQRCode implements Serializable {
                 .collection("qrCodes").document(getId()).set(this);
     }
 
-    @Exclude
-    public String getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
-    }
-
-    public QRLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(QRLocation location) {
-        this.location = location;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

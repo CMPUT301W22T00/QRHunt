@@ -21,7 +21,9 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Definition: Interprets the information that the scanner scans and gets the current location Note:
- * Gives the ability to take a picture for the QR Issues: TBA
+ * Gives the ability to take a picture for the QR
+ * Notes: NA
+ * Issues: TBA
  */
 public class QRCodeProcessor {
     public static final String TAG = QRCodeProcessor.class.getSimpleName();
@@ -39,8 +41,8 @@ public class QRCodeProcessor {
     /**
      * Constructor method
      *
-     * @param frag TBA
-     * @param text QR Content
+     * @param frag     TBA
+     * @param text     QR Content
      * @param playerId Current player's unique id
      */
     public QRCodeProcessor(Fragment frag, String text, String playerId) {
@@ -52,7 +54,10 @@ public class QRCodeProcessor {
         startPollingLocation();
     }
 
-    /** Gets player's geolocation */
+    /**
+     * Gets player's geolocation
+     *
+     * */
     public void startPollingLocation() {
 
         /* alex please forgive me
@@ -80,7 +85,10 @@ public class QRCodeProcessor {
         client.requestLocationUpdates(mLocationRequest, hackyLocationCallback, null);
     }
 
-    /** Processes QR code to be added */
+    /**
+     * Processes QR code to be added
+     *
+     * */
     public void processQRCode() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // todo check here: is this an internal code
@@ -109,7 +117,10 @@ public class QRCodeProcessor {
                         });
     }
 
-    /** Hashes the QR code */
+    /**
+     * Hashes the QR code
+     *
+     * */
     private void computeHash() {
         MessageDigest messageDigest = null;
         try {
@@ -126,7 +137,10 @@ public class QRCodeProcessor {
         hash = stringBuilder.toString();
     }
 
-    /** Calculates QR score */
+    /**
+     * Calculates QR score
+     *
+     * */
     private void computeScore() {
         /* Need to calculate score here
         Probably have to pass in the hash or whatever we use to calculate the value

@@ -31,9 +31,10 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
 
     /**
      * Retrieves the view
-     * @param position Position
+     *
+     * @param position    Position
      * @param convertView View to convert
-     * @param parent Parent view
+     * @param parent      Parent view
      * @return View
      */
     @NonNull

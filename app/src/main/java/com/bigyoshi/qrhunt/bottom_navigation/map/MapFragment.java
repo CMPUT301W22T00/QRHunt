@@ -77,7 +77,8 @@ public class MapFragment extends Fragment {
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
-        // map.setBuiltInZoomControls(true);//todo is there anything we can do about this? (deprecated)
+        // map.setBuiltInZoomControls(true);
+        // todo is there anything we can do about this? (deprecated)
         map.setMultiTouchControls(true);
 
         // Follows user and centers on them

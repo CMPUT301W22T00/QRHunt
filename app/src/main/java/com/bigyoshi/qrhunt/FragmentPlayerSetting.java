@@ -33,6 +33,7 @@ public class FragmentPlayerSetting extends Fragment {
 
     /**
      * Constructor method
+     *
      * @param playerInfo Current player
      */
     public FragmentPlayerSetting(Player playerInfo){
@@ -41,8 +42,9 @@ public class FragmentPlayerSetting extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
+     *
+     * @param inflater           Inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */

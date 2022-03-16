@@ -10,7 +10,8 @@ public class Contact {
     private String email;
 
     /**
-     * Constructor
+     * Constructor method
+     *
      * Note: Initialized as empty when the player is first created
      */
     public Contact(){
@@ -20,6 +21,7 @@ public class Contact {
 
     /**
      * Getter method
+     *
      * @return socialMedia
      */
     public String getSocial(){
@@ -29,6 +31,7 @@ public class Contact {
 
     /**
      * Getter method
+     *
      * @return email
      */
     public String getEmail(){
@@ -38,6 +41,7 @@ public class Contact {
 
     /**
      * Setter method
+     *
      * @param newSocial
      */
     public void setSocial(String newSocial){
@@ -47,6 +51,7 @@ public class Contact {
 
     /**
      * Setter method
+     *
      * @param newEmail
      */
     public void setEmail(String newEmail){
