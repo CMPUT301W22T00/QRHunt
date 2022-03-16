@@ -2,7 +2,6 @@ package com.bigyoshi.qrhunt.bottom_navigation.map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-//import com.bigyoshi.qrhunt.QRGeoPins;
+import com.bigyoshi.qrhunt.PlayableQRCode;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,10 +39,11 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 
+
 /**
  * Definition: Fragment representing the map
  * Note: N/A
- * Issues: Slow to load
+ * Issues: N/A
  */
 public class MapFragment extends Fragment {
     private final String TAG = MapFragment.class.getSimpleName();
@@ -122,15 +122,18 @@ public class MapFragment extends Fragment {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot doc : task.getResult()){
                         if (doc.exists()) {
-                            lat = doc.getDouble("latitude");
-                            lng = doc.getDouble("longitude");
-                            if (lat != null && lng != null){
-                                Log.d("Monke", String.format("lat %f long %f", lat, lng));
-                                geoPin = new Marker(map);
-                                geoPin.setPosition(new GeoPoint(lat, lng));
-                                geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                                geoPin.setIcon(pinIcon);
-                                map.getOverlays().add(geoPin);
+                            PlayableQRCode qrCode = doc.toObject(PlayableQRCode.class);
+                            if (qrCode.getLocation() != null) {
+                                lat = qrCode.getLocation().getLatitude();
+                                lng = qrCode.getLocation().getLongitude();
+                                if (lat != null && lng != null) {
+                                    Log.d("Monke", String.format("lat %f long %f", lat, lng));
+                                    geoPin = new Marker(map);
+                                    geoPin.setPosition(new GeoPoint(lat, lng));
+                                    geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    geoPin.setIcon(pinIcon);
+                                    map.getOverlays().add(geoPin);
+                                }
                             }
                         } else {
                             Log.d("Monke", "No such document");
