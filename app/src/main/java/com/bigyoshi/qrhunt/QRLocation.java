@@ -27,11 +27,11 @@ public class QRLocation implements Serializable {
      * Constructor method
      *
      * @param latitude latitude
-     * @param lon      longitude
+     * @param longitude longitude
      */
-    public QRLocation(Double latitude, Double lon) {
+    public QRLocation(Double latitude, Double longitude) {
         this.latitude = latitude;
-        this.longitude = lon;
+        this.longitude = longitude;
         computeGeoHash();
     }
 

@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
  * Note: NA
@@ -65,16 +67,20 @@ public class FragmentLibraryRemoveQR extends DialogFragment {
 
         // Display location
         showLatLong = view.findViewById(R.id.text_lon_lat);
-        //        if (removeQR.getLocation() != null) {
-        //            String strLatitude = Location.convert(removeQR.getLocation().getLat(), Location.FORMAT_DEGREES);
-        //            String strLongitude = Location.convert(removeQR.getLocation().getLongitude(), Location.FORMAT_DEGREES);
-        //            showLatLong.setText(strLatitude + ", " + strLongitude);
-        //        } else {
-        //            showLatLong.setText("LOCATION NOT GIVEN");
-        //        }
+        QRLocation qrLocation = removeQR.getLocation();
+        if (qrLocation.exists()) {
+            String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
+            String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
+            showLatLong.setText(strLatitude + ", " + strLongitude);
+        } else {
+            showLatLong.setText("LOCATION NOT GIVEN");
+        }
 
         // attach photo
         showPic = view.findViewById(R.id.image_holder);
+        if (removeQR.getImageUrl() != null) {
+            Picasso.get().load(removeQR.getImageUrl()).into(showPic);
+        }
         addPic = view.findViewById(R.id.button_take_photo);
         addPic.setVisibility(View.GONE);
 

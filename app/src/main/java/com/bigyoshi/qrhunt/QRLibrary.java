@@ -38,7 +38,7 @@ public class QRLibrary {
         if (playerId != null) {
         this.playerId = playerId;
         } else {
-            this.playerId = "2c5ed7c6-545a-4a8d-bb90-f817e004f4a8";
+            this.playerId = "2Fcbb5fcf4-004b-4fff-8cbb-c7ed0b8749a7";
         }
         this.db = db;
         update();
@@ -54,7 +54,8 @@ public class QRLibrary {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
                     if (doc.exists()) {
-                        doc.toObject(PlayableQRCode.class);
+                        qrCode = doc.toObject(PlayableQRCode.class);
+                        qrCodes.put(doc.getId(), qrCode);
                     }
                 }
             }
