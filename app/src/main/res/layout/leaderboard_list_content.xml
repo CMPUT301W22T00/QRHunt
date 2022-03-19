@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_off_white_blue_light"
+    android:background="@drawable/rec_list_item"
     android:orientation="horizontal"
     android:padding="@dimen/padding"
     >
