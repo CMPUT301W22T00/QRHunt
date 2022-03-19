@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_rankBoard"
-        android:name="com.bigyoshi.qrhunt.bottom_navigation.rank_board.RankBoardFragment"
+        android:id="@+id/navigation_leaderBoard"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.leader_board.LeaderBoardFragment"
         android:label="@string/title_leaderBoard"
         tools:layout="@layout/fragment_leaderboard" />
 

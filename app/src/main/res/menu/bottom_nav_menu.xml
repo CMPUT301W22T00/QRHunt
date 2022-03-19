@@ -13,7 +13,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_rankBoard"
+        android:id="@+id/navigation_leaderBoard"
         android:icon="@drawable/ic_button_leaderboard"
         android:title=""/>
 
