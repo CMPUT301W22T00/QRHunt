@@ -1,7 +1,6 @@
 package com.bigyoshi.qrhunt;
 
 import android.app.Activity;
-import android.widget.EditText;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -52,7 +51,7 @@ public class MainActivityTest {
     @Test
     public void checkSentToLeaderBoard(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_rankBoard));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_leaderBoard));
         solo.waitForFragmentById(R.id.leaderboard);
         assertNotNull(solo.getView(R.id.leaderboard));
     }

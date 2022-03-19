@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.bottom_navigation.rank_board;
+package com.bigyoshi.qrhunt.bottom_navigation.leader_board;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.MainActivity;
-import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 
 import org.osmdroid.config.Configuration;
@@ -26,7 +25,7 @@ import org.osmdroid.config.Configuration;
  * Note: NA
  * Issues: This is not implemented yet
  */
-public class RankBoardFragment extends Fragment {
+public class LeaderBoardFragment extends Fragment {
     private ImageButton back;
 
     private FragmentLeaderboardBinding binding;

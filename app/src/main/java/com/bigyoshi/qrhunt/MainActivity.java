@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 navSearch.setVisibility(View.VISIBLE);
                 navProfile.setVisibility(View.VISIBLE);
             }
-            if (navDestination.getId() == R.id.navigation_rankBoard) {
+            if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
                 binding.navView.setVisibility(View.INVISIBLE);
             }
