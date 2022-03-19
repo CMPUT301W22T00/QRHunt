@@ -23,6 +23,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bigyoshi.qrhunt.bottom_navigation.search.SearchFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -107,7 +108,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         navSearch = findViewById(R.id.navigation_search);
-        navSearch.setOnClickListener(view -> {});
+        navSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.navView.setVisibility(View.INVISIBLE);
+                actionbar.hide();
+                SearchFragment search = new SearchFragment(player,
+                        navController.getCurrentDestination().getId());
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, search, "search");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
