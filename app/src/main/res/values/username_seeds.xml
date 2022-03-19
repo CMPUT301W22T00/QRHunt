@@ -53,7 +53,6 @@
         <item>best</item>
         <item>big</item>
         <item>bitter</item>
-        <item>black</item>
         <item>bland</item>
         <item>blank</item>
         <item>blaring</item>
@@ -76,7 +75,6 @@
         <item>brisk</item>
         <item>broken</item>
         <item>bronze</item>
-        <item>brown</item>
         <item>bruised</item>
         <item>bubbly</item>
         <item>bulky</item>
@@ -202,7 +200,6 @@
         <item>faraway</item>
         <item>far-off</item>
         <item>fast</item>
-        <item>fat</item>
         <item>fatal</item>
         <item>fearful</item>
         <item>feisty</item>
@@ -531,7 +528,6 @@
         <item>recent</item>
         <item>ready</item>
         <item>real</item>
-        <item>red</item>
         <item>regal</item>
         <item>regular</item>
         <item>remote</item>
@@ -595,7 +591,6 @@
         <item>simple</item>
         <item>sinful</item>
         <item>single</item>
-        <item>skinny</item>
         <item>sleepy</item>
         <item>slight</item>
         <item>slim</item>
@@ -790,7 +785,6 @@
         <item>wry</item>
         <item>yawning</item>
         <item>yearly</item>
-        <item>yellow</item>
         <item>young</item>
         <item>yummy</item>
         <item>zany</item>
@@ -1111,7 +1105,6 @@
         <item>group</item>
         <item>risk</item>
         <item>word</item>
-        <item>fat</item>
         <item>force</item>
         <item>key</item>
         <item>light</item>
@@ -1230,7 +1223,6 @@
         <item>share</item>
         <item>balance</item>
         <item>bit</item>
-        <item>black</item>
         <item>bottom</item>
         <item>choice</item>
         <item>gift</item>
@@ -1328,9 +1320,7 @@
         <item>park</item>
         <item>plenty</item>
         <item>quarter</item>
-        <item>skin</item>
         <item>sort</item>
-        <item>weight</item>
         <item>baby</item>
         <item>carry</item>
         <item>dish</item>
@@ -1340,7 +1330,6 @@
         <item>joint</item>
         <item>master</item>
         <item>muscle</item>
-        <item>red</item>
         <item>traffic</item>
         <item>trip</item>
         <item>appeal</item>
@@ -1780,7 +1769,6 @@
         <item>stand</item>
         <item>young</item>
         <item>fail</item>
-        <item>heavy</item>
         <item>hello</item>
         <item>lead</item>
         <item>listen</item>
@@ -1799,7 +1787,6 @@
         <item>spring</item>
         <item>tough</item>
         <item>wait</item>
-        <item>brown</item>
         <item>deep</item>
         <item>display</item>
         <item>flow</item>
@@ -1910,7 +1897,6 @@
         <item>train</item>
         <item>upper</item>
         <item>wash</item>
-        <item>yellow</item>
         <item>convert</item>
         <item>crash</item>
         <item>fold</item>
