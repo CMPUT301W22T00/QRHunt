@@ -41,11 +41,55 @@ public class MainActivityTest {
     }
 
     @Test
+    public void checkProfileToScanner(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
+        solo.waitForFragmentById(R.id.playerProfile);
+        assertNotNull(solo.getView(R.id.playerProfile));
+        solo.goBack();
+        solo.waitForFragmentById(R.id.scanner_view);
+        assertNotNull(solo.getView(R.id.scanner_view));
+    }
+
+
+    @Test
+    public void checkSentToSearch(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_search));
+        solo.waitForFragmentById(R.id.search_bar);
+        assertNotNull(solo.getView(R.id.search_bar));
+    }
+
+    //Need a sent back to Scanner / Sent back to Map from Search
+
+    @Test
     public void checkSentToMap(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_map));
         solo.waitForFragmentById(R.id.map);
         assertNotNull(solo.getView(R.id.map));
+    }
+
+    @Test
+    public void checkMapToScanner(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_map));
+        solo.waitForFragmentById(R.id.map);
+        assertNotNull(solo.getView(R.id.map));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_scanner));
+        solo.waitForFragmentById(R.id.scanner_view);
+        assertNotNull(solo.getView(R.id.scanner_view));
+    }
+
+    @Test
+    public void checkMapToLeaderboard(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_map));
+        solo.waitForFragmentById(R.id.map);
+        assertNotNull(solo.getView(R.id.map));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_leaderBoard));
+        solo.waitForFragmentById(R.id.leaderboard);
+        assertNotNull(solo.getView(R.id.leaderboard));
     }
 
     @Test
@@ -56,17 +100,19 @@ public class MainActivityTest {
         assertNotNull(solo.getView(R.id.leaderboard));
     }
 
+    @Test
+    public void checkLeaderBoardToScanner(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_leaderBoard));
+        solo.waitForFragmentById(R.id.leaderboard);
+        assertNotNull(solo.getView(R.id.leaderboard));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.button_back));
+        solo.waitForFragmentById(R.id.scanner_view);
+        assertNotNull(solo.getView(R.id.scanner_view));
+    }
+
     @After
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
-
-    // Search button (NOT IMPLEMENTED)
-
-
-    // MapList in top bar of Map (NOT IMPLEMENTED)
-
-    // Check score is the same as in PlayerDB
-
-    // Check player is initialized possibly
 }

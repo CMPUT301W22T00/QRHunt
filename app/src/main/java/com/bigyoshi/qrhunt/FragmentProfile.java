@@ -157,18 +157,20 @@ public class FragmentProfile extends Fragment {
             public void onClick(View view) {
                 String email = playerInfo.getContact().getEmail();
                 String social = playerInfo.getContact().getSocial();
-                String together = email + "\n" + social;
-                new SimpleTooltip.Builder(getContext())
-                        .anchorView(contactsButton)
-                        .text(together)
-                        .gravity(Gravity.BOTTOM)
-                        .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                        .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                        .textColor(getResources().getColor(R.color.text_off_white))
-                        .animated(true)
-                        .transparentOverlay(true)
-                        .build()
-                        .show();
+                if (!email.matches("") || !social.matches("")){
+                    String together = email + "\n" + social;
+                    new SimpleTooltip.Builder(getContext())
+                            .anchorView(contactsButton)
+                            .text(together)
+                            .gravity(Gravity.BOTTOM)
+                            .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                            .textColor(getResources().getColor(R.color.text_off_white))
+                            .animated(true)
+                            .transparentOverlay(true)
+                            .build()
+                            .show();
+                    }
             }
         });
 
