@@ -38,4 +38,7 @@
     <string name="ok">OK</string>
     <string name="settings_icon_desc">settings</string>
 
+    <!-- for search -->
+    <string name="search_hint">Search Username</string>
+
 </resources>
