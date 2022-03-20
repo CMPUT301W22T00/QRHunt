@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.Player;
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 
 import org.osmdroid.config.Configuration;
@@ -28,6 +31,8 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private Player player;
     private int navId;
+    private ImageButton back;
+    private EditText searchBar;
 
     public SearchFragment(Player player, int id) {
         this.player = player;
@@ -61,6 +66,20 @@ public class SearchFragment extends Fragment {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        back = root.findViewById(R.id.search_back_button);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        searchBar = root.findViewById(R.id.search_bar_editText);
+
+
 
         return root;
 
