@@ -16,7 +16,10 @@
         android:padding="@dimen/padding"
         android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleY="1.5"
+        android:scaleX="1.5"
+        app:layout_constraintBottom_toBottomOf="@id/edit_profile_title"/>
 
     <TextView
         android:id="@+id/edit_profile_title"
