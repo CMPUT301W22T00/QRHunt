@@ -1,5 +1,7 @@
 package com.bigyoshi.qrhunt;
 
+import static io.github.douglasjunior.androidSimpleTooltip.OverlayView.HIGHLIGHT_SHAPE_OVAL;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import io.github.douglasjunior.androidSimpleTooltip.OverlayView;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
@@ -52,6 +55,7 @@ public class FragmentProfile extends Fragment {
     private ArrayList<PlayableQRCode> qrCodesList;
     private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
     private FirebaseFirestore db;
+
 
     /**
      * Constructor method
@@ -115,6 +119,8 @@ public class FragmentProfile extends Fragment {
         username = root.findViewById(R.id.profile_username_title);
         contactsButton = root.findViewById(R.id.profile_information_button);
         totalScanned = root.findViewById(R.id.profile_codes_scanned);
+        View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
+        TextView combined = calloutView.findViewById(R.id.callout_text);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
         qrCodes = new HashMap<>();
@@ -151,6 +157,7 @@ public class FragmentProfile extends Fragment {
         /*
             https://www.youtube.com/watch?v=IxHfWg-M0bI
             https://github.com/douglasjunior/android-simple-tooltip
+            https://github.com/douglasjunior/android-simple-tooltip/issues/24
          */
         contactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,15 +166,17 @@ public class FragmentProfile extends Fragment {
                 String social = playerInfo.getContact().getSocial();
                 if (!email.matches("") || !social.matches("")){
                     String together = email + "\n" + social;
+                    combined.setText(together);
                     new SimpleTooltip.Builder(getContext())
                             .anchorView(contactsButton)
-                            .text(together)
                             .gravity(Gravity.BOTTOM)
+                            .text(together)
                             .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
                             .textColor(getResources().getColor(R.color.text_off_white))
                             .animated(true)
                             .transparentOverlay(true)
+                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                            .contentView(R.layout.player_contact_callout, combined.getId())
                             .build()
                             .show();
                     }
@@ -202,4 +211,6 @@ public class FragmentProfile extends Fragment {
         db = FirebaseFirestore.getInstance();
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
+
+
 }
