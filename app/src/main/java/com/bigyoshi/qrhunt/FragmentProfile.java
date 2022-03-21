@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import io.github.douglasjunior.androidSimpleTooltip.OverlayView;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
@@ -52,6 +53,7 @@ public class FragmentProfile extends Fragment {
     private ArrayList<PlayableQRCode> qrCodesList;
     private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
     private FirebaseFirestore db;
+
 
     /**
      * Constructor method
@@ -159,15 +161,19 @@ public class FragmentProfile extends Fragment {
                 String social = playerInfo.getContact().getSocial();
                 if (!email.matches("") || !social.matches("")){
                     String together = email + "\n" + social;
+                    View calloutView = inflater.inflate(R.layout.player_contact_callout,container,false);
+                    TextView calloutText = calloutView.findViewById(R.id.callout_text);
+                    calloutText.setText("AAAAAAAAAAAAAAAAAAAAAAAAAA");
                     new SimpleTooltip.Builder(getContext())
                             .anchorView(contactsButton)
-                            .text(together)
                             .gravity(Gravity.BOTTOM)
+                            .text(together)
                             .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
                             .textColor(getResources().getColor(R.color.text_off_white))
                             .animated(true)
                             .transparentOverlay(true)
+                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
+                            .highlightShape(OverlayView.HIGHLIGHT_SHAPE_OVAL)
                             .build()
                             .show();
                     }
@@ -202,4 +208,6 @@ public class FragmentProfile extends Fragment {
         db = FirebaseFirestore.getInstance();
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
+
+
 }

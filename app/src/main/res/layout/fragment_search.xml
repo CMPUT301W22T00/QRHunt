@@ -35,7 +35,8 @@
             android:layout_marginStart="@dimen/padding"
             android:layout_marginEnd="@dimen/extra_large_padding"
             app:layout_constraintLeft_toRightOf="@id/search_back_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:lines="1"/>
 
     </LinearLayout>
 

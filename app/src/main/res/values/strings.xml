@@ -41,4 +41,7 @@
     <!-- for search -->
     <string name="search_hint">Search Username</string>
 
+    <!-- for callout -->
+    <string name="callout_text">Callout Text</string>
+
 </resources>
