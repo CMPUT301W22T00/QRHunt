@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- from https://stackoverflow.com/a/14211619 -->
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/padding"
+    android:paddingStart="@dimen/padding"
+    android:background="@color/accent_grey_dark_70op">
+
+    <ImageButton android:id="@+id/navigation_search"
+        android:src="@drawable/ic_button_search"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:layout_gravity="left"
+        android:padding="@dimen/padding"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/main_blue"
+        android:fontFamily="@font/quicksand_medium"
+        android:layout_gravity="center"
+        android:id="@+id/score_on_cam">
+    </TextView>
+
+    <ImageButton  android:id="@+id/navigation_profile"
+        android:src="@drawable/ic_pfp_light"
+        android:background="?attr/actionBarItemBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding"
+        android:visibility="visible"/>
+
+    <ImageButton android:id="@+id/map_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_button_list"
+        android:background="?attr/actionBarItemBackground"
+
+        android:scaleType="centerInside"
+        android:layout_gravity="left"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
+
+
+</androidx.appcompat.widget.Toolbar>

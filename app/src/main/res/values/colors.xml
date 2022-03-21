@@ -27,4 +27,10 @@
     <color name="gradient_blue_unique_midtone_dark">#2d4b5a</color>
     <color name="gradient_blue_unique_dark">#203039</color>
 
+    <color name="accent_light_blue_50op">#80c9f1fd</color>
+    <color name="accent_grey_dark_50op">#8036393f</color>
+    <color name="accent_grey_dark_60op">#9636393f</color>
+    <color name="accent_grey_dark_70op">#b236393f</color>
+
+
 </resources>

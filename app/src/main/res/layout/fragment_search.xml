@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_bar"
+    android:background="@color/background_grey"
+    android:padding="@dimen/small_padding">
+
+    <LinearLayout android:id="@+id/search_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ImageButton android:id="@+id/search_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_button_back"
+            android:padding="@dimen/padding"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginLeft="@dimen/extra_large_padding"
+            />
+
+        <EditText
+            android:id="@+id/search_bar_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rec_fragment_bg"
+            android:hint="@string/search_hint"
+            android:padding="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/extra_large_padding"
+            app:layout_constraintLeft_toRightOf="@id/search_back_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <Space android:id="@+id/search_spacer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_padding"
+        app:layout_constraintTop_toBottomOf="@id/search_top_bar"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ListView
+        android:id="@+id/search_results_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/main_off_white_blue_light"
+        app:layout_constraintTop_toBottomOf="@id/search_spacer"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
