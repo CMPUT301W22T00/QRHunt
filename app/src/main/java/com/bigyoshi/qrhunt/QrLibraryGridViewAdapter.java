@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +54,7 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
 
         PlayableQRCode qrCode = qrCodes.get(position);
 
+        // Display image form url or stock image
         ImageView imageView = view.findViewById(R.id.imageView2);
         if (qrCode.getImageUrl() != null) {
             Picasso.get().load(qrCode.getImageUrl()).into(imageView);
@@ -61,6 +63,10 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
                     R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);
             imageView.setImageDrawable(icon);
         }
+        imageView.setCropToPadding(true); // Crop to the center
+        // Display the score under the image
+        TextView textView = view.findViewById(R.id.show_score_library);
+        textView.setText(String.valueOf(qrCode.getScore()));
 
         return view;
     }

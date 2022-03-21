@@ -1,7 +1,5 @@
 package com.bigyoshi.qrhunt;
 
-import static io.github.douglasjunior.androidSimpleTooltip.OverlayView.HIGHLIGHT_SHAPE_OVAL;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import io.github.douglasjunior.androidSimpleTooltip.OverlayView;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
@@ -132,7 +129,7 @@ public class FragmentProfile extends Fragment {
         showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new FragmentLibraryRemoveQR(i, qrCodesList.get(i)).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+                new FragmentQRProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
             }
         });
 
