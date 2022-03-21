@@ -1,5 +1,7 @@
 package com.bigyoshi.qrhunt;
 
+import static io.github.douglasjunior.androidSimpleTooltip.OverlayView.HIGHLIGHT_SHAPE_OVAL;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -117,6 +119,8 @@ public class FragmentProfile extends Fragment {
         username = root.findViewById(R.id.profile_username_title);
         contactsButton = root.findViewById(R.id.profile_information_button);
         totalScanned = root.findViewById(R.id.profile_codes_scanned);
+        View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
+        TextView combined = calloutView.findViewById(R.id.callout_text);
 
         showAll = root.findViewById(R.id.profile_QR_grid);
         qrCodes = new HashMap<>();
@@ -153,6 +157,7 @@ public class FragmentProfile extends Fragment {
         /*
             https://www.youtube.com/watch?v=IxHfWg-M0bI
             https://github.com/douglasjunior/android-simple-tooltip
+            https://github.com/douglasjunior/android-simple-tooltip/issues/24
          */
         contactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,9 +166,7 @@ public class FragmentProfile extends Fragment {
                 String social = playerInfo.getContact().getSocial();
                 if (!email.matches("") || !social.matches("")){
                     String together = email + "\n" + social;
-                    View calloutView = inflater.inflate(R.layout.player_contact_callout,container,false);
-                    TextView calloutText = calloutView.findViewById(R.id.callout_text);
-                    calloutText.setText("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+                    combined.setText(together);
                     new SimpleTooltip.Builder(getContext())
                             .anchorView(contactsButton)
                             .gravity(Gravity.BOTTOM)
@@ -173,7 +176,7 @@ public class FragmentProfile extends Fragment {
                             .animated(true)
                             .transparentOverlay(true)
                             .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                            .highlightShape(OverlayView.HIGHLIGHT_SHAPE_OVAL)
+                            .contentView(R.layout.player_contact_callout, combined.getId())
                             .build()
                             .show();
                     }

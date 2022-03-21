@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_callout_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/callout">
 
     <TextView
         android:id="@+id/callout_text"
@@ -14,7 +15,9 @@
         android:text="XXXX"
         android:fontFamily="@font/quicksand_medium"
         android:textColor="@color/main_off_white_blue_light"
-        android:padding="@dimen/large_padding"/>
+        android:padding="5dp">
+
+    </TextView>
 
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
 
