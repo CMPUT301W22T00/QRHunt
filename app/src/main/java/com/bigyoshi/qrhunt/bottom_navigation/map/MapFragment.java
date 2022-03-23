@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt.bottom_navigation.map;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -69,6 +71,7 @@ public class MapFragment extends Fragment {
     public FusedLocationProviderClient client;
     public Context ctx;
     Location currentLocation;
+    private ImageButton btnRecenter;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -77,6 +80,7 @@ public class MapFragment extends Fragment {
      * @param savedInstanceState SavedInstanceState
      * @return root
      */
+    @SuppressLint("ResourceType")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
@@ -140,6 +144,17 @@ public class MapFragment extends Fragment {
         this.mLocationOverlay.enableMyLocation();
         this.mLocationOverlay.enableFollowLocation();
         this.mLocationOverlay.setPersonHotspot(30.0f, 30.0f);
+
+        // Recenters the map onto the user
+        btnRecenter = (ImageButton) root.findViewById(R.id.recenter);
+        btnRecenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GeoPoint myLocation = new GeoPoint(currentLocation.getLatitude(), currentLocation.getLongitude());
+                map.getController().animateTo(myLocation);
+                map.getController().setZoom(20);
+            }
+        });
 
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
@@ -290,5 +305,9 @@ public class MapFragment extends Fragment {
         }
         return client.getLastLocation();
     }
+
+    /**
+     * QR info callout
+     */
 
 }
