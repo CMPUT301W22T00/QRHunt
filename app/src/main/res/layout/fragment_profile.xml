@@ -233,6 +233,7 @@
             android:visibility="invisible"/>
 
         <GridView
+            android:orientation="vertical"
             android:id="@+id/profile_QR_grid"
             android:layout_width="match_parent"
             android:layout_height="0dp"
