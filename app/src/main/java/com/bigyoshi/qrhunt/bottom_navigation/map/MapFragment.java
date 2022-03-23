@@ -82,11 +82,10 @@ public class MapFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState){
 
-        // Load/Initialize osmdroid configuration and database
+        // Load/Initialize osmdroid configuration, database, and location
         db = FirebaseFirestore.getInstance();
         ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
         client = LocationServices.getFusedLocationProviderClient(this.getActivity());
         startPollingLocation();
 
