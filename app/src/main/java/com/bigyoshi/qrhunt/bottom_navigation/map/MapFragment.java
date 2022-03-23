@@ -1,10 +1,13 @@
 package com.bigyoshi.qrhunt.bottom_navigation.map;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -13,18 +16,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.FragmentAddQRCode;
 import com.bigyoshi.qrhunt.PlayableQRCode;
+import com.bigyoshi.qrhunt.QRLocation;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.LatLng;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -54,6 +65,10 @@ public class MapFragment extends Fragment {
     private FirebaseFirestore db;
     Double lat;
     Double lng;
+    private LocationCallback hackyLocationCallback; // todo rename this maybe
+    public FusedLocationProviderClient client;
+    public Context ctx;
+    Location currentLocation;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -69,8 +84,11 @@ public class MapFragment extends Fragment {
 
         // Load/Initialize osmdroid configuration and database
         db = FirebaseFirestore.getInstance();
-        Context ctx = getActivity().getApplicationContext();
+        ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+
+        client = LocationServices.getFusedLocationProviderClient(this.getActivity());
+        startPollingLocation();
 
         // Makes the map load faster via caching
         IConfigurationProvider osmConf = Configuration.getInstance();
@@ -99,6 +117,21 @@ public class MapFragment extends Fragment {
         // Creates user location
         this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(ctx), map);
 
+        // This gets the current user location
+        getLocation().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Location location = task.getResult();
+                if (location != null) {
+                    currentLocation = new Location(location);
+                }
+                                /* this stops listening to the updates that
+                                we didn't actually care about in the first place for; see startPollingLocation
+                                 */
+                LocationServices.getFusedLocationProviderClient(ctx)
+                        .removeLocationUpdates(hackyLocationCallback);
+            }
+        });
+
         // Change person and directional icon
         Drawable directionIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_player_nav);
         Drawable personIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_person_icon);
@@ -125,20 +158,27 @@ public class MapFragment extends Fragment {
                                 lat = qrCode.getLocation().getLatitude();
                                 lng = qrCode.getLocation().getLongitude();
                                 if (lat != null && lng != null) {
-                                    Log.d("Monke", String.format("lat %f long %f", lat, lng));
+                                    Log.d(TAG, String.format("lat %f long %f", lat, lng));
                                     geoPin = new Marker(map);
                                     geoPin.setPosition(new GeoPoint(lat, lng));
                                     geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    Location markerLocation = new Location("");
+                                    markerLocation.setLatitude(lat);
+                                    markerLocation.setLongitude(lng);
+                                    float distance = currentLocation.distanceTo(markerLocation);
+                                    String d = (float) Math.floor(distance) + "m";
+                                    Log.d(TAG, String.format("Distance: %s", d));
+                                    geoPin.setTitle(d);
                                     geoPin.setIcon(pinIcon);
                                     map.getOverlays().add(geoPin);
                                 }
                             }
                         } else {
-                            Log.d("Monke", "No such document");
+                            Log.d(TAG, "No such document");
                         }
                     }
                 } else {
-                    Log.d("Monke", "get failed with ", task.getException());
+                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -206,7 +246,50 @@ public class MapFragment extends Fragment {
     }
 
     /**
-     * QR info callout
+     * Gets player's geolocation
+     *
+     * */
+    public void startPollingLocation() {
+
+        /* alex please forgive me
+        super, super hacky way to get location not to be null.
+        apparently just requesting it is enough to get the location manager off it's ass
+        even if we never care about the result
+        it's super messed up
+        if it break in the future, we may need to implement more of LocationCallback
+        but it's working now
+        https://stackoverflow.com/questions/29441384/fusedlocationapi-getlastlocation-always-null/29854418#29854418
+         */
+
+        LocationRequest mLocationRequest = LocationRequest.create();
+        mLocationRequest.setInterval(10 * 1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        hackyLocationCallback = new LocationCallback() {};
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                ctx, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        client.requestLocationUpdates(mLocationRequest, hackyLocationCallback, null);
+    }
+
+    /**
+     * Gets location if permission is enabled(?)
+     *
+     * @return client.getLastLocation()
      */
+    private Task<Location> getLocation() {
+        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(
+                ctx, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+        return client.getLastLocation();
+    }
 
 }
