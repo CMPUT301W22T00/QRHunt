@@ -145,8 +145,9 @@ public class MapFragment extends Fragment {
         this.mLocationOverlay.enableMyLocation();
         this.mLocationOverlay.enableFollowLocation();
         this.mLocationOverlay.setPersonHotspot(30.0f, 30.0f);
-        btnRecenter = (ImageButton) root.findViewById(R.id.recenter);
 
+        // Recenters the map onto the user
+        btnRecenter = (ImageButton) root.findViewById(R.id.recenter);
         btnRecenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
