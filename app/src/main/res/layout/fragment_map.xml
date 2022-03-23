@@ -7,10 +7,26 @@
     tools:context=".bottom_navigation.map.MapFragment"
     android:id="@+id/map">
 
+
+
     <org.osmdroid.views.MapView
         android:id="@+id/mapview"
+        tilesource="Mapnik"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tilesource="Mapnik" />
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="162dp">
+    </org.osmdroid.views.MapView>
+
+    <ImageButton
+        android:id="@+id/recenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/ic_button_recentre_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
