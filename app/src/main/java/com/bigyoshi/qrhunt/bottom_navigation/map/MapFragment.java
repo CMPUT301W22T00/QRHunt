@@ -204,4 +204,9 @@ public class MapFragment extends Fragment {
 
         return bitmap;
     }
+
+    /**
+     * QR info callout
+     */
+
 }

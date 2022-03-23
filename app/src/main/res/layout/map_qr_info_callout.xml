@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rec_callout_qr_info"
+    android:orientation="vertical"
+    android:id="@+id/qrInfoCallout">
+
+    <TextView
+        android:id="@+id/qr_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance: XXkm"
+        android:fontFamily="@font/quicksand_medium"
+        android:textStyle="bold"
+        android:textColor="@color/main_off_white_blue_light"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/qr_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="5dp"
+        android:text="Value: XX"
+        android:textColor="@color/main_off_white_blue_light"/>
+
+    <TextView
+        android:id="@+id/qr_scans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="5dp"
+        android:text="Scans: XX"
+        android:textColor="@color/main_off_white_blue_light">
+
+    </TextView>
+
+    <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
+
+</LinearLayout>
