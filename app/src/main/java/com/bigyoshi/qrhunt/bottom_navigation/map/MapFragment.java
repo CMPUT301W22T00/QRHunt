@@ -179,7 +179,14 @@ public class MapFragment extends Fragment {
                                     markerLocation.setLatitude(lat);
                                     markerLocation.setLongitude(lng);
                                     float distance = currentLocation.distanceTo(markerLocation);
-                                    String d = (float) Math.floor(distance) + "m";
+                                    String d;
+                                    if (distance >= 1000){
+                                        distance = distance / 1000;
+                                        d = (float) Math.floor(distance) + "km";
+                                    }
+                                    else{
+                                        d = (float) Math.floor(distance) + "m";
+                                    }
                                     Log.d(TAG, String.format("Distance: %s", d));
                                     geoPin.setTitle(d);
                                     geoPin.setIcon(pinIcon);

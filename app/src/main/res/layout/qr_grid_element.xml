@@ -19,8 +19,8 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="5dp"
         app:layout_constraintDimensionRatio="H,1:1"
-        android:padding="8dp"
         app:srcCompat="@mipmap/ic_image_holder"
         android:scaleType="centerCrop"
         tools:ignore="MissingConstraints" />
@@ -33,5 +33,6 @@
         android:text="SCORE"
         android:textSize="30dp"
         android:textAlignment="center"
+        android:textColor="@color/accent_blue_light"
          />
 </androidx.constraintlayout.widget.ConstraintLayout>
