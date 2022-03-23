@@ -127,11 +127,10 @@ public class MapFragment extends Fragment {
                 if (location != null) {
                     currentLocation = new Location(location);
                 }
-                                /* this stops listening to the updates that
-                                we didn't actually care about in the first place for; see startPollingLocation
-                                 */
-                LocationServices.getFusedLocationProviderClient(ctx)
-                        .removeLocationUpdates(hackyLocationCallback);
+                /* this stops listening to the updates that
+                we didn't actually care about in the first place for; see startPollingLocation
+                 */
+                LocationServices.getFusedLocationProviderClient(ctx).removeLocationUpdates(hackyLocationCallback);
             }
         });
 
