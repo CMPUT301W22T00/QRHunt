@@ -292,4 +292,8 @@ public class MapFragment extends Fragment {
         return client.getLastLocation();
     }
 
+    /**
+     * QR info callout
+     */
+
 }

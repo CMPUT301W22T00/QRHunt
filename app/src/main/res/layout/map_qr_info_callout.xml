@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Distance: XXkm"
         android:fontFamily="@font/quicksand_medium"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/main_off_white_blue_light"
         android:padding="5dp"/>
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:padding="5dp"
+        android:textSize="14sp"
         android:text="Value: XX"
         android:textColor="@color/main_off_white_blue_light"/>
 
@@ -31,10 +33,20 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:padding="5dp"
+        android:textSize="14sp"
         android:text="Scans: XX"
-        android:textColor="@color/main_off_white_blue_light">
+        android:textColor="@color/main_off_white_blue_light"/>
 
-    </TextView>
+    <TextView
+        android:id="@+id/qr_lat_lon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:textSize="14sp"
+        android:padding="5dp"
+        android:text="Latitude, Longitude"
+        android:textColor="@color/main_off_white_blue_light"/>
+
 
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
 
