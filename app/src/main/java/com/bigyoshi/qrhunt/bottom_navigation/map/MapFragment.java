@@ -47,6 +47,7 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 
 /**
@@ -175,13 +176,14 @@ public class MapFragment extends Fragment {
                                     markerLocation.setLatitude(lat);
                                     markerLocation.setLongitude(lng);
                                     float distance = currentLocation.distanceTo(markerLocation);
+                                    DecimalFormat value = new DecimalFormat("#.#");
                                     String d;
                                     if (distance >= 1000){
                                         distance = distance / 1000;
-                                        d = (float) Math.floor(distance) + "km";
+                                        d = value.format(distance) + "km";
                                     }
                                     else{
-                                        d = (float) Math.floor(distance) + "m";
+                                        d = value.format(distance) + "m";
                                     }
                                     Log.d(TAG, String.format("Distance: %s", d));
                                     geoPin.setTitle(d);
