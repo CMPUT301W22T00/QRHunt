@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.qr;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.bigyoshi.qrhunt.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

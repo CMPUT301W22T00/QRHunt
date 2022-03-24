@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.qr;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bigyoshi.qrhunt.R;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;

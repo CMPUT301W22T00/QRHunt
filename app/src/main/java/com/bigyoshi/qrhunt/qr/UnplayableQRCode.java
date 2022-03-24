@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.qr;
 
 /**
  * Definition: Generates a QR code with the account specifications to access the account on other devices

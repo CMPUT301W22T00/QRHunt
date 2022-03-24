@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.bigyoshi.qrhunt.PlayableQRCode;
+import com.bigyoshi.qrhunt.qr.PlayableQRCode;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,7 +33,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 

@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.qr;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.Player;
 import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;

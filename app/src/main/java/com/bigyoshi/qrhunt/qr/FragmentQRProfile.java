@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.qr;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bigyoshi.qrhunt.player.Player;
+import com.bigyoshi.qrhunt.R;
 import com.squareup.picasso.Picasso;
 
 /**

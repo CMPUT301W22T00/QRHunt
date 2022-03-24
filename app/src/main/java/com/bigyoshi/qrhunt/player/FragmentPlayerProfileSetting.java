@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
