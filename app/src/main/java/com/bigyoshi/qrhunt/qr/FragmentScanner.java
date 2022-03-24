@@ -1,13 +1,18 @@
 package com.bigyoshi.qrhunt.qr;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
@@ -16,6 +21,9 @@ import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.ScanMode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
@@ -27,6 +35,7 @@ public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
     private QrCodeProcessor camera;
     private String playerId;
+    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -47,6 +56,13 @@ public class FragmentScanner extends Fragment {
                     Player player = (Player) result.getSerializable("player");
                     playerId = player.getPlayerId();
                 });
+
+        //Get permissions first
+        requestPermissionsIfNecessary(new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+        });
 
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.fragment_scanner, container, false);
@@ -96,6 +112,51 @@ public class FragmentScanner extends Fragment {
     public void onPause() {
         codeScanner.releaseResources();
         super.onPause();
+    }
+
+    /**
+     * Provides permissions (consent from the user)
+     *
+     * @param requestCode  request code
+     * @param permissions  permissions
+     * @param grantResults grant results
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays
+                .asList(permissions)
+                .subList(0, grantResults.length));
+
+        if (permissionsToRequest.size() > 0) {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    permissionsToRequest.toArray(new String[0]),
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    /**
+     * Requests permissions
+     *
+     * @param permissions list of strings for permissions
+     */
+    private void requestPermissionsIfNecessary(String[] permissions) {
+        ArrayList<String> permissionsToRequest = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(getContext(), permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                permissionsToRequest.add(permission);
+            }
+        }
+        if (permissionsToRequest.size() > 0) {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    permissionsToRequest.toArray(new String[0]),
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
     }
 }
 
