@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bigyoshi.qrhunt.MainActivity;
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
+import com.bigyoshi.qrhunt.qr.FragmentQRProfile;
+import com.bigyoshi.qrhunt.qr.PlayableQRCode;
+import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.osmdroid.config.Configuration;

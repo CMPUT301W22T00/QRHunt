@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt;
+package com.bigyoshi.qrhunt.player;
 
 /**
  * Definition: Stores the social media handle and email of the player

@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.bigyoshi.qrhunt.qr.FragmentAddQRCode;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;

@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.MainActivity;
-import com.bigyoshi.qrhunt.Player;
+import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 

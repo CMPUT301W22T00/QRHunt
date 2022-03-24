@@ -25,6 +25,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bigyoshi.qrhunt.bottom_navigation.search.SearchFragment;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
