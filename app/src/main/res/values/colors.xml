@@ -31,6 +31,8 @@
     <color name="accent_grey_dark_50op">#8036393f</color>
     <color name="accent_grey_dark_60op">#9636393f</color>
     <color name="accent_grey_dark_70op">#b236393f</color>
+    <color name="main_off_white_blue_light_25op">#40d2dae2</color>
 
+    <color name="transparent">#00000000</color>
 
 </resources>
