@@ -25,7 +25,7 @@ import com.budiyev.android.codescanner.ScanMode;
 public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
     private CodeScanner codeScanner;
-    private QRCodeProcessor camera;
+    private QrCodeProcessor camera;
     private String playerId;
 
     /**
@@ -49,7 +49,7 @@ public class FragmentScanner extends Fragment {
                 });
 
         final Activity activity = getActivity();
-        View root = inflater.inflate(R.layout.scanner_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_scanner, container, false);
 
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
         assert activity != null;
@@ -63,7 +63,7 @@ public class FragmentScanner extends Fragment {
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
-            camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
+            camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             camera.processQRCode();
             codeScanner.setScanMode(ScanMode.PREVIEW);
             codeScanner.startPreview();

@@ -23,7 +23,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bigyoshi.qrhunt.bottom_navigation.search.SearchFragment;
+import com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        Toolbar toolbar = findViewById(R.id.top_nav);
+        Toolbar toolbar = findViewById(R.id.top_navigation_view);
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
@@ -86,16 +86,16 @@ public class MainActivity extends AppCompatActivity {
             player.initialize();
         }
 
-        scoreView = toolbar.findViewById(R.id.score_on_cam);
+        scoreView = toolbar.findViewById(R.id.top_scanner_score);
         updateFirebaseListeners();
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_activity_main);
+                R.id.main_bottom_navigation_host_fragment);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        navProfile = findViewById(R.id.navigation_profile);
+        navProfile = findViewById(R.id.top_navigation_profile);
         navProfile.setOnClickListener(view -> {
             binding.navView.setVisibility(View.INVISIBLE);
 
@@ -109,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         });
 
-        navSearch = findViewById(R.id.navigation_search);
+        navSearch = findViewById(R.id.top_navigation_search);
         navSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binding.navView.setVisibility(View.INVISIBLE);
                 actionbar.hide();
-                SearchFragment search = new SearchFragment(player,
+                FragmentSearch search = new FragmentSearch(player,
                         navController.getCurrentDestination().getId());
 
                 FragmentManager fragmentManager = getSupportFragmentManager();

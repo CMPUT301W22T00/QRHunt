@@ -35,17 +35,17 @@ public class MainActivityTest {
     @Test
     public void checkSentToPlayerProfile(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
-        solo.waitForFragmentById(R.id.playerProfile);
-        assertNotNull(solo.getView(R.id.playerProfile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_profile));
+        solo.waitForFragmentById(R.id.player_profile);
+        assertNotNull(solo.getView(R.id.player_profile));
     }
 
     @Test
     public void checkProfileToScanner(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
-        solo.waitForFragmentById(R.id.playerProfile);
-        assertNotNull(solo.getView(R.id.playerProfile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_profile));
+        solo.waitForFragmentById(R.id.player_profile);
+        assertNotNull(solo.getView(R.id.player_profile));
         solo.goBack();
         solo.waitForFragmentById(R.id.scanner_view);
         assertNotNull(solo.getView(R.id.scanner_view));
@@ -55,7 +55,7 @@ public class MainActivityTest {
     @Test
     public void checkSentToSearch(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_search));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_search));
         solo.waitForFragmentById(R.id.search_bar);
         assertNotNull(solo.getView(R.id.search_bar));
     }
@@ -106,7 +106,7 @@ public class MainActivityTest {
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_leaderBoard));
         solo.waitForFragmentById(R.id.leaderboard);
         assertNotNull(solo.getView(R.id.leaderboard));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.button_back));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.leaderboard_back_button));
         solo.waitForFragmentById(R.id.scanner_view);
         assertNotNull(solo.getView(R.id.scanner_view));
     }

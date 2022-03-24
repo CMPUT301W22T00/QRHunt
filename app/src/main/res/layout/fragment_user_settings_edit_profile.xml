@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/editPlayerProfile"
+    android:id="@+id/player_profile_settings"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/padding"
@@ -9,7 +9,7 @@
     android:padding="@dimen/large_padding">
 
     <ImageView
-        android:id="@+id/settings_edit_icon"
+        android:id="@+id/player_profile_settings_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/settings_icon_desc"
@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scaleY="1.5"
         android:scaleX="1.5"
-        app:layout_constraintBottom_toBottomOf="@id/edit_profile_title"/>
+        app:layout_constraintBottom_toBottomOf="@id/player_profile_settings_title"/>
 
     <TextView
-        android:id="@+id/edit_profile_title"
+        android:id="@+id/player_profile_settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
@@ -30,27 +30,27 @@
         android:text="@string/edit_profile_title"
         android:textColor="@color/accent_grey_dark"
         android:textSize="@dimen/title_size"
-        app:layout_constraintLeft_toRightOf="@id/settings_edit_icon"
+        app:layout_constraintLeft_toRightOf="@id/player_profile_settings_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Space
-        android:id="@+id/spacer0"
+        android:id="@+id/player_profile_settings_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
-        app:layout_constraintTop_toBottomOf="@id/edit_profile_title" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_title" />
 
     <TextView
-        android:id="@+id/username_title"
+        android:id="@+id/player_profile_settings_username_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
         android:text="@string/username_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacer0" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer" />
 
     <EditText
-        android:id="@+id/edit_username"
+        android:id="@+id/player_profile_settings_edit_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="username"
@@ -63,29 +63,27 @@
         android:textSize="@dimen/subtitle_size"
         android:maxLength="10"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_title" />
-
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_username_title" />
 
     <Space
-        android:id="@+id/spacer1"
+        android:id="@+id/player_profile_settings_mid_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_username" />
-
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_username" />
 
     <TextView
-        android:id="@+id/email_title"
+        android:id="@+id/player_profile_settings_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
         android:text="@string/email_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacer1" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/player_profile_settings_edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
@@ -96,29 +94,27 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toBottomOf="@id/email_title" />
-
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
 
     <Space
-        android:id="@+id/spacer2"
+        android:id="@+id/player_profile_settings_low_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email" />
-
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_email" />
 
     <TextView
-        android:id="@+id/socials_title"
+        android:id="@+id/player_profile_settings_social_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
         android:text="@string/socials_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spacer2" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
 
     <EditText
-        android:id="@+id/edit_socials"
+        android:id="@+id/player_profile_settings_edit_social"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rectangle_edit_text"
@@ -129,16 +125,17 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintBottom_toTopOf="@+id/edit_profile_buttons"
-        app:layout_constraintTop_toBottomOf="@id/socials_title" />
+        app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" />
 
     <LinearLayout
-        android:id="@+id/edit_profile_buttons"
+        android:id="@+id/player_profile_settings_end_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_socials">
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_social">
         <!-- this serves solely to push buttons to end -->
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -151,10 +148,10 @@
             android:text="@string/ok"
             android:textColor="@color/accent_grey_dark"
             android:clickable="true"
-            android:id="@+id/ok_edit_profile"/>
+            android:id="@+id/player_profile_settings_ok_button"/>
 
         <Button
-            android:id="@+id/cancel_edit_profile"
+            android:id="@+id/player_profile_settings_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"

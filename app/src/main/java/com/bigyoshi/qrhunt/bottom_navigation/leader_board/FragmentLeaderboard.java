@@ -25,7 +25,7 @@ import org.osmdroid.config.Configuration;
  * Note: NA
  * Issues: This is not implemented yet
  */
-public class LeaderBoardFragment extends Fragment {
+public class FragmentLeaderboard extends Fragment {
     private ImageButton back;
 
     private FragmentLeaderboardBinding binding;

@@ -11,16 +11,16 @@ import java.util.HashMap;
  * Note: NA
  * Issues: TBA
  */
-public class QRLibrary {
+public class QrLibrary {
 
-    private HashMap<String, PlayableQRCode> qrCodes;
+    private HashMap<String, PlayableQrCode> qrCodes;
     private String playerId;
     private FirebaseFirestore db;
     private double lat;
     private double lon;
     private String qrHash;
     private int score;
-    private PlayableQRCode qrCode;
+    private PlayableQrCode qrCode;
 
     /**
      * Finds player in database by ID and grabs all QR codes associated w/ them
@@ -28,7 +28,7 @@ public class QRLibrary {
      * @param db       Player's QRDatabase
      * @param playerId Current player
      */
-    public QRLibrary(FirebaseFirestore db, String playerId){
+    public QrLibrary(FirebaseFirestore db, String playerId){
         qrCodes = new HashMap<>();
         if (playerId != null) {
         this.playerId = playerId;
@@ -49,7 +49,7 @@ public class QRLibrary {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
                     if (doc.exists()) {
-                        qrCode = doc.toObject(PlayableQRCode.class);
+                        qrCode = doc.toObject(PlayableQrCode.class);
                         qrCodes.put(doc.getId(), qrCode);
                     }
                 }
@@ -57,7 +57,7 @@ public class QRLibrary {
         });
     }
 
-    public HashMap<String, PlayableQRCode> getQrCodes() { return qrCodes; }
+    public HashMap<String, PlayableQrCode> getQrCodes() { return qrCodes; }
 
     /**
      * Sorts all QRs in library from lowest to highest scoring

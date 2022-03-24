@@ -5,19 +5,19 @@ import android.app.Activity;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.bigyoshi.qrhunt.qr.FragmentAddQRCode;
+import com.bigyoshi.qrhunt.qr.FragmentAddQrCode;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class FragmentAddQRCodeTest {
+public class FragmentAddQrCodeTest {
 
     private Solo solo;
 
     @Rule
-    public ActivityTestRule rule = new ActivityTestRule(FragmentAddQRCode.class,
+    public ActivityTestRule rule = new ActivityTestRule(FragmentAddQrCode.class,
             true, true);
 
     @Before

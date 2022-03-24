@@ -35,8 +35,8 @@ import java.io.ByteArrayOutputStream;
  * Note: NA
  * Issues: TBA
  */
-public class FragmentAddQRCode extends DialogFragment {
-    public static final String TAG = FragmentAddQRCode.class.getSimpleName();
+public class FragmentAddQrCode extends DialogFragment {
+    public static final String TAG = FragmentAddQrCode.class.getSimpleName();
 
     private TextView showScore;
     private TextView numScannedTextView;
@@ -44,7 +44,7 @@ public class FragmentAddQRCode extends DialogFragment {
     private Bitmap bitmap;
     private ImageView imageView;
 
-    public FragmentAddQRCode() {}
+    public FragmentAddQrCode() {}
 
     /**
      * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
@@ -62,9 +62,9 @@ public class FragmentAddQRCode extends DialogFragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        PlayableQRCode qrCode = (PlayableQRCode) getArguments().getSerializable(PlayableQRCode.TAG);
+        PlayableQrCode qrCode = (PlayableQrCode) getArguments().getSerializable(PlayableQrCode.TAG);
 
-        ImageView imageView = view.findViewById(R.id.image_holder);
+        ImageView imageView = view.findViewById(R.id.qr_scan_profile_image_holder);
         ActivityResultLauncher<Intent> pickPhotoResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -76,9 +76,9 @@ public class FragmentAddQRCode extends DialogFragment {
                 });
 
         // Display score
-        ((TextView) view.findViewById(R.id.text_qr_score)).setText(String.format("%d points", qrCode.getScore()));
+        ((TextView) view.findViewById(R.id.qr_scan_profile_score)).setText(String.format("%d points", qrCode.getScore()));
 
-        numScannedTextView = view.findViewById(R.id.text_scans);
+        numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
         numScannedTextView.setText("0 Scans");
         db.collection("users").document(qrCode.getPlayerId()).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -97,8 +97,8 @@ public class FragmentAddQRCode extends DialogFragment {
                 }
         );
         // Display location
-        TextView showLatLong = view.findViewById(R.id.text_lon_lat);
-        QRLocation qrLocation = qrCode.getLocation();
+        TextView showLatLong = view.findViewById(R.id.qr_scan_profile_location);
+        QrLocation qrLocation = qrCode.getLocation();
         if (qrLocation != null && qrLocation.exists()) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
@@ -107,7 +107,7 @@ public class FragmentAddQRCode extends DialogFragment {
             showLatLong.setText("LOCATION NOT GIVEN");
         }
 
-        addPicButton = view.findViewById(R.id.button_take_photo);
+        addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);
         addPicButton.setOnClickListener(__ -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             pickPhotoResultLauncher.launch(intent);
@@ -116,9 +116,9 @@ public class FragmentAddQRCode extends DialogFragment {
         });
 
 
-        Button okButton = view.findViewById(R.id.qr_button_ok);
+        Button okButton = view.findViewById(R.id.qr_scan_profile_ok_button);
         okButton.setOnClickListener(__ -> {
-            LinearLayout overlay = view.findViewById(R.id.fader_layout);
+            LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
             overlay.setVisibility(View.VISIBLE);
 
             if (bitmap != null) {
@@ -143,7 +143,7 @@ public class FragmentAddQRCode extends DialogFragment {
             }
         });
 
-        Button cancelButton = view.findViewById(R.id.qr_button_cancel);
+        Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
         cancelButton.setOnClickListener(__ -> dismiss());
 
         return view;
@@ -155,10 +155,10 @@ public class FragmentAddQRCode extends DialogFragment {
      * @param playableQRCode QR to add
      * @return QR to add
      */
-    public static FragmentAddQRCode newInstance(PlayableQRCode playableQRCode) {
-        FragmentAddQRCode fragmentAddQRCode = new FragmentAddQRCode();
+    public static FragmentAddQrCode newInstance(PlayableQrCode playableQRCode) {
+        FragmentAddQrCode fragmentAddQRCode = new FragmentAddQrCode();
         Bundle args = new Bundle();
-        args.putSerializable(PlayableQRCode.TAG, playableQRCode);
+        args.putSerializable(PlayableQrCode.TAG, playableQRCode);
         fragmentAddQRCode.setArguments(args);
 
         return fragmentAddQRCode;

@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     android:padding="@dimen/large_padding"
-    android:id="@+id/qrPlayerProfile">
-
+    android:id="@+id/qr_library_qr_profile">
 
     <ImageButton
-        android:id="@+id/button_back_to_player_profile_qr_player_profile"
+        android:id="@+id/qr_profile_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_button_back"
@@ -20,7 +19,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/title_qr_profile_qr_player_profile"
+        android:id="@+id/qr_profile_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand"
@@ -34,8 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +40,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/rec_frame_bg"
         android:layout_marginTop="@dimen/large_padding"
-        app:layout_constraintTop_toBottomOf="@id/button_back_to_player_profile_qr_player_profile">
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,9 +48,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <TextView
-                android:id="@+id/text_qr_score_qr_player_profile"
+                android:id="@+id/qr_profile_qr_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand"
@@ -66,7 +62,7 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/text_qr_location_qr_player_profile"
+                android:id="@+id/qr_profile_qr_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/large_padding"
@@ -76,11 +72,11 @@
                 android:textColor="@color/main_blue"
                 android:textSize="@dimen/text_size"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_qr_score_qr_player_profile"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_qr_score"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
             <ImageView
-                android:id="@+id/rec_bg_qr_player_profile"
+                android:id="@+id/qr_profile_rec_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.25"
@@ -92,9 +88,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
 
-
             <TextView
-                android:id="@+id/text_num_scans_qr_player_profile"
+                android:id="@+id/qr_profile_num_scanned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/large_padding"
@@ -102,12 +97,12 @@
                 android:text="Scans: XX"
                 android:textColor="@color/accent_blue_light"
                 android:textSize="@dimen/text_size"
-                app:layout_constraintBaseline_toBaselineOf="@id/text_qr_location_qr_player_profile"
+                app:layout_constraintBaseline_toBaselineOf="@id/qr_profile_qr_location"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
             <ImageView
-                android:id="@+id/image_placeholder_qr_player_profile"
+                android:id="@+id/qr_profile_image_placeholder"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="Default Image Placeholder"
@@ -118,12 +113,12 @@
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_qr_location_qr_player_profile"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_qr_location"
                 tools:ignore="HardcodedText" />
 
 
             <TextView
-                android:id="@+id/titleUserName"
+                android:id="@+id/qr_profile_player_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/large_padding"
@@ -133,12 +128,11 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_placeholder_qr_player_profile"
+                app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
-
             <TextView
-                android:id="@+id/text_caption_qr_player_profile"
+                android:id="@+id/qr_profile_caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0.3"
@@ -150,11 +144,11 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/titleUserName"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_player_username"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/title_comments_qr_player_profile"
+                android:id="@+id/qr_profile_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand"
@@ -163,20 +157,20 @@
                 android:textColor="@color/main_off_white_blue_light"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/text_caption_qr_player_profile"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_caption"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/rec_horizontal_divider_qr_player_profile"
+                android:id="@+id/qr_profile_rec_horizontal_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/large_padding"
                 android:layout_marginRight="@dimen/large_padding"
                 android:background="@drawable/rec_divider"
-                app:layout_constraintTop_toBottomOf="@id/title_comments_qr_player_profile" />
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_comments" />
 
             <EditText
-                android:id="@+id/edit_text_add_comment_qr_player_profile"
+                android:id="@+id/qr_profile_add_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -191,26 +185,22 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rec_horizontal_divider_qr_player_profile"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_rec_horizontal_divider"
                 tools:ignore="HardcodedText" />
 
-
-
         <ListView
-            android:id="@+id/list_comments_qr_player_profile"
+            android:id="@+id/qr_profile_comment_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_padding"
             android:layout_marginRight="@dimen/large_padding"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_add_comment_qr_player_profile" >
-
+            app:layout_constraintTop_toBottomOf="@id/qr_profile_add_comment" >
 
         </ListView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

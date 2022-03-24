@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Note: NA
  * Issues: TBA
  */
-public class QRLocation implements Serializable {
+public class QrLocation implements Serializable {
     private Double latitude;
     private Double longitude;
     private String geoHash;
@@ -21,7 +21,7 @@ public class QRLocation implements Serializable {
      * Constructor method
      *
      */
-    public QRLocation() {}
+    public QrLocation() {}
 
     /**
      * Constructor method
@@ -29,7 +29,7 @@ public class QRLocation implements Serializable {
      * @param latitude latitude
      * @param longitude longitude
      */
-    public QRLocation(Double latitude, Double longitude) {
+    public QrLocation(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         computeGeoHash();
@@ -40,7 +40,7 @@ public class QRLocation implements Serializable {
      *
      * @param location location
      */
-    public QRLocation(Location location) {
+    public QrLocation(Location location) {
         if (location != null) {
             this.latitude = location.getLatitude();
             this.longitude = location.getLongitude();

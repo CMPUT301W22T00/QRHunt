@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/text_title_leaderboard"
+        android:id="@+id/leaderboard_title"
         android:layout_width="159dp"
         android:layout_height="38dp"
         android:layout_marginTop="12dp"
@@ -26,7 +26,7 @@
 
 
     <TextView
-        android:id="@+id/text_rank_two"
+        android:id="@+id/leaderboard_rank_two"
         android:layout_width="366dp"
         android:layout_height="186dp"
         android:layout_marginStart="22dp"
@@ -36,11 +36,11 @@
         android:text="rank panel 2 and 3"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_leaderboard"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_title"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/text_rank_one"
+        android:id="@+id/leaderboard_rank_one"
         android:layout_width="156dp"
         android:layout_height="205dp"
         android:layout_marginStart="124dp"
@@ -51,11 +51,11 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_leaderboard"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_title"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/button_my_rank"
+        android:id="@+id/leaderboard_my_rank_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -70,14 +70,12 @@
         android:textSize="@dimen/subtitle_size"
         android:padding="@dimen/padding"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintBottom_toTopOf="@+id/leaderboard_divider"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText" />
 
-
-
     <View
-        android:id="@+id/divider"
+        android:id="@+id/leaderboard_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="10dp"
@@ -89,11 +87,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_my_rank"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_my_rank_button"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/text_title_col_names"
+        android:id="@+id/leaderboard_col_names"
         android:layout_width="391dp"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
@@ -102,16 +100,15 @@
         android:text="Column Titles"
         android:textColor="@color/accent_blue_light"
         android:textSize="12sp"
-
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_divider"
         tools:ignore="HardcodedText" />
 
 
     <ListView
-        android:id="@+id/list_rankings"
+        android:id="@+id/leaderboard_ranking_list"
         android:layout_width="391dp"
         android:layout_height="338dp"
         android:layout_marginStart="10dp"
@@ -121,11 +118,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_col_names"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_col_names"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
-        android:id="@+id/button_back"
+        android:id="@+id/leaderboard_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding"
@@ -137,8 +134,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText,TouchTargetSizeCheck" />
-
-        
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
