@@ -10,6 +10,7 @@ General
 
 Names
 -in xml, ids use snake case
+    - ids are named with a where_what convention with an additional name for its type (e.g., qr_profile_score or qr_profile_score_text)
 -function and method names use camel case
 -Constructors use pascal case
 -Variable and object names use camel case
