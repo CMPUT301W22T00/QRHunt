@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_leaderBoard"
-        android:name="com.bigyoshi.qrhunt.bottom_navigation.leader_board.FragmentLeaderboard"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.leaderboard.FragmentLeaderboard"
         android:label="@string/title_leaderBoard"
         tools:layout="@layout/fragment_leaderboard" />
 

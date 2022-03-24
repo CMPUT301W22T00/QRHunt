@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.bottom_navigation.leader_board;
+package com.bigyoshi.qrhunt.bottom_navigation.leaderboard;
 
 import android.content.Context;
 import android.content.Intent;
