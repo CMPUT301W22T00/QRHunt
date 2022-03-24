@@ -93,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this,
                 R.id.main_bottom_navigation_host_fragment);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         navProfile = findViewById(R.id.top_navigation_profile);
         navProfile.setOnClickListener(view -> {
-            binding.navView.setVisibility(View.INVISIBLE);
+            binding.bottomNavigationView.setVisibility(View.INVISIBLE);
 
             FragmentProfile profile = new FragmentProfile(player,
                     navController.getCurrentDestination().getId());
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         navSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.navView.setVisibility(View.INVISIBLE);
+                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
                 actionbar.hide();
                 FragmentSearch search = new FragmentSearch(player,
                         navController.getCurrentDestination().getId());
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
-                binding.navView.setVisibility(View.INVISIBLE);
+                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
             }
         });
 

@@ -65,7 +65,7 @@ public class FragmentLeaderboard extends Fragment {
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        back = binding.buttonBack;
+        back = binding.leaderboardBackButton;
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

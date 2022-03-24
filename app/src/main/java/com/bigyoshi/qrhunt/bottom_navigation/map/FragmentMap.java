@@ -105,7 +105,7 @@ public class FragmentMap extends Fragment {
 
         /* Inflate and create the map
            setContentView(R.layout.fragment_map); */
-        map = (MapView) binding.mapview;
+        map = binding.mapView;
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
