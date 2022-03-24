@@ -48,11 +48,14 @@
             />
 
 
-        <Space android:id="@+id/profile_spacer0"
+        <Space
+            android:id="@+id/profile_spacer0"
             android:layout_width="match_parent"
             android:layout_height="@dimen/large_space"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_settings_button"/>
+            app:layout_constraintTop_toBottomOf="@id/profile_settings_button">
+
+        </Space>
 
         <TextView android:id="@+id/profile_score_text"
             android:layout_width="wrap_content"
@@ -239,7 +242,9 @@
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="H,1:1.5"
             android:numColumns="3"
-            app:layout_constraintTop_toBottomOf="@id/profile_sort_by_button">
+            app:layout_constraintTop_toBottomOf="@id/profile_sort_by_button"
+            android:horizontalSpacing="@dimen/large_padding"
+            android:verticalSpacing="@dimen/large_padding">
         </GridView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
