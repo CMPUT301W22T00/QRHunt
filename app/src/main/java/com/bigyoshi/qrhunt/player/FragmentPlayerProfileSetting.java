@@ -3,11 +3,14 @@ package com.bigyoshi.qrhunt.player;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +20,9 @@ import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Definition: Setting for user to edit their account information (username, email, social handle)
@@ -30,6 +36,8 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private EditText socials;
     private Button ok;
     private Button cancel;
+    private ImageView checkValidUsername;
+    private UniqueUsernameVerifier verifier;
 
     private FragmentUserSettingsEditProfileBinding binding;
 
@@ -77,6 +85,31 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
         socials = root.findViewById(R.id.player_profile_settings_edit_social);
         ok = root.findViewById(R.id.player_profile_settings_ok_button);
         cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
+        checkValidUsername = root.findViewById(R.id.player_profile_settings_validator);
+
+        verifier = new UniqueUsernameVerifier(playerInfo.getUsername(),
+                playerInfo.getPlayerId(), checkValidUsername, ok);
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // INTERESTING (-:
+                // after countdown expires
+                if (verifier != null) {
+                    verifier.cancel(); // make sure we aren't getting old results late that enable the save button
+                }
+                verifier = new UniqueUsernameVerifier(playerInfo.getUsername(),
+                        playerInfo.getPlayerId(), checkValidUsername, ok);
+                verifier.checkUsername();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
