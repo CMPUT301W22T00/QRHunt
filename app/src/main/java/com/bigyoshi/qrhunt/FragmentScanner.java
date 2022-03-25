@@ -1,11 +1,13 @@
 package com.bigyoshi.qrhunt;
 
 import android.app.Activity;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -54,24 +56,27 @@ public class FragmentScanner extends Fragment {
         codeScanner = new CodeScanner(activity, scannerView);
 
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.PREVIEW);
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
+        ImageButton button = root.findViewById(R.id.start_scan);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                camera.processQRCode();
+            }
+        });
+
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
-            codeScanner.setScanMode(ScanMode.PREVIEW);
-            camera.processQRCode();
+            button.setVisibility(View.VISIBLE);
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
 
-        scannerView.setOnClickListener(view -> {
-            codeScanner.startPreview();
-            codeScanner.setScanMode(ScanMode.SINGLE);
-        });
         return root;
     }
 
