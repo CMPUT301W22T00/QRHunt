@@ -68,15 +68,13 @@ public class FragmentScanner extends Fragment {
             @Override
             public void onClick(View view) {
                 camera.processQRCode();
-                //button.setVisibility(View.GONE);
+                button.setVisibility(View.GONE);
             }
         });
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             button.setVisibility(View.VISIBLE);
-            button.setVisibility(View.GONE);
-
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
