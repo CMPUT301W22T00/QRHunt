@@ -67,8 +67,10 @@ public class FragmentScanner extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                codeScanner.setScanMode(ScanMode.PREVIEW);
                 camera.processQRCode();
                 button.setVisibility(View.GONE);
+                codeScanner.setScanMode(ScanMode.CONTINUOUS);
             }
         });
 
