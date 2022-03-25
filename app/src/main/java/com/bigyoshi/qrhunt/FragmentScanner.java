@@ -68,12 +68,14 @@ public class FragmentScanner extends Fragment {
             @Override
             public void onClick(View view) {
                 camera.processQRCode();
+                //button.setVisibility(View.GONE);
             }
         });
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             button.setVisibility(View.VISIBLE);
+            button.setVisibility(View.GONE);
 
         }));
 
@@ -90,7 +92,7 @@ public class FragmentScanner extends Fragment {
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
-        button.setVisibility(View.GONE);
+
     }
 
     /**
