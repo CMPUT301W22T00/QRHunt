@@ -27,14 +27,14 @@ import org.osmdroid.config.Configuration;
  * Note: NA
  * Issues: Not implemented yet
  */
-public class SearchFragment extends Fragment {
+public class FragmentSearch extends Fragment {
     private FragmentSearchBinding binding;
     private Player player;
     private int navId;
     private ImageButton back;
     private EditText searchBar;
 
-    public SearchFragment(Player player, int id) {
+    public FragmentSearch(Player player, int id) {
         this.player = player;
         this.navId = id;
     }
@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        back = root.findViewById(R.id.search_back_button);
+        back = root.findViewById(R.id.search_bar_back_button);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        searchBar = root.findViewById(R.id.search_bar_editText);
+        searchBar = root.findViewById(R.id.search_bar_search_edit_text);
 
 
 

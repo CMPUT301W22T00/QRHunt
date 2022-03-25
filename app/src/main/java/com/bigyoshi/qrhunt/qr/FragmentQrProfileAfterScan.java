@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import com.bigyoshi.qrhunt.R;
 
 /**
- * A {@link Fragment} subclass -- Use the {@link FragmentQRProfileAfterScan#newInstance} factory method to
+ * A {@link Fragment} subclass -- Use the {@link FragmentQrProfileAfterScan#newInstance} factory method to
  * create an instance of this fragment
  * Note: NA
  * Issues: TBA
  */
-public class FragmentQRProfileAfterScan extends Fragment {
+public class FragmentQrProfileAfterScan extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +31,7 @@ public class FragmentQRProfileAfterScan extends Fragment {
      * Constructor method (required)
      *
      */
-    public FragmentQRProfileAfterScan() {
+    public FragmentQrProfileAfterScan() {
         // Required empty public constructor
     }
 
@@ -44,8 +44,8 @@ public class FragmentQRProfileAfterScan extends Fragment {
      * @return New instance of fragment QRProfileAfterScan
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentQRProfileAfterScan newInstance(String param1, String param2) {
-        FragmentQRProfileAfterScan fragment = new FragmentQRProfileAfterScan();
+    public static FragmentQrProfileAfterScan newInstance(String param1, String param2) {
+        FragmentQrProfileAfterScan fragment = new FragmentQrProfileAfterScan();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

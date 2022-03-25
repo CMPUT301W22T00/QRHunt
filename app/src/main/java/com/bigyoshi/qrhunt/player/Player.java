@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.qr.QRLibrary;
+import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -40,7 +40,7 @@ public class Player implements Serializable {
     private String username;
     private Contact contact;
     private Boolean admin;
-    public QRLibrary qrLibrary;
+    public QrLibrary qrLibrary;
     private String playerId = null;
     private Context context;
 
@@ -55,7 +55,7 @@ public class Player implements Serializable {
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
-        this.qrLibrary = new QRLibrary(db, getPlayerId());
+        this.qrLibrary = new QrLibrary(db, getPlayerId());
     }
 
     /**

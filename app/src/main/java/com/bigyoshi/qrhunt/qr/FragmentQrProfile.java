@@ -23,10 +23,10 @@ import com.squareup.picasso.Picasso;
  * Note: NA
  * Issues: NA
  */
-public class FragmentQRProfile extends DialogFragment {
+public class FragmentQrProfile extends DialogFragment {
 
     private int pos;
-    private PlayableQRCode removeQR;
+    private PlayableQrCode removeQR;
     private Player playerInfo;
 
     /**
@@ -35,7 +35,7 @@ public class FragmentQRProfile extends DialogFragment {
      * @param currentQR QR to remove
      * @param playerInfo
      */
-    public FragmentQRProfile(int i, PlayableQRCode currentQR, Player playerInfo) {
+    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player playerInfo) {
         this.pos = pos;
         this.removeQR = currentQR;
         this.playerInfo = playerInfo;
@@ -50,19 +50,19 @@ public class FragmentQRProfile extends DialogFragment {
      * @return View
      */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_qr_player_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_qr_player_profile, container, false);
 
         // Display score
-        TextView showScore = view.findViewById(R.id.text_qr_score_qr_player_profile);
+        TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
         showScore.setText(String.valueOf(removeQR.getScore())+" Points");
 
         // Display numScan
-        TextView showNumScanned = view.findViewById(R.id.text_num_scans_qr_player_profile);
+        TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
         showNumScanned.setText("01"); // HARD CODED FOR NOW
 
         // Display location
-        TextView showLatLong = view.findViewById(R.id.text_qr_location_qr_player_profile);
-        QRLocation qrLocation = removeQR.getLocation();
+        TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);
+        QrLocation qrLocation = removeQR.getLocation();
         if (qrLocation != null) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
@@ -72,13 +72,13 @@ public class FragmentQRProfile extends DialogFragment {
         }
 
         // attach photo
-        ImageView showPic = view.findViewById(R.id.image_placeholder_qr_player_profile);
+        ImageView showPic = view.findViewById(R.id.qr_profile_image_placeholder);
         if (removeQR.getImageUrl() != null) {
             Picasso.get().load(removeQR.getImageUrl()).into(showPic);
         }
         showPic.setCropToPadding(true);
 
-        TextView userName = view.findViewById(R.id.titleUserName);
+        TextView userName = view.findViewById(R.id.qr_profile_player_username);
         userName.setText(playerInfo.getUsername());
 
         /*
@@ -91,11 +91,11 @@ public class FragmentQRProfile extends DialogFragment {
             getFragmentManager().beginTransaction().remove(FragmentQRProfile.this).commit();
         });*/
 
-        ImageButton backButton = view.findViewById(R.id.button_back_to_player_profile_qr_player_profile);
+        ImageButton backButton = view.findViewById(R.id.qr_profile_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().remove(FragmentQRProfile.this).commit();
+                getFragmentManager().beginTransaction().remove(FragmentQrProfile.this).commit();
             }
         });
 

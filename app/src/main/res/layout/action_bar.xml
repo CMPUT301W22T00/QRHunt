@@ -8,7 +8,7 @@
     android:paddingStart="@dimen/padding"
     android:background="@color/accent_grey_dark_70op">
 
-    <ImageButton android:id="@+id/navigation_search"
+    <ImageButton android:id="@+id/top_navigation_search"
         android:src="@drawable/ic_button_search"
         android:background="?attr/actionBarItemBackground"
         android:layout_width="?attr/actionBarSize"
@@ -26,10 +26,10 @@
         android:textColor="@color/main_blue"
         android:fontFamily="@font/quicksand_medium"
         android:layout_gravity="center"
-        android:id="@+id/score_on_cam">
+        android:id="@+id/top_scanner_score">
     </TextView>
 
-    <ImageButton  android:id="@+id/navigation_profile"
+    <ImageButton  android:id="@+id/top_navigation_profile"
         android:src="@drawable/ic_pfp_light"
         android:background="?attr/actionBarItemBackground"
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:padding="@dimen/padding"
         android:visibility="visible"/>
 
-    <ImageButton android:id="@+id/map_list_button"
+    <ImageButton android:id="@+id/top_map_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_button_list"

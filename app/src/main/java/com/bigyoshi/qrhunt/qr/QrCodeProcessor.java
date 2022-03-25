@@ -25,8 +25,8 @@ import java.security.NoSuchAlgorithmException;
  * Notes: NA
  * Issues: TBA
  */
-public class QRCodeProcessor {
-    public static final String TAG = QRCodeProcessor.class.getSimpleName();
+public class QrCodeProcessor {
+    public static final String TAG = QrCodeProcessor.class.getSimpleName();
     private final Fragment frag;
     private final String qrContent;
     private byte[] digest;
@@ -45,7 +45,7 @@ public class QRCodeProcessor {
      * @param text     QR Content
      * @param playerId Current player's unique id
      */
-    public QRCodeProcessor(Fragment frag, String text, String playerId) {
+    public QrCodeProcessor(Fragment frag, String text, String playerId) {
         this.frag = frag;
         this.qrContent = text;
         this.playerId = playerId;
@@ -94,7 +94,7 @@ public class QRCodeProcessor {
         // todo check here: is this an internal code
         computeHash();
         computeScore();
-        PlayableQRCode qrCode = new PlayableQRCode(playerId, hash, score);
+        PlayableQrCode qrCode = new PlayableQrCode(playerId, hash, score);
 
         getLocation()
                 .addOnCompleteListener(
@@ -102,7 +102,7 @@ public class QRCodeProcessor {
                             if (task.isSuccessful()) {
                                 Location location = task.getResult();
                                 if (location != null) {
-                                    qrCode.setLocation(new QRLocation(location));
+                                    qrCode.setLocation(new QrLocation(location));
                                 }
                                 /* this stops listening to the updates that
                                 we didn't actually care about in the first place for; see startPollingLocation
@@ -110,9 +110,9 @@ public class QRCodeProcessor {
                                 LocationServices.getFusedLocationProviderClient(activity)
                                         .removeLocationUpdates(hackyLocationCallback);
 
-                                FragmentAddQRCode addQrCode = FragmentAddQRCode.newInstance(qrCode);
+                                FragmentAddQrCode addQrCode = FragmentAddQrCode.newInstance(qrCode);
                                 addQrCode.show(
-                                        frag.getChildFragmentManager(), FragmentAddQRCode.TAG);
+                                        frag.getChildFragmentManager(), FragmentAddQrCode.TAG);
                             }
                         });
     }

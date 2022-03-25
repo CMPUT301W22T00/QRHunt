@@ -23,11 +23,11 @@ import java.util.ArrayList;
  * Note: NA
  * Issues: TBA
  */
-public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
+public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
     private Context context;
-    private ArrayList<PlayableQRCode> qrCodes;
+    private ArrayList<PlayableQrCode> qrCodes;
 
-    public QrLibraryGridViewAdapter(Context context, ArrayList<PlayableQRCode> qrCodes) {
+    public QrLibraryGridViewAdapter(Context context, ArrayList<PlayableQrCode> qrCodes) {
         super(context, 0, qrCodes);
         this.context = context;
         this.qrCodes = qrCodes;
@@ -53,10 +53,10 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
 
         }
 
-        PlayableQRCode qrCode = qrCodes.get(position);
+        PlayableQrCode qrCode = qrCodes.get(position);
 
         // Display image form url or stock image
-        ImageView imageView = view.findViewById(R.id.imageView2);
+        ImageView imageView = view.findViewById(R.id.qr_grid_image_view_two);
         if (qrCode.getImageUrl() != null) {
             Picasso.get().load(qrCode.getImageUrl()).into(imageView);
         } else {
@@ -66,7 +66,7 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQRCode> {
         }
         imageView.setCropToPadding(true); // Crop to the center
         // Display the score under the image
-        TextView textView = view.findViewById(R.id.show_score_library);
+        TextView textView = view.findViewById(R.id.qr_grid_score);
         textView.setText(String.valueOf(qrCode.getScore()));
 
         return view;

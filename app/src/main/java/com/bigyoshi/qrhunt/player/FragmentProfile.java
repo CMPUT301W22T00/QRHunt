@@ -25,8 +25,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
-import com.bigyoshi.qrhunt.qr.FragmentQRProfile;
-import com.bigyoshi.qrhunt.qr.PlayableQRCode;
+import com.bigyoshi.qrhunt.qr.FragmentQrProfile;
+import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -53,9 +53,9 @@ public class FragmentProfile extends Fragment {
     private ImageButton contactsButton;
     private int lastDestination;
     private GridView showAll;
-    private HashMap<String, PlayableQRCode> qrCodes;
-    private ArrayList<PlayableQRCode> qrCodesList;
-    private ArrayAdapter<PlayableQRCode> qrCodesAdapter;
+    private HashMap<String, PlayableQrCode> qrCodes;
+    private ArrayList<PlayableQrCode> qrCodesList;
+    private ArrayAdapter<PlayableQrCode> qrCodesAdapter;
     private FirebaseFirestore db;
 
 
@@ -117,29 +117,29 @@ public class FragmentProfile extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        QRTotalValue = root.findViewById(R.id.profile_score_text);
-        username = root.findViewById(R.id.profile_username_title);
-        contactsButton = root.findViewById(R.id.profile_information_button);
-        totalScanned = root.findViewById(R.id.profile_codes_scanned);
+        QRTotalValue = root.findViewById(R.id.player_profile_score);
+        username = root.findViewById(R.id.player_profile_username_title);
+        contactsButton = root.findViewById(R.id.player_profile_contact_button);
+        totalScanned = root.findViewById(R.id.player_profile_scanned_text);
         View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
-        TextView combined = calloutView.findViewById(R.id.callout_text);
+        TextView combined = calloutView.findViewById(R.id.contact_call_out_text);
 
-        showAll = root.findViewById(R.id.profile_QR_grid);
+        showAll = root.findViewById(R.id.player_profile_grid_view);
         qrCodes = new HashMap<>();
         qrCodes = playerInfo.qrLibrary.getQrCodes();
-        Collection<PlayableQRCode> temp = qrCodes.values();
+        Collection<PlayableQrCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
         showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new FragmentQRProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+                new FragmentQrProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
             }
         });
 
 
-        settingButton = root.findViewById(R.id.profile_settings_button);
+        settingButton = root.findViewById(R.id.player_profile_settings_button);
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
@@ -150,7 +150,7 @@ public class FragmentProfile extends Fragment {
                 FragmentPlayerSetting profileSetting = new FragmentPlayerSetting(playerInfo);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.playerProfile, profileSetting, "setting");
+                fragmentTransaction.replace(R.id.player_profile, profileSetting, "setting");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -207,7 +207,7 @@ public class FragmentProfile extends Fragment {
      *
      * @param pos position in library
      */
-    public void libraryRemoveQR(int pos, PlayableQRCode removeQR) {
+    public void libraryRemoveQR(int pos, PlayableQrCode removeQR) {
         qrCodesList.remove(pos);
         qrCodesAdapter.notifyDataSetChanged();
         db = FirebaseFirestore.getInstance();

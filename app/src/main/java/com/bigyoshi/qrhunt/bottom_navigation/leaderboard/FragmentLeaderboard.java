@@ -1,4 +1,4 @@
-package com.bigyoshi.qrhunt.bottom_navigation.leader_board;
+package com.bigyoshi.qrhunt.bottom_navigation.leaderboard;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import org.osmdroid.config.Configuration;
  * Note: NA
  * Issues: This is not implemented yet
  */
-public class LeaderBoardFragment extends Fragment {
+public class FragmentLeaderboard extends Fragment {
     private ImageButton back;
 
     private FragmentLeaderboardBinding binding;
@@ -65,7 +65,7 @@ public class LeaderBoardFragment extends Fragment {
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        back = binding.buttonBack;
+        back = binding.leaderboardBackButton;
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

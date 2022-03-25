@@ -20,8 +20,8 @@ public class FragmentProfileTest {
 
     public void goToProfile(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
-        solo.waitForFragmentById(R.id.playerProfile);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_profile));
+        solo.waitForFragmentById(R.id.player_profile);
     }
 
     @Rule
@@ -42,28 +42,28 @@ public class FragmentProfileTest {
     public void checkSentToSettings(){
         goToProfile();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.profile_settings_button));
-        solo.waitForFragmentById(R.id.playerSettings);
-        assertNotNull(solo.getView(R.id.playerSettings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
+        solo.waitForFragmentById(R.id.player_settings);
+        assertNotNull(solo.getView(R.id.player_settings));
     }
 
     @Test
     public void checkSettingsToProfile(){
         goToProfile();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.profile_settings_button));
-        solo.waitForFragmentById(R.id.playerSettings);
-        assertNotNull(solo.getView(R.id.playerSettings));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.settings_back_arrow));
-        solo.waitForFragmentById(R.id.playerProfile);
-        assertNotNull(solo.getView(R.id.playerProfile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
+        solo.waitForFragmentById(R.id.player_settings);
+        assertNotNull(solo.getView(R.id.player_settings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_back_button));
+        solo.waitForFragmentById(R.id.player_profile);
+        assertNotNull(solo.getView(R.id.player_profile));
     }
 
     @Test
     public void checkSocialButton(){
         goToProfile();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.profile_information_button));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_contact_button));
     }
 
     // Check if SocialButton is not clickable (nothing seen)

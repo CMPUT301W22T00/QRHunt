@@ -72,11 +72,11 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 false);
         View root = binding.getRoot();
 
-        username = root.findViewById(R.id.edit_username);
-        email = root.findViewById(R.id.edit_email);
-        socials = root.findViewById(R.id.edit_socials);
-        ok = root.findViewById(R.id.ok_edit_profile);
-        cancel = root.findViewById(R.id.cancel_edit_profile);
+        username = root.findViewById(R.id.player_profile_settings_edit_username);
+        email = root.findViewById(R.id.player_profile_settings_edit_email);
+        socials = root.findViewById(R.id.player_profile_settings_edit_social);
+        ok = root.findViewById(R.id.player_profile_settings_ok_button);
+        cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override

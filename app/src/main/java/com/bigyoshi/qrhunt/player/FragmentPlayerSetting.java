@@ -61,8 +61,8 @@ public class FragmentPlayerSetting extends Fragment {
         binding = FragmentUserSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        playerProfileSettings = root.findViewById(R.id.settings_edit_profile);
-        backButton = root.findViewById(R.id.settings_back_arrow);
+        playerProfileSettings = root.findViewById(R.id.player_settings_edit_profile_clickable);
+        backButton = root.findViewById(R.id.player_settings_back_button);
 
         playerProfileSettings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class FragmentPlayerSetting extends Fragment {
                         new FragmentPlayerProfileSetting(playerInfo);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.playerSettings, profileSetting, "setting");
+                fragmentTransaction.replace(R.id.player_settings, profileSetting, "setting");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

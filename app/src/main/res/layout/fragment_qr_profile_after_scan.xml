@@ -10,11 +10,10 @@
         android:layout_height="wrap_content"
         android:background="@color/main_off_white_blue_light"
         android:padding="@dimen/large_padding"
-        tools:context=".qr.FragmentQRProfileAfterScan">
-
+        tools:context=".qr.FragmentQrProfileAfterScan">
 
         <TextView
-            android:id="@+id/text_qr_score"
+            android:id="@+id/qr_scan_profile_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
@@ -27,9 +26,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
 
-
         <ImageButton
-            android:id="@+id/button_toggle_visibility_on"
+            android:id="@+id/qr_scan_profile_toggle_visibility"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_button_location_on_dark"
@@ -40,24 +38,24 @@
 
 
         <View
-            android:id="@+id/view_divider"
+            android:id="@+id/qr_scan_profile_divider"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:alpha="0.2"
             android:background="@color/accent_grey_blue_dark"
-            app:layout_constraintEnd_toStartOf="@id/button_toggle_visibility_on"
+            app:layout_constraintEnd_toStartOf="@id/qr_scan_profile_toggle_visibility"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_qr_score" />
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_score" />
 
         <Space
-            android:id="@+id/qr_profile_space"
+            android:id="@+id/qr_scan_profile_spacer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/large_space"
-            app:layout_constraintTop_toBottomOf="@id/view_divider" />
+            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_divider" />
 
         <TextView
-            android:id="@+id/text_lon_lat"
+            android:id="@+id/qr_scan_profile_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
@@ -65,12 +63,11 @@
             android:textColor="@color/secondary_blue_dark"
             android:textSize="@dimen/text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qr_profile_space"
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_spacer"
             tools:ignore="HardcodedText" />
 
-
         <TextView
-            android:id="@+id/text_scans"
+            android:id="@+id/qr_scan_profile_num_scanned"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
@@ -79,13 +76,12 @@
             android:textColor="@color/secondary_blue_dark"
             android:textSize="@dimen/text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_profile_space"
+            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_spacer"
             tools:ignore="HardcodedText" />
-
 
         <!-- figure out how make square-->
         <ImageView
-            android:id="@+id/image_holder"
+            android:id="@+id/qr_scan_profile_image_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding"
@@ -96,12 +92,12 @@
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_lon_lat"
+            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_location"
             tools:ignore="HardcodedText" />
 
 
         <Button
-            android:id="@+id/button_take_photo"
+            android:id="@+id/qr_scan_profile_take_photo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rec_button_take_photo"
@@ -114,15 +110,14 @@
             android:textSize="@dimen/text_size"
             android:textStyle="bold"
             app:cornerRadius="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/image_holder"
-            app:layout_constraintLeft_toLeftOf="@id/image_holder"
-            app:layout_constraintRight_toRightOf="@id/image_holder"
-            app:layout_constraintTop_toTopOf="@id/image_holder"
+            app:layout_constraintBottom_toBottomOf="@id/qr_scan_profile_image_holder"
+            app:layout_constraintLeft_toLeftOf="@id/qr_scan_profile_image_holder"
+            app:layout_constraintRight_toRightOf="@id/qr_scan_profile_image_holder"
+            app:layout_constraintTop_toTopOf="@id/qr_scan_profile_image_holder"
             tools:ignore="HardcodedText" />
 
-
         <Button
-            android:id="@+id/qr_button_ok"
+            android:id="@+id/qr_scan_profile_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding"
@@ -135,10 +130,10 @@
             android:textSize="@dimen/subtitle_size"
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_holder" />
+            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_image_holder" />
 
         <Button
-            android:id="@+id/qr_button_cancel"
+            android:id="@+id/qr_scan_profile_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -151,15 +146,14 @@
             android:textColor="@color/black"
             android:textSize="@dimen/subtitle_size"
             android:textStyle="bold"
-            app:layout_constraintRight_toLeftOf="@id/qr_button_ok"
+            app:layout_constraintRight_toLeftOf="@id/qr_scan_profile_ok_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_holder" />
-
+            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_image_holder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/fader_layout"
+        android:id="@+id/qr_scan_profile_fader_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
@@ -173,7 +167,7 @@
             android:background="#E0000000" />
 
         <ProgressBar
-            android:id="@+id/qr_add_progress_bar"
+            android:id="@+id/qr_scan_profile_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />

@@ -19,10 +19,10 @@ public class FragmentPlayerSettingTest {
 
     public void goToProfileSetting(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
-        solo.waitForFragmentById(R.id.playerProfile);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.profile_settings_button));
-        solo.waitForFragmentById(R.id.playerSettings);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_profile));
+        solo.waitForFragmentById(R.id.player_profile);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
+        solo.waitForFragmentById(R.id.player_settings);
     }
 
     @Rule
@@ -43,31 +43,31 @@ public class FragmentPlayerSettingTest {
     public void checkSentToProfileSettings(){
         goToProfileSetting();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.settings_edit_profile));
-        solo.waitForFragmentById(R.id.editPlayerProfile);
-        assertNotNull(solo.getView(R.id.editPlayerProfile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
+        solo.waitForFragmentById(R.id.player_profile_settings);
+        assertNotNull(solo.getView(R.id.player_profile_settings));
     }
 
     @Test
     public void checkProfileSettingsBackToSettingsCancel(){
         goToProfileSetting();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.settings_edit_profile));
-        solo.waitForFragmentById(R.id.editPlayerProfile);
-        assertNotNull(solo.getView(R.id.editPlayerProfile));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.cancel_edit_profile));
-        assertNotNull(solo.getView(R.id.playerSettings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
+        solo.waitForFragmentById(R.id.player_profile_settings);
+        assertNotNull(solo.getView(R.id.player_profile_settings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_cancel_button));
+        assertNotNull(solo.getView(R.id.player_settings));
     }
 
     @Test
     public void checkProfileSettingsBackToSettingsOk(){
         goToProfileSetting();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.settings_edit_profile));
-        solo.waitForFragmentById(R.id.editPlayerProfile);
-        assertNotNull(solo.getView(R.id.editPlayerProfile));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
-        assertNotNull(solo.getView(R.id.playerSettings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
+        solo.waitForFragmentById(R.id.player_profile_settings);
+        assertNotNull(solo.getView(R.id.player_profile_settings));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
+        assertNotNull(solo.getView(R.id.player_settings));
     }
 
     // Need to test press on QR when set up

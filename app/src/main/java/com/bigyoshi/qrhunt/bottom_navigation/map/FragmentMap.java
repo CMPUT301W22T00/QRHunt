@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
-import com.bigyoshi.qrhunt.qr.PlayableQRCode;
+import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -55,8 +55,8 @@ import java.text.DecimalFormat;
  * Note: N/A
  * Issues: N/A
  */
-public class MapFragment extends Fragment {
-    private final String TAG = MapFragment.class.getSimpleName();
+public class FragmentMap extends Fragment {
+    private final String TAG = FragmentMap.class.getSimpleName();
     private MapView map = null;
     private FragmentMapBinding binding;
     private MyLocationNewOverlay mLocationOverlay;
@@ -105,7 +105,7 @@ public class MapFragment extends Fragment {
 
         /* Inflate and create the map
            setContentView(R.layout.fragment_map); */
-        map = (MapView) binding.mapview;
+        map = binding.mapView;
         map.setTileSource(TileSourceFactory.MAPNIK);
 
         // Map Zoom Controls
@@ -142,7 +142,7 @@ public class MapFragment extends Fragment {
         this.mLocationOverlay.setPersonHotspot(30.0f, 30.0f);
 
         // Recenters the map onto the user
-        btnRecenter = (ImageButton) root.findViewById(R.id.recenter);
+        btnRecenter = (ImageButton) root.findViewById(R.id.map_recenter);
         btnRecenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,7 +163,7 @@ public class MapFragment extends Fragment {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot doc : task.getResult()){
                         if (doc.exists()) {
-                            PlayableQRCode qrCode = doc.toObject(PlayableQRCode.class);
+                            PlayableQrCode qrCode = doc.toObject(PlayableQrCode.class);
                             if (qrCode.getLocation() != null) {
                                 lat = qrCode.getLocation().getLatitude();
                                 lng = qrCode.getLocation().getLongitude();

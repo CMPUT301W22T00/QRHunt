@@ -17,12 +17,12 @@ import java.util.Objects;
  * Note: Stores and pulls values related to the QR from database
  * Issues: TBA
  */
-public class PlayableQRCode implements Serializable {
-    public static final String TAG = PlayableQRCode.class.getSimpleName();
+public class PlayableQrCode implements Serializable {
+    public static final String TAG = PlayableQrCode.class.getSimpleName();
     private String id; // Hash of the actual data from the scan
     private String playerId;
     private Integer score;
-    private QRLocation location;
+    private QrLocation location;
     private String imageUrl;
     private int numScanned;
     // transient → will not be serialized
@@ -32,7 +32,7 @@ public class PlayableQRCode implements Serializable {
      * Constructor method
      *
      */
-    public PlayableQRCode() {
+    public PlayableQrCode() {
         this.numScanned = 1;
         db = FirebaseFirestore.getInstance();
     }
@@ -45,7 +45,7 @@ public class PlayableQRCode implements Serializable {
      * @param id    QRCode id
      * @param score QRCode score
      */
-    public PlayableQRCode(String playerId, String id, int score) {
+    public PlayableQrCode(String playerId, String id, int score) {
         this.playerId = playerId;
         this.id = id;
         this.score = score;
@@ -98,7 +98,7 @@ public class PlayableQRCode implements Serializable {
      *
      * @return QR Location
      */
-    public QRLocation getLocation() {
+    public QrLocation getLocation() {
         return location;
     }
 
@@ -138,7 +138,7 @@ public class PlayableQRCode implements Serializable {
      *
      * @param location QR Location to set
      */
-    public void setLocation(QRLocation location) {
+    public void setLocation(QrLocation location) {
         this.location = location;
     }
 

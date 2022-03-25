@@ -5,13 +5,13 @@ package com.bigyoshi.qrhunt.qr;
  * Note: NA
  * Issues: This is not implement yet
  */
-public class UnplayableQRCode {
+public class UnplayableQrCode {
 
     /**
      * Constructor method
      *
      */
-    public UnplayableQRCode(){
+    public UnplayableQrCode(){
     }
 
     /**

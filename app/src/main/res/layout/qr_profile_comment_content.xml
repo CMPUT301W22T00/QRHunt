@@ -6,7 +6,7 @@
     android:background="@color/transparent"
     android:layout_margin="@dimen/large_padding">
 
-    <TextView android:id="@+id/comment_username_text"
+    <TextView android:id="@+id/qr_profile_comment_content"
         android:text="Username"
         android:fontFamily="@font/quicksand_medium"
         android:textColor="@color/main_blue"
@@ -15,19 +15,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/small_padding"
-        />
+        android:padding="@dimen/small_padding"/>
 
-    <TextView android:id="@+id/comment_body_text"
+    <TextView android:id="@+id/qr_profile_comment_content_body"
         android:fontFamily="@font/quicksand_medium"
         android:textColor="@color/main_off_white_blue_light"
         android:text="LOREM IPSUM DOLOR...."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/comment_username_text"
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_comment_content"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/padding"
         android:padding="@dimen/small_padding"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

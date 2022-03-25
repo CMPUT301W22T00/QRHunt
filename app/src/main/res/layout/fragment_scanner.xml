@@ -19,4 +19,5 @@
         app:frameSize="0.75"
         app:frameThickness="2dp"
         app:maskColor="#77000000"/>
+
 </FrameLayout>
