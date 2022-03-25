@@ -27,6 +27,7 @@ public class FragmentScanner extends Fragment {
     private CodeScanner codeScanner;
     private QRCodeProcessor camera;
     private String playerId;
+    private ImageButton button;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -62,7 +63,7 @@ public class FragmentScanner extends Fragment {
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
-        ImageButton button = root.findViewById(R.id.start_scan);
+        button = root.findViewById(R.id.start_scan);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,7 @@ public class FragmentScanner extends Fragment {
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             button.setVisibility(View.VISIBLE);
+
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
@@ -88,6 +90,7 @@ public class FragmentScanner extends Fragment {
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
+        button.setVisibility(View.GONE);
     }
 
     /**
