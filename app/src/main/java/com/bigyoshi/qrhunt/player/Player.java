@@ -105,8 +105,8 @@ public class Player implements Serializable {
             if (playerId.isEmpty()) {
                 setPlayerId(UUID.randomUUID().toString());
             }
+            Log.d(TAG, String.format("retrieved uuid: %s", playerId));
         }
-        Log.d(TAG, String.format("retrieved uuid: %s", playerId));
         return playerId;
     }
 
