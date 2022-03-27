@@ -1,11 +1,13 @@
 package com.bigyoshi.qrhunt.player;
 
+import java.io.Serializable;
+
 /**
  * Definition: Stores the social media handle and email of the player
  * Note: NA
  * Issue: NA
  */
-public class Contact {
+public class Contact implements Serializable {
     private String socialMedia;
     private String email;
 

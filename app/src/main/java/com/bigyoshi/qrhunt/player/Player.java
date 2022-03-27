@@ -33,8 +33,8 @@ public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String PLAYER_ID_PREF = "playerId";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final CollectionReference collectionReference = db.collection("users");
+    private transient FirebaseFirestore db;
+    private transient CollectionReference collectionReference;
 
     private int totalScore;
     private String username;
@@ -42,7 +42,7 @@ public class Player implements Serializable {
     private Boolean admin;
     public QrLibrary qrLibrary;
     private String playerId = null;
-    private Context context;
+    private transient Context context;
 
     /**
      * Constructor method
@@ -50,12 +50,16 @@ public class Player implements Serializable {
      * @param context context
      */
     public Player(Context context) {
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("users");
+
         this.context = context;
         this.totalScore = 0;
         this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, getPlayerId());
+
     }
 
     /**
