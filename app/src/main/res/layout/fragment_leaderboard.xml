@@ -25,34 +25,41 @@
         tools:ignore="HardcodedText" />
 
 
-    <TextView
-        android:id="@+id/leaderboard_rank_two"
-        android:layout_width="366dp"
-        android:layout_height="186dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="29dp"
-        android:alpha="0.75"
-        android:background="@drawable/rec_leaderboard_panel_bg"
-        android:text="rank panel 2 and 3"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leaderboard_title"
-        tools:ignore="HardcodedText" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_second_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/layout_first_place"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
+        app:layout_constraintBottom_toBottomOf="@id/leaderboard_my_rank_button">
 
-    <TextView
-        android:id="@+id/leaderboard_rank_one"
-        android:layout_width="156dp"
-        android:layout_height="205dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/rec_leaderboard_panel_bg"
-        android:gravity="center"
-        android:text="Rank One"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leaderboard_title"
-        tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_third_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/layout_first_place"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
+        app:layout_constraintBottom_toBottomOf="@id/leaderboard_my_rank_button">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_first_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
+        app:layout_constraintBottom_toBottomOf="@id/leaderboard_my_rank_button">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/leaderboard_my_rank_button"
@@ -87,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leaderboard_my_rank_button"
+        app:layout_constraintBottom_toTopOf="@id/leaderboard_ranking_list"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
