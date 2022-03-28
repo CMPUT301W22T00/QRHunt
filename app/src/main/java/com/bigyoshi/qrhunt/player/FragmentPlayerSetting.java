@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class FragmentPlayerSetting extends Fragment {
             public void onClick(View v) {
                 FragmentPlayerProfileSetting profileSetting =
                         new FragmentPlayerProfileSetting(playerInfo);
+
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.player_settings, profileSetting, "setting");
