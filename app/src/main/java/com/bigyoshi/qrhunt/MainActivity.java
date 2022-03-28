@@ -91,8 +91,11 @@ public class MainActivity extends AppCompatActivity {
         navProfile.setOnClickListener(view -> {
             binding.bottomNavigationView.setVisibility(View.INVISIBLE);
 
-            FragmentProfile profile = new FragmentProfile(player,
-                    navController.getCurrentDestination().getId());
+            FragmentProfile profile = new FragmentProfile();
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("player", player);
+            profile.setArguments(bundle);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

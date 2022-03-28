@@ -1,10 +1,9 @@
 package com.bigyoshi.qrhunt.player;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 import org.osmdroid.config.Configuration;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Definition: Setting for user to edit their account information (username, email, social handle)
@@ -30,6 +27,7 @@ import java.util.TimerTask;
  * Issues: NA
  */
 public class FragmentPlayerProfileSetting extends DialogFragment {
+    private static final String TAG = FragmentPlayerProfileSetting.class.getSimpleName();
     private Player playerInfo;
     private EditText username;
     private EditText email;
@@ -40,15 +38,6 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private UniqueUsernameVerifier verifier;
 
     private FragmentUserSettingsEditProfileBinding binding;
-
-    /**
-     * Constructor method
-     *
-     * @param playerInfo current Player
-     */
-    public FragmentPlayerProfileSetting(Player playerInfo){
-        this.playerInfo = playerInfo;
-    }
 
     /**
      *  Constructor method
@@ -72,44 +61,59 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Context ctx = getActivity();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
+        playerInfo = (Player) getArguments().getSerializable("player");
         binding = FragmentUserSettingsEditProfileBinding.inflate(inflater,
                 container,
                 false);
         View root = binding.getRoot();
 
         username = root.findViewById(R.id.player_profile_settings_edit_username);
+        username.setText(playerInfo.getUsername());
         email = root.findViewById(R.id.player_profile_settings_edit_email);
+        email.setText(playerInfo.getContact().getEmail());
         socials = root.findViewById(R.id.player_profile_settings_edit_social);
+        socials.setText(playerInfo.getContact().getSocial());
         ok = root.findViewById(R.id.player_profile_settings_ok_button);
         cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
         checkValidUsername = root.findViewById(R.id.player_profile_settings_validator);
 
-        verifier = new UniqueUsernameVerifier(playerInfo.getUsername(),
-                playerInfo.getPlayerId(), checkValidUsername, ok);
-        username.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+        username.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // INTERESTING (-:
-                // after countdown expires
-                if (verifier != null) {
-                    verifier.cancel(); // make sure we aren't getting old results late that enable the save button
-                }
-                verifier = new UniqueUsernameVerifier(playerInfo.getUsername(),
-                        playerInfo.getPlayerId(), checkValidUsername, ok);
-                verifier.checkUsername();
-            }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        // later enabled by check username
+                        if (charSequence != playerInfo.getUsername()) {
+                            ok.setEnabled(false);
+                            ok.setAlpha(0.5f);
+                        }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
+                        if (verifier != null) {
+                            verifier
+                                    .cancel(); // make sure we aren't getting old results late that
+                                               // enable the save button
+                        }
+                        verifier =
+                                new UniqueUsernameVerifier(
+                                        charSequence.toString(), playerInfo.getPlayerId());
+                        verifier.setOnUsernameVerificationResults(
+                                isUnique -> {
+                                    if (isUnique) {
+                                        Log.d(TAG,charSequence.toString() + " determined to be unique");
+                                        ok.setAlpha(1);
+                                    } else {
+                                        Log.d(TAG,charSequence.toString() + " determined to be NOT unique");
+                                    }
+                                    ok.setEnabled(isUnique);
+                                });
+                        verifier.scheduleUniqueUsernameVerification();
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {}
+                });
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +137,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().popBackStack();
+                dismiss();
             }
         });
 

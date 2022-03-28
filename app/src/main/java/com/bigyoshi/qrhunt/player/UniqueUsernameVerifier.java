@@ -1,24 +1,26 @@
 package com.bigyoshi.qrhunt.player;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class UniqueUsernameVerifier {
+    private final String TAG = UniqueUsernameVerifier.class.getSimpleName();
+    private final Integer VERIFICATION_DELAY = 500;
     private final String username;
-    private final View checkmark;
-    private final Button saveButton;
     private final String playerId;
+    private OnUsernameVerificationResults onUsernameVerificationResults;
     private boolean cancelled;
 
-    public UniqueUsernameVerifier(
-            String username, String playerId, View checkmark, Button saveButton) {
+    public UniqueUsernameVerifier(String username, String playerId) {
         this.username = username;
         this.playerId = playerId;
-        this.checkmark = checkmark;
-        this.saveButton = saveButton;
     }
 
     public void cancel() {
@@ -29,22 +31,41 @@ public class UniqueUsernameVerifier {
         return cancelled;
     }
 
-    public void checkUsername() {
-        FirebaseFirestore.getInstance()
-                .collection("users")
-                .whereEqualTo("username", "<actual username here>")
-                .whereNotEqualTo(FieldPath.documentId(), username)
-                .get()
-                .addOnCompleteListener(
-                        qSnapshot -> {
-                            if (qSnapshot.isSuccessful() && !isCancelled()) {
-                                if (qSnapshot.getResult().isEmpty()) {
-                                    // enable the save button, show checkmark icon etc
-                                } else {
-                                    // show x, callout "username is taken",
-                                    // keep save button disabled
-                                }
-                            }
-                        });
+    public void setOnUsernameVerificationResults(OnUsernameVerificationResults onUsernameVerificationResults) {
+        this.onUsernameVerificationResults = onUsernameVerificationResults;
+    }
+
+    public void scheduleUniqueUsernameVerification() {
+        Log.d(TAG, String.format("scheduling to run verification on \"%s\" in %d ms", username, VERIFICATION_DELAY));
+        new Timer()
+                .schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (!cancelled) {
+                            FirebaseFirestore.getInstance()
+                                    .collection("users")
+                                    .whereEqualTo("username", "<actual username here>")
+                                    .whereNotEqualTo(FieldPath.documentId(), username)
+                                    .get()
+                                    .addOnCompleteListener(
+                                            qSnapshot -> {
+                                                if (qSnapshot.isSuccessful()
+                                                        && !isCancelled()) {
+                                                    if (qSnapshot.getResult().isEmpty()) {
+                                                        onUsernameVerificationResults
+                                                                .onResults(true);
+                                                        return;
+                                                    }
+                                                }
+                                                onUsernameVerificationResults.onResults(
+                                                        true);
+                                            });
+                        }
+                    }
+                }, VERIFICATION_DELAY);
+    }
+
+    public static interface OnUsernameVerificationResults {
+        public void onResults(boolean unique);
     }
 }

@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -11,11 +12,11 @@ import java.util.HashMap;
  * Note: NA
  * Issues: TBA
  */
-public class QrLibrary {
+public class QrLibrary implements Serializable {
 
     private HashMap<String, PlayableQrCode> qrCodes;
     private String playerId;
-    private FirebaseFirestore db;
+    private transient FirebaseFirestore db;
     private double lat;
     private double lon;
     private String qrHash;
