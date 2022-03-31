@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -72,6 +73,8 @@ public class FragmentMap extends Fragment {
     public Context ctx;
     Location currentLocation;
     private ImageButton btnRecenter;
+    private boolean isInfoWindowShown = false;
+
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -158,6 +161,8 @@ public class FragmentMap extends Fragment {
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
 
+
+
         Drawable pinIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_qr_pin);
         Query qrLocation =  db.collectionGroup("qrCodes");
         qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -189,6 +194,25 @@ public class FragmentMap extends Fragment {
                                     CustomInfoWindow blurb = new CustomInfoWindow(map, d, qrCode);
                                     geoPin.setInfoWindow(blurb);
                                     geoPin.setIcon(pinIcon);
+
+                                    // Shows/Hides info window on click
+                                    // From: https://stackoverflow.com/a/45043472
+                                    // Author: https://stackoverflow.com/users/6889839/fregomene
+                                    geoPin.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                        @Override
+                                        public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                            if (!isInfoWindowShown){
+                                                marker.showInfoWindow();
+                                                isInfoWindowShown = true;
+                                            }else{
+                                                marker.closeInfoWindow();
+                                                isInfoWindowShown = false;
+                                            }
+                                            return true;
+                                        }
+                                    });
+
+                                    // Adds the pins on the map
                                     map.getOverlays().add(geoPin);
                                 }
                             }
@@ -201,6 +225,7 @@ public class FragmentMap extends Fragment {
                 }
             }
         });
+
 
         return root;
     }

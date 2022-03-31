@@ -29,6 +29,7 @@ public class CustomInfoWindow extends InfoWindow {
         }
 
         public void onClose() {
+
         }
 
         @Override
@@ -57,5 +58,7 @@ public class CustomInfoWindow extends InfoWindow {
             txtScans.setText(numScan);
             txtLocation.setText(loc);
         }
+
+
 
 }
