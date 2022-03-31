@@ -10,20 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.osmdroid.config.Configuration;
 
 /**
  * Definition: Setting for user to edit their account information (username, email, social handle)
@@ -34,11 +30,11 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private static final String TAG = FragmentPlayerProfileSetting.class.getSimpleName();
     private Player playerInfo;
     private EditText username;
+    private ProgressBar usernameProgressBar;
     private EditText email;
     private EditText socials;
     private Button ok;
     private Button cancel;
-    private ImageView checkValidUsername;
     private UniqueUsernameVerifier verifier;
 
     private FragmentUserSettingsEditProfileBinding binding;
@@ -79,6 +75,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
         socials.setText(playerInfo.getContact().getSocial());
         ok = root.findViewById(R.id.player_profile_settings_ok_button);
         cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
+        usernameProgressBar = root.findViewById(R.id.player_profile_settings_edit_username_progress_bar);
 
         username.addTextChangedListener(
                 new TextWatcher() {
@@ -91,6 +88,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                         if (charSequence != playerInfo.getUsername()) {
                             ok.setEnabled(false);
                             ok.setAlpha(0.5f);
+                            usernameProgressBar.setVisibility(View.VISIBLE);
                         }
 
                         if (verifier != null) {
@@ -98,23 +96,28 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                                     .cancel(); // make sure we aren't getting old results late that
                                                // enable the save button
                         }
-                        verifier =
-                                new UniqueUsernameVerifier(
-                                        charSequence.toString(), playerInfo.getPlayerId());
-                        verifier.setOnUsernameVerificationResults(
-                                isUnique -> {
-                                    if (isUnique) {
-                                        Log.d(TAG,charSequence.toString() + " determined to be unique");
-                                        ok.setAlpha(1);
-                                    } else {
-                                        Log.d(TAG,charSequence.toString() + " determined to be NOT unique");
-                                        Toast notUnique = Toast.makeText(getActivity(), "Username isn't unique!",
-                                                Toast.LENGTH_LONG);
-                                        notUnique.show();  // Possibly change to snackbar
-                                    }
-                                    ok.setEnabled(isUnique);
-                                });
-                        verifier.scheduleUniqueUsernameVerification();
+                        if (charSequence.length() > 0) {
+                            verifier =
+                                    new UniqueUsernameVerifier(
+                                            charSequence.toString(), playerInfo.getPlayerId());
+                            verifier.setOnUsernameVerificationResults(
+                                    isUnique -> {
+                                        if (isUnique) {
+                                            Log.d(TAG,charSequence + " determined to be unique");
+                                            ok.setAlpha(1);
+                                        } else {
+                                            Log.d(TAG,charSequence + " determined to be NOT unique");
+                                            username.setError("That username isn't unique");
+                                        }
+                                        usernameProgressBar.setVisibility(View.INVISIBLE);
+                                        ok.setEnabled(isUnique);
+                                    });
+                            verifier.scheduleUniqueUsernameVerification();
+                        } else {
+                            username.setError("That username isn't valid");
+                            usernameProgressBar.setVisibility(View.INVISIBLE);
+                        }
+
                     }
 
                     @Override

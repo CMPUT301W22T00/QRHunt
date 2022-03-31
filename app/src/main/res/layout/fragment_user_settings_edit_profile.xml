@@ -16,11 +16,9 @@
         android:contentDescription="@string/settings_icon_desc"
         android:padding="@dimen/padding"
         android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
+        app:layout_constraintBottom_toBottomOf="@id/player_profile_settings_title"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleY="1.5"
-        android:scaleX="1.5"
-        app:layout_constraintBottom_toBottomOf="@id/player_profile_settings_title"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/player_profile_settings_title"
@@ -30,7 +28,7 @@
         android:padding="@dimen/padding"
         android:text="@string/edit_profile_title"
         android:textColor="@color/accent_grey_dark"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/subtitle_size"
         app:layout_constraintLeft_toRightOf="@id/player_profile_settings_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,28 +48,52 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer" />
 
-    <EditText
-        android:id="@+id/player_profile_settings_edit_username"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="username"
-        android:background="@drawable/rounded_rectangle_edit_text"
-        android:fontFamily="@font/quicksand"
-        android:hint="@string/username_hint"
-        android:inputType="text"
-        android:padding="@dimen/padding"
-        android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/subtitle_size"
-        android:maxLength="20"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_username_title" />
+        android:id="@+id/player_profile_settings_edit_username_container"
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_username_title">
+
+        <EditText
+            android:id="@+id/player_profile_settings_edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="username"
+            android:background="@drawable/rounded_rectangle_edit_text"
+            android:fontFamily="@font/quicksand"
+            android:hint="@string/username_hint"
+            android:inputType="text"
+            android:maxLength="20"
+            android:padding="@dimen/padding"
+            android:textColor="@color/accent_grey_blue_dark"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:padding="@dimen/small_padding"
+            android:id="@+id/player_profile_settings_edit_username_progress_bar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="invisible"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
 
     <Space
         android:id="@+id/player_profile_settings_mid_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_username" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_username_container" />
 
     <TextView
         android:id="@+id/player_profile_settings_email_title"
@@ -95,6 +117,8 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
 
     <Space
@@ -126,6 +150,8 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" />
 
@@ -149,14 +175,15 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/cancel"
-            android:textColor="@color/accent_grey_dark"/>
+            android:textColor="@color/accent_grey_dark" />
+
         <Button
+            android:id="@+id/player_profile_settings_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/ok"
-            android:textColor="@color/accent_grey_dark"
-            android:id="@+id/player_profile_settings_ok_button"/>
+            android:textColor="@color/accent_grey_dark" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

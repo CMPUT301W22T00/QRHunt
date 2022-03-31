@@ -41,26 +41,31 @@ public class UniqueUsernameVerifier {
                 .schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        if (!cancelled && !username.isEmpty()) {
-                            FirebaseFirestore.getInstance()
-                                    .collection("users")
-                                    .whereEqualTo("username", username)
-                                    .whereNotEqualTo(FieldPath.documentId(), playerId)
-                                    .get()
-                                    .addOnCompleteListener(
-                                            qSnapshot -> {
-                                                if (qSnapshot.isSuccessful()
-                                                        && !isCancelled()) {
-                                                    if (qSnapshot.getResult().isEmpty()) {
-                                                        onUsernameVerificationResults
-                                                                .onResults(true);
-                                                        return;
-                                                    }
+                        if (!cancelled) {
+                            if (username.isEmpty()) {
+                                // don't allow/verify empty usernames
+                                onUsernameVerificationResults.onResults(false);
+                            } else {
+                                FirebaseFirestore.getInstance()
+                                        .collection("users")
+                                        .whereEqualTo("username", username)
+                                        .whereNotEqualTo(FieldPath.documentId(), playerId)
+                                        .get()
+                                        .addOnCompleteListener(
+                                                qSnapshot -> {
+                                                    if (qSnapshot.isSuccessful()
+                                                            && !isCancelled()) {
+                                                        if (qSnapshot.getResult().isEmpty()) {
+                                                            onUsernameVerificationResults
+                                                                    .onResults(true);
+                                                            return;
+                                                        }
 
-                                                }
-                                                onUsernameVerificationResults.onResults(
-                                                        false);
-                                            });
+                                                    }
+                                                    onUsernameVerificationResults.onResults(
+                                                            false);
+                                                });
+                            }
                         }
                     }
                 }, VERIFICATION_DELAY);
