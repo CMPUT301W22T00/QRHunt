@@ -45,7 +45,7 @@ public class UniqueUsernameVerifier {
                             FirebaseFirestore.getInstance()
                                     .collection("users")
                                     .whereEqualTo("username", username)
-                                    .whereNotEqualTo(FieldPath.documentId(), (String) username)
+                                    .whereNotEqualTo(FieldPath.documentId(), playerId)
                                     .get()
                                     .addOnCompleteListener(
                                             qSnapshot -> {
