@@ -43,11 +43,14 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -169,24 +172,22 @@ public class FragmentMap extends Fragment {
                                 lng = qrCode.getLocation().getLongitude();
                                 if (lat != null && lng != null) {
                                     Log.d(TAG, String.format("lat %f long %f", lat, lng));
+                                    // Creates marker on map
                                     geoPin = new Marker(map);
                                     geoPin.setPosition(new GeoPoint(lat, lng));
                                     geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+                                    // Stuff for distance
                                     Location markerLocation = new Location("");
                                     markerLocation.setLatitude(lat);
                                     markerLocation.setLongitude(lng);
                                     float distance = currentLocation.distanceTo(markerLocation);
-                                    DecimalFormat value = new DecimalFormat("#.#");
-                                    String d;
-                                    if (distance >= 1000){
-                                        distance = distance / 1000;
-                                        d = value.format(distance) + "km";
-                                    }
-                                    else{
-                                        d = value.format(distance) + "m";
-                                    }
+                                    String d = formatDistance(distance);
                                     Log.d(TAG, String.format("Distance: %s", d));
-                                    geoPin.setTitle(d);
+
+                                    // Creates custom info window for the marker
+                                    CustomInfoWindow blurb = new CustomInfoWindow(map, d, qrCode);
+                                    geoPin.setInfoWindow(blurb);
                                     geoPin.setIcon(pinIcon);
                                     map.getOverlays().add(geoPin);
                                 }
@@ -311,7 +312,22 @@ public class FragmentMap extends Fragment {
     }
 
     /**
-     * QR info callout
+     * Converts the distance into a string and rounds it to one decimal place
+     * @param distance
+     *      - A float
+     * @return d
      */
+    public String formatDistance(float distance) {
+        String d;
+        DecimalFormat value = new DecimalFormat("#.#");
+        if (distance >= 1000){
+            distance = distance / 1000;
+            d = value.format(distance) + "km";
+        }
+        else{
+            d = value.format(distance) + "m";
+        }
+        return d;
+    }
 
 }
