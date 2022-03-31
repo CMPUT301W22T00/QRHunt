@@ -125,7 +125,7 @@ public class FragmentProfile extends Fragment {
                     bundle.putSerializable("player", playerInfo);
                     profileSetting.setArguments(bundle);
                     fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
-                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.addToBackStack(false);
                     fragmentTransaction.commit();
                 });
 
@@ -157,20 +157,6 @@ public class FragmentProfile extends Fragment {
                                 .show();
                     }
                 });
-
-        getActivity()
-                .getSupportFragmentManager()
-                .setFragmentResultListener(
-                        "getInfo",
-                        this,
-                        (requestKey, result) -> {
-                            Player newInfo = (Player) result.getSerializable("info");
-                            playerInfo.setUsername(newInfo.getUsername());
-                            playerInfo.getContact().setEmail(newInfo.getContact().getEmail());
-                            playerInfo.getContact().setSocial(newInfo.getContact().getSocial());
-                            username.setText(playerInfo.getUsername());
-                            playerInfo.updateDB();
-                        });
 
         return root;
     }

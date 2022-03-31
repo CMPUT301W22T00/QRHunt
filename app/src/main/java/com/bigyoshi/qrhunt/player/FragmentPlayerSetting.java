@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
@@ -48,44 +51,29 @@ public class FragmentPlayerSetting extends Fragment {
         playerProfileSettings = root.findViewById(R.id.player_settings_edit_profile_clickable);
         backButton = root.findViewById(R.id.player_settings_back_button);
 
-<<<<<<< HEAD
+
         playerProfileSettings.setOnClickListener(v -> {
             DialogFragment dialogFragment = new FragmentPlayerProfileSetting();
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", playerInfo);
             dialogFragment.setArguments(bundle);
             dialogFragment.show(getChildFragmentManager(), null);
-=======
-        playerProfileSettings.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FragmentPlayerProfileSetting profileSetting =
-                        new FragmentPlayerProfileSetting(playerInfo);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.player_settings, profileSetting, "setting");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle result = new Bundle();
-                result.putSerializable("info", playerInfo);
-                getParentFragmentManager().setFragmentResult("getInfo", result);
-                getActivity().getSupportFragmentManager().popBackStack();
+                FragmentProfile profile = new FragmentProfile();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("player", playerInfo);
+                profile.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.player_settings, profile, "profile");
+                fragmentTransaction.commit();
             }
->>>>>>> main
         });
 
-        backButton.setOnClickListener(view -> {
-            Bundle result = new Bundle();
-            result.putSerializable("info", playerInfo);
-            getParentFragmentManager().setFragmentResult("getInfo", result);
-            getActivity().getSupportFragmentManager().popBackStack();
-        });
 
         return root;
     }

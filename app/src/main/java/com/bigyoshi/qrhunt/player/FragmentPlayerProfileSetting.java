@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.osmdroid.config.Configuration;
 
@@ -130,10 +132,8 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 if (!socials.getText().toString().matches("")){
                     playerInfo.getContact().setSocial(socials.getText().toString());
                 }
-                Bundle result = new Bundle();
-                result.putSerializable("newInfo", playerInfo);
-                getParentFragmentManager().setFragmentResult("getNewInfo", result);
-                getActivity().getSupportFragmentManager().popBackStack();
+                playerInfo.updateDB();
+                dismiss();
             }
         });
 
