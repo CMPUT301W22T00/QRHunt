@@ -50,19 +50,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer" />
 
-    <!-- Will need to be fixed, sorry-->
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_button_back"
-        android:background="@color/accent_grey_dark_50op"
-        android:visibility="invisible"
-        android:id="@+id/player_profile_settings_validator"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="92dp">
-
-    </ImageView>
-
     <EditText
         android:id="@+id/player_profile_settings_edit_username"
         android:layout_width="match_parent"
