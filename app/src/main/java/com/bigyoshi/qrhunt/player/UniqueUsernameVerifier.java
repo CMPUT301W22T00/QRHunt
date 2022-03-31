@@ -44,8 +44,8 @@ public class UniqueUsernameVerifier {
                         if (!cancelled && !username.isEmpty()) {
                             FirebaseFirestore.getInstance()
                                     .collection("users")
-                                    .whereEqualTo("username", "<actual username here>")
-                                    .whereNotEqualTo(FieldPath.documentId(), username)
+                                    .whereNotEqualTo("username", "<actual username here>")
+                                    .whereNotEqualTo(FieldPath.documentId(), (String) username)
                                     .get()
                                     .addOnCompleteListener(
                                             qSnapshot -> {
@@ -56,9 +56,12 @@ public class UniqueUsernameVerifier {
                                                                 .onResults(true);
                                                         return;
                                                     }
+
                                                 }
-                                                onUsernameVerificationResults.onResults(
-                                                        true);
+                                                else if (!qSnapshot.getResult().isEmpty()) {
+                                                    onUsernameVerificationResults.onResults(
+                                                            false);
+                                                }
                                             });
                         }
                     }
