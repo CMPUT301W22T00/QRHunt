@@ -79,7 +79,6 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
         socials.setText(playerInfo.getContact().getSocial());
         ok = root.findViewById(R.id.player_profile_settings_ok_button);
         cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
-        checkValidUsername = root.findViewById(R.id.player_profile_settings_validator);
 
         username.addTextChangedListener(
                 new TextWatcher() {
