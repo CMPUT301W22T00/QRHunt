@@ -125,7 +125,6 @@ public class FragmentProfile extends Fragment {
                     bundle.putSerializable("player", playerInfo);
                     profileSetting.setArguments(bundle);
                     fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
-//                    fragmentTransaction.addToBackStack(false);
                     fragmentTransaction.commit();
                 });
 
