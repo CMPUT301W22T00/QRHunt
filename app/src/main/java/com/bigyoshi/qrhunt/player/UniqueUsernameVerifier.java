@@ -41,7 +41,7 @@ public class UniqueUsernameVerifier {
                 .schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        if (!cancelled) {
+                        if (!cancelled && !username.isEmpty()) {
                             FirebaseFirestore.getInstance()
                                     .collection("users")
                                     .whereEqualTo("username", "<actual username here>")

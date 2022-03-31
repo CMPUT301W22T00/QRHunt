@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,6 +106,8 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                                         ok.setAlpha(1);
                                     } else {
                                         Log.d(TAG,charSequence.toString() + " determined to be NOT unique");
+                                        Toast.makeText(getActivity(), "Username isn't unique!",
+                                                Toast.LENGTH_LONG).show();
                                     }
                                     ok.setEnabled(isUnique);
                                 });
