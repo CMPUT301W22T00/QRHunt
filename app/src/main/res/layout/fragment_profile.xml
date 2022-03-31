@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/player_profile">
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +21,7 @@
         android:paddingEnd="@dimen/large_padding"
         android:paddingTop="@dimen/padding"
         android:paddingBottom="@dimen/padding"
-        android:id="@+id/player_profile">
+        >
 
         <ImageButton
             android:id="@+id/player_profile_settings_button"
@@ -256,3 +263,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
