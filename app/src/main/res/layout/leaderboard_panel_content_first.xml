@@ -8,11 +8,10 @@
     android:background="@drawable/rec_leaderboard_panel_fg"
     android:padding="@dimen/large_padding">
 
-    <TextView
+    <ImageView
         android:id="@+id/top_rank_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#"
         android:padding="@dimen/padding"
         android:textSize="@dimen/statement_text"
         android:fontFamily="@font/asap"

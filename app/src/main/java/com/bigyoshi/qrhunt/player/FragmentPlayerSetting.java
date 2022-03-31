@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,12 +48,36 @@ public class FragmentPlayerSetting extends Fragment {
         playerProfileSettings = root.findViewById(R.id.player_settings_edit_profile_clickable);
         backButton = root.findViewById(R.id.player_settings_back_button);
 
+<<<<<<< HEAD
         playerProfileSettings.setOnClickListener(v -> {
             DialogFragment dialogFragment = new FragmentPlayerProfileSetting();
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", playerInfo);
             dialogFragment.setArguments(bundle);
             dialogFragment.show(getChildFragmentManager(), null);
+=======
+        playerProfileSettings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentPlayerProfileSetting profileSetting =
+                        new FragmentPlayerProfileSetting(playerInfo);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.player_settings, profileSetting, "setting");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle result = new Bundle();
+                result.putSerializable("info", playerInfo);
+                getParentFragmentManager().setFragmentResult("getInfo", result);
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+>>>>>>> main
         });
 
         backButton.setOnClickListener(view -> {
