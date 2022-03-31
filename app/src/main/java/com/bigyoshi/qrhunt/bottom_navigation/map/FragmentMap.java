@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -43,11 +44,14 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -69,6 +73,8 @@ public class FragmentMap extends Fragment {
     public Context ctx;
     Location currentLocation;
     private ImageButton btnRecenter;
+    private boolean isInfoWindowShown = false;
+
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -155,6 +161,8 @@ public class FragmentMap extends Fragment {
         // Adding the overlays
         map.getOverlays().add(this.mLocationOverlay);
 
+
+
         Drawable pinIcon = ContextCompat.getDrawable(getActivity(), R.drawable.ic_qr_pin);
         Query qrLocation =  db.collectionGroup("qrCodes");
         qrLocation.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -169,25 +177,42 @@ public class FragmentMap extends Fragment {
                                 lng = qrCode.getLocation().getLongitude();
                                 if (lat != null && lng != null) {
                                     Log.d(TAG, String.format("lat %f long %f", lat, lng));
+                                    // Creates marker on map
                                     geoPin = new Marker(map);
                                     geoPin.setPosition(new GeoPoint(lat, lng));
                                     geoPin.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+                                    // Stuff for distance
                                     Location markerLocation = new Location("");
                                     markerLocation.setLatitude(lat);
                                     markerLocation.setLongitude(lng);
                                     float distance = currentLocation.distanceTo(markerLocation);
-                                    DecimalFormat value = new DecimalFormat("#.#");
-                                    String d;
-                                    if (distance >= 1000){
-                                        distance = distance / 1000;
-                                        d = value.format(distance) + "km";
-                                    }
-                                    else{
-                                        d = value.format(distance) + "m";
-                                    }
+                                    String d = formatDistance(distance);
                                     Log.d(TAG, String.format("Distance: %s", d));
-                                    geoPin.setTitle(d);
+
+                                    // Creates custom info window for the marker
+                                    CustomInfoWindow blurb = new CustomInfoWindow(map, d, qrCode);
+                                    geoPin.setInfoWindow(blurb);
                                     geoPin.setIcon(pinIcon);
+
+                                    // Shows/Hides info window on click
+                                    // From: https://stackoverflow.com/a/45043472
+                                    // Author: https://stackoverflow.com/users/6889839/fregomene
+                                    geoPin.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                        @Override
+                                        public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                            if (!isInfoWindowShown){
+                                                marker.showInfoWindow();
+                                                isInfoWindowShown = true;
+                                            }else{
+                                                marker.closeInfoWindow();
+                                                isInfoWindowShown = false;
+                                            }
+                                            return true;
+                                        }
+                                    });
+
+                                    // Adds the pins on the map
                                     map.getOverlays().add(geoPin);
                                 }
                             }
@@ -200,6 +225,7 @@ public class FragmentMap extends Fragment {
                 }
             }
         });
+
 
         return root;
     }
@@ -311,7 +337,22 @@ public class FragmentMap extends Fragment {
     }
 
     /**
-     * QR info callout
+     * Converts the distance into a string and rounds it to one decimal place
+     * @param distance
+     *      - A float
+     * @return d
      */
+    public String formatDistance(float distance) {
+        String d;
+        DecimalFormat value = new DecimalFormat("#.#");
+        if (distance >= 1000){
+            distance = distance / 1000;
+            d = value.format(distance) + "km";
+        }
+        else{
+            d = value.format(distance) + "m";
+        }
+        return d;
+    }
 
 }
