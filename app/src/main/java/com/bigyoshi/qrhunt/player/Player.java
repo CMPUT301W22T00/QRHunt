@@ -13,6 +13,7 @@ import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -216,31 +217,24 @@ public class Player implements Serializable {
      *
      */
     public void initialize() {
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
-                                @Nullable FirebaseFirestoreException error) {
-                for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
-                    if (doc.getId().matches(playerId)) {
-                        Log.d(TAG, String.valueOf(doc.getData().get("admin")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("contact")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("username")));
+        collectionReference.document(playerId).addSnapshotListener((EventListener<DocumentSnapshot>) (doc, error) -> {
+            if (error == null && doc != null && doc.getData() != null) {
+                Log.d(TAG, String.valueOf(doc.getData().get("admin")));
+                Log.d(TAG, String.valueOf(doc.getData().get("contact")));
+                Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
+                Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
-                        admin = (Boolean) doc.getData().get("admin");
+                admin = (Boolean) doc.getData().get("admin");
 
-                        HashMap<String,String> contactMap = (HashMap<String,String>)
-                                doc.getData().get("contact");
+                HashMap<String,String> contactMap = (HashMap<String,String>)
+                        doc.getData().get("contact");
 
-                        contact.setEmail(contactMap.get("email"));
-                        contact.setSocial(contactMap.get("social"));
-                        totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
-                        username = (String) doc.getData().get("username");
-                    }
-                }
+                contact.setEmail(contactMap.get("email"));
+                contact.setSocial(contactMap.get("social"));
+                totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
+                username = (String) doc.getData().get("username");
             }
         });
-
     }
 
     /**
