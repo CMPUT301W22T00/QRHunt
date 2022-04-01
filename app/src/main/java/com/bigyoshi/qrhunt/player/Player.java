@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.QrLibrary;
@@ -16,12 +15,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -38,6 +35,7 @@ public class Player implements Serializable {
     private transient CollectionReference collectionReference;
 
     private int totalScore;
+    private final RankInfo rankInfo;
     private String username;
     private Contact contact;
     private Boolean admin;
@@ -54,6 +52,7 @@ public class Player implements Serializable {
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
 
+        rankInfo = new RankInfo();
         this.context = context;
         this.totalScore = 0;
         this.username = generateUsername(context);
@@ -61,6 +60,10 @@ public class Player implements Serializable {
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, getPlayerId());
 
+    }
+
+    public RankInfo getRankInfo() {
+        return rankInfo;
     }
 
     /**
@@ -228,9 +231,17 @@ public class Player implements Serializable {
 
                 HashMap<String,String> contactMap = (HashMap<String,String>)
                         doc.getData().get("contact");
+                if (contact != null) {
+                    contact.setEmail(contactMap.get("email"));
+                    contact.setSocial(contactMap.get("social"));
+                }
 
-                contact.setEmail(contactMap.get("email"));
-                contact.setSocial(contactMap.get("social"));
+                Map<String, Long> rankInfoMap = (HashMap<String, Long>) doc.get("rank");
+                if (rankInfoMap != null) {
+                    rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
+                    rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
+                    rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
+                }
                 totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
                 username = (String) doc.getData().get("username");
             }

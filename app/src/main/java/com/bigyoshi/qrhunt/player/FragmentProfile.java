@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -90,6 +91,8 @@ public class FragmentProfile extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        TextView rank = root.findViewById(R.id.player_profile_rank);
+        rank.setText(String.format(Locale.CANADA, "%d", playerInfo.getRankInfo().getTotalScore()));
         QRTotalValue = root.findViewById(R.id.player_profile_score);
         username = root.findViewById(R.id.player_profile_username_title);
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
