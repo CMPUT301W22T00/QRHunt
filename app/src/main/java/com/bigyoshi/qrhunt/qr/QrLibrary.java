@@ -30,6 +30,7 @@ public class QrLibrary {
      * @param playerId Current player
      */
     public QrLibrary(FirebaseFirestore db, String playerId){
+        qrCodesList = new ArrayList<>();
         qrCodes = new HashMap<>();
         if (playerId != null) {
         this.playerId = playerId;
@@ -52,13 +53,12 @@ public class QrLibrary {
                     if (doc.exists()) {
                         qrCode = doc.toObject(PlayableQrCode.class);
                         qrCodes.put(doc.getId(), qrCode);
+                        qrCodesList.add(qrCode);
                     }
                 }
+                qrCodesList.sort(compareByScore);
             }
         });
-        Collection<PlayableQrCode> temp = qrCodes.values();
-        qrCodesList = new ArrayList<>(temp);
-        qrCodesList.sort(compareByScore);
         scoreSorted = 0;
     }
 
@@ -100,7 +100,7 @@ public class QrLibrary {
     Comparator<PlayableQrCode> compareByScore = new Comparator<PlayableQrCode>() {
         @Override
         public int compare(PlayableQrCode qr1, PlayableQrCode qr2) {
-            return String.valueOf(qr1.getScore()).compareTo( String.valueOf(qr2.getScore()));
+            return qr1.getScore() - qr2.getScore();
         }
     };
 

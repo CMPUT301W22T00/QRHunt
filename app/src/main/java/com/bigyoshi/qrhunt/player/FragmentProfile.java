@@ -125,9 +125,6 @@ public class FragmentProfile extends Fragment {
         TextView combined = calloutView.findViewById(R.id.contact_call_out_text);
 
         showAll = root.findViewById(R.id.player_profile_grid_view);
-        qrCodes = playerInfo.qrLibrary.getQrCode();
-        Collection<PlayableQrCode> temp = qrCodes.values();
-        qrCodesList = new ArrayList<>(temp);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
