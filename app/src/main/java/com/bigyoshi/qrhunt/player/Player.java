@@ -36,6 +36,8 @@ public class Player implements Serializable {
 
     private int totalScore;
     private final RankInfo rankInfo;
+    private final BestQr bestUniqueQr;
+    private final BestQr bestScoringQr;
     private String username;
     private Contact contact;
     private Boolean admin;
@@ -53,6 +55,9 @@ public class Player implements Serializable {
         collectionReference = db.collection("users");
 
         rankInfo = new RankInfo();
+        bestScoringQr = new BestQr();
+        bestUniqueQr = new BestQr();
+
         this.context = context;
         this.totalScore = 0;
         this.username = generateUsername(context);
@@ -60,6 +65,14 @@ public class Player implements Serializable {
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, getPlayerId());
 
+    }
+
+    public BestQr getBestUniqueQr() {
+        return bestUniqueQr;
+    }
+
+    public BestQr getBestScoringQr() {
+        return bestScoringQr;
     }
 
     public RankInfo getRankInfo() {
@@ -242,6 +255,19 @@ public class Player implements Serializable {
                     rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
                     rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
                 }
+
+                // code duplication is cool 😎
+                Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
+                if (bestScoringQrMap != null) {
+                    bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
+                    bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
+                }
+                Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) doc.get("bestUniqueQr");
+                if (bestUniqueQrMap != null) {
+                    bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
+                    bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
+                }
+
                 totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
                 username = (String) doc.getData().get("username");
             }

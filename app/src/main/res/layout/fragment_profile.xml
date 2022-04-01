@@ -1,265 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/player_profile">
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/accent_grey_dark"
-        android:paddingStart="@dimen/large_padding"
-        android:paddingEnd="@dimen/large_padding"
-        android:paddingTop="@dimen/padding"
-        android:paddingBottom="@dimen/padding"
-        >
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/player_profile_settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_button_settings_gear"
-            android:padding="@dimen/padding"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
-
-        <ImageButton
-            android:id="@+id/player_profile_contact_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_pfp_light"
-            android:padding="@dimen/padding"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <TextView
-            android:id="@+id/player_profile_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_title"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/main_blue"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:padding="@dimen/padding"/>
-
-        <Space
-            android:id="@+id/player_profile_top_spacer"
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/large_space"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_button">
-        </Space>
+            android:layout_height="match_parent"
+            android:background="@color/accent_grey_dark"
+            android:paddingStart="@dimen/large_padding"
+            android:paddingTop="@dimen/padding"
+            android:paddingEnd="@dimen/large_padding"
+            android:paddingBottom="@dimen/padding">
 
-        <TextView
-            android:id="@+id/player_profile_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding"
-            android:text="782785"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/text_off_white"
-            android:textSize="@dimen/statement_text"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_top_spacer"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
+            <ImageButton
+                android:id="@+id/player_profile_settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_button_settings_gear"
+                android:padding="@dimen/padding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/player_profile_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_score">
+            <ImageButton
+                android:id="@+id/player_profile_contact_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_pfp_light"
+                android:padding="@dimen/padding"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/player_profile_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap"
+                android:padding="@dimen/padding"
+                android:text="@string/profile_title"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Space
+                android:id="@+id/player_profile_top_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/large_space"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_settings_button"></Space>
+
+            <TextView
+                android:id="@+id/player_profile_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/asap"
+                android:padding="@dimen/padding"
+                android:text="782785"
+                android:textColor="@color/text_off_white"
+                android:textSize="@dimen/statement_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_top_spacer" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/player_profile_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_score">
+
+
+                <TextView
+                    android:id="@+id/player_profile_username_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/asap"
+                    android:padding="@dimen/padding"
+                    android:text="placeholder"
+                    android:textColor="@color/main_off_white_blue_light"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/player_profile_game_status_qr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_button_generate_profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/player_profile_username_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
-                android:id="@+id/player_profile_username_title"
+                android:id="@+id/player_profile_rank_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="placeholder"
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/main_off_white_blue_light"
                 android:fontFamily="@font/asap"
-                android:padding="@dimen/padding"
-                app:layout_constraintTop_toTopOf="parent"
+                android:paddingBottom="@dimen/padding"
+                android:text="@string/profile_rank_title"
+                android:textColor="@color/text_off_white"
+                android:textSize="@dimen/subtitle_size"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/player_profile_username" />
 
-            <ImageButton
-                android:id="@+id/player_profile_game_status_qr"
+            <TextView
+                android:id="@+id/player_profile_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_button_generate_profile"
-                app:layout_constraintLeft_toRightOf="@id/player_profile_username_title"
+                android:background="@drawable/rec_rank"
+                android:fontFamily="@font/asap"
+                android:paddingHorizontal="@dimen/statement_padding"
+                android:paddingVertical="@dimen/padding"
+                android:text="Number 1"
+                android:textColor="@color/background_grey"
+                android:textSize="@dimen/title_size"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/player_profile_rank_title" />
+
+            <Space
+                android:id="@+id/player_profile_mid_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/large_space"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_rank" />
+
+            <LinearLayout
+                android:id="@+id/player_profile_decorative_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_padding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_mid_spacer">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/rec_divider_left" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/rec_divider_right" />
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/player_profile_low_mid_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_decorative_divider" />
+
+            <TextView
+                android:id="@+id/player_profile_total_scanned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="@dimen/padding"
+                android:text="@string/codes_scanned_title"
+                android:textColor="@color/text_off_white"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/player_profile_unique_score"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_low_mid_spacer" />
+
+            <TextView
+                android:id="@+id/player_profile_unique_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_medium"
+                android:padding="@dimen/padding"
+                android:text="@string/highest_unique_title"
+                android:textColor="@color/text_off_white"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintLeft_toRightOf="@id/player_profile_total_scanned"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_low_mid_spacer" />
+
+            <LinearLayout
+                android:id="@+id/player_profile_stats_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_unique_score">
+
+                <TextView
+                    android:id="@+id/player_profile_scanned_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/rec_codes_scanned"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="@dimen/padding"
+                    android:paddingStart="@dimen/extra_large_padding"
+                    android:paddingEnd="@dimen/extra_large_padding"
+                    android:text="XX"
+                    android:textAlignment="center"
+                    android:textColor="@color/secondary_blue_dark"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/player_profile_unique_score_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/rec_highest_unique"
+                    android:fontFamily="@font/quicksand_medium"
+                    android:padding="@dimen/padding"
+
+                    android:paddingStart="@dimen/extra_large_padding"
+                    android:paddingEnd="@dimen/extra_large_padding"
+                    android:text="XX"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_off_white"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/player_profile_low_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_stats_line" />
+
+            <ImageButton
+                android:id="@+id/player_profile_sort_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_button_sort"
+                android:padding="@dimen/padding"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer" />
+
+            <GridView
+                android:id="@+id/player_profile_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:horizontalSpacing="@dimen/large_padding"
+                android:numColumns="3"
+                android:orientation="vertical"
+                android:verticalSpacing="@dimen/large_padding"
+                app:layout_constraintDimensionRatio="H,1:1.5"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button"></GridView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <TextView
-            android:id="@+id/player_profile_rank_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_rank_title"
-            android:textSize="@dimen/subtitle_size"
-            android:textColor="@color/text_off_white"
-            android:fontFamily="@font/asap"
-            android:paddingBottom="@dimen/padding"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_username"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <TextView
-            android:id="@+id/player_profile_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number 1"
-            android:textSize="@dimen/title_size"
-            android:fontFamily="@font/asap"
-            android:textColor="@color/background_grey"
-            android:paddingVertical="@dimen/padding"
-            android:paddingHorizontal="@dimen/statement_padding"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_rank_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/rec_rank"/>
-
-        <Space
-            android:id="@+id/player_profile_mid_spacer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/large_space"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_rank"/>
-
-        <LinearLayout
-            android:id="@+id/player_profile_decorative_divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/small_padding"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_mid_spacer"
-            app:layout_constraintLeft_toLeftOf="parent"
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:src="@drawable/rec_divider_left"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/rec_divider_right"/>
-        </LinearLayout>
-
-        <Space android:id="@+id/player_profile_low_mid_spacer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_decorative_divider"/>
-
-        <TextView android:id="@+id/player_profile_total_scanned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/codes_scanned_title"
-            android:textSize="@dimen/text_size"
-            android:fontFamily="@font/quicksand_medium"
-            android:textColor="@color/text_off_white"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_low_mid_spacer"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/player_profile_unique_score"
-            android:padding="@dimen/padding"/>
-
-        <TextView android:id="@+id/player_profile_unique_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/highest_unique_title"
-            android:textSize="@dimen/text_size"
-            android:fontFamily="@font/quicksand_medium"
-            android:textColor="@color/text_off_white"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_low_mid_spacer"
-            app:layout_constraintLeft_toRightOf="@id/player_profile_total_scanned"
-            app:layout_constraintRight_toRightOf="parent"
-            android:padding="@dimen/padding"/>
-
-        <LinearLayout android:id="@+id/player_profile_stats_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_unique_score"
-            >
-            <TextView android:id="@+id/player_profile_scanned_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XX"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/quicksand_medium"
-                android:textColor="@color/secondary_blue_dark"
-                android:textAlignment="center"
-                android:background="@drawable/rec_codes_scanned"
-                android:layout_margin="@dimen/padding"
-                android:layout_weight="0.5"
-                android:padding="@dimen/padding"
-                android:paddingStart="@dimen/extra_large_padding"
-                android:paddingEnd="@dimen/extra_large_padding"/>
-
-            <TextView android:id="@+id/player_profile_unique_score_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XX"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/quicksand_medium"
-                android:textColor="@color/text_off_white"
-                android:textAlignment="center"
-
-                android:background="@drawable/rec_highest_unique"
-                android:layout_margin="@dimen/padding"
-                android:layout_weight="0.5"
-                android:padding="@dimen/padding"
-                android:paddingStart="@dimen/extra_large_padding"
-                android:paddingEnd="@dimen/extra_large_padding"/>
-
-        </LinearLayout>
-
-        <Space android:id="@+id/player_profile_low_spacer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_stats_line"/>
-
-        <ImageButton android:id="@+id/player_profile_sort_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_button_sort"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
-            android:padding="@dimen/padding"
-            android:visibility="invisible"/>
-
-        <GridView
-            android:orientation="vertical"
-            android:id="@+id/player_profile_grid_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="H,1:1.5"
-            android:numColumns="3"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button"
-            android:horizontalSpacing="@dimen/large_padding"
-            android:verticalSpacing="@dimen/large_padding">
-        </GridView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
