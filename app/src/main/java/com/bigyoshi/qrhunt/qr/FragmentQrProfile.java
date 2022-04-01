@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.squareup.picasso.Picasso;
@@ -81,15 +83,13 @@ public class FragmentQrProfile extends DialogFragment {
         TextView userName = view.findViewById(R.id.qr_profile_player_username);
         userName.setText(playerInfo.getUsername());
 
-        /*
-        // todo Add delete button
-        Button deleteButton = view.findViewById(R.id.qr_button_ok);
-        deleteButton.setText("REMOVE");
+
+        Button deleteButton = view.findViewById(R.id.button_delete);
         deleteButton.setOnClickListener(view1 -> {
-            FragmentProfile parentFrag = ((FragmentProfile)FragmentQRProfile.this.getParentFragment());
+            FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
             parentFrag.libraryRemoveQR(pos, removeQR);
-            getFragmentManager().beginTransaction().remove(FragmentQRProfile.this).commit();
-        });*/
+            getFragmentManager().beginTransaction().remove(this).commit();
+        });
 
         ImageButton backButton = view.findViewById(R.id.qr_profile_back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
