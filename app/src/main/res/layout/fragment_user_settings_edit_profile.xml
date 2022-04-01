@@ -50,9 +50,11 @@
 
 
     <RelativeLayout
+        android:id="@+id/player_profile_settings_edit_username_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/player_profile_settings_edit_username_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_username_title">
 
         <EditText
@@ -107,7 +109,7 @@
 
     <EditText
         android:id="@+id/player_profile_settings_edit_email"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
         android:background="@drawable/rounded_rectangle_edit_text"
@@ -117,8 +119,8 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
 
     <Space
@@ -140,7 +142,7 @@
 
     <EditText
         android:id="@+id/player_profile_settings_edit_social"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_rectangle_edit_text"
         android:fontFamily="@font/quicksand"
@@ -150,9 +152,9 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" />
 
     <LinearLayout
