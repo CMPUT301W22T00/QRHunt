@@ -25,16 +25,20 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.ScanMode;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
+ * Definition: Scanner with camera - Scans and decodes QR code
+ * Note: NA
  * Issues: TBA
  */
+public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
     private CodeScanner codeScanner;
     private QrCodeProcessor camera;
-    private String playerId;
     private ImageButton button;
+    private String playerId;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
     /**
@@ -90,7 +94,7 @@ import java.util.TimerTask;
         });
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
-            camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
+            camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             button.setVisibility(View.VISIBLE);
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
@@ -102,10 +106,8 @@ import java.util.TimerTask;
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
-
         return root;
     }
-
 
     /**
      * Handles when the state is resumed (starts camera previous)
@@ -115,8 +117,6 @@ import java.util.TimerTask;
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
-        button.setVisibility(View.GONE);
-
     }
 
     /**
@@ -174,4 +174,3 @@ import java.util.TimerTask;
         }
     }
 }
-

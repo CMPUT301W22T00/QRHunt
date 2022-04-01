@@ -30,7 +30,7 @@
             android:src="@drawable/ic_button_camera"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_baseline_invisible_dark_blue_grey"
+            android:background="@color/transparent"
             android:visibility="invisible"/>
     </RelativeLayout>
 </FrameLayout>
