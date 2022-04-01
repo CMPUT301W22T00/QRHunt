@@ -94,7 +94,7 @@ public class FragmentProfile extends Fragment {
         TextView rank = root.findViewById(R.id.player_profile_rank);
         rank.setText(String.format(Locale.CANADA, "%d", playerInfo.getRankInfo().getTotalScore()));
         TextView bestUnique = root.findViewById(R.id.player_profile_unique_score_text);
-        bestUnique.setText(String.format(Locale.CANADA, "%d points", playerInfo.getBestUniqueQr().getScore()));
+        bestUnique.setText(String.valueOf(playerInfo.getBestUniqueQr().getScore()));
 
         QRTotalValue = root.findViewById(R.id.player_profile_score);
         username = root.findViewById(R.id.player_profile_username_title);
