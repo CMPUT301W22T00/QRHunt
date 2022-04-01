@@ -19,4 +19,9 @@
     <dimen name="small_text">12sp</dimen>
     <dimen name="statement_text">40sp</dimen>
 
+    <dimen name="back_subtitle_size">20sp</dimen>
+    <dimen name="back_padding">6dp</dimen>
+    <dimen name="back_large_padding">14dp</dimen>
+
+
 </resources>

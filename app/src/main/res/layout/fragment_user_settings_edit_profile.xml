@@ -94,6 +94,7 @@
         android:padding="@dimen/padding"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
 
     <Space
