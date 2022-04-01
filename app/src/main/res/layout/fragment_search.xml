@@ -39,6 +39,16 @@
             android:lines="1"
             android:inputType="text"/>
 
+        <!--PLEASE CHANGE AHHH-->
+        <ProgressBar
+            android:id="@+id/search_bar_progress_bar"
+            android:layout_width="37dp"
+            android:layout_height="40dp"
+            android:translationX="-80dp"
+            android:translationY="8dp"
+            android:padding="@dimen/small_padding"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
     <Space android:id="@+id/search_bar_spacer"
