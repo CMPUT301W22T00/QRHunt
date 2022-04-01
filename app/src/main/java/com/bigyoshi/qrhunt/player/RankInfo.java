@@ -1,6 +1,8 @@
 package com.bigyoshi.qrhunt.player;
 
-public class RankInfo {
+import java.io.Serializable;
+
+public class RankInfo implements Serializable {
     private int totalScore;
     private int bestUniqueQr;
     private int totalScanned;
