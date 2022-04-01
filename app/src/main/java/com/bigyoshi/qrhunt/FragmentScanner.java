@@ -3,6 +3,8 @@ package com.bigyoshi.qrhunt;
 import android.app.Activity;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,9 @@ import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.ScanMode;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
@@ -77,16 +82,13 @@ public class FragmentScanner extends Fragment {
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QRCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             button.setVisibility(View.VISIBLE);
-
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            button.setVisibility(View.GONE);
-                        }
-                    },
-                    5000
-            );
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    button.setVisibility(View.GONE);
+                }
+            }, 2000);
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
@@ -103,6 +105,7 @@ public class FragmentScanner extends Fragment {
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
+        button.setVisibility(View.GONE);
 
     }
 
