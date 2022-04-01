@@ -1,8 +1,6 @@
 package com.bigyoshi.qrhunt.player;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -19,8 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
-
-import org.osmdroid.config.Configuration;
 
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
@@ -32,15 +29,6 @@ public class FragmentPlayerSetting extends Fragment {
     private Player playerInfo;
     private TextView playerProfileSettings;
     private ImageView backButton;
-
-    /**
-     * Constructor method
-     *
-     * @param playerInfo Current player
-     */
-    public FragmentPlayerSetting(Player playerInfo){
-        this.playerInfo = playerInfo;
-    }
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -56,49 +44,36 @@ public class FragmentPlayerSetting extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        Context ctx = getActivity().getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
+        playerInfo = (Player) getArguments().getSerializable("player");
         binding = FragmentUserSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         playerProfileSettings = root.findViewById(R.id.player_settings_edit_profile_clickable);
         backButton = root.findViewById(R.id.player_settings_back_button);
 
-        playerProfileSettings.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FragmentPlayerProfileSetting profileSetting =
-                        new FragmentPlayerProfileSetting(playerInfo);
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.player_settings, profileSetting, "setting");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+        playerProfileSettings.setOnClickListener(v -> {
+            DialogFragment dialogFragment = new FragmentPlayerProfileSetting();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("player", playerInfo);
+            dialogFragment.setArguments(bundle);
+            dialogFragment.show(getChildFragmentManager(), null);
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle result = new Bundle();
-                result.putSerializable("info", playerInfo);
-                getParentFragmentManager().setFragmentResult("getInfo", result);
-                getActivity().getSupportFragmentManager().popBackStack();
+                FragmentProfile profile = new FragmentProfile();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("player", playerInfo);
+                profile.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.player_settings, profile, "profile");
+                fragmentTransaction.commit();
             }
         });
 
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getNewInfo",
-                this,
-                new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                Player newInfo = (Player) result.getSerializable("newInfo");
-                playerInfo.setUsername(newInfo.getUsername());
-                playerInfo.getContact().setEmail(newInfo.getContact().getEmail());
-                playerInfo.getContact().setSocial(newInfo.getContact().getSocial());
-            }
-        });
 
         return root;
     }

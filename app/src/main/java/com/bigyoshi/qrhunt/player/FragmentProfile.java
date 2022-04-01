@@ -1,14 +1,11 @@
 package com.bigyoshi.qrhunt.player;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -18,8 +15,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.MainActivity;
@@ -30,8 +25,6 @@ import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.osmdroid.config.Configuration;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,9 +32,8 @@ import java.util.HashMap;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
- * Definition: Fragment class for the player profile screen
- * Note: NA
- * Issues: Rankings are not implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
+ * Definition: Fragment class for the player profile screen Note: NA Issues: Rankings are not
+ * implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
  */
 public class FragmentProfile extends Fragment {
     private FragmentProfileBinding binding;
@@ -58,62 +50,43 @@ public class FragmentProfile extends Fragment {
     private ArrayAdapter<PlayableQrCode> qrCodesAdapter;
     private FirebaseFirestore db;
 
-
-    /**
-     * Constructor method
-     *
-     * @param player          Current player
-     * @param lastDestination Previous navigation destination (by bottom navigation)
-     */
-    public FragmentProfile(Player player, int lastDestination){
-
-         this.playerInfo = player;
-         this.lastDestination = lastDestination;
-    }
-
-    /**
-     * Creates instance of fragment, and handles where the activity goes after pressing back button
-     * (eg, either to scanner or map)
-     *
-     * @param savedInstanceState SavedInstanceState
-     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        getActivity().getOnBackPressedDispatcher().addCallback(this,
-                new OnBackPressedCallback(true) {
+        getActivity()
+                .getOnBackPressedDispatcher()
+                .addCallback(
+                        this,
+                        new OnBackPressedCallback(true) {
 
-            @Override
-            public void handleOnBackPressed() {
+                            @Override
+                            public void handleOnBackPressed() {
 
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                Bundle prevNav = new Bundle();
-                prevNav.putSerializable("previous", lastDestination);
-                intent.putExtras(prevNav);
-                startActivity(intent);
-            }
-        });
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                Bundle prevNav = new Bundle();
+                                prevNav.putSerializable("previous", lastDestination);
+                                intent.putExtras(prevNav);
+                                startActivity(intent);
+                            }
+                        });
     }
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
+     * @param inflater Inflater
+     * @param container Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return View
      */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
-        //Load/Initialize osmdroid configuration
-        Context ctx = getActivity().getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
+        playerInfo = (Player) getArguments().getSerializable("player");
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -131,13 +104,11 @@ public class FragmentProfile extends Fragment {
         qrCodesList = new ArrayList<>(temp);
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
-        showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new FragmentQrProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
-            }
-        });
-
+        showAll.setOnItemClickListener(
+                (adapterView, view, i, l) -> {
+                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo)
+                            .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+                });
 
         settingButton = root.findViewById(R.id.player_profile_settings_button);
 
@@ -145,59 +116,46 @@ public class FragmentProfile extends Fragment {
         username.setText(playerInfo.getUsername());
         totalScanned.setText(Integer.toString(qrCodesList.size()));
 
-        settingButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                FragmentPlayerSetting profileSetting = new FragmentPlayerSetting(playerInfo);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.player_profile, profileSetting, "setting");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        settingButton.setOnClickListener(
+                v -> {
+                    FragmentPlayerSetting profileSetting = new FragmentPlayerSetting();
+                    FragmentTransaction fragmentTransaction =
+                            getChildFragmentManager().beginTransaction();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("player", playerInfo);
+                    profileSetting.setArguments(bundle);
+                    fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
+                    fragmentTransaction.commit();
+                });
 
         /*
-            https://www.youtube.com/watch?v=IxHfWg-M0bI
-            https://github.com/douglasjunior/android-simple-tooltip
-            https://github.com/douglasjunior/android-simple-tooltip/issues/24
-         */
-        contactsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = playerInfo.getContact().getEmail();
-                String social = playerInfo.getContact().getSocial();
-                if (!email.matches("") || !social.matches("")){
-                    String together = email + "\n" + social;
-                    combined.setText(together);
-                    new SimpleTooltip.Builder(getContext())
-                            .anchorView(contactsButton)
-                            .gravity(Gravity.BOTTOM)
-                            .text(together)
-                            .arrowColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                            .textColor(getResources().getColor(R.color.text_off_white))
-                            .animated(true)
-                            .transparentOverlay(true)
-                            .backgroundColor(getResources().getColor(R.color.accent_grey_blue_dark))
-                            .contentView(R.layout.player_contact_callout, combined.getId())
-                            .build()
-                            .show();
+           https://www.youtube.com/watch?v=IxHfWg-M0bI
+           https://github.com/douglasjunior/android-simple-tooltip
+           https://github.com/douglasjunior/android-simple-tooltip/issues/24
+        */
+        contactsButton.setOnClickListener(
+                view -> {
+                    String email = playerInfo.getContact().getEmail();
+                    String social = playerInfo.getContact().getSocial();
+                    if (!email.matches("") || !social.matches("")) {
+                        String together = email + "\n" + social;
+                        combined.setText(together);
+                        new SimpleTooltip.Builder(getContext())
+                                .anchorView(contactsButton)
+                                .gravity(Gravity.BOTTOM)
+                                .text(together)
+                                .arrowColor(
+                                        getResources().getColor(R.color.accent_grey_blue_dark))
+                                .textColor(getResources().getColor(R.color.text_off_white))
+                                .animated(true)
+                                .transparentOverlay(true)
+                                .backgroundColor(
+                                        getResources().getColor(R.color.accent_grey_blue_dark))
+                                .contentView(R.layout.player_contact_callout, combined.getId())
+                                .build()
+                                .show();
                     }
-            }
-        });
-
-        getActivity().getSupportFragmentManager().setFragmentResultListener("getInfo",
-                this,
-                new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                Player newInfo = (Player) result.getSerializable("info");
-                playerInfo.setUsername(newInfo.getUsername());
-                playerInfo.getContact().setEmail(newInfo.getContact().getEmail());
-                playerInfo.getContact().setSocial(newInfo.getContact().getSocial());
-                username.setText(playerInfo.getUsername());
-                playerInfo.updateDB();
-            }
-        });
+                });
 
         return root;
     }
@@ -213,6 +171,4 @@ public class FragmentProfile extends Fragment {
         db = FirebaseFirestore.getInstance();
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
-
-
 }

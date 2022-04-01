@@ -1,13 +1,22 @@
 package com.bigyoshi.qrhunt.player;
 
-import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,31 +25,23 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
-import org.osmdroid.config.Configuration;
-
 /**
  * Definition: Setting for user to edit their account information (username, email, social handle)
  * Note: NA
  * Issues: NA
  */
 public class FragmentPlayerProfileSetting extends DialogFragment {
+    private static final String TAG = FragmentPlayerProfileSetting.class.getSimpleName();
     private Player playerInfo;
     private EditText username;
+    private ProgressBar usernameProgressBar;
     private EditText email;
     private EditText socials;
     private Button ok;
     private Button cancel;
+    private UniqueUsernameVerifier verifier;
 
     private FragmentUserSettingsEditProfileBinding binding;
-
-    /**
-     * Constructor method
-     *
-     * @param playerInfo current Player
-     */
-    public FragmentPlayerProfileSetting(Player playerInfo){
-        this.playerInfo = playerInfo;
-    }
 
     /**
      *  Constructor method
@@ -64,19 +65,68 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Context ctx = getActivity();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
+        playerInfo = (Player) getArguments().getSerializable("player");
         binding = FragmentUserSettingsEditProfileBinding.inflate(inflater,
                 container,
                 false);
         View root = binding.getRoot();
 
         username = root.findViewById(R.id.player_profile_settings_edit_username);
+        username.setText(playerInfo.getUsername());
         email = root.findViewById(R.id.player_profile_settings_edit_email);
+        email.setText(playerInfo.getContact().getEmail());
         socials = root.findViewById(R.id.player_profile_settings_edit_social);
+        socials.setText(playerInfo.getContact().getSocial());
         ok = root.findViewById(R.id.player_profile_settings_ok_button);
         cancel = root.findViewById(R.id.player_profile_settings_cancel_button);
+        usernameProgressBar = root.findViewById(R.id.player_profile_settings_edit_username_progress_bar);
+
+        username.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        // later enabled by check username
+                        if (charSequence != playerInfo.getUsername()) {
+                            ok.setEnabled(false);
+                            ok.setAlpha(0.5f);
+                            usernameProgressBar.setVisibility(View.VISIBLE);
+                        }
+
+                        if (verifier != null) {
+                            verifier
+                                    .cancel(); // make sure we aren't getting old results late that
+                                               // enable the save button
+                        }
+                        if (charSequence.length() > 0) {
+                            verifier =
+                                    new UniqueUsernameVerifier(
+                                            charSequence.toString(), playerInfo.getPlayerId());
+                            verifier.setOnUsernameVerificationResults(
+                                    isUnique -> {
+                                        if (isUnique) {
+                                            Log.d(TAG,charSequence + " determined to be unique");
+                                            ok.setAlpha(1);
+                                        } else {
+                                            Log.d(TAG,charSequence + " determined to be NOT unique");
+                                            username.setError("Username isn't available");
+                                        }
+                                        usernameProgressBar.setVisibility(View.INVISIBLE);
+                                        ok.setEnabled(isUnique);
+                                    });
+                            verifier.scheduleUniqueUsernameVerification();
+                        } else {
+                            username.setError("Username is required");
+                            usernameProgressBar.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {}
+                });
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,17 +140,15 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 if (!socials.getText().toString().matches("")){
                     playerInfo.getContact().setSocial(socials.getText().toString());
                 }
-                Bundle result = new Bundle();
-                result.putSerializable("newInfo", playerInfo);
-                getParentFragmentManager().setFragmentResult("getNewInfo", result);
-                getActivity().getSupportFragmentManager().popBackStack();
+                playerInfo.updateDB();
+                dismiss();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().popBackStack();
+                dismiss();
             }
         });
 
