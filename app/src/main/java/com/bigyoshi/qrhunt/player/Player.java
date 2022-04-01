@@ -62,6 +62,18 @@ public class Player implements Serializable {
 
     }
 
+    public Player(String playerId){
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("users");
+        this.playerId = playerId;
+        this.totalScore = 0;
+        this.username = "";
+        this.admin = false;
+        this.contact = new Contact();
+        this.qrLibrary = new QrLibrary(db, getPlayerId());
+        initialize();
+    }
+
     /**
      * Getter method
      *

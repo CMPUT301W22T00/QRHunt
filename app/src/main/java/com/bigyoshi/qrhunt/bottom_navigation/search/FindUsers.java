@@ -3,9 +3,13 @@ package com.bigyoshi.qrhunt.bottom_navigation.search;
 import android.util.Log;
 
 import com.bigyoshi.qrhunt.player.UniqueUsernameVerifier;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,6 +20,7 @@ public class FindUsers {
     private final String playerId;
     private FindUsers.UsernameResultsFound onUsernameVerificationResults;
     private boolean cancelled;
+    private String userScore;
 
     public FindUsers(String username, String playerId) {
         this.username = username;
@@ -43,12 +48,11 @@ public class FindUsers {
                         if (!cancelled) {
                             if (username.isEmpty()) {
                                 // don't allow/verify empty usernames
-                                onUsernameVerificationResults.onResults(false);
+                                onUsernameVerificationResults.onResults(null);
                             } else {
                                 FirebaseFirestore.getInstance()
                                         .collection("users")
                                         .whereEqualTo("username", username)
-                                        .whereNotEqualTo(FieldPath.documentId(), playerId)
                                         .get()
                                         .addOnCompleteListener(
                                                 qSnapshot -> {
@@ -56,13 +60,15 @@ public class FindUsers {
                                                             && !isCancelled()) {
                                                         if (qSnapshot.getResult().isEmpty()) {
                                                             onUsernameVerificationResults
-                                                                    .onResults(true);
+                                                                    .onResults(null);
                                                             return;
                                                         }
 
                                                     }
+                                                    List<DocumentSnapshot> resultList = qSnapshot.getResult().getDocuments();
                                                     onUsernameVerificationResults.onResults(
-                                                            false);
+                                                            resultList);
+
                                                 });
                             }
                         }
@@ -71,6 +77,6 @@ public class FindUsers {
     }
 
     public static interface UsernameResultsFound {
-        public void onResults(boolean unique);
+        public void onResults(List<DocumentSnapshot> found);
     }
 }

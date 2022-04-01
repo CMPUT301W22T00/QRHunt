@@ -11,21 +11,30 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.player.FragmentPlayerProfileSetting;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 import com.bigyoshi.qrhunt.player.UniqueUsernameVerifier;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
 
 
 /**
@@ -42,6 +51,9 @@ public class FragmentSearch extends Fragment {
     private EditText searchBar;
     private ProgressBar searchProgressBar;
     private FindUsers verifier;
+    private ListView searchResults;
+    private ArrayList<Player> searchList =new ArrayList<>();
+    private ArrayAdapter<Player> searchAdapter;
 
     public FragmentSearch(Player player, int id) {
         this.player = player;
@@ -75,6 +87,9 @@ public class FragmentSearch extends Fragment {
 
         back = root.findViewById(R.id.search_bar_back_button);
         searchProgressBar = root.findViewById(R.id.search_bar_progress_bar);
+        searchResults = root.findViewById(R.id.search_bar_results_list);
+        searchAdapter = new SearchList(getContext(), searchList);
+        searchResults.setAdapter(searchAdapter);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +110,7 @@ public class FragmentSearch extends Fragment {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        searchAdapter.clear();
                         // later enabled by check username
                         if (charSequence != player.getUsername()) {
                             searchProgressBar.setVisibility(View.VISIBLE);
@@ -111,10 +127,15 @@ public class FragmentSearch extends Fragment {
                                             charSequence.toString(), player.getPlayerId());
                             verifier.setOnUsernameVerificationResults(
                                     isUnique -> {
-                                        if (isUnique) {
+                                        if (isUnique == null) {
                                             Log.d(TAG,charSequence + " determined to be no existing user");
                                         } else {
                                             Log.d(TAG,charSequence + " determined to be an existing user");
+                                            // isUnique is now the player id
+                                            for (DocumentSnapshot var : isUnique){
+                                                Player found = new Player(var.getId());
+                                                searchAdapter.add(found);
+                                            }
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);
                                     });
@@ -127,6 +148,23 @@ public class FragmentSearch extends Fragment {
                     @Override
                     public void afterTextChanged(Editable editable) {}
                 });
+        
+        searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> searchAdapter, View view, int i, long l) {
+                FragmentProfile profile = new FragmentProfile();
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
+                profile.setArguments(bundle);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.search_bar, profile, "profile");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
 
