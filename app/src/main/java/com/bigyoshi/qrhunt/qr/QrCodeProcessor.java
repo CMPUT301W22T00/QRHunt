@@ -8,6 +8,7 @@ import android.location.Location;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -34,21 +35,22 @@ public class QrCodeProcessor {
     FusedLocationProviderClient client;
     public String hash;
     private String playerId;
+    private Player player;
     public int score;
     public FusedLocationProviderClient fusedLocationClient;
     private Context activity;
 
     /**
      * Constructor method
-     *
-     * @param frag     TBA
+     *  @param frag     TBA
      * @param text     QR Content
-     * @param playerId Current player's unique id
+     * @param player Current Player
      */
-    public QrCodeProcessor(Fragment frag, String text, String playerId) {
+    public QrCodeProcessor(Fragment frag, String text, Player player) {
         this.frag = frag;
         this.qrContent = text;
-        this.playerId = playerId;
+        this.player = player;
+        this.playerId = player.getPlayerId();
         activity = frag.getActivity();
         client = LocationServices.getFusedLocationProviderClient(activity);
         startPollingLocation();
@@ -113,6 +115,7 @@ public class QrCodeProcessor {
                                 FragmentAddQrCode addQrCode = FragmentAddQrCode.newInstance(qrCode);
                                 addQrCode.show(
                                         frag.getChildFragmentManager(), FragmentAddQrCode.TAG);
+                                player.qrLibrary.update();
                             }
                         });
     }

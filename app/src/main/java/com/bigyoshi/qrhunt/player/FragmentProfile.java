@@ -125,16 +125,29 @@ public class FragmentProfile extends Fragment {
         TextView combined = calloutView.findViewById(R.id.contact_call_out_text);
 
         showAll = root.findViewById(R.id.player_profile_grid_view);
-        qrCodes = new HashMap<>();
-        qrCodes = playerInfo.qrLibrary.getQrCodes();
+        qrCodes = playerInfo.qrLibrary.getQrCode();
         Collection<PlayableQrCode> temp = qrCodes.values();
         qrCodesList = new ArrayList<>(temp);
+        qrCodesList = playerInfo.qrLibrary.getQrCodes();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
         showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 new FragmentQrProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+            }
+        });
+
+        ImageButton sortButton = root.findViewById(R.id.player_profile_sort_button);
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (playerInfo.qrLibrary.getScoredSorted() == 0) {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
+                } else {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreDescending();
+                }
+                qrCodesAdapter.notifyDataSetChanged();
             }
         });
 

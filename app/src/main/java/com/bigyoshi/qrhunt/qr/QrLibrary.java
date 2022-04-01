@@ -4,6 +4,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -16,11 +19,9 @@ public class QrLibrary {
     private HashMap<String, PlayableQrCode> qrCodes;
     private String playerId;
     private FirebaseFirestore db;
-    private double lat;
-    private double lon;
-    private String qrHash;
-    private int score;
     private PlayableQrCode qrCode;
+    private ArrayList<PlayableQrCode> qrCodesList;
+    private int scoreSorted; // 0 -> high-low, 1 -> low-high
 
     /**
      * Finds player in database by ID and grabs all QR codes associated w/ them
@@ -55,27 +56,53 @@ public class QrLibrary {
                 }
             }
         });
+        Collection<PlayableQrCode> temp = qrCodes.values();
+        qrCodesList = new ArrayList<>(temp);
+        qrCodesList.sort(compareByScore);
+        scoreSorted = 0;
     }
 
-    public HashMap<String, PlayableQrCode> getQrCodes() { return qrCodes; }
+    public ArrayList<PlayableQrCode> getQrCodes() { return qrCodesList; }
+
+    public HashMap<String, PlayableQrCode> getQrCode() { return qrCodes; }
 
     /**
      * Sorts all QRs in library from lowest to highest scoring
      *
      */
-    public void sortLowestToHighest(){
+    public ArrayList<PlayableQrCode> sortScoreAscending(){
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
+        qrCodesList.sort(compareByScore.reversed());
+        scoreSorted = 1;
+        return qrCodesList;
+
     }
 
     /**
      * Sorts all QRs in Library from highest to lowest scoring
      *
      */
-    public void sortHighestToLowest(){
+    public ArrayList<PlayableQrCode> sortScoreDescending(){
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
+        qrCodesList.sort(compareByScore);
+        scoreSorted = 0;
+        return qrCodesList;
     }
+
+    public int getScoredSorted() {
+        return scoreSorted;
+    }
+
+    Comparator<PlayableQrCode> compareByScore = new Comparator<PlayableQrCode>() {
+        @Override
+        public int compare(PlayableQrCode qr1, PlayableQrCode qr2) {
+            return String.valueOf(qr1.getScore()).compareTo( String.valueOf(qr2.getScore()));
+        }
+    };
+
+
 }
