@@ -1,8 +1,12 @@
 package com.bigyoshi.qrhunt.player;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -107,14 +111,14 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                                             ok.setAlpha(1);
                                         } else {
                                             Log.d(TAG,charSequence + " determined to be NOT unique");
-                                            username.setError("That username isn't unique");
+                                            username.setError("Username isn't available");
                                         }
                                         usernameProgressBar.setVisibility(View.INVISIBLE);
                                         ok.setEnabled(isUnique);
                                     });
                             verifier.scheduleUniqueUsernameVerification();
                         } else {
-                            username.setError("That username isn't valid");
+                            username.setError("Username is required");
                             usernameProgressBar.setVisibility(View.INVISIBLE);
                         }
 

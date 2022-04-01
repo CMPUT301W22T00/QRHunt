@@ -74,13 +74,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
-            android:padding="@dimen/small_padding"
             android:id="@+id/player_profile_settings_edit_username_progress_bar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:visibility="invisible"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
+            android:padding="@dimen/small_padding"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
