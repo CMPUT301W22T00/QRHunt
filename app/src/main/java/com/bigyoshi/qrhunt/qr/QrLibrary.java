@@ -1,5 +1,6 @@
 package com.bigyoshi.qrhunt.qr;
 
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -17,16 +18,9 @@ import java.util.HashMap;
  */
 public class QrLibrary implements Serializable {
 
-    private HashMap<String, PlayableQrCode> qrCodes;
     private String playerId;
-    private FirebaseFirestore db;
     private transient FirebaseFirestore db;
-    private double lat;
-    private double lon;
-    private String qrHash;
-    private int score;
-    private PlayableQrCode qrCode;
-    private ArrayList<PlayableQrCode> qrCodesList;
+    private transient ArrayList<PlayableQrCode> qrCodesList;
     private int scoreSorted; // 0 -> high-low, 1 -> low-high
 
     /**
@@ -37,7 +31,6 @@ public class QrLibrary implements Serializable {
      */
     public QrLibrary(FirebaseFirestore db, String playerId){
         qrCodesList = new ArrayList<>();
-        qrCodes = new HashMap<>();
         if (playerId != null) {
         this.playerId = playerId;
         } else {
@@ -57,8 +50,7 @@ public class QrLibrary implements Serializable {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
                     if (doc.exists()) {
-                        qrCode = doc.toObject(PlayableQrCode.class);
-                        qrCodes.put(doc.getId(), qrCode);
+                        PlayableQrCode qrCode = doc.toObject(PlayableQrCode.class);
                         qrCodesList.add(qrCode);
                     }
                 }
@@ -69,8 +61,6 @@ public class QrLibrary implements Serializable {
     }
 
     public ArrayList<PlayableQrCode> getQrCodes() { return qrCodesList; }
-
-    public HashMap<String, PlayableQrCode> getQrCode() { return qrCodes; }
 
     /**
      * Sorts all QRs in library from lowest to highest scoring

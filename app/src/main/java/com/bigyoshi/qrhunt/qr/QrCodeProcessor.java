@@ -35,22 +35,21 @@ public class QrCodeProcessor {
     FusedLocationProviderClient client;
     public String hash;
     private String playerId;
-    private Player player;
     public int score;
     public FusedLocationProviderClient fusedLocationClient;
     private Context activity;
 
     /**
      * Constructor method
-     *  @param frag     TBA
-     * @param text     QR Content
      * @param player Current Player
+     * @param frag     TBA
+     * @param text     QR Content
+     * @param playerId
      */
-    public QrCodeProcessor(Fragment frag, String text, Player player) {
+    public QrCodeProcessor(Fragment frag, String text, String playerId) {
         this.frag = frag;
         this.qrContent = text;
-        this.player = player;
-        this.playerId = player.getPlayerId();
+        this.playerId = playerId;
         activity = frag.getActivity();
         client = LocationServices.getFusedLocationProviderClient(activity);
         startPollingLocation();
@@ -115,7 +114,6 @@ public class QrCodeProcessor {
                                 FragmentAddQrCode addQrCode = FragmentAddQrCode.newInstance(qrCode);
                                 addQrCode.show(
                                         frag.getChildFragmentManager(), FragmentAddQrCode.TAG);
-                                player.qrLibrary.update();
                             }
                         });
     }

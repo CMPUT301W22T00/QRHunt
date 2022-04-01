@@ -39,7 +39,6 @@ public class FragmentScanner extends Fragment {
     private QrCodeProcessor camera;
     //private ImageButton button;
     private String playerId;
-    private Player player;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
     /**
@@ -58,7 +57,7 @@ public class FragmentScanner extends Fragment {
         getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
                 this,
                 (requestKey, result) -> {
-                    player = (Player) result.getSerializable("player");
+                    Player player = (Player) result.getSerializable("player");
                     playerId = player.getPlayerId();
                 });
 
@@ -95,7 +94,7 @@ public class FragmentScanner extends Fragment {
         });*/
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
-            camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), player);
+            camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             /*button.setVisibility(View.VISIBLE);
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {

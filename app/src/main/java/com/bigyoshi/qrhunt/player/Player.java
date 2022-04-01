@@ -40,7 +40,8 @@ public class Player implements Serializable {
     private String username;
     private Contact contact;
     private Boolean admin;
-    public QrLibrary qrLibrary;
+    // todo Fix this
+    public transient QrLibrary qrLibrary;
     private String playerId = null;
     private transient Context context;
 
