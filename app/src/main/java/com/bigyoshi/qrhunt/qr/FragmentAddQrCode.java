@@ -45,8 +45,6 @@ public class FragmentAddQrCode extends DialogFragment {
     private Bitmap bitmap;
     private ImageView imageView;
 
-    public FragmentAddQrCode() {}
-
     /**
      * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
      * and is responsible for attaching the user's photo in the proper position

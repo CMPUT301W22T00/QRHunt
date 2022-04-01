@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 
-import org.osmdroid.config.Configuration;
-
 
 /**
  * Definition: Fragment representing the leaderboard
@@ -58,10 +56,6 @@ public class FragmentLeaderboard extends Fragment {
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Load/Initialize osmdroid configuration
-        Context ctx = getActivity().getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
         binding = FragmentLeaderboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

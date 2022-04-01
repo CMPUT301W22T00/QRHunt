@@ -7,6 +7,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -14,11 +15,16 @@ import java.util.HashMap;
  * Note: NA
  * Issues: TBA
  */
-public class QrLibrary {
+public class QrLibrary implements Serializable {
 
     private HashMap<String, PlayableQrCode> qrCodes;
     private String playerId;
     private FirebaseFirestore db;
+    private transient FirebaseFirestore db;
+    private double lat;
+    private double lon;
+    private String qrHash;
+    private int score;
     private PlayableQrCode qrCode;
     private ArrayList<PlayableQrCode> qrCodesList;
     private int scoreSorted; // 0 -> high-low, 1 -> low-high

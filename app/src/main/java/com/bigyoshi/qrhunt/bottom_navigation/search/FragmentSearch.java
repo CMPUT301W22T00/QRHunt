@@ -20,7 +20,6 @@ import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 
-import org.osmdroid.config.Configuration;
 
 /**
  * Definition: Fragment representing the search function (searching users)
@@ -61,9 +60,6 @@ public class FragmentSearch extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Context ctx = getActivity().getApplicationContext();
-        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
