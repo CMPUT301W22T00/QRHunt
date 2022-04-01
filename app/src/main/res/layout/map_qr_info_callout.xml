@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rec_callout_qr_info"
+    android:orientation="vertical"
+    android:id="@+id/map_call_out">
+
+    <TextView
+        android:id="@+id/map_call_out_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="5dp"
+        android:text="Distance: XXkm"
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/map_call_out_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="5dp"
+        android:textSize="14sp"
+        android:text="Value: XX"
+        android:textColor="@color/main_off_white_blue_light"/>
+
+    <TextView
+        android:id="@+id/map_call_out_num_scans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="5dp"
+        android:textSize="14sp"
+        android:text="Scans: XX"
+        android:textColor="@color/main_off_white_blue_light"/>
+
+    <TextView
+        android:id="@+id/map_call_out_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:textSize="14sp"
+        android:padding="5dp"
+        android:text="Latitude, Longitude"
+        android:textColor="@color/main_off_white_blue_light"/>
+    <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
+
+</LinearLayout>

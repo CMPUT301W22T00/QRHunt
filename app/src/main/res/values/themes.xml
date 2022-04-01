@@ -24,4 +24,13 @@
         <item name="android:displayOptions">showCustom</item>
     </style>
 
+    <style name="ImageView.Corner" parent="">
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+    <!-- from https://stackoverflow.com/a/66138444 -->
+
 </resources>

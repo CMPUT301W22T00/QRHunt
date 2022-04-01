@@ -23,8 +23,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bigyoshi.qrhunt.bottom_navigation.search.SearchFragment;
+import com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,7 +40,6 @@ import java.util.Arrays;
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private ActivityMainBinding binding;
     private Player player;
     private ImageButton navSearch, navProfile;
@@ -62,16 +63,9 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //Get permissions first
-        requestPermissionsIfNecessary(new String[]{
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
-        });
-
         db = FirebaseFirestore.getInstance();
 
-        Toolbar toolbar = findViewById(R.id.top_nav);
+        Toolbar toolbar = findViewById(R.id.top_navigation_view);
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
@@ -84,18 +78,18 @@ public class MainActivity extends AppCompatActivity {
             player.initialize();
         }
 
-        scoreView = toolbar.findViewById(R.id.score_on_cam);
+        scoreView = toolbar.findViewById(R.id.top_scanner_score);
         updateFirebaseListeners();
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+                R.id.main_bottom_navigation_host_fragment);
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
-        navProfile = findViewById(R.id.navigation_profile);
+        navProfile = findViewById(R.id.top_navigation_profile);
         navProfile.setOnClickListener(view -> {
-            binding.navView.setVisibility(View.INVISIBLE);
+            binding.bottomNavigationView.setVisibility(View.INVISIBLE);
 
             FragmentProfile profile = new FragmentProfile(player,
                     navController.getCurrentDestination().getId());
@@ -107,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         });
 
-        navSearch = findViewById(R.id.navigation_search);
+        navSearch = findViewById(R.id.top_navigation_search);
         navSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.navView.setVisibility(View.INVISIBLE);
+                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
                 actionbar.hide();
-                SearchFragment search = new SearchFragment(player,
+                FragmentSearch search = new FragmentSearch(player,
                         navController.getCurrentDestination().getId());
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -142,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
-                binding.navView.setVisibility(View.INVISIBLE);
+                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -181,51 +175,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, String.format("set the score to be %s", scoreVal));
             scoreView.setText(String.format("Score: %s", scoreVal));
         });
-    }
-
-    /**
-     * Provides permissions (consent from the user)
-     *
-     * @param requestCode  request code
-     * @param permissions  permissions
-     * @param grantResults grant results
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> permissionsToRequest = new ArrayList<>(Arrays
-                .asList(permissions)
-                .subList(0, grantResults.length));
-
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
-    }
-
-    /**
-     * Requests permissions
-     *
-     * @param permissions list of strings for permissions
-     */
-    private void requestPermissionsIfNecessary(String[] permissions) {
-        ArrayList<String> permissionsToRequest = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Permission is not granted
-                permissionsToRequest.add(permission);
-            }
-        }
-        if (permissionsToRequest.size() > 0) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    permissionsToRequest.toArray(new String[0]),
-                    REQUEST_PERMISSIONS_REQUEST_CODE);
-        }
     }
 
 }

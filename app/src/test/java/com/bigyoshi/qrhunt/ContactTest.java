@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.bigyoshi.qrhunt.player.Contact;
+
 public class ContactTest {
     private Contact mockContact(){
         Contact contact = new Contact();

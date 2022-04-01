@@ -19,12 +19,12 @@ public class FragmentPlayerProfileSettingTest {
 
     public void goToPlayerProfileSetting(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.navigation_profile));
-        solo.waitForFragmentById(R.id.playerProfile);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.profile_settings_button));
-        solo.waitForFragmentById(R.id.playerSettings);
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.settings_edit_profile));
-        solo.waitForFragmentById(R.id.editPlayerProfile);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_profile));
+        solo.waitForFragmentById(R.id.player_profile);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
+        solo.waitForFragmentById(R.id.player_settings);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
+        solo.waitForFragmentById(R.id.player_profile_settings);
     }
 
     @Rule
@@ -44,9 +44,9 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsUsernameChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_username);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_username);
         solo.enterText(mockTyping, "HelloUser");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         Assert.assertEquals(mockText, "HelloUser");
         // Need to check if it updates for the player side
@@ -57,9 +57,9 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsEmailChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_email);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_email);
         solo.enterText(mockTyping, "HelloEmail");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         Assert.assertEquals(mockText, "HelloEmail");
         // Need to check if it updates for the player side
@@ -70,9 +70,9 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsSocialChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_socials);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_social);
         solo.enterText(mockTyping, "HelloSocial");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         Assert.assertEquals(mockText, "HelloSocial");
         // Need to check if it updates for the player side
@@ -83,11 +83,11 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsUsernameEmailChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_username);
-        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.edit_email);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_username);
+        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_email);
         solo.enterText(mockTyping, "HelloUser2");
         solo.enterText(mockTyping2, "HelloEmail2");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         String mockText2 = mockTyping2.getText().toString();
         Assert.assertEquals(mockText, "HelloUser2");
@@ -100,11 +100,11 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsUsernameSocialChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_username);
-        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.edit_socials);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_username);
+        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_social);
         solo.enterText(mockTyping, "HelloUser3");
         solo.enterText(mockTyping2, "HelloSocial2");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         String mockText2 = mockTyping2.getText().toString();
         Assert.assertEquals(mockText, "HelloUser3");
@@ -117,11 +117,11 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsEmailSocialChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.edit_email);
-        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.edit_socials);
+        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_email);
+        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_social);
         solo.enterText(mockTyping, "HelloEmail4");
         solo.enterText(mockTyping2, "HelloSocial3");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ok_edit_profile));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
         String mockText = mockTyping.getText().toString();
         String mockText2 = mockTyping2.getText().toString();
         Assert.assertEquals(mockText, "HelloEmail4");

@@ -15,23 +15,24 @@
         android:background="@drawable/rec_button_take_photo"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/qr_grid_image_view_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="H,1:1"
-        android:padding="8dp"
         app:srcCompat="@mipmap/ic_image_holder"
         android:scaleType="centerCrop"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        app:shapeAppearanceOverlay="@style/ImageView.Corner"/>
 
     <TextView
-        android:id="@+id/show_score_library"
+        android:id="@+id/qr_grid_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/qr_grid_image_view_two"
         android:text="SCORE"
-        android:textSize="30dp"
+        android:textSize="@dimen/text_size"
         android:textAlignment="center"
-         />
+        android:textColor="@color/accent_blue_light"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

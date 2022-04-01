@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.bigyoshi.qrhunt.bottom_navigation.map.MapFragment"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.map.FragmentMap"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_leaderBoard"
-        android:name="com.bigyoshi.qrhunt.bottom_navigation.leader_board.LeaderBoardFragment"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.leaderboard.FragmentLeaderboard"
         android:label="@string/title_leaderBoard"
         tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/navigation_scanner"
-        android:name="com.bigyoshi.qrhunt.FragmentScanner"
+        android:name="com.bigyoshi.qrhunt.qr.FragmentScanner"
         android:label="Scanner"
-        tools:layout="@layout/scanner_fragment">
+        tools:layout="@layout/fragment_scanner">
 
         <argument
             android:name="playerId"

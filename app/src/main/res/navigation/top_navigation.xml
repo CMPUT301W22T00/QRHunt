@@ -5,14 +5,14 @@
     android:id="@+id/top_navigation">
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.bigyoshi.qrhunt.bottom_navigation.search.SearchFragment"
+        android:id="@+id/top_navigation_search"
+        android:name="com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.bigyoshi.qrhunt.FragmentProfile"
+        android:id="@+id/top_navigation_profile"
+        android:name="com.bigyoshi.qrhunt.player.FragmentProfile"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

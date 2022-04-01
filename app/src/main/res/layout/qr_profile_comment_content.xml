@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/transparent"
+    android:layout_margin="@dimen/large_padding">
+
+    <TextView android:id="@+id/qr_profile_comment_content"
+        android:text="Username"
+        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/text_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="@dimen/small_padding"/>
+
+    <TextView android:id="@+id/qr_profile_comment_content_body"
+        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/main_off_white_blue_light"
+        android:text="LOREM IPSUM DOLOR...."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_comment_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="@dimen/padding"
+        android:padding="@dimen/small_padding"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
