@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/main_off_white_blue_light"
         android:padding="@dimen/large_padding"
+        android:alpha="0.9"
         tools:context=".qr.FragmentQrProfileAfterScan">
 
         <TextView
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
-            android:text="XX"
+            android:text="XX pts"
             android:textAlignment="textStart"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/title_size"
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
-            android:text="(Latitude, Longitude)"
+            android:text="Latitude, Longitude"
             android:textColor="@color/secondary_blue_dark"
             android:textSize="@dimen/text_size"
             app:layout_constraintStart_toStartOf="parent"
