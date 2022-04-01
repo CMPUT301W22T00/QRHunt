@@ -37,7 +37,7 @@ public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
     private CodeScanner codeScanner;
     private QrCodeProcessor camera;
-    private ImageButton button;
+    //private ImageButton button;
     private String playerId;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
@@ -82,7 +82,7 @@ public class FragmentScanner extends Fragment {
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
-        button = root.findViewById(R.id.start_scan);
+        /*button = root.findViewById(R.id.start_scan);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,22 +91,35 @@ public class FragmentScanner extends Fragment {
                 button.setVisibility(View.GONE);
                 codeScanner.setScanMode(ScanMode.CONTINUOUS);
             }
-        });
+        });*/
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
-            button.setVisibility(View.VISIBLE);
+            /*button.setVisibility(View.VISIBLE);
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     button.setVisibility(View.GONE);
                 }
+            }, 2000);*/
+            codeScanner.setScanMode(ScanMode.PREVIEW);
+            camera.processQRCode();
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    codeScanner.setScanMode(ScanMode.CONTINUOUS);
+                }
             }, 2000);
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
         return root;
+    }
+
+    public void startScanner() {
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
     }
 
     /**
