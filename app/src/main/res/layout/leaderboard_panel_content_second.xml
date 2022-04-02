@@ -12,7 +12,7 @@
     android:paddingLeft="@dimen/padding"
     android:paddingRight="@dimen/large_padding">
 
-    <ImageView
+    <TextView
         android:id="@+id/top_rank_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

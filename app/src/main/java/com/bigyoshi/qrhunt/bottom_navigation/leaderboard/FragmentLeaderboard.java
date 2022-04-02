@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.MainActivity;
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,7 +41,8 @@ public class FragmentLeaderboard extends Fragment {
     private static final String TAG = FragmentLeaderboard.class.getSimpleName();
     private List<Map<String, Object>> bottomLeaderboardPlayers;
     private List<Map<String, Object>> top3LeaderboardPlayers;
-    private LeaderboardListAdapter adapter;
+    private LeaderboardListAdapter bottomAdapter;
+    private List<View> top3Views;
     private SortCriteria sortCriteria;
     private FragmentLeaderboardBinding binding;
     private FirebaseFirestore db;
@@ -54,6 +57,7 @@ public class FragmentLeaderboard extends Fragment {
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
         sortCriteria = SortCriteria.TOTAL_SCORE;
+        top3Views = new ArrayList<>();
         bottomLeaderboardPlayers = new ArrayList<>();
         top3LeaderboardPlayers = new ArrayList<>();
         getActivity().getOnBackPressedDispatcher().addCallback(this,
@@ -65,7 +69,6 @@ public class FragmentLeaderboard extends Fragment {
             }
         });
 
-        db.collection("users").get().addOnCompleteListener(this::onPlayersSnapshotTask);
     }
 
     private void onPlayersSnapshotTask(Task<QuerySnapshot> querySnapshotTask) {
@@ -109,9 +112,14 @@ public class FragmentLeaderboard extends Fragment {
             }
         });
 
+        top3Views.add((View) binding.layoutFirstPlace);
+        top3Views.add((View) binding.layoutSecondPlace);
+        top3Views.add((View) binding.layoutThirdPlace);
+
         ListView listView = binding.leaderboardRankingList;
-        adapter = new LeaderboardListAdapter(getContext(), 0, bottomLeaderboardPlayers);
-        listView.setAdapter(adapter);
+        bottomAdapter = new LeaderboardListAdapter(getContext(), 0, bottomLeaderboardPlayers);
+        listView.setAdapter(bottomAdapter);
+        db.collection("users").get().addOnCompleteListener(this::onPlayersSnapshotTask);
 
         return root;
     }
@@ -132,11 +140,24 @@ public class FragmentLeaderboard extends Fragment {
             }
         });
         // todo: might need to only do this once?
-        top3LeaderboardPlayers = combined.subList(0, 3);
+        top3LeaderboardPlayers.clear();
+        top3LeaderboardPlayers.addAll(combined.subList(0, Integer.min(3, combined.size())));
         bottomLeaderboardPlayers.clear();
-        bottomLeaderboardPlayers.addAll(combined.subList(3, combined.size()));
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
+        bottomLeaderboardPlayers.addAll(combined.subList(Integer.min(3, combined.size()), combined.size()));
+        bottomAdapter.notifyDataSetChanged();
+        updateTop3();
+    }
+
+    private void updateTop3() {
+        for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
+            Map<String, Object> playerInfo = top3LeaderboardPlayers.get(i);
+            View view = top3Views.get(i);
+            ((TextView) getActivity().findViewById(R.id.top_rank_num)).setText(String.valueOf(i + 1));
+            ((TextView) getActivity().findViewById(R.id.top_rank_username)).setText((String) playerInfo.get("username"));
+            ((TextView) getActivity().findViewById(R.id.top_rank_score)).setText(String.valueOf((Long) playerInfo.get("totalScore")));
+            ((TextView) getActivity().findViewById(R.id.top_rank_unique)).setText(String.valueOf((Long) playerInfo.get("bestUniqueQr")));
+            ((TextView) getActivity().findViewById(R.id.top_rank_scans)).setText(String.valueOf((Long) playerInfo.get("numScanned")));
+
         }
     }
 
