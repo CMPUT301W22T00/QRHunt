@@ -103,7 +103,7 @@ public class FragmentAddQrCode extends DialogFragment {
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
         } else {
-            showLatLong.setText("LOCATION NOT GIVEN");
+            showLatLong.setText("No Location");
         }
 
         addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);
