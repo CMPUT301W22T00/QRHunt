@@ -114,7 +114,7 @@ public class FragmentAddQrCode extends DialogFragment {
         });
 
 
-        Button okButton = view.findViewById(R.id.qr_scan_profile_ok_button);
+        Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
         okButton.setOnClickListener(__ -> {
             LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
             overlay.setVisibility(View.VISIBLE);
