@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/rec_frame_bg"
+        android:background="@drawable/rec_test_2"
         android:layout_marginTop="@dimen/large_padding"
         app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
 
@@ -52,11 +52,13 @@
                 android:id="@+id/qr_profile_qr_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="45dp"
                 android:fontFamily="@font/quicksand"
-                android:text="XX"
+                android:text="XX pts"
                 android:textColor="@color/accent_blue_light"
                 android:textSize="@dimen/title_size"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -65,7 +67,7 @@
                 android:id="@+id/qr_profile_qr_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/large_padding"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="@dimen/large_padding"
                 android:fontFamily="@font/quicksand"
                 android:text="Latitude, Longitude"
@@ -80,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.25"
-                android:contentDescription="QR Profile Background"
                 android:background="@drawable/rec_frame_bg"
+                android:contentDescription="QR Profile Background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,13 +94,14 @@
                 android:id="@+id/qr_profile_num_scanned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/large_padding"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/quicksand"
                 android:text="Scans: XX"
                 android:textColor="@color/accent_blue_light"
-                android:textSize="@dimen/text_size"
-                app:layout_constraintBaseline_toBaselineOf="@id/qr_profile_qr_location"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
             <ImageView
@@ -106,10 +109,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="Default Image Placeholder"
-                android:src="@mipmap/ic_image_holder"
-                android:elevation="0dp"
                 android:cropToPadding="true"
+                android:elevation="0dp"
                 android:scaleType="centerCrop"
+                android:src="@mipmap/ic_image_holder"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -121,7 +124,8 @@
                 android:id="@+id/qr_profile_player_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/large_padding"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/asap"
                 android:text="User's Username"
                 android:textColor="@color/accent_blue_light"
@@ -132,54 +136,40 @@
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
             <TextView
-                android:id="@+id/qr_profile_caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.3"
-                android:background="@drawable/rec_add_comment"
-                android:fontFamily="@font/asap"
-                android:padding="@dimen/padding"
-                android:text="This will be the user's caption"
-                android:textColor="@color/main_off_white_blue_light"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/qr_profile_player_username"
-                tools:ignore="HardcodedText" />
-
-            <TextView
                 android:id="@+id/qr_profile_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/quicksand"
                 android:padding="@dimen/padding"
                 android:text="Comments"
                 android:textColor="@color/main_off_white_blue_light"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/qr_profile_caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qr_profile_player_username"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/qr_profile_rec_horizontal_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="@dimen/large_padding"
-                android:layout_marginRight="@dimen/large_padding"
                 android:background="@drawable/rec_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/qr_profile_comments" />
 
             <EditText
                 android:id="@+id/qr_profile_add_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:alpha=".3"
                 android:autofillHints=""
-                android:inputType="text"
                 android:background="@drawable/rec_add_comment"
                 android:fontFamily="@font/asap"
                 android:hint="Add comment..."
+                android:inputType="text"
                 android:padding="@dimen/padding"
                 android:textColor="@color/main_off_white_blue_light"
                 android:textSize="12sp"
@@ -188,16 +178,39 @@
                 app:layout_constraintTop_toBottomOf="@id/qr_profile_rec_horizontal_divider"
                 tools:ignore="HardcodedText" />
 
-        <ListView
-            android:id="@+id/qr_profile_comment_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/large_padding"
-            android:layout_marginRight="@dimen/large_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_profile_add_comment" >
+            <ListView
+                android:id="@+id/qr_profile_comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_padding"
+                android:layout_marginRight="@dimen/large_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qr_profile_add_comment">
 
-        </ListView>
+            </ListView>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Option Delete Menu"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/ic_button_vert_dot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Send Comment"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_button_send"
+                app:layout_constraintBottom_toBottomOf="@+id/qr_profile_add_comment"
+                app:layout_constraintEnd_toEndOf="@+id/qr_profile_add_comment"
+                app:layout_constraintTop_toTopOf="@+id/qr_profile_add_comment"
+                tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
