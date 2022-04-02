@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search_bar"
     android:background="@color/background_grey"
+    android:alpha="0.8"
     android:padding="@dimen/small_padding">
 
     <LinearLayout android:id="@+id/search_bar_top_bar"
@@ -21,14 +23,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/padding"
-            android:layout_marginLeft="@dimen/extra_large_padding"
-            />
+            android:layout_marginStart="@dimen/extra_large_padding"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/search_bar_search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rec_fragment_bg"
+            android:background="@drawable/rec_search_username"
             android:hint="@string/search_hint"
             android:padding="@dimen/padding"
             android:layout_marginTop="@dimen/padding"
@@ -37,7 +39,8 @@
             app:layout_constraintLeft_toRightOf="@id/search_bar_back_button"
             app:layout_constraintTop_toTopOf="parent"
             android:lines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:autofillHints="" />
 
         <!--PLEASE CHANGE AHHH-->
         <ProgressBar
