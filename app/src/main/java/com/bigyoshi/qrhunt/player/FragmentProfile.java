@@ -2,6 +2,8 @@ package com.bigyoshi.qrhunt.player;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +107,9 @@ public class FragmentProfile extends Fragment {
         showAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new FragmentQrProfile(i, qrCodesList.get(i), playerInfo).show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+                new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, playerInfo)
+                        .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
+                onPause();
             }
         });
 
@@ -183,5 +187,12 @@ public class FragmentProfile extends Fragment {
         qrCodesAdapter.notifyDataSetChanged();
         db = FirebaseFirestore.getInstance();
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        qrCodesAdapter.notifyDataSetChanged();
+        showAll.invalidate();
     }
 }

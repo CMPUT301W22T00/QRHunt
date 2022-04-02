@@ -29,18 +29,20 @@ public class FragmentQrProfile extends DialogFragment {
 
     private int pos;
     private PlayableQrCode removeQR;
-    private Player playerInfo;
+    private Player viewingPlayer;
+    private Player owner;
 
     /**
      * Constructor method
      *  @param i int
      * @param currentQR QR to remove
-     * @param playerInfo
+     * @param viewingPlayer
      */
-    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player playerInfo) {
+    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player viewingPlayer, Player owner) {
         this.pos = pos;
         this.removeQR = currentQR;
-        this.playerInfo = playerInfo;
+        this.viewingPlayer = viewingPlayer;
+        this.owner = owner;
     }
 
     /**
@@ -81,10 +83,13 @@ public class FragmentQrProfile extends DialogFragment {
         showPic.setCropToPadding(true);
 
         TextView userName = view.findViewById(R.id.qr_profile_player_username);
-        userName.setText(playerInfo.getUsername());
+        userName.setText(viewingPlayer.getUsername());
 
 
         Button deleteButton = view.findViewById(R.id.button_delete);
+        if (viewingPlayer.isAdmin() || viewingPlayer.equals(owner)) {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
         deleteButton.setOnClickListener(view1 -> {
             FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
             parentFrag.libraryRemoveQR(pos, removeQR);
