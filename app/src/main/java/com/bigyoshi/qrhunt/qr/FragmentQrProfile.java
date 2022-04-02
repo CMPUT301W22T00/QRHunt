@@ -28,21 +28,19 @@ import com.squareup.picasso.Picasso;
 public class FragmentQrProfile extends DialogFragment {
 
     private int pos;
-    private PlayableQrCode removeQR;
-    private Player viewingPlayer;
-    private Player owner;
+    private PlayableQrCode currentQR;
+    private Player player;
 
     /**
      * Constructor method
      *  @param i int
      * @param currentQR QR to remove
-     * @param viewingPlayer
+     * @param player
      */
-    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player viewingPlayer, Player owner) {
+    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player player) {
         this.pos = pos;
-        this.removeQR = currentQR;
-        this.viewingPlayer = viewingPlayer;
-        this.owner = owner;
+        this.currentQR = currentQR;
+        this.player = player;
     }
 
     /**
@@ -58,7 +56,7 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display score
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
-        showScore.setText(String.valueOf(removeQR.getScore())+" Points");
+        showScore.setText(String.valueOf(currentQR.getScore())+" Points");
 
         // Display numScan
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
@@ -66,7 +64,7 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);
-        QrLocation qrLocation = removeQR.getLocation();
+        QrLocation qrLocation = currentQR.getLocation();
         if (qrLocation != null) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
@@ -77,31 +75,28 @@ public class FragmentQrProfile extends DialogFragment {
 
         // attach photo
         ImageView showPic = view.findViewById(R.id.qr_profile_image_placeholder);
-        if (removeQR.getImageUrl() != null) {
-            Picasso.get().load(removeQR.getImageUrl()).into(showPic);
+        if (currentQR.getImageUrl() != null) {
+            Picasso.get().load(currentQR.getImageUrl()).into(showPic);
         }
         showPic.setCropToPadding(true);
 
         TextView userName = view.findViewById(R.id.qr_profile_player_username);
-        userName.setText(viewingPlayer.getUsername());
+        userName.setText(player.getUsername());
 
 
         Button deleteButton = view.findViewById(R.id.button_delete);
-        if (viewingPlayer.isAdmin() || viewingPlayer.equals(owner)) {
+        if (player.isAdmin() || player.getPlayerId().matches(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         }
         deleteButton.setOnClickListener(view1 -> {
             FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
-            parentFrag.libraryRemoveQR(pos, removeQR);
+            parentFrag.libraryRemoveQR(pos, currentQR);
             getFragmentManager().beginTransaction().remove(this).commit();
         });
 
         ImageButton backButton = view.findViewById(R.id.qr_profile_back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        backButton.setOnClickListener(view2 -> {
                 getFragmentManager().beginTransaction().remove(FragmentQrProfile.this).commit();
-            }
         });
 
         return view;

@@ -21,7 +21,7 @@ public class QrLibrary implements Serializable {
     private String playerId;
     private transient FirebaseFirestore db;
     private transient ArrayList<PlayableQrCode> qrCodesList;
-    private int scoreSorted; // 0 -> high-low, 1 -> low-high
+    private int scoreSorted; // 1 -> high-low, -1 -> low-high
 
     /**
      * Finds player in database by ID and grabs all QR codes associated w/ them
@@ -30,11 +30,7 @@ public class QrLibrary implements Serializable {
      * @param playerId Current player
      */
     public QrLibrary(FirebaseFirestore db, String playerId){
-        if (playerId != null) {
         this.playerId = playerId;
-        } else {
-            this.playerId = "2Fcbb5fcf4-004b-4fff-8cbb-c7ed0b8749a7";
-        }
         this.db = db;
         update();
     }
@@ -57,7 +53,7 @@ public class QrLibrary implements Serializable {
                 qrCodesList.sort(compareByScore);
             }
         });
-        scoreSorted = 0;
+        scoreSorted = 1;
     }
 
     public ArrayList<PlayableQrCode> getQrCodes() {
@@ -87,7 +83,7 @@ public class QrLibrary implements Serializable {
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
         qrCodesList.sort(compareByScore);
-        scoreSorted = 0;
+        scoreSorted = -1;
         return qrCodesList;
     }
 
