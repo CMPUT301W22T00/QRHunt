@@ -243,8 +243,7 @@
             android:background="@drawable/ic_button_sort"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
-            android:padding="@dimen/padding"
-            android:visibility="invisible"/>
+            android:padding="@dimen/padding"/>
 
         <GridView
             android:orientation="vertical"
