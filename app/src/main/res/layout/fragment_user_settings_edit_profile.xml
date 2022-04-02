@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/padding"
     android:background="@drawable/rec_frame_bg"
+    android:alpha="0.9"
     android:padding="@dimen/large_padding">
 
     <ImageView
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/settings_icon_desc"
         android:padding="@dimen/padding"
-        android:src="@drawable/ic_baseline_edit_24_settings_edit_profile_icon"
+        android:src="@drawable/ic_edit_profile_dark"
         app:layout_constraintBottom_toBottomOf="@id/player_profile_settings_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,10 +25,10 @@
         android:id="@+id/player_profile_settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/asap"
         android:padding="@dimen/padding"
         android:text="@string/edit_profile_title"
-        android:textColor="@color/accent_grey_dark"
+        android:textColor="@color/main_blue"
         android:textSize="@dimen/subtitle_size"
         app:layout_constraintLeft_toRightOf="@id/player_profile_settings_image"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +43,8 @@
         android:id="@+id/player_profile_settings_username_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/asap"
+        android:textStyle="bold"
         android:text="@string/username_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,14 +57,27 @@
         android:id="@+id/player_profile_settings_edit_username_container"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_username_title">
 
+        <ImageView
+            android:id="@+id/edit_profile_username_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pfp_dark"
+            android:scaleY="1.5"
+            android:scaleX="1.5"
+            android:contentDescription="profile icon"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/small_padding"
+            tools:ignore="HardcodedText" />
+
         <EditText
             android:id="@+id/player_profile_settings_edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="username"
-            android:background="@drawable/rounded_rectangle_edit_text"
-            android:fontFamily="@font/quicksand"
+            android:fontFamily="@font/asap"
             android:hint="@string/username_hint"
+            android:textColorHint="@color/accent_grey_blue_dark"
             android:inputType="text"
             android:maxLength="20"
             android:padding="@dimen/padding"
@@ -70,7 +85,7 @@
             android:textSize="@dimen/subtitle_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_toEndOf="@id/edit_profile_username_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
@@ -99,68 +114,109 @@
         android:id="@+id/player_profile_settings_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/asap"
+        android:textStyle="bold"
         android:text="@string/email_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
-    <EditText
-        android:id="@+id/player_profile_settings_edit_email"
+    <LinearLayout
+        android:id="@+id/edit_profile_email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="emailAddress"
-        android:background="@drawable/rounded_rectangle_edit_text"
-        android:fontFamily="@font/quicksand"
-        android:hint="@string/email_hint"
-        android:inputType="textEmailAddress"
-        android:padding="@dimen/padding"
-        android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" >
 
+        <ImageView
+            android:id="@+id/edit_profile_email_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_email"
+            android:scaleY="1.5"
+            android:scaleX="1.5"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="email icon"
+            android:padding="@dimen/small_padding"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/player_profile_settings_edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:fontFamily="@font/asap"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/padding"
+            android:textColor="@color/accent_grey_blue_dark"
+            android:textColorHint="@color/accent_grey_blue_dark"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintStart_toEndOf="@id/edit_profile_email_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
+
+    </LinearLayout>
     <Space
         android:id="@+id/player_profile_settings_low_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_email" />
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_email_layout" />
 
     <TextView
         android:id="@+id/player_profile_settings_social_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/asap"
+        android:textStyle="bold"
         android:text="@string/socials_title"
         android:textSize="@dimen/small_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
 
-    <EditText
-        android:id="@+id/player_profile_settings_edit_social"
+    <LinearLayout
+        android:id="@+id/edit_profile_social_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rectangle_edit_text"
-        android:fontFamily="@font/quicksand"
-        android:hint="@string/socials_hint"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:padding="@dimen/padding"
-        android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" />
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" >
+
+        <ImageView
+            android:id="@+id/edit_profile_social_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_social_media_handle"
+            android:scaleY="1.5"
+            android:scaleX="1.5"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="socials/share icon"
+            android:padding="@dimen/small_padding"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/player_profile_settings_edit_social"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/asap"
+            android:hint="@string/socials_hint"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:padding="@dimen/padding"
+            android:textColor="@color/accent_grey_blue_dark"
+            android:textColorHint="@color/accent_grey_blue_dark"
+            android:textSize="@dimen/subtitle_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_social_title" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/player_profile_settings_end_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_edit_social">
+        app:layout_constraintTop_toBottomOf="@id/edit_profile_social_layout">
         <!-- this serves solely to push buttons to end -->
 
         <View

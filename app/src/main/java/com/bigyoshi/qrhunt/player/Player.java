@@ -57,7 +57,6 @@ public class Player implements Serializable {
         rankInfo = new RankInfo();
         bestScoringQr = new BestQr();
         bestUniqueQr = new BestQr();
-
         this.context = context;
         this.totalScore = 0;
         this.username = generateUsername(context);
@@ -255,7 +254,6 @@ public class Player implements Serializable {
                     rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
                     rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
                 }
-
                 // code duplication is cool 😎
                 Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
                 if (bestScoringQrMap != null) {
@@ -267,7 +265,6 @@ public class Player implements Serializable {
                     bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
                     bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
                 }
-
                 totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
                 username = (String) doc.getData().get("username");
             }
