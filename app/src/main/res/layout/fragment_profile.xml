@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/player_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/accent_grey_dark"
@@ -256,6 +256,14 @@
                 android:verticalSpacing="@dimen/large_padding"
                 app:layout_constraintDimensionRatio="H,1:1.5"
                 app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button"></GridView>
+
+            <ImageButton
+                android:id="@+id/player_profile_unique_flag"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/ic_flag_unique"
+                tools:layout_editor_absoluteX="252dp"
+                tools:layout_editor_absoluteY="412dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
