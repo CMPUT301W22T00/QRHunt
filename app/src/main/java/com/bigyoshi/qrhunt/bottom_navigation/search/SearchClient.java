@@ -2,27 +2,23 @@ package com.bigyoshi.qrhunt.bottom_navigation.search;
 
 import android.util.Log;
 
-import com.bigyoshi.qrhunt.player.UniqueUsernameVerifier;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FindUsers {
-    private final String TAG = FindUsers.class.getSimpleName();
+public class SearchClient {
+    private final String TAG = SearchClient.class.getSimpleName();
     private final Integer VERIFICATION_DELAY = 500;
     private final String username;
     private final String playerId;
-    private FindUsers.UsernameResultsFound onUsernameVerificationResults;
+    private SearchClient.UsernameResultsFound onUsernameVerificationResults;
     private boolean cancelled;
     private String userScore;
 
-    public FindUsers(String username, String playerId) {
+    public SearchClient(String username, String playerId) {
         this.username = username;
         this.playerId = playerId;
     }
@@ -35,11 +31,11 @@ public class FindUsers {
         return cancelled;
     }
 
-    public void setOnUsernameVerificationResults(FindUsers.UsernameResultsFound onUsernameVerificationResults) {
+    public void setOnSearchResults(SearchClient.UsernameResultsFound onUsernameVerificationResults) {
         this.onUsernameVerificationResults = onUsernameVerificationResults;
     }
 
-    public void scheduleUniqueUsernameVerification() {
+    public void scheduleSearchQuery() {
         Log.d(TAG, String.format("scheduling to run verification on \"%s\" in %d ms", username, VERIFICATION_DELAY));
         new Timer()
                 .schedule(new TimerTask() {

@@ -1,9 +1,7 @@
 package com.bigyoshi.qrhunt.bottom_navigation.search;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,12 +24,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.MainActivity;
-import com.bigyoshi.qrhunt.player.FragmentPlayerProfileSetting;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
-import com.bigyoshi.qrhunt.player.UniqueUsernameVerifier;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -50,7 +46,7 @@ public class FragmentSearch extends Fragment {
     private ImageButton back;
     private EditText searchBar;
     private ProgressBar searchProgressBar;
-    private FindUsers verifier;
+    private SearchClient searchClient;
     private ListView searchResults;
     private ArrayList<Player> searchList =new ArrayList<>();
     private ArrayAdapter<Player> searchAdapter;
@@ -116,30 +112,30 @@ public class FragmentSearch extends Fragment {
                             searchProgressBar.setVisibility(View.VISIBLE);
                         }
 
-                        if (verifier != null) {
-                            verifier
+                        if (searchClient != null) {
+                            searchClient
                                     .cancel(); // make sure we aren't getting old results late that
                             // enable the save button
                         }
                         if (charSequence.length() > 0) {
-                            verifier =
-                                    new FindUsers(
+                            searchClient =
+                                    new SearchClient(
                                             charSequence.toString(), player.getPlayerId());
-                            verifier.setOnUsernameVerificationResults(
-                                    isUnique -> {
-                                        if (isUnique == null) {
+                            searchClient.setOnSearchResults(
+                                    docs -> {
+                                        if (docs == null) {
                                             Log.d(TAG,charSequence + " determined to be no existing user");
                                         } else {
                                             Log.d(TAG,charSequence + " determined to be an existing user");
                                             // isUnique is now the player id
-                                            for (DocumentSnapshot var : isUnique){
-                                                Player found = new Player(var.getId());
+                                            for (DocumentSnapshot doc : docs){
+                                                Player found = Player.fromDoc(doc);
                                                 searchAdapter.add(found);
                                             }
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);
                                     });
-                            verifier.scheduleUniqueUsernameVerification();
+                            searchClient.scheduleSearchQuery();
                         } else {
                             searchProgressBar.setVisibility(View.INVISIBLE);
                         }
