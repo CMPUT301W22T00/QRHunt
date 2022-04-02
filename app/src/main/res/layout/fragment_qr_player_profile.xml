@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/rec_test_2"
+        android:background="@drawable/rec_frame_bg_test_2"
         android:layout_marginTop="@dimen/large_padding"
         app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
 
@@ -67,7 +67,7 @@
                 android:id="@+id/qr_profile_qr_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="@dimen/small_padding"
                 android:layout_marginTop="@dimen/large_padding"
                 android:fontFamily="@font/quicksand"
                 android:text="Latitude, Longitude"
