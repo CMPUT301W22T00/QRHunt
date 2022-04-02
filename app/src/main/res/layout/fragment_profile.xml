@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/player_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/accent_grey_dark"
@@ -32,7 +32,7 @@
                 android:id="@+id/player_profile_contact_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_pfp_light"
+                android:background="@drawable/ic_pfp_highlight"
                 android:padding="@dimen/padding"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -87,16 +87,6 @@
                     android:textSize="@dimen/title_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/player_profile_game_status_qr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_button_generate_profile"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/player_profile_username_title"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,7 +246,34 @@
                 android:verticalSpacing="@dimen/large_padding"
                 app:layout_constraintDimensionRatio="H,1:1.5"
                 app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button"></GridView>
+            <!-- to be changed
+            <ImageButton
+                android:id="@+id/player_profile_unique_flag"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/ic_flag_unique"
+                tools:layout_editor_absoluteX="252dp"
+                tools:layout_editor_absoluteY="412dp"
+                android:visibility="gone"/>
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/ic_flag_unique_og"
+                tools:layout_editor_absoluteX="151dp"
+                tools:layout_editor_absoluteY="418dp"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/ic_flag_scanned_og"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="420dp"
+                android:visibility="gone" />
+                -->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
