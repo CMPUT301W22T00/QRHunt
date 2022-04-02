@@ -7,20 +7,14 @@
     android:layout_height="match_parent"
     android:padding="3dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="5dp"
-        app:layout_constraintDimensionRatio="H,1:1"
-        android:background="@drawable/rec_button_take_photo"
-        tools:ignore="MissingConstraints" />
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/qr_grid_image_view_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/rec_button_take_photo"
+        android:backgroundTint="@color/transparent"
         app:layout_constraintDimensionRatio="H,1:1"
-        app:srcCompat="@mipmap/ic_image_holder"
+        app:srcCompat="@drawable/ic_image_gallery"
         android:scaleType="centerCrop"
         tools:ignore="MissingConstraints"
         app:shapeAppearanceOverlay="@style/ImageView.Corner"/>

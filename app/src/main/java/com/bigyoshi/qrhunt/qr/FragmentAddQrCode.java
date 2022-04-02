@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -102,7 +103,7 @@ public class FragmentAddQrCode extends DialogFragment {
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
         } else {
-            showLatLong.setText("LOCATION NOT GIVEN");
+            showLatLong.setText("No Location");
         }
 
         addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);

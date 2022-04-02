@@ -59,10 +59,6 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
         ImageView imageView = view.findViewById(R.id.qr_grid_image_view_two);
         if (qrCode.getImageUrl() != null) {
             Picasso.get().load(qrCode.getImageUrl()).into(imageView);
-        } else {
-            Drawable icon = ContextCompat.getDrawable(context,
-                    R.drawable.ic_baseline_photo_camera_24_light_off_white_blue);
-            imageView.setImageDrawable(icon);
         }
         imageView.setCropToPadding(true); // Crop to the center
         // Display the score under the image
