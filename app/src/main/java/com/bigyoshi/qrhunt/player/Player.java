@@ -40,7 +40,8 @@ public class Player implements Serializable {
     private String username;
     private Contact contact;
     private Boolean admin;
-    // todo Fix this
+    // TODO: fix this. In theory, QrLibrary is _perfectly_ serializable. The android runtime disagrees
+    // we're leaving it this way for now because confusingly, everything seems to work
     public transient QrLibrary qrLibrary;
     private String playerId = null;
     private transient Context context;
