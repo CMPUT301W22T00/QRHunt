@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:tint="@color/main_off_white_blue_light"
+    android:src="@drawable/rec_frame_bg"
+    android:alpha="25">
+
+</bitmap>
