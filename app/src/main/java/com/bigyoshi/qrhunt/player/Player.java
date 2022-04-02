@@ -68,8 +68,7 @@ public class Player implements Serializable {
 
     }
 
-<<<<<<< HEAD
-    public Player(String playerId){
+    public Player(String playerId) {
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
         this.playerId = playerId;
@@ -78,8 +77,12 @@ public class Player implements Serializable {
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, getPlayerId());
+        this.rankInfo = new RankInfo();
+        this.bestScoringQr = new BestQr();
+        this.bestUniqueQr = new BestQr();
         initialize();
-=======
+    }
+
     public BestQr getBestUniqueQr() {
         return bestUniqueQr;
     }
@@ -90,7 +93,6 @@ public class Player implements Serializable {
 
     public RankInfo getRankInfo() {
         return rankInfo;
->>>>>>> main
     }
 
     /**
@@ -269,7 +271,7 @@ public class Player implements Serializable {
                     rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
                     rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
                 }
-                // code duplication is cool 😎
+                // code duplication is cool 😎 idk about that
                 Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
                 if (bestScoringQrMap != null) {
                     bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
