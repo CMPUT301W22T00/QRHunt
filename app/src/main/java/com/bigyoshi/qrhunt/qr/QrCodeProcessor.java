@@ -8,6 +8,7 @@ import android.location.Location;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -40,10 +41,10 @@ public class QrCodeProcessor {
 
     /**
      * Constructor method
-     *
+     * @param player Current Player
      * @param frag     TBA
      * @param text     QR Content
-     * @param playerId Current player's unique id
+     * @param playerId
      */
     public QrCodeProcessor(Fragment frag, String text, String playerId) {
         this.frag = frag;

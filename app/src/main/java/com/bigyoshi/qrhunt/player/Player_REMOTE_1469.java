@@ -68,18 +68,6 @@ public class Player implements Serializable {
 
     }
 
-<<<<<<< HEAD
-    public Player(String playerId){
-        db = FirebaseFirestore.getInstance();
-        collectionReference = db.collection("users");
-        this.playerId = playerId;
-        this.totalScore = 0;
-        this.username = "";
-        this.admin = false;
-        this.contact = new Contact();
-        this.qrLibrary = new QrLibrary(db, getPlayerId());
-        initialize();
-=======
     public BestQr getBestUniqueQr() {
         return bestUniqueQr;
     }
@@ -90,7 +78,6 @@ public class Player implements Serializable {
 
     public RankInfo getRankInfo() {
         return rankInfo;
->>>>>>> main
     }
 
     /**

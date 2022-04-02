@@ -4,10 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,26 +75,32 @@ public class FragmentScanner extends Fragment {
         codeScanner = new CodeScanner(activity, scannerView);
 
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.PREVIEW);
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
+
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
-            camera.processQRCode();
             codeScanner.setScanMode(ScanMode.PREVIEW);
-            codeScanner.startPreview();
+            camera.processQRCode();
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    codeScanner.setScanMode(ScanMode.CONTINUOUS);
+                }
+            }, 2000);
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
-
-        scannerView.setOnClickListener(view -> {
-            codeScanner.startPreview();
-            codeScanner.setScanMode(ScanMode.SINGLE);
-        });
         return root;
+    }
+
+    public void startScanner() {
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
     }
 
     /**
@@ -159,4 +168,3 @@ public class FragmentScanner extends Fragment {
         }
     }
 }
-
