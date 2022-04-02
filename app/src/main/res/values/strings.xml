@@ -38,6 +38,7 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="save">Save</string>
+    <string name="no_location">No Location</string>
     <string name="settings_icon_desc">settings</string>
 
     <!-- for search -->
