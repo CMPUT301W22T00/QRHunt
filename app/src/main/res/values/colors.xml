@@ -33,6 +33,8 @@
     <color name="accent_grey_dark_70op">#b236393f</color>
     <color name="main_off_white_blue_light_25op">#40d2dae2</color>
 
+    <color name="main_red_midtone">#f85f6a</color>
+
     <color name="transparent">#00000000</color>
 
 </resources>
