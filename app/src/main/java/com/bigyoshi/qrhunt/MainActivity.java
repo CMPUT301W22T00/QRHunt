@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
-        player = new SelfPlayer(this, null);
+        player = new SelfPlayer(this);
         // This will check if the player already has an account
         if (!player.getPlayerId().matches("")){
             player.initialize();

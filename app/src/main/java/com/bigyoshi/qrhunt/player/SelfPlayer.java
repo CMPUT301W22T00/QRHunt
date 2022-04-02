@@ -18,17 +18,15 @@ public class SelfPlayer extends Player {
     private static final String TAG = SelfPlayer.class.getSimpleName();
     private final Context context;
 
-    public SelfPlayer(Context context, String playerId) {
-        super(context, playerId);
+    public SelfPlayer(Context context) {
+        super(context, null);
         this.context = context;
     }
 
     public String getPlayerId() {
         // fetched lazily, but only once
         if (playerId == null) {
-            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,
-                    Context.MODE_PRIVATE);
-
+            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
             playerId = sharedPreferences.getString(PLAYER_ID_PREF, "");
             // generated lazily, only once
             if (playerId.isEmpty()) {
