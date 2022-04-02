@@ -28,6 +28,7 @@ import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -144,14 +145,16 @@ public class FragmentSearch extends Fragment {
                 FragmentProfile profile = new FragmentProfile();
 
                 Bundle bundle = new Bundle();
+
+                // todo: actually make this make sense and act on it
+                bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
                 profile.setArguments(bundle);
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.search_bar, profile, "profile");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.search_bar, profile, "profile")
+                        .addToBackStack(null).commit();
             }
         });
 

@@ -40,6 +40,7 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
  * implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
  */
 public class FragmentProfile extends Fragment {
+    public static final String IS_OWN_PROFILE = "isOwnProfile";
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
     private TextView username;
