@@ -27,6 +27,7 @@ import com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
+import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
-        player = new Player(this);
+        player = new SelfPlayer(this);
         // This will check if the player already has an account
         if (!player.getPlayerId().matches("")){
             player.initialize();

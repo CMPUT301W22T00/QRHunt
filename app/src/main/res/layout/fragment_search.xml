@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="horizontal">
 
         <ImageButton android:id="@+id/search_bar_back_button"
             android:layout_width="wrap_content"
@@ -41,6 +42,16 @@
             android:lines="1"
             android:inputType="text"
             android:autofillHints="" />
+
+        <!--PLEASE CHANGE AHHH-->
+        <ProgressBar
+            android:id="@+id/search_bar_progress_bar"
+            android:layout_width="37dp"
+            android:layout_height="40dp"
+            android:translationX="-80dp"
+            android:translationY="8dp"
+            android:padding="@dimen/small_padding"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
