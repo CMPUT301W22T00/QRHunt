@@ -8,19 +8,18 @@ import android.util.Log;
 
 import com.bigyoshi.qrhunt.R;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.UUID;
 
 // class specifically for the player themselves
-public class SelfPlayer extends Player {
+public class SelfPlayer extends Player implements Serializable {
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String PLAYER_ID_PREF = "playerId";
     private static final String TAG = SelfPlayer.class.getSimpleName();
-    private final Context context;
 
     public SelfPlayer(Context context) {
-        super(context, null);
-        this.context = context;
+        super(null, context);
     }
 
     public String getPlayerId() {

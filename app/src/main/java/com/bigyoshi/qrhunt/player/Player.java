@@ -1,14 +1,10 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,8 +17,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
 
 /**
  * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
@@ -48,12 +42,14 @@ public class Player implements Serializable {
     // we're leaving it this way for now because confusingly, everything seems to work
     public transient QrLibrary qrLibrary;
 
+    protected final transient Context context;
     /**
      * Constructor method
      *
      * @param context context
      */
-    public Player(Context context, String playerId) {
+    public Player(String playerId, Context context) {
+        this.context = context;
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
 
@@ -68,13 +64,13 @@ public class Player implements Serializable {
     }
 
     public static Player fromPlayerId(String playerId) {
-        Player player = new Player(null, playerId);
+        Player player = new Player(playerId, null);
         player.initialize();
         return player;
     }
 
     public static Player fromDoc(DocumentSnapshot doc) {
-        Player player = new Player(null, doc.getId());
+        Player player = new Player(doc.getId(), null);
         player.setPropsFromDoc(doc);
         return player;
     }

@@ -5,22 +5,20 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SearchClient {
     private final String TAG = SearchClient.class.getSimpleName();
-    private final Integer VERIFICATION_DELAY = 500;
     private final String username;
-    private final String playerId;
-    private SearchClient.UsernameResultsFound onUsernameVerificationResults;
+    private SearchClient.UsernameResultsFound onSearchResults;
     private boolean cancelled;
     private String userScore;
 
-    public SearchClient(String username, String playerId) {
-        this.username = username;
-        this.playerId = playerId;
+    public SearchClient(String usernameQuery) {
+        this.username = usernameQuery;
     }
 
     public void cancel() {
@@ -31,12 +29,16 @@ public class SearchClient {
         return cancelled;
     }
 
-    public void setOnSearchResults(SearchClient.UsernameResultsFound onUsernameVerificationResults) {
-        this.onUsernameVerificationResults = onUsernameVerificationResults;
+    public void setOnSearchResults(SearchClient.UsernameResultsFound onSearchResults) {
+        this.onSearchResults = onSearchResults;
     }
 
     public void scheduleSearchQuery() {
-        Log.d(TAG, String.format("scheduling to run verification on \"%s\" in %d ms", username, VERIFICATION_DELAY));
+        int VERIFICATION_DELAY = 500;
+        // Full text search isn't supported that would be too easy.
+        // Instead, we can hack around it with a prefix search
+        String usernameBoundary = username.substring(0, username.length() - 1) + Character.toChars(Character.codePointAt(username, username.length() - 1) + 1)[0];
+        Log.d(TAG, String.format("scheduling to search for \"%s\" with end at \"%s\" in %d ms", username, usernameBoundary, VERIFICATION_DELAY));
         new Timer()
                 .schedule(new TimerTask() {
                     @Override
@@ -44,27 +46,23 @@ public class SearchClient {
                         if (!cancelled) {
                             if (username.isEmpty()) {
                                 // don't allow/verify empty usernames
-                                onUsernameVerificationResults.onResults(null);
+                                onSearchResults.onResults(null);
                             } else {
                                 FirebaseFirestore.getInstance()
                                         .collection("users")
-                                        .whereEqualTo("username", username)
+                                        .whereGreaterThanOrEqualTo("username", username)
+                                        .whereLessThan("username", usernameBoundary)
                                         .get()
                                         .addOnCompleteListener(
                                                 qSnapshot -> {
-                                                    if (qSnapshot.isSuccessful()
-                                                            && !isCancelled()) {
-                                                        if (qSnapshot.getResult().isEmpty()) {
-                                                            onUsernameVerificationResults
-                                                                    .onResults(null);
-                                                            return;
-                                                        }
-
+                                                    if (cancelled) {
+                                                        return;
                                                     }
-                                                    List<DocumentSnapshot> resultList = qSnapshot.getResult().getDocuments();
-                                                    onUsernameVerificationResults.onResults(
-                                                            resultList);
-
+                                                    if (qSnapshot.isSuccessful()) {
+                                                        onSearchResults.onResults(qSnapshot.getResult().getDocuments());
+                                                    } else {
+                                                        onSearchResults.onResults(new ArrayList<>());
+                                                    }
                                                 });
                             }
                         }

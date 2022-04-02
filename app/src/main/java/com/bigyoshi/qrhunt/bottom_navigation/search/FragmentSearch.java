@@ -48,7 +48,7 @@ public class FragmentSearch extends Fragment {
     private ProgressBar searchProgressBar;
     private SearchClient searchClient;
     private ListView searchResults;
-    private ArrayList<Player> searchList =new ArrayList<>();
+    private ArrayList<Player> searchList = new ArrayList<>();
     private ArrayAdapter<Player> searchAdapter;
 
     public FragmentSearch(Player player, int id) {
@@ -118,20 +118,13 @@ public class FragmentSearch extends Fragment {
                             // enable the save button
                         }
                         if (charSequence.length() > 0) {
-                            searchClient =
-                                    new SearchClient(
-                                            charSequence.toString(), player.getPlayerId());
+                            searchClient = new SearchClient(charSequence.toString());
                             searchClient.setOnSearchResults(
                                     docs -> {
-                                        if (docs == null) {
-                                            Log.d(TAG,charSequence + " determined to be no existing user");
-                                        } else {
-                                            Log.d(TAG,charSequence + " determined to be an existing user");
-                                            // isUnique is now the player id
-                                            for (DocumentSnapshot doc : docs){
-                                                Player found = Player.fromDoc(doc);
-                                                searchAdapter.add(found);
-                                            }
+                                        Log.d(TAG, String.format("Found %d users for search query %s", docs.size(), searchClient));
+                                        for (DocumentSnapshot doc : docs) {
+                                            Player found = Player.fromDoc(doc);
+                                            searchAdapter.add(found);
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);
                                     });
@@ -144,7 +137,7 @@ public class FragmentSearch extends Fragment {
                     @Override
                     public void afterTextChanged(Editable editable) {}
                 });
-        
+
         searchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> searchAdapter, View view, int i, long l) {
@@ -161,7 +154,6 @@ public class FragmentSearch extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
 
 
         return root;
