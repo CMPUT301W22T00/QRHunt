@@ -6,21 +6,19 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -37,10 +35,15 @@ public class Player implements Serializable {
     private transient CollectionReference collectionReference;
 
     private int totalScore;
+    private final RankInfo rankInfo;
+    private final BestQr bestUniqueQr;
+    private final BestQr bestScoringQr;
     private String username;
     private Contact contact;
     private Boolean admin;
-    public QrLibrary qrLibrary;
+    // TODO: fix this. In theory, QrLibrary is _perfectly_ serializable. The android runtime disagrees
+    // we're leaving it this way for now because confusingly, everything seems to work
+    public transient QrLibrary qrLibrary;
     private String playerId = null;
     private transient Context context;
 
@@ -53,6 +56,9 @@ public class Player implements Serializable {
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
 
+        rankInfo = new RankInfo();
+        bestScoringQr = new BestQr();
+        bestUniqueQr = new BestQr();
         this.context = context;
         this.totalScore = 0;
         this.username = generateUsername(context);
@@ -60,6 +66,18 @@ public class Player implements Serializable {
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, getPlayerId());
 
+    }
+
+    public BestQr getBestUniqueQr() {
+        return bestUniqueQr;
+    }
+
+    public BestQr getBestScoringQr() {
+        return bestScoringQr;
+    }
+
+    public RankInfo getRankInfo() {
+        return rankInfo;
     }
 
     /**
@@ -216,31 +234,43 @@ public class Player implements Serializable {
      *
      */
     public void initialize() {
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
-                                @Nullable FirebaseFirestoreException error) {
-                for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
-                    if (doc.getId().matches(playerId)) {
-                        Log.d(TAG, String.valueOf(doc.getData().get("admin")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("contact")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
-                        Log.d(TAG, String.valueOf(doc.getData().get("username")));
+        collectionReference.document(playerId).addSnapshotListener((EventListener<DocumentSnapshot>) (doc, error) -> {
+            if (error == null && doc != null && doc.getData() != null) {
+                Log.d(TAG, String.valueOf(doc.getData().get("admin")));
+                Log.d(TAG, String.valueOf(doc.getData().get("contact")));
+                Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
+                Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
-                        admin = (Boolean) doc.getData().get("admin");
+                admin = (Boolean) doc.getData().get("admin");
 
-                        HashMap<String,String> contactMap = (HashMap<String,String>)
-                                doc.getData().get("contact");
-
-                        contact.setEmail(contactMap.get("email"));
-                        contact.setSocial(contactMap.get("social"));
-                        totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
-                        username = (String) doc.getData().get("username");
-                    }
+                HashMap<String,String> contactMap = (HashMap<String,String>)
+                        doc.getData().get("contact");
+                if (contact != null) {
+                    contact.setEmail(contactMap.get("email"));
+                    contact.setSocial(contactMap.get("social"));
                 }
+
+                Map<String, Long> rankInfoMap = (HashMap<String, Long>) doc.get("rank");
+                if (rankInfoMap != null) {
+                    rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
+                    rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
+                    rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
+                }
+                // code duplication is cool 😎
+                Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
+                if (bestScoringQrMap != null) {
+                    bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
+                    bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
+                }
+                Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) doc.get("bestUniqueQr");
+                if (bestUniqueQrMap != null) {
+                    bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
+                    bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
+                }
+                totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
+                username = (String) doc.getData().get("username");
             }
         });
-
     }
 
     /**

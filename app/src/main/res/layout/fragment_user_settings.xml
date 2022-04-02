@@ -7,17 +7,11 @@
     android:padding="@dimen/padding"
     android:id="@+id/player_settings">
 
-    <LinearLayout android:id="@+id/player_settings_title_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        >
+
         <ImageView android:id="@+id/player_settings_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_back_24_light_off_white_blue"
+            android:src="@drawable/ic_button_back"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/player_profile_settings_spacer"
@@ -30,7 +24,7 @@
             android:id="@+id/player_settings_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand"
+            android:fontFamily="@font/asap"
             android:text="@string/title_settings"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/title_size"
@@ -39,12 +33,12 @@
             app:layout_constraintTop_toTopOf="parent"
             android:padding="@dimen/padding"
             android:layout_gravity="center_vertical"/>
-    </LinearLayout>
+
 
     <Space android:id="@+id/player_profile_settings_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_title_section"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_title"/>
 
     <LinearLayout android:id="@+id/player_settings_edit_profile"
         android:layout_width="match_parent"
@@ -56,16 +50,16 @@
         <ImageView android:id="@+id/player_settings_edit_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_edit_24_light_off_white_blue"
+            android:src="@drawable/ic_edit_profile_light"
             android:layout_gravity="bottom"
             android:padding="@dimen/padding"/>
 
         <TextView android:id="@+id/player_settings_edit_profile_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/main_blue"
+            android:textColor="@color/accent_blue_light"
             android:text="@string/settings_edit_profile"
-            android:fontFamily="@font/quicksand"
+            android:fontFamily="@font/asap"
             android:textSize="@dimen/subtitle_size"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/padding"
@@ -77,45 +71,45 @@
         android:layout_height="@dimen/space"
         app:layout_constraintTop_toBottomOf="@id/player_settings_edit_profile"/>
 
-    <LinearLayout android:id="@+id/player_settings_log_in_qr"
+    <LinearLayout android:id="@+id/player_settings_share_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
         app:layout_constraintLeft_toLeftOf="parent"
         >
-    <ImageView android:id="@+id/player_settings_qr_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_exit_to_app_light_off_white_blue"
-        app:layout_constraintTop_toBottomOf="@+id/player_profile_settings_low_spacer"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/padding"
-        android:layout_gravity="bottom"/>
+        <ImageView android:id="@+id/player_settings_share_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_share_light"
+            app:layout_constraintTop_toBottomOf="@+id/player_profile_settings_low_spacer"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:padding="@dimen/padding"
+            android:layout_gravity="bottom"/>
 
-    <TextView android:id="@+id/player_settings_log_in_qr_clickable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_generate_qr"
-        android:fontFamily="@font/quicksand"
-        android:textSize="@dimen/subtitle_size"
-        android:textColor="@color/main_blue"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer"
-        app:layout_constraintLeft_toRightOf="@id/player_settings_qr_image"
-        android:padding="@dimen/padding"
-        android:layout_gravity="center_vertical"/>
+        <TextView android:id="@+id/player_settings_log_in_qr_clickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_share_profile"
+            android:fontFamily="@font/asap"
+            android:textSize="@dimen/subtitle_size"
+            android:textColor="@color/accent_blue_light"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer"
+            app:layout_constraintLeft_toRightOf="@id/player_settings_share_image"
+            android:padding="@dimen/padding"
+            android:layout_gravity="center_vertical"/>
+
     </LinearLayout>
 
     <Space android:id="@+id/player_profile_settings_low_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_log_in_qr"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_share_profile_layout"/>
 
-    <LinearLayout android:id="@+id/player_settings_delete_line"
+    <LinearLayout android:id="@+id/player_settings_register_device_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer"
         app:layout_constraintLeft_toLeftOf="parent"
         >
@@ -123,7 +117,7 @@
         <ImageView android:id="@+id/player_settings_delete_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_photo_camera_24_light_off_white_blue"
+            android:src="@drawable/ic_generate_qr"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
             android:padding="@dimen/padding"
@@ -132,9 +126,9 @@
         <TextView android:id="@+id/player_settings_delete_profile_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/main_blue"
-            android:text="@string/settings_delete_profile"
-            android:fontFamily="@font/quicksand"
+            android:textColor="@color/accent_blue_light"
+            android:text="@string/settings_register_new_device"
+            android:fontFamily="@font/asap"
             android:textSize="@dimen/subtitle_size"
             app:layout_constraintLeft_toRightOf="@id/player_settings_change_profile_picture_image"
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
@@ -145,7 +139,7 @@
     <Space android:id="@+id/player_settings_below_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_delete_line"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_register_device_layout"/>
 
     <LinearLayout android:id="@+id/player_settings_picture_line"
         android:layout_width="match_parent"
