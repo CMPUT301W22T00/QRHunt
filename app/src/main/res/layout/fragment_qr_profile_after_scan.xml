@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
+    android:alpha="0.9"
     android:layout_height="fill_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/main_off_white_blue_light"
-        android:padding="@dimen/large_padding"
         android:alpha="0.9"
+        android:padding="@dimen/large_padding"
         tools:context=".qr.FragmentQrProfileAfterScan">
 
         <TextView
