@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,14 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Comment;
+
+import java.util.ArrayList;
 
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
@@ -73,17 +82,18 @@ public class FragmentQrProfile extends DialogFragment {
             showLatLong.setText("LOCATION NOT GIVEN");
         }
 
-        // attach photo
+        // Attach Image
         ImageView showPic = view.findViewById(R.id.qr_profile_image_placeholder);
         if (currentQR.getImageUrl() != null) {
             Picasso.get().load(currentQR.getImageUrl()).into(showPic);
         }
         showPic.setCropToPadding(true);
 
+        // Display Username
         TextView userName = view.findViewById(R.id.qr_profile_player_username);
         userName.setText(player.getUsername());
 
-
+        // Delete QR Button, Only visible when the player own the QR or they are an admin
         Button deleteButton = view.findViewById(R.id.button_delete);
         if (player.isAdmin() || player.getPlayerId().matches(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
@@ -94,9 +104,42 @@ public class FragmentQrProfile extends DialogFragment {
             getFragmentManager().beginTransaction().remove(this).commit();
         });
 
+        // Back Button
         ImageButton backButton = view.findViewById(R.id.qr_profile_back_button);
         backButton.setOnClickListener(view2 -> {
-                getFragmentManager().beginTransaction().remove(FragmentQrProfile.this).commit();
+            getFragmentManager().beginTransaction().remove(FragmentQrProfile.this).commit();
+        });
+
+        // Display Comments
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ListView commentList = view.findViewById(R.id.qr_profile_comment_list);
+        ArrayList<QRComment> comments = new ArrayList();
+        QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
+
+        db.collection("users").document(currentQR.getId()).collection("comments")
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            if (doc.exists()) {
+                                QRComment comment = doc.toObject(QRComment.class);
+                                comments.add(comment);
+                            }
+                        }
+                    }
+                });
+        commentList.setAdapter(commentAdapter);
+
+
+        // Add QRComment
+        ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
+        commentButton.setOnClickListener(view3 -> {
+            EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
+            String stuff = newCommentText.getText().toString();
+            QRComment newComment = new QRComment(stuff, player.getUsername());
+            comments.add(newComment);
+            db.collection("users").document(currentQR.getId())
+                    .collection("comments").add(newComment);
+            commentAdapter.notifyDataSetChanged();
         });
 
         return view;
