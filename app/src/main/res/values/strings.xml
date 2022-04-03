@@ -28,8 +28,8 @@
     <string name="socials_hint">eg. Instagram, Twitch URL</string>
 
     <!-- for profile -->
-    <string name="profile_title">Profile</string>
-    <string name="profile_rank_title">Rank</string>
+    <string name="username_profile_title">Username</string>
+    <string name="profile_rank_title">Total Score Rank</string>
     <string name="codes_scanned_title">QR Codes Scanned</string>
     <string name="highest_unique_title">Highest Unique QR</string>
 
