@@ -9,6 +9,7 @@
     <dimen name="statement_padding">80dp</dimen>
     <dimen name="statement_padding_big">100dp</dimen>
     <dimen name="small_padding">4dp</dimen>
+    <dimen name="extra_small_padding">2dp</dimen>
     <dimen name="bottom_nav_icons">35dp</dimen>
 
     <dimen name="space">8dp</dimen>
