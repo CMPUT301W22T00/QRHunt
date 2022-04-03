@@ -17,6 +17,7 @@
     <dimen name="large_space">16dp</dimen>
 
     <dimen name="title_size">32sp</dimen>
+    <dimen name="title_size_medium">28sp</dimen>
     <dimen name="title_size_small">26sp</dimen>
     <dimen name="subtitle_size">24sp</dimen>
     <dimen name="subtitle_size_small">20sp</dimen>

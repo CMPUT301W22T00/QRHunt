@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/transparent"
-    android:layout_margin="@dimen/large_padding">
+    android:layout_margin="@dimen/large_padding"
+    android:background="@color/transparent">
 
-    <TextView android:id="@+id/qr_profile_comment_content"
-        android:text="Username"
-        android:fontFamily="@font/quicksand"
+    <TextView
+        android:id="@+id/qr_profile_comment_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asap"
+        android:padding="@dimen/small_padding"
+        android:text="@string/username_placeholder"
         android:textColor="@color/main_blue"
         android:textSize="@dimen/text_size_small"
         android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:padding="@dimen/small_padding"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView android:id="@+id/qr_profile_comment_content_body"
-        android:fontFamily="@font/asap"
-        android:textColor="@color/main_off_white_blue_light"
-        android:text="LOREM IPSUM DOLOR...."
+    <TextView
+        android:id="@+id/qr_profile_comment_content_body"
         android:layout_width="wrap_content"
-        android:textStyle="bold"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/extra_small_text"
-        app:layout_constraintTop_toBottomOf="@id/qr_profile_comment_content"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/padding"
-        android:padding="@dimen/small_padding"/>
+        android:fontFamily="@font/asap"
+        android:padding="@dimen/small_padding"
+        android:text="LOREM IPSUM DOLOR...."
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qr_profile_comment_content"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
