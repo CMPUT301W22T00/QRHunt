@@ -115,6 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
+
             <ImageView
                 android:id="@+id/qr_profile_image_placeholder"
                 android:layout_width="0dp"
@@ -145,6 +146,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
+
 
             <TextView
                 android:id="@+id/qr_profile_comments"

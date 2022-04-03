@@ -85,7 +85,7 @@ public class FragmentQrProfile extends DialogFragment {
 
 
         Button deleteButton = view.findViewById(R.id.button_delete);
-        if (player.isAdmin() || player.getPlayerId().matches(currentQR.getPlayerId())) {
+        if (player.isAdmin() || player.getPlayerId() == (currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         }
         deleteButton.setOnClickListener(view1 -> {
