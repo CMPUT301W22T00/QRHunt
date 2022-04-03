@@ -33,16 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:text="DELETE"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -69,7 +59,7 @@
                 android:textColor="@color/accent_blue_light"
                 android:textSize="@dimen/title_size"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/qr_profile_option_menu"
+                app:layout_constraintEnd_toStartOf="@+id/qr_profile_delete_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -203,7 +193,7 @@
             </ListView>
 
             <ImageButton
-                android:id="@+id/qr_profile_option_menu"
+                android:id="@+id/qr_profile_delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="Option Delete Menu"
@@ -211,6 +201,7 @@
                 android:background="@drawable/ic_button_vert_dot"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"
                 tools:ignore="HardcodedText" />
 
             <ImageButton

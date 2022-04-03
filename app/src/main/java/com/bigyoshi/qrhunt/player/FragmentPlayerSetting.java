@@ -29,6 +29,7 @@ public class FragmentPlayerSetting extends Fragment {
     private Player playerInfo;
     private TextView playerProfileSettings;
     private ImageView backButton;
+    private int lastDestination;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -45,6 +46,7 @@ public class FragmentPlayerSetting extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         playerInfo = (Player) getArguments().getSerializable("player");
+        lastDestination = (Integer) getArguments().getSerializable("isActivity");
         binding = FragmentUserSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -66,6 +68,7 @@ public class FragmentPlayerSetting extends Fragment {
                 FragmentProfile profile = new FragmentProfile();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("player", playerInfo);
+                bundle.putSerializable("isActivity", lastDestination);
                 profile.setArguments(bundle);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

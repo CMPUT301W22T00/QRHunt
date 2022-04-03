@@ -27,6 +27,7 @@ import com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", player);
+            bundle.putSerializable("isActivity", 1);
+            bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
