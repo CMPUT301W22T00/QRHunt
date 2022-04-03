@@ -17,6 +17,7 @@
     <dimen name="subtitle_size">24sp</dimen>
     <dimen name="subtitle_size_small">20sp</dimen>
     <dimen name="text_size">18sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
     <dimen name="small_text">12sp</dimen>
     <dimen name="statement_text">40sp</dimen>
 
