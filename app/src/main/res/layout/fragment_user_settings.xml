@@ -26,12 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="@string/title_settings"
         android:textColor="@color/main_blue"
         android:textSize="@dimen/title_size"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,10 +65,10 @@
             android:layout_gravity="center_vertical"
             android:clickable="true"
             android:fontFamily="@font/quicksand_medium"
-            android:padding="@dimen/padding"
+            android:padding="@dimen/medium_padding"
             android:text="@string/settings_edit_profile"
             android:textColor="@color/accent_blue_light"
-            android:textSize="@dimen/subtitle_size" />
+            android:textSize="@dimen/text_size" />
     </LinearLayout>
 
     <Space
@@ -102,10 +101,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/quicksand_medium"
-            android:padding="@dimen/padding"
+            android:padding="@dimen/medium_padding"
             android:text="@string/settings_share_profile"
             android:textColor="@color/accent_blue_light"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size"
             app:layout_constraintLeft_toRightOf="@id/player_settings_share_image"
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
 
@@ -141,10 +140,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/quicksand_medium"
-            android:padding="@dimen/padding"
+            android:padding="@dimen/medium_padding"
             android:text="@string/settings_register_new_device"
             android:textColor="@color/accent_blue_light"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size"
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
     </LinearLayout>
 
