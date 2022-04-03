@@ -180,32 +180,55 @@ public class FragmentProfile extends Fragment {
                                 .setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        AlertDialog.Builder deleteConfirmationBuilder
+                                        AlertDialog.Builder deleteConfirmationPromptBuilder
                                                 = new AlertDialog.Builder(getContext());
 
-                                        deleteConfirmationBuilder.setView(
+                                        deleteConfirmationPromptBuilder.setView(
                                                 R.layout.admin_delete_profile_dialog);
 
-                                        AlertDialog deleteConfirmation
-                                                = deleteConfirmationBuilder.create();
+                                        AlertDialog confirmDeletePrompt
+                                                = deleteConfirmationPromptBuilder.create();
 
-                                        deleteConfirmation.show();
+                                        confirmDeletePrompt.show();
 
-                                        deleteConfirmation.findViewById(
+                                        confirmDeletePrompt.findViewById(
                                                 R.id.delete_dialog_confirm_button)
                                                 .setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
                                                     //todo make the function that deletes players
+                                                    //todo make the function that goes back to the scanner
+
+
+                                                    AlertDialog.Builder accountDeletedConfirmationBuilder =
+                                                            new AlertDialog.Builder(getContext());
+
+                                                    accountDeletedConfirmationBuilder.setView(R.layout.admin_delete_profile_confirmation);
+
+                                                    AlertDialog accountDeletedConfirmation =
+                                                        accountDeletedConfirmationBuilder.create();
+
+                                                    accountDeletedConfirmation.show();
+
+                                                    accountDeletedConfirmation.findViewById(
+                                                            R.id.delete_confirm_confirm_button)
+                                                            .setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
+                                                            accountDeletedConfirmation.dismiss();
+                                                        }
+                                                    });
+
+                                                    confirmDeletePrompt.dismiss();
                                                 }
                                             });
 
-                                        deleteConfirmation.findViewById(
+                                        confirmDeletePrompt.findViewById(
                                                 R.id.delete_dialog_cancel_button)
                                                 .setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
-                                                        deleteConfirmation.dismiss();
+                                                        confirmDeletePrompt.dismiss();
                                                     }
                                                 });
                                     }
