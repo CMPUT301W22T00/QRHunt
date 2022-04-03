@@ -2,24 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leaderboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_grey"
-    android:id="@+id/leaderboard">
-
+    android:background="@color/background_grey">
 
 
     <TextView
         android:id="@+id/leaderboard_title"
-        android:layout_width="159dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/quicksand"
+        android:fontFamily="@font/quicksand_medium"
         android:text="Leaderboard"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
         android:textSize="26sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,13 +28,13 @@
         android:id="@+id/layout_second_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_padding"
+        app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
-        android:layout_marginLeft="@dimen/large_padding">
+        app:layout_constraintTop_toTopOf="@id/layout_first_place">
 
-        <include layout="@layout/leaderboard_panel_content_second"/>
+        <include layout="@layout/leaderboard_panel_content_second" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -44,14 +42,14 @@
         android:id="@+id/layout_third_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/layout_first_place"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        android:layout_marginEnd="@dimen/large_padding"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
-        android:layout_marginRight="@dimen/large_padding">
+        app:layout_constraintLeft_toRightOf="@id/layout_first_place"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layout_first_place">
 
 
-    <include layout="@layout/leaderboard_panel_content_third"/>
+        <include layout="@layout/leaderboard_panel_content_third" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,10 +57,10 @@
         android:id="@+id/layout_first_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
-        android:layout_margin="@dimen/large_padding">
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title">
 
         <include layout="@layout/leaderboard_panel_content_first" />
 
@@ -72,20 +70,20 @@
         android:id="@+id/leaderboard_my_rank_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/rec_button_rank"
         android:fontFamily="@font/quicksand"
         android:gravity="center"
-        android:text="My Rank"
-        android:textAllCaps="false"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/subtitle_size"
         android:padding="@dimen/padding"
+        android:text="My Rank"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/layout_first_place"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_first_place"
         tools:ignore="HardcodedText" />
 
     <View
@@ -93,9 +91,9 @@
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/large_padding"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="@dimen/large_padding"
         android:background="@color/accent_blue_light"
         android:foreground="@color/accent_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +107,7 @@
         android:layout_width="391dp"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/quicksand"
         android:text="Column Titles"
