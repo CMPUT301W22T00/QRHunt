@@ -71,6 +71,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 container,
                 false);
         View root = binding.getRoot();
+        // https://stackoverflow.com/questions/8045556/cant-make-the-custom-dialogfragment-transparent-over-the-fragment
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         username = root.findViewById(R.id.player_profile_settings_edit_username);

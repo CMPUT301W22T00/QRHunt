@@ -64,6 +64,7 @@ public class FragmentAddQrCode extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         PlayableQrCode qrCode = (PlayableQrCode) getArguments().getSerializable(PlayableQrCode.TAG);
+        // https://stackoverflow.com/questions/8045556/cant-make-the-custom-dialogfragment-transparent-over-the-fragment
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         ImageView imageView = view.findViewById(R.id.qr_scan_profile_image_holder);
