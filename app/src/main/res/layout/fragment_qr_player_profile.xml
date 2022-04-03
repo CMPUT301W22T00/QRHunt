@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_grey"
     android:padding="@dimen/large_padding"
+    android:windowSoftInputMode=""
     android:id="@+id/qr_library_qr_profile">
 
     <ImageButton
@@ -194,7 +195,7 @@
             <ListView
                 android:id="@+id/qr_profile_comment_list"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/large_padding"
                 android:layout_marginRight="@dimen/large_padding"
                 app:layout_constraintBottom_toBottomOf="parent"

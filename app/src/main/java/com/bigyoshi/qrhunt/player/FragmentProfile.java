@@ -1,26 +1,21 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -33,8 +28,6 @@ import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Locale;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
@@ -53,7 +46,7 @@ public class FragmentProfile extends Fragment {
     private ImageButton settingButton;
     private ImageButton contactsButton;
     private int lastDestination;
-    private GridView showAll;
+    private GridView qrGridView;
     private ArrayList<PlayableQrCode> qrCodesList;
     private ArrayAdapter<PlayableQrCode> qrCodesAdapter;
     private FirebaseFirestore db;
@@ -113,12 +106,14 @@ public class FragmentProfile extends Fragment {
         View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
         TextView combined = calloutView.findViewById(R.id.contact_call_out_text);
 
-        showAll = root.findViewById(R.id.player_profile_grid_view);
+        qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
-        showAll.setAdapter(qrCodesAdapter);
-        showAll.setNestedScrollingEnabled(true);
-        showAll.setOnItemClickListener(
+        qrGridView.setAdapter(qrCodesAdapter);
+        //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
+        //setGridViewHeight(qrGridView);
+        //qrCodesAdapter.notifyDataSetChanged();
+        qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
                     new FragmentQrProfile(i, qrCodesList.get(i), playerInfo)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
@@ -290,6 +285,32 @@ public class FragmentProfile extends Fragment {
     public void onResume() {
         super.onResume();
         qrCodesAdapter.notifyDataSetChanged();
-        showAll.invalidate();
+        qrGridView.invalidate();
+    }
+
+    public void setGridViewHeight(GridView gridview) {
+        //Get the adapter of gridview
+        ListAdapter listAdapter = gridview.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        //Fixed column width, how many columns
+        int numColumns = gridview.getNumColumns();//5
+        int totalHeight = 0;
+        //Calculate the sum of the height of each column
+        for (int i = 0; i <listAdapter.getCount(); i += numColumns) {
+            //Get each item of the gridview
+            View listItem = listAdapter.getView(i, null, gridview);
+            listItem.measure(0, 0);
+            //Get the height of the item and
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        //Get the layout parameters of the gridview
+        ViewGroup.LayoutParams params = gridview.getLayoutParams();
+        //set height
+        params.height = totalHeight;
+        //Setting parameters
+        gridview.setLayoutParams(params);
     }
 }

@@ -121,7 +121,7 @@ public class FragmentQrProfile extends DialogFragment {
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
         commentList.setAdapter(commentAdapter);
-        //commentList.setNestedScrollingEnabled(true);
+        commentList.setNestedScrollingEnabled(true); // Commented out to test new solution
         db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId()).collection("comments")
                 .get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -181,7 +181,7 @@ public class FragmentQrProfile extends DialogFragment {
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
-        //listView.getDividerHeight() gets the height occupied by the divider between subitems
+        //listView.getDividerHeight() gets the height occupied by the divider between sub items
         //params.height finally gets the height required for complete display of the entire ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *
