@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,84 +11,85 @@
         android:id="@+id/rank_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/quicksand"
         android:padding="@dimen/padding"
         android:text="#"
-        android:textSize="@dimen/title_size"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:fontFamily="@font/asap"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/rank_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/rank_num"
+        android:fontFamily="@font/quicksand"
         android:padding="@dimen/padding"
         android:text="username"
-        android:fontFamily="@font/quicksand_medium"
-        android:textSize="@dimen/subtitle_size"
         android:textColor="@color/accent_grey_blue_dark"
-        android:layout_toRightOf="@id/rank_num"
-        android:layout_centerVertical="true"/>
+        android:textSize="@dimen/subtitle_size"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/rank_highest_unique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/rank_divider"
+        android:fontFamily="@font/quicksand_medium"
+        android:gravity="right"
         android:padding="@dimen/padding"
         android:text="Uq"
-        android:textSize="@dimen/subtitle_size"
         android:textColor="@color/accent_grey_blue_dark"
-        app:layout_constraintWidth_percent=".21"
-        android:fontFamily="@font/asap"
-        android:gravity="right"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/rank_divider"
-        android:layout_centerVertical="true"/>
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintWidth_percent=".21" />
 
     <TextView
         android:id="@+id/rank_divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/rank_num_scans"
         android:padding="@dimen/small_padding"
         android:text="|"
         android:textAlignment="center"
-        android:textSize="@dimen/statement_text"
         android:textColor="@color/black"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/rank_num_scans"
-        android:layout_centerVertical="true"/>
+        android:textSize="@dimen/statement_text" />
 
     <TextView
         android:id="@+id/rank_num_scans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/rank_score"
+        android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="scans"
         android:textAlignment="center"
-        android:textSize="@dimen/subtitle_size"
         android:textColor="@color/accent_grey_blue_dark"
-        android:fontFamily="@font/asap"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/rank_score"
-        android:layout_centerVertical="true"/>
+        android:textSize="@dimen/subtitle_size" />
 
     <TextView
         android:id="@+id/rank_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/asap"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="bottom"
+        android:fontFamily="@font/quicksand"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:text="score"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
-        android:textStyle="bold"
-        android:layout_gravity="bottom"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:textStyle="bold" />
 
 </RelativeLayout>
