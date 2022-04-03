@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/quicksand_medium"
-        android:text="Leaderboard"
+        android:text="@string/leaderboard_title"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
         android:textSize="26sp"
