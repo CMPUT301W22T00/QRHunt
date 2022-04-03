@@ -57,6 +57,8 @@
     <string name="delete_account">Delete Account</string>
     <string name="delete_account_prompt">Delete Account?</string>
     <string name="delete_account_confirmed">Account Deleted</string>
+    <string name="delete">Delete</string>
+    <string name="delete_qr_profile">Delete QR Profile?</string>
 
 
     <!-- for callout -->
