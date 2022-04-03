@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rec_callout_bg"
+    android:orientation="vertical"
+    android:id="@+id/contact_call_out">
+
+    <TextView
+        android:id="@+id/delete_call_out_button"
+        android:background="@color/transparent"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_account"
+        android:textSize="@dimen/subtitle_size"
+        android:fontFamily="@font/quicksand_medium"
+        android:textColor="@color/main_red_midtone"
+        android:padding="@dimen/padding"
+        android:clickable="true">
+
+    </TextView>
+    <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
+    <!-- anya copied nearly verbatim from KC's work on the contact callout -->
+</LinearLayout>

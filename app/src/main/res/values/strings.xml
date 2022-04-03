@@ -43,6 +43,10 @@
 
     <!-- for search -->
     <string name="search_hint">Search Username</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_prompt">Delete Account?</string>
+    <string name="delete_account_confirmed">Account Deleted</string>
+
 
     <!-- for callout -->
     <string name="callout_text">Callout Text</string>
