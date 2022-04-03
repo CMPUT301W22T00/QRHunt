@@ -39,11 +39,11 @@ public class FragmentQrProfile extends DialogFragment {
 
     /**
      * Constructor method
-     *  @param i int
+     *  @param pos int
      * @param currentQR QR to remove
      * @param player    player that the account belongs to
      */
-    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player player, ProfileType profileType) {
+    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType) {
         this.pos = pos;
         this.currentQR = currentQR;
         this.player = player;

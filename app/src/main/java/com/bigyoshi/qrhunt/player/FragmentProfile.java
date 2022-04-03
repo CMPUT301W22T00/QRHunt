@@ -3,6 +3,7 @@ package com.bigyoshi.qrhunt.player;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,8 +189,19 @@ public class FragmentProfile extends Fragment {
                                                 .setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    //todo make the function that deletes players
-                                                    //todo make the function that goes back to the scanner
+                                                    /*
+                                                    db = FirebaseFirestore.getInstance();
+                                                    db.collection("users")
+                                                            .document(playerInfo.getPlayerId())
+                                                            .delete()
+                                                            .addOnSuccessListener(unused -> {
+                                                                db.collection("user")
+                                                                        .document(playerInfo.getPlayerId())
+                                                                        .delete();
+                                                                Log.d(TAG, "Successfully removed player from data base");
+                                                            })
+                                                            .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));;
+                                                     */
 
 
                                                     AlertDialog.Builder accountDeletedConfirmationBuilder =
@@ -207,11 +219,14 @@ public class FragmentProfile extends Fragment {
                                                             .setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
+                                                            Intent intent = new Intent(getContext(), MainActivity.class);
+                                                            startActivity(intent);
                                                             accountDeletedConfirmation.dismiss();
                                                         }
                                                     });
 
                                                     confirmDeletePrompt.dismiss();
+
                                                 }
                                             });
 
