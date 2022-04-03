@@ -146,7 +146,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="@font/quicksand"
             android:text="@string/cancel"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/subtitle_size_small"
