@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -120,6 +121,7 @@ public class FragmentQrProfile extends DialogFragment {
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
         commentList.setAdapter(commentAdapter);
+        //commentList.setNestedScrollingEnabled(true);
         db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId()).collection("comments")
                 .get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -131,6 +133,7 @@ public class FragmentQrProfile extends DialogFragment {
                 }
             }
         });
+        setListViewHeight(commentList);
         commentAdapter.notifyDataSetChanged();
 
 
@@ -148,6 +151,7 @@ public class FragmentQrProfile extends DialogFragment {
             db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
                     .collection("comments")
                     .document(newCommentText.getText().toString()).set(map);
+            setListViewHeight(commentList);
             commentAdapter.notifyDataSetChanged();
         });
 
@@ -161,5 +165,27 @@ public class FragmentQrProfile extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL,
                 android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+    }
+
+    //Dynamically set the height for the listview (display as many items as there are)
+    public void setListViewHeight(ListView listView) {
+        //Get the adapter of listView
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        //listAdapter.getCount() returns the number of data items
+        for (int i = 0,len = listAdapter.getCount(); i <len; i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        //listView.getDividerHeight() gets the height occupied by the divider between subitems
+        //params.height finally gets the height required for complete display of the entire ListView
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() *
+                (listAdapter .getCount()-1));
+        listView.setLayoutParams(params);
     }
 }

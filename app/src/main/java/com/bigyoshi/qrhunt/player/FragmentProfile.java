@@ -117,6 +117,7 @@ public class FragmentProfile extends Fragment {
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         showAll.setAdapter(qrCodesAdapter);
+        showAll.setNestedScrollingEnabled(true);
         showAll.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
                     new FragmentQrProfile(i, qrCodesList.get(i), playerInfo)
