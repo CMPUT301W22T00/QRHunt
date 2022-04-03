@@ -147,7 +147,16 @@ public class FragmentSearch extends Fragment {
                 Bundle bundle = new Bundle();
 
                 // todo: actually make this make sense and act on it
-                bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
+                if ( ((Player)searchAdapter.getItemAtPosition(i)).getPlayerId() == (player.getPlayerId())) {
+                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
+                }
+                else if (player.isAdmin()){
+                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.ADMIN_VIEW);
+                }
+                else{
+                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
+
+                }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
                 profile.setArguments(bundle);
 

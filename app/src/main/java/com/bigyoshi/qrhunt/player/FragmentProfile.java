@@ -1,9 +1,12 @@
 package com.bigyoshi.qrhunt.player;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -53,6 +57,8 @@ public class FragmentProfile extends Fragment {
     private ArrayList<PlayableQrCode> qrCodesList;
     private ArrayAdapter<PlayableQrCode> qrCodesAdapter;
     private FirebaseFirestore db;
+    private ProfileType viewType;
+    public static final String TAG = FragmentProfile.class.getSimpleName();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +97,7 @@ public class FragmentProfile extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         playerInfo = (Player) getArguments().getSerializable("player");
+        viewType = (ProfileType) getArguments().getSerializable(IS_OWN_PROFILE);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -130,22 +137,86 @@ public class FragmentProfile extends Fragment {
 
 
         settingButton = root.findViewById(R.id.player_profile_settings_button);
+        if (viewType == ProfileType.VISITOR_VIEW) {
+            settingButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            settingButton.setVisibility(View.VISIBLE);
+        }
 
         QRTotalValue.setText(Integer.toString(playerInfo.getTotalScore()));
         username.setText(playerInfo.getUsername());
         totalScanned.setText(Integer.toString(qrCodesList.size()));
 
-        settingButton.setOnClickListener(
-                v -> {
-                    FragmentPlayerSetting profileSetting = new FragmentPlayerSetting();
-                    FragmentTransaction fragmentTransaction =
-                            getChildFragmentManager().beginTransaction();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("player", playerInfo);
-                    profileSetting.setArguments(bundle);
-                    fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
-                    fragmentTransaction.commit();
-                });
+        if (viewType == ProfileType.OWN_VIEW) {
+            settingButton.setOnClickListener(
+                    v -> {
+                        FragmentPlayerSetting profileSetting = new FragmentPlayerSetting();
+                        FragmentTransaction fragmentTransaction =
+                                getChildFragmentManager().beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("player", playerInfo);
+                        profileSetting.setArguments(bundle);
+                        fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
+                        fragmentTransaction.commit();
+                    });
+        }
+        else if (viewType == ProfileType.ADMIN_VIEW) {
+            settingButton.setOnClickListener(
+                    v -> {
+                        SimpleTooltip deleteAccountCallout = new SimpleTooltip.Builder(getContext())
+                                .anchorView(settingButton)
+                                .gravity(Gravity.CENTER)
+                                .showArrow(false)
+                                .animated(false)
+                                .transparentOverlay(true)
+                                .contentView(R.layout.admin_delete_callout)
+                                .dismissOnOutsideTouch(true)
+                                .dismissOnInsideTouch(false)
+                                .build();
+
+
+                        deleteAccountCallout.findViewById(R.id.delete_call_out_button)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        AlertDialog.Builder deleteConfirmationBuilder
+                                                = new AlertDialog.Builder(getContext());
+
+                                        deleteConfirmationBuilder.setView(
+                                                R.layout.admin_delete_profile_dialog);
+
+                                        AlertDialog deleteConfirmation
+                                                = deleteConfirmationBuilder.create();
+
+                                        deleteConfirmation.show();
+
+                                        deleteConfirmation.findViewById(
+                                                R.id.delete_dialog_confirm_button)
+                                                .setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    //todo make the function that deletes players
+                                                }
+                                            });
+
+                                        deleteConfirmation.findViewById(
+                                                R.id.delete_dialog_cancel_button)
+                                                .setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        deleteConfirmation.dismiss();
+                                                    }
+                                                });
+                                    }
+                                });
+
+                        deleteAccountCallout.show();
+
+
+
+                    });
+        }
 
         /*
            https://www.youtube.com/watch?v=IxHfWg-M0bI
