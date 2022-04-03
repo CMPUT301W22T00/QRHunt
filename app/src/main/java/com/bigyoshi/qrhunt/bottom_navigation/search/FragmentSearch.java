@@ -125,6 +125,7 @@ public class FragmentSearch extends Fragment {
                                         Log.d(TAG, String.format("Found %d users for search query %s", docs.size(), searchClient));
                                         for (DocumentSnapshot doc : docs) {
                                             Player found = Player.fromDoc(doc);
+                                            found.setPlayerId(doc.getId());
                                             searchAdapter.add(found);
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);

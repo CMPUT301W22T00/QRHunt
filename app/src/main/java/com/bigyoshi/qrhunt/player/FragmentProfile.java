@@ -171,6 +171,7 @@ public class FragmentProfile extends Fragment {
                                 .dismissOnInsideTouch(false)
                                 .build();
 
+                        Log.d(TAG, "onCreateView: player id is " + playerInfo.getPlayerId());
 
                         deleteAccountCallout.findViewById(R.id.delete_call_out_button)
                                 .setOnClickListener(new View.OnClickListener() {
