@@ -12,6 +12,7 @@
         android:id="@+id/qr_profile_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:background="@drawable/ic_button_back"
         android:contentDescription="Back Button to Player Profile"
         app:layout_constraintLeft_toLeftOf="parent"
