@@ -67,6 +67,7 @@ public class FragmentPlayerSetting extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("player", playerInfo);
                 profile.setArguments(bundle);
+                bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.player_settings, profile, "profile");

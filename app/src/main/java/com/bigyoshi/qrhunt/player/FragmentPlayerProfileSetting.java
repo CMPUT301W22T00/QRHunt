@@ -1,6 +1,8 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -69,6 +71,7 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 container,
                 false);
         View root = binding.getRoot();
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         username = root.findViewById(R.id.player_profile_settings_edit_username);
         username.setText(playerInfo.getUsername());
