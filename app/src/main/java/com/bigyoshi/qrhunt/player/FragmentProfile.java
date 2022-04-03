@@ -192,7 +192,6 @@ public class FragmentProfile extends Fragment {
                                                 .setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
-                                                    /*
                                                     db = FirebaseFirestore.getInstance();
                                                     db.collection("users")
                                                             .document(playerInfo.getPlayerId())
@@ -204,7 +203,6 @@ public class FragmentProfile extends Fragment {
                                                                 Log.d(TAG, "Successfully removed player from data base");
                                                             })
                                                             .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));;
-                                                     */
 
 
                                                     AlertDialog.Builder accountDeletedConfirmationBuilder =
