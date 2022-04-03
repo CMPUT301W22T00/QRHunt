@@ -40,16 +40,5 @@
         android:padding="@dimen/padding"
         android:visibility="visible"/>
 
-    <ImageButton android:id="@+id/top_map_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_button_list"
-        android:background="?attr/actionBarItemBackground"
-
-        android:scaleType="centerInside"
-        android:layout_gravity="left"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"/>
-
 
 </androidx.appcompat.widget.Toolbar>
