@@ -7,7 +7,10 @@ import android.location.Location;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.player.Player;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -41,7 +44,6 @@ public class QrCodeProcessor {
 
     /**
      * Constructor method
-     * @param player Current Player
      * @param frag     TBA
      * @param text     QR Content
      * @param playerId
