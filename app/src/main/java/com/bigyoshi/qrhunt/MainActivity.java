@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, search, "search");
+                fragmentTransaction.add(R.id.container, search, "search");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
