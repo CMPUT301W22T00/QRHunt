@@ -160,11 +160,14 @@ public class PlayableQrCode implements Serializable {
     public void deleteFromDb(FirebaseFirestore db, String playerId) {
         // todo: toast here for confirmation either way?
         db.collection("users").document(playerId)
-                .collection("qrCodes").document(id)
+                .collection("qrCodes")
+                .document(id)
                 .delete()
                 .addOnSuccessListener(unused -> {
                     db.collection("user").document(playerId)
-                            .collection("qrCodes").document(id).delete();
+                            .collection("qrCodes")
+                            .document(id)
+                            .delete();
                     Log.d(TAG, "Successfully removed QR from data base");
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Error removing QR from data base", e));
