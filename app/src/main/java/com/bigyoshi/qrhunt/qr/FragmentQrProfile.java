@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
@@ -95,8 +96,11 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Delete QR Button, Only visible when the player own the QR or they are an admin
         Button deleteButton = view.findViewById(R.id.button_delete);
-        if (player.isAdmin() || player.getPlayerId().matches(currentQR.getPlayerId())) {
+        if (player.isAdmin() || player.getPlayerId().equals(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
+        } else {
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setText("BRUH");
         }
         deleteButton.setOnClickListener(view1 -> {
             FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
@@ -115,30 +119,35 @@ public class FragmentQrProfile extends DialogFragment {
         ListView commentList = view.findViewById(R.id.qr_profile_comment_list);
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
-
-        db.collection("users").document(currentQR.getId()).collection("comments")
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            if (doc.exists()) {
-                                QRComment comment = doc.toObject(QRComment.class);
-                                comments.add(comment);
-                            }
-                        }
-                    }
-                });
         commentList.setAdapter(commentAdapter);
+        db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId()).collection("comments")
+                .get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot doc : task.getResult()) {
+                    if (doc.exists()) {
+                        QRComment comment = new QRComment(doc.getData().get("comment").toString(), doc.getData().get("username").toString());
+                        comments.add(comment);
+                    }
+                }
+            }
+        });
+        commentAdapter.notifyDataSetChanged();
 
 
         // Add QRComment
         ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
-            String stuff = newCommentText.getText().toString();
-            QRComment newComment = new QRComment(stuff, player.getUsername());
+            HashMap<String, String> map = new HashMap<>();
+            map.put("comment", newCommentText.getText().toString());
+            map.put("username", player.getUsername());
+
+            QRComment newComment = new QRComment(
+                    newCommentText.getText().toString(), player.getUsername());
             comments.add(newComment);
-            db.collection("users").document(currentQR.getId())
-                    .collection("comments").add(newComment);
+            db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
+                    .collection("comments")
+                    .document(newCommentText.getText().toString()).set(map);
             commentAdapter.notifyDataSetChanged();
         });
 

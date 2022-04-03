@@ -232,7 +232,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_button_sort"
                 android:padding="@dimen/padding"
-                android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer" />
 
