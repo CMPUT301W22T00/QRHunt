@@ -203,7 +203,7 @@ public class FragmentProfile extends Fragment {
                                                                         .delete();
                                                                 Log.d(TAG, "Successfully removed player from data base");
                                                             })
-                                                            .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));;
+                                                            .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));
 
 
                                                     AlertDialog.Builder accountDeletedConfirmationBuilder =
@@ -221,6 +221,7 @@ public class FragmentProfile extends Fragment {
                                                             .setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View view) {
+
                                                             Intent intent = new Intent(getContext(), MainActivity.class);
                                                             startActivity(intent);
                                                             accountDeletedConfirmation.dismiss();
