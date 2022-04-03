@@ -1,17 +1,12 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -20,7 +15,6 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -33,8 +27,6 @@ import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Locale;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
@@ -111,7 +103,7 @@ public class FragmentProfile extends Fragment {
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
         View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
-        TextView combined = calloutView.findViewById(R.id.contact_call_out_text);
+        TextView combined = calloutView.findViewById(R.id.delete_qr_callout_button);
 
         showAll = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
@@ -119,7 +111,7 @@ public class FragmentProfile extends Fragment {
         showAll.setAdapter(qrCodesAdapter);
         showAll.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
-                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo)
+                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
                     onPause();
                 });
@@ -192,7 +184,7 @@ public class FragmentProfile extends Fragment {
                                         confirmDeletePrompt.show();
 
                                         confirmDeletePrompt.findViewById(
-                                                R.id.delete_dialog_confirm_button)
+                                                R.id.delete_qr_dialog_confirm_button)
                                                 .setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
@@ -224,7 +216,7 @@ public class FragmentProfile extends Fragment {
                                             });
 
                                         confirmDeletePrompt.findViewById(
-                                                R.id.delete_dialog_cancel_button)
+                                                R.id.delete_qr_dialog_cancel_button)
                                                 .setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
