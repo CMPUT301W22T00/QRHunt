@@ -125,7 +125,6 @@ public class FragmentSearch extends Fragment {
                                         Log.d(TAG, String.format("Found %d users for search query %s", docs.size(), searchClient));
                                         for (DocumentSnapshot doc : docs) {
                                             Player found = Player.fromDoc(doc);
-                                            found.setPlayerId(doc.getId());
                                             searchAdapter.add(found);
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);
@@ -148,7 +147,7 @@ public class FragmentSearch extends Fragment {
                 Bundle bundle = new Bundle();
 
                 // todo: actually make this make sense and act on it
-                if (((Player) searchAdapter.getItemAtPosition(i)).getPlayerId().matches(player.getPlayerId())) {
+                if ( ((Player)searchAdapter.getItemAtPosition(i)).getPlayerId() == (player.getPlayerId())) {
                     bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
                 }
                 else if (player.isAdmin()){
@@ -159,12 +158,15 @@ public class FragmentSearch extends Fragment {
 
                 }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
+                bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
 
+                root.setAlpha((float) 1.0);  // Temporary fix, a bit hacky
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.search_bar, profile, "profile")
-                        .addToBackStack(null).commit();
+                        .replace(R.id.search_bar, profile, "profile")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

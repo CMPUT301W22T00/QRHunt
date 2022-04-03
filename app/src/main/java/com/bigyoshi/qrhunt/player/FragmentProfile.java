@@ -3,6 +3,7 @@ package com.bigyoshi.qrhunt.player;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -58,20 +59,22 @@ public class FragmentProfile extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity()
                 .getOnBackPressedDispatcher()
-                .addCallback(
-                        this,
-                        new OnBackPressedCallback(true) {
+                .addCallback(this,
+                            new OnBackPressedCallback(true) {
 
-                            @Override
-                            public void handleOnBackPressed() {
-
-                                Intent intent = new Intent(getContext(), MainActivity.class);
-                                Bundle prevNav = new Bundle();
-                                prevNav.putSerializable("previous", lastDestination);
-                                intent.putExtras(prevNav);
-                                startActivity(intent);
-                            }
-                        });
+                                @Override
+                                public void handleOnBackPressed() {
+                                    if (lastDestination == 1) {
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        Bundle prevNav = new Bundle();
+                                        prevNav.putSerializable("previous", lastDestination);
+                                        intent.putExtras(prevNav);
+                                        startActivity(intent);
+                                    } else {
+                                        getFragmentManager().popBackStackImmediate();
+                                    }
+                                }
+                });
     }
 
     /**
@@ -90,6 +93,7 @@ public class FragmentProfile extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         playerInfo = (Player) getArguments().getSerializable("player");
+        lastDestination = (Integer) getArguments().getSerializable("isActivity");
         viewType = (ProfileType) getArguments().getSerializable(IS_OWN_PROFILE);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -103,8 +107,6 @@ public class FragmentProfile extends Fragment {
         username = root.findViewById(R.id.player_profile_username_title);
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
-        View calloutView = View.inflate(getContext(), R.layout.player_contact_callout, container);
-        TextView combined = calloutView.findViewById(R.id.delete_qr_callout_button);
 
         showAll = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
@@ -259,7 +261,6 @@ public class FragmentProfile extends Fragment {
                     String social = playerInfo.getContact().getSocial();
                     if (!email.matches("") || !social.matches("")) {
                         String together = email + "\n" + social;
-                        combined.setText(together);
                         new SimpleTooltip.Builder(getContext())
                                 .anchorView(contactsButton)
                                 .gravity(Gravity.BOTTOM)
@@ -271,7 +272,7 @@ public class FragmentProfile extends Fragment {
                                 .transparentOverlay(true)
                                 .backgroundColor(
                                         getResources().getColor(R.color.accent_grey_blue_dark))
-                                .contentView(R.layout.player_contact_callout, combined.getId())
+                                .contentView(R.layout.player_contact_callout, R.id.delete_qr_callout_button)
                                 .build()
                                 .show();
                     }
