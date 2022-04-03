@@ -8,9 +8,10 @@
 
     <TextView android:id="@+id/qr_profile_comment_content"
         android:text="Username"
-        android:fontFamily="@font/quicksand_medium"
+        android:fontFamily="@font/quicksand"
         android:textColor="@color/main_blue"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,11 +19,13 @@
         android:padding="@dimen/small_padding"/>
 
     <TextView android:id="@+id/qr_profile_comment_content_body"
-        android:fontFamily="@font/quicksand_medium"
+        android:fontFamily="@font/asap"
         android:textColor="@color/main_off_white_blue_light"
         android:text="LOREM IPSUM DOLOR...."
         android:layout_width="wrap_content"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/extra_small_text"
         app:layout_constraintTop_toBottomOf="@id/qr_profile_comment_content"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="@dimen/padding"
