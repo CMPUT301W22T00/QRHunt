@@ -151,6 +151,7 @@ public class FragmentProfile extends Fragment {
                                 getChildFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("player", playerInfo);
+                        bundle.putSerializable("isActivity", lastDestination);
                         profileSetting.setArguments(bundle);
                         fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
                         fragmentTransaction.commit();
