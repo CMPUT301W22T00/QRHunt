@@ -28,8 +28,9 @@
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="@string/edit_profile_title"
+        android:textStyle="bold"
         android:textColor="@color/main_blue"
-        android:textSize="@dimen/subtitle_size"
+        android:textSize="@dimen/text_size"
         app:layout_constraintLeft_toRightOf="@id/player_profile_settings_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,10 +44,11 @@
         android:id="@+id/player_profile_settings_username_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/asap"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/username_title"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
+        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer" />
 
@@ -67,8 +69,8 @@
             android:layout_centerVertical="true"
             android:contentDescription="profile icon"
             android:padding="@dimen/small_padding"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+            android:scaleX="1"
+            android:scaleY="1"
             android:src="@drawable/ic_pfp_dark"
             tools:ignore="HardcodedText" />
 
@@ -85,7 +87,7 @@
             android:padding="@dimen/padding"
             android:textColor="@color/accent_grey_blue_dark"
             android:textColorHint="@color/accent_grey_blue_dark"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -116,10 +118,11 @@
         android:id="@+id/player_profile_settings_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/asap"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/email_title"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
+        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
@@ -136,8 +139,8 @@
             android:layout_gravity="center_vertical"
             android:contentDescription="email icon"
             android:padding="@dimen/small_padding"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+            android:scaleX="1"
+            android:scaleY="1"
             android:src="@drawable/ic_email"
             tools:ignore="HardcodedText" />
 
@@ -152,7 +155,7 @@
             android:padding="@dimen/padding"
             android:textColor="@color/accent_grey_blue_dark"
             android:textColorHint="@color/accent_grey_blue_dark"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/edit_profile_email_icon"
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_email_title" />
@@ -170,10 +173,11 @@
         android:id="@+id/player_profile_settings_social_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/asap"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/socials_title"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
+        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
 
@@ -190,8 +194,8 @@
             android:layout_gravity="center_vertical"
             android:contentDescription="socials/share icon"
             android:padding="@dimen/small_padding"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
+            android:scaleX="1"
+            android:scaleY="1"
             android:src="@drawable/ic_social_media_handle"
             tools:ignore="HardcodedText" />
 
@@ -206,7 +210,7 @@
             android:padding="@dimen/padding"
             android:textColor="@color/accent_grey_blue_dark"
             android:textColorHint="@color/accent_grey_blue_dark"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toTopOf="@+id/player_profile_settings_end_buttons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +238,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_medium"
             android:textStyle="bold"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_medium"
+            android:textAlignment="textEnd"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/cancel"
             android:textAllCaps="false"
@@ -246,7 +251,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_medium"
             android:textStyle="bold"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_medium"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/save"
             android:textAllCaps="false"
