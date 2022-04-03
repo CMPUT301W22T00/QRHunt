@@ -8,9 +8,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.9"
         android:background="@color/main_off_white_blue_light"
         android:padding="@dimen/large_padding"
-        android:alpha="0.9"
         tools:context=".qr.FragmentQrProfileAfterScan">
 
         <TextView
@@ -84,13 +84,13 @@
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_image_holder"
             tools:ignore="HardcodedText" />
 
-        <!-- figure out how make square-->
         <ImageView
             android:id="@+id/qr_scan_profile_image_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding"
-            android:background="@drawable/rec_image_holder_bg"
+            android:alpha="0.7"
+            android:background="@drawable/rec_image_holder_after_scan"
             android:contentDescription="Image Placeholder BG"
             android:padding="@dimen/padding"
             app:layout_constraintDimensionRatio="H,1:1"
@@ -104,6 +104,7 @@
             android:id="@+id/qr_scan_profile_take_photo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0.85"
             android:background="@drawable/rec_button_take_photo"
             android:fontFamily="@font/quicksand"
             android:padding="@dimen/padding"

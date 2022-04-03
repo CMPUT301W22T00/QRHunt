@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qr_library_qr_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
-    android:padding="@dimen/large_padding"
-    android:id="@+id/qr_library_qr_profile">
+    android:padding="@dimen/large_padding">
 
     <ImageButton
         android:id="@+id/qr_profile_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:background="@drawable/ic_button_back"
         android:contentDescription="Back Button to Player Profile"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,24 +22,35 @@
         android:id="@+id/qr_profile_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand_medium"
+        android:fontFamily="@font/quicksand"
         android:text="QR Profile"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
         android:textSize="26sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/qr_profile_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/delete"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_padding"
+        android:background="@drawable/rec_frame_bg_test_2"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/rec_frame_bg_test_2"
-        android:layout_marginTop="@dimen/large_padding"
         app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,7 +69,7 @@
                 android:textColor="@color/accent_blue_light"
                 android:textSize="@dimen/title_size"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/qr_profile_delete_button"
+                app:layout_constraintEnd_toStartOf="@+id/qr_profile_option_menu"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
@@ -68,8 +78,8 @@
                 android:id="@+id/qr_profile_qr_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/small_padding"
-                android:layout_marginTop="@dimen/large_padding"
+                android:layout_marginLeft="@dimen/extra_small_padding"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/quicksand"
                 android:text="Latitude, Longitude"
                 android:textColor="@color/main_blue"
@@ -105,16 +115,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
 
-
+            <!-- need to make it have rounded corners -->
             <ImageView
                 android:id="@+id/qr_profile_image_placeholder"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:alpha="0.9"
                 android:contentDescription="Default Image Placeholder"
                 android:cropToPadding="true"
                 android:elevation="0dp"
+                android:padding="@dimen/small_padding"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_image_holder"
+                android:src="@drawable/rec_image_holder_qr_profile"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -136,7 +149,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qr_profile_image_placeholder"
                 tools:ignore="HardcodedText,RtlHardcoded" />
-
 
             <TextView
                 android:id="@+id/qr_profile_comments"
@@ -193,24 +205,23 @@
             </ListView>
 
             <ImageButton
-                android:id="@+id/qr_profile_delete_button"
+                android:id="@+id/qr_profile_option_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Option Delete Menu"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/ic_button_vert_dot"
+                android:contentDescription="Option Delete Menu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:visibility="invisible"
                 tools:ignore="HardcodedText" />
 
             <ImageButton
                 android:id="@+id/qr_profile_send_comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Send Comment Button"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/ic_button_send"
+                android:contentDescription="Send Comment Button"
                 app:layout_constraintBottom_toBottomOf="@+id/qr_profile_add_comment"
                 app:layout_constraintEnd_toEndOf="@+id/qr_profile_add_comment"
                 app:layout_constraintTop_toTopOf="@+id/qr_profile_add_comment"
