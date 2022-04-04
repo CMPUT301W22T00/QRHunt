@@ -125,6 +125,7 @@ public class FragmentSearch extends Fragment {
                                         Log.d(TAG, String.format("Found %d users for search query %s", docs.size(), searchClient));
                                         for (DocumentSnapshot doc : docs) {
                                             Player found = Player.fromDoc(doc);
+                                            found.setPlayerId(doc.getId());
                                             searchAdapter.add(found);
                                         }
                                         searchProgressBar.setVisibility(View.INVISIBLE);
@@ -158,12 +159,15 @@ public class FragmentSearch extends Fragment {
 
                 }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
+                bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
 
+                root.setAlpha((float) 1.0);  // Temporary fix, a bit hacky (doesn't revert back wtf)
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.search_bar, profile, "profile")
-                        .addToBackStack(null).commit();
+                        .replace(R.id.search_bar, profile, "profile")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

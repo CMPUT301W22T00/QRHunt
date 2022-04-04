@@ -1,8 +1,10 @@
 package com.bigyoshi.qrhunt.qr;
 
+import android.app.AlertDialog;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.player.FragmentProfile;
@@ -30,6 +33,10 @@ import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.bigyoshi.qrhunt.player.ProfileType;
+import com.squareup.picasso.Picasso;
+
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
@@ -41,17 +48,19 @@ public class FragmentQrProfile extends DialogFragment {
     private int pos;
     private PlayableQrCode currentQR;
     private Player player;
+    private ProfileType profileType;
 
     /**
      * Constructor method
-     *  @param i int
+     *  @param pos int
      * @param currentQR QR to remove
-     * @param player
+     * @param player    player that the account belongs to
      */
-    public FragmentQrProfile(int i, PlayableQrCode currentQR, Player player) {
+    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType) {
         this.pos = pos;
         this.currentQR = currentQR;
         this.player = player;
+        this.profileType = profileType;
     }
 
     /**
@@ -95,18 +104,60 @@ public class FragmentQrProfile extends DialogFragment {
         TextView userName = view.findViewById(R.id.qr_profile_player_username);
         userName.setText(player.getUsername());
 
-        // Delete QR Button, Only visible when the player own the QR or they are an admin
-        Button deleteButton = view.findViewById(R.id.button_delete);
-        if (player.isAdmin() || player.getPlayerId().equals(currentQR.getPlayerId())) {
+
+        ImageButton deleteButton = view.findViewById(R.id.qr_profile_delete_button);
+        if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         } else {
             deleteButton.setVisibility(View.VISIBLE);
             deleteButton.setText("BRUH");
         }
         deleteButton.setOnClickListener(view1 -> {
-            FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
-            parentFrag.libraryRemoveQR(pos, currentQR);
-            getFragmentManager().beginTransaction().remove(this).commit();
+
+            SimpleTooltip deleteQRConfirmation = new SimpleTooltip.Builder(getContext())
+                    .anchorView(deleteButton)
+                    .gravity(Gravity.CENTER)
+                    .showArrow(false)
+                    .textColor(ContextCompat.getColor(getContext(), R.color.main_off_white_blue_light))
+                    .animated(false)
+                    .transparentOverlay(true)
+                    .backgroundColor(ContextCompat.getColor(getContext(), R.color.accent_grey_blue_dark))
+                    .contentView(R.layout.delete_qr_callout)
+                    .text(getString(R.string.delete))
+                    .dismissOnInsideTouch(false)
+                    .dismissOnOutsideTouch(true)
+                    .build();
+
+
+            deleteQRConfirmation.findViewById(R.id.delete_qr_callout_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder deleteQRConfirmationBuilder = new AlertDialog.Builder(getContext())
+                            .setView(R.layout.delete_qr_confirm_dialog);
+
+                    AlertDialog deleteQRConfirmation = deleteQRConfirmationBuilder.create();
+
+                    deleteQRConfirmation.show();
+
+                    deleteQRConfirmation.findViewById(R.id.delete_qr_dialog_cancel_button).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteQRConfirmation.dismiss();
+                        }
+                    });
+
+                    deleteQRConfirmation.findViewById(R.id.delete_qr_dialog_confirm_button).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            removeQR();
+                            deleteQRConfirmation.dismiss();
+                        }
+                    });
+                }
+            });
+
+            deleteQRConfirmation.show();
+
         });
 
         // Back Button
@@ -188,5 +239,11 @@ public class FragmentQrProfile extends DialogFragment {
         params.height = totalHeight + (listView.getDividerHeight() *
                 (listAdapter .getCount()-1));
         listView.setLayoutParams(params);
+    }
+
+    public void removeQR(){
+        FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
+        parentFrag.libraryRemoveQR(pos, currentQR);
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 }

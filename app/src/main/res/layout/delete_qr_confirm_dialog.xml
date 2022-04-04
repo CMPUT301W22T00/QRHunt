@@ -11,7 +11,7 @@
         android:id="@+id/delete_qr_dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_account_prompt"
+        android:text="@string/delete_qr_profile"
         android:fontFamily="@font/asap"
         android:textStyle="bold"
         android:textColor="@color/main_red_midtone"

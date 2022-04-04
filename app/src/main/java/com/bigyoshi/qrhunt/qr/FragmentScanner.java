@@ -81,7 +81,6 @@ public class FragmentScanner extends Fragment {
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
-
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             camera.processQRCode();

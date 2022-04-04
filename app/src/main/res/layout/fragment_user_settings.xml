@@ -1,145 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/player_settings"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background_grey"
-    android:padding="@dimen/padding"
-    android:id="@+id/player_settings">
+    android:padding="@dimen/padding">
 
 
-        <ImageView android:id="@+id/player_settings_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_button_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/player_profile_settings_spacer"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
-            android:padding="@dimen/padding"
-            android:layout_gravity="bottom"/>
+    <ImageView
+        android:id="@+id/player_settings_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="16dp"
+        android:padding="@dimen/padding"
+        android:src="@drawable/ic_button_back"
+        app:layout_constraintBottom_toTopOf="@id/player_profile_settings_spacer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/player_settings_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/asap"
-            android:text="@string/title_settings"
-            android:textColor="@color/main_blue"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="@dimen/padding"
-            android:layout_gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/player_settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
+        android:text="@string/title_settings"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/title_size_small"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Space android:id="@+id/player_profile_settings_spacer"
+    <Space
+        android:id="@+id/player_profile_settings_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_title"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_title" />
 
-    <LinearLayout android:id="@+id/player_settings_edit_profile"
+    <LinearLayout
+        android:id="@+id/player_settings_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer"
         app:layout_constraintLeft_toLeftOf="parent"
-        >
-        <ImageView android:id="@+id/player_settings_edit_image"
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer">
+
+        <ImageView
+            android:id="@+id/player_settings_edit_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit_profile_light"
             android:layout_gravity="bottom"
-            android:padding="@dimen/padding"/>
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_edit_profile_light" />
 
-        <TextView android:id="@+id/player_settings_edit_profile_clickable"
+        <TextView
+            android:id="@+id/player_settings_edit_profile_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent_blue_light"
-            android:text="@string/settings_edit_profile"
-            android:fontFamily="@font/asap"
-            android:textSize="@dimen/subtitle_size"
             android:layout_gravity="center_vertical"
-            android:padding="@dimen/padding"
-            android:clickable="true"/>
-    </LinearLayout>
-
-    <Space android:id="@+id/player_profile_settings_mid_spacer"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_edit_profile"/>
-
-    <LinearLayout android:id="@+id/player_settings_share_profile_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
-        app:layout_constraintLeft_toLeftOf="parent"
-        >
-        <ImageView android:id="@+id/player_settings_share_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_share_light"
-            app:layout_constraintTop_toBottomOf="@+id/player_profile_settings_low_spacer"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:padding="@dimen/padding"
-            android:layout_gravity="bottom"/>
-
-        <TextView android:id="@+id/player_settings_log_in_qr_clickable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_share_profile"
-            android:fontFamily="@font/asap"
-            android:textSize="@dimen/subtitle_size"
+            android:clickable="true"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="@dimen/medium_padding"
+            android:text="@string/settings_edit_profile"
             android:textColor="@color/accent_blue_light"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer"
-            app:layout_constraintLeft_toRightOf="@id/player_settings_share_image"
-            android:padding="@dimen/padding"
-            android:layout_gravity="center_vertical"/>
-
+            android:textSize="@dimen/text_size" />
     </LinearLayout>
 
-    <Space android:id="@+id/player_profile_settings_low_spacer"
+    <Space
+        android:id="@+id/player_profile_settings_mid_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_share_profile_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_edit_profile" />
 
-    <LinearLayout android:id="@+id/player_settings_register_device_layout"
+    <LinearLayout
+        android:id="@+id/player_settings_share_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer"
         app:layout_constraintLeft_toLeftOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer">
 
-        <ImageView android:id="@+id/player_settings_delete_image"
+        <ImageView
+            android:id="@+id/player_settings_share_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_share_light"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/player_profile_settings_low_spacer" />
+
+        <TextView
+            android:id="@+id/player_settings_log_in_qr_clickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="@dimen/medium_padding"
+            android:text="@string/settings_share_profile"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintLeft_toRightOf="@id/player_settings_share_image"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
+
+    </LinearLayout>
+
+    <Space
+        android:id="@+id/player_profile_settings_low_spacer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/player_settings_share_profile_layout" />
+
+    <LinearLayout
+        android:id="@+id/player_settings_register_device_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer">
+
+        <ImageView
+            android:id="@+id/player_settings_delete_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/padding"
             android:src="@drawable/ic_generate_qr"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
-            android:padding="@dimen/padding"
-            android:layout_gravity="bottom"/>
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
-        <TextView android:id="@+id/player_settings_delete_profile_clickable"
+        <TextView
+            android:id="@+id/player_settings_delete_profile_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/accent_blue_light"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/quicksand_medium"
+            android:padding="@dimen/medium_padding"
             android:text="@string/settings_register_new_device"
-            android:fontFamily="@font/asap"
-            android:textSize="@dimen/subtitle_size"
-            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer"
-            android:padding="@dimen/padding"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
     </LinearLayout>
 
-    <Space android:id="@+id/player_settings_below_spacer"
+    <Space
+        android:id="@+id/player_settings_below_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space"
-        app:layout_constraintTop_toBottomOf="@id/player_settings_register_device_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/player_settings_register_device_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
