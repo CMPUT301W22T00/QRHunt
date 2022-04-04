@@ -14,7 +14,7 @@
         android:background="@drawable/rec_button_take_photo"
         android:backgroundTint="@color/transparent"
         app:layout_constraintDimensionRatio="H,1:1"
-        app:srcCompat="@drawable/ic_image_gallery"
+        app:srcCompat="@drawable/ic_image_gallery_new"
         android:scaleType="centerCrop"
         tools:ignore="MissingConstraints"
         app:shapeAppearanceOverlay="@style/ImageView.Corner"/>

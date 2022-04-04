@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/qr_library_qr_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
-    android:padding="@dimen/large_padding">
+    android:padding="@dimen/large_padding"
+    android:id="@+id/qr_library_qr_profile">
 
     <ImageButton
         android:id="@+id/qr_profile_back_button"
@@ -33,21 +33,11 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/qr_profile_delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:text="@string/delete"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_padding"
+        android:layout_gravity="bottom"
         android:background="@drawable/rec_frame_bg_qr_profile"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -194,7 +184,7 @@
             <ListView
                 android:id="@+id/qr_profile_comment_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginLeft="@dimen/large_padding"
                 android:layout_marginRight="@dimen/large_padding"
                 app:layout_constraintBottom_toBottomOf="parent"

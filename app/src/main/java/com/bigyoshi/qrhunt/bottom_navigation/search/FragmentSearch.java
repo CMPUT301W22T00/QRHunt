@@ -20,14 +20,12 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.MainActivity;
-import com.bigyoshi.qrhunt.player.FragmentProfile;
-import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
+import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -162,7 +160,6 @@ public class FragmentSearch extends Fragment {
                 bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
 
-                root.setAlpha((float) 1.0);  // Temporary fix, a bit hacky (doesn't revert back wtf)
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.search_bar, profile, "profile")
@@ -170,7 +167,6 @@ public class FragmentSearch extends Fragment {
                         .commit();
             }
         });
-
 
         return root;
 
