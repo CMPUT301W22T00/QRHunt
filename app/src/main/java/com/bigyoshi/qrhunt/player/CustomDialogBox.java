@@ -40,7 +40,7 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
         imgQrGen = (ImageView) findViewById(R.id.generated_qr_image);
 
         txtQrGen.setText(prompt);
-        imgQrGen.setImageBitmap(qr);
+        imgQrGen.setImageBitmap(Bitmap.createScaledBitmap(qr, 500, 500, false));
         close.setOnClickListener(this);
     }
 

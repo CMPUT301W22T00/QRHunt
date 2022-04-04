@@ -13,6 +13,7 @@
         android:id="@+id/generated_qr_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/generated_qr_title_text"
@@ -22,28 +23,28 @@
         android:id="@+id/generated_qr_close_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/close"
+        android:layout_marginTop="16dp"
+        android:background="@color/transparent"
         android:fontFamily="@font/asap"
-        android:textStyle="bold"
+        android:text="@string/close"
         android:textColor="@color/secondary_blue_dark"
         android:textSize="@dimen/text_size"
-        android:background="@color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/generated_qr_image"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/generated_qr_image" />
 
     <TextView
         android:id="@+id/generated_qr_title_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/qrgen_text"
+        android:layout_height="30dp"
         android:fontFamily="@font/asap"
-        android:textStyle="bold"
+        android:text="@string/qrgen_text"
         android:textColor="@color/secondary_blue_dark"
         android:textSize="@dimen/subtitle_size"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/generated_qr_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
