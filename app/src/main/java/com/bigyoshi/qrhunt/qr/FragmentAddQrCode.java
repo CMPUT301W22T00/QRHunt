@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -29,6 +32,8 @@ import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -85,20 +90,12 @@ public class FragmentAddQrCode extends DialogFragment {
         ((TextView) view.findViewById(R.id.qr_scan_profile_score)).setText(String.format("%d points", qrCode.getScore()));
 
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
-        numScannedTextView.setText("0 Scans");
-        db.collection("users").document(qrCode.getPlayerId()).get().addOnCompleteListener(task -> {
+        db.collection("qrCodesMetadata").document(qrCode.getId()).get()
+                .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        DocumentSnapshot res = task.getResult();
-                        if (res != null && res.exists()) {
-                            Double numScanned = res.getDouble("numScanned");
-                            int intNumScanned;
-                            if (numScanned != null) {
-                                intNumScanned = numScanned.intValue();
-                            } else {
-                                intNumScanned = 0;
-                            }
-                            numScannedTextView.setText(String.format("%d Scans", intNumScanned));
-                        }
+                        numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                    } else {
+                        numScannedTextView.setText("0 Scans");
                     }
                 }
         );
@@ -142,9 +139,37 @@ public class FragmentAddQrCode extends DialogFragment {
             addPicButton.setClickable(false);
         });
 
+        // Goes back to the scanner without saving anything
+        Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
+        cancelButton.setOnClickListener(__ -> dismiss());
+
         // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
+        Query qrList =  db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
+        qrList.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot doc : task.getResult()) {
+                    if (doc.exists()) {
+                        PlayableQrCode qrCodeDB = doc.toObject(PlayableQrCode.class);
+                        if (qrCodeDB.getId().matches(qrCode.getId())) {
+                            cancelButton.setText("Already");
+                            cancelButton.setClickable(false);
+                            okButton.setText("Scanned");
+                            okButton.setClickable(false);
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dismiss();
+                                }
+                            }, 3000);
+                        }
+                    }
+                }
+            }
+        });
         okButton.setOnClickListener(__ -> {
+            Toast toast = Toast.makeText(getContext(), "QR ADD", Toast.LENGTH_LONG);
             LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
             overlay.setVisibility(View.VISIBLE);
 
@@ -159,20 +184,12 @@ public class FragmentAddQrCode extends DialogFragment {
                                 qrCode.setImageUrl(uriTask.getResult().toString());
                                 Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
                             }
-                            qrCode.addToDb();
-                            overlay.setVisibility(View.INVISIBLE);
-                            dismiss();
                         }));
-            } else {
-                qrCode.addToDb();
-                overlay.setVisibility(View.INVISIBLE);
-                dismiss();
             }
+            qrCode.addToDb();
+            overlay.setVisibility(View.INVISIBLE);
+            dismiss();
         });
-
-        // Goes back to the scanner without saving anything
-        Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
-        cancelButton.setOnClickListener(__ -> dismiss());
 
         return view;
     }
