@@ -82,7 +82,6 @@ public class FragmentPlayerSetting extends Fragment {
         });
 
         registerNewDevice.setOnClickListener(v -> {
-            // TODO: Generate a QR Code
             String txtTransfer = "Scan to access your account on another device!";
             String registerCode = "qrhunt:transfer:" + playerInfo.getPlayerId();
             Bitmap transferProfileCode = QRCode. from(registerCode).bitmap();
@@ -91,7 +90,6 @@ public class FragmentPlayerSetting extends Fragment {
         });
 
         shareProfile.setOnClickListener(v -> {
-            // TODO: Generate a QR Code
             String txtShare = "Scan to view " + playerInfo.getUsername() + "'s profile!";
             String shareCode = "qrhunt:shareprofile:" + playerInfo.getPlayerId();
             Bitmap shareProfileCode = QRCode.from(shareCode).bitmap();
