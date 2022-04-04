@@ -129,12 +129,13 @@ public class FragmentQrProfile extends DialogFragment {
                     if (doc.exists()) {
                         QRComment comment = new QRComment(doc.getData().get("comment").toString(), doc.getData().get("username").toString());
                         comments.add(comment);
+                        setListViewHeight(commentList);
+                        commentAdapter.notifyDataSetChanged();
                     }
                 }
             }
         });
-        setListViewHeight(commentList);
-        commentAdapter.notifyDataSetChanged();
+
 
 
         // Add QRComment
@@ -174,7 +175,7 @@ public class FragmentQrProfile extends DialogFragment {
         if (listAdapter == null) {
             return;
         }
-        int totalHeight = 0;
+        int totalHeight = 60;
         //listAdapter.getCount() returns the number of data items
         for (int i = 0,len = listAdapter.getCount(); i <len; i++) {
             View listItem = listAdapter.getView(i, null, listView);

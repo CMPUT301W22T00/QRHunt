@@ -111,8 +111,8 @@ public class FragmentProfile extends Fragment {
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
         //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
-        //setGridViewHeight(qrGridView);
-        //qrCodesAdapter.notifyDataSetChanged();
+        setGridViewHeight(qrGridView);
+        qrCodesAdapter.notifyDataSetChanged();
         qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
                     new FragmentQrProfile(i, qrCodesList.get(i), playerInfo)
@@ -295,16 +295,15 @@ public class FragmentProfile extends Fragment {
             return;
         }
         //Fixed column width, how many columns
-        int numColumns = gridview.getNumColumns();//5
+        int numColumns = gridview.getNumColumns(); //3
+        int totalNum = listAdapter.getCount();
         int totalHeight = 0;
         //Calculate the sum of the height of each column
-        for (int i = 0; i <listAdapter.getCount(); i += numColumns) {
-            //Get each item of the gridview
-            View listItem = listAdapter.getView(i, null, gridview);
-            listItem.measure(0, 0);
-            //Get the height of the item and
-            totalHeight += listItem.getMeasuredHeight();
-        }
+        int numRows = Math.round(totalNum/numColumns) + 1;
+        View listItem = listAdapter.getView(1, null, gridview);
+        listItem.measure(0, 0);
+        totalHeight += listItem.getMeasuredHeight() * numRows;
+
 
         //Get the layout parameters of the gridview
         ViewGroup.LayoutParams params = gridview.getLayoutParams();
