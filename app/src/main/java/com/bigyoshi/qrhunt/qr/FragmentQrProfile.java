@@ -105,12 +105,11 @@ public class FragmentQrProfile extends DialogFragment {
         userName.setText(player.getUsername());
 
 
-        ImageButton deleteButton = view.findViewById(R.id.qr_profile_delete_button);
+        ImageButton deleteButton = view.findViewById(R.id.qr_profile_option_menu);
         if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         } else {
-            deleteButton.setVisibility(View.VISIBLE);
-            deleteButton.setText("BRUH");
+            deleteButton.setVisibility(View.INVISIBLE);
         }
         deleteButton.setOnClickListener(view1 -> {
 
