@@ -27,6 +27,8 @@ import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
+import com.bigyoshi.qrhunt.qr.FragmentScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -90,6 +92,7 @@ public class FragmentSearch extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
+                FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
                 startActivity(intent);
             }
         });

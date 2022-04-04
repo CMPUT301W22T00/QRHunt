@@ -81,6 +81,7 @@ public class FragmentScanner extends Fragment {
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             camera.processQRCode();
+            codeScanner.setScanMode(ScanMode.PREVIEW);
 //            final Handler handler = new Handler(Looper.getMainLooper());
 //            handler.postDelayed(new Runnable() {
 //                @Override
