@@ -125,11 +125,18 @@ public class FragmentProfile extends Fragment {
 
 
         ImageButton sortButton = root.findViewById(R.id.player_profile_sort_button);
+        TextView sortIndication = root.findViewById(R.id.sort_direction);
         sortButton.setOnClickListener(view -> {
                 if (playerInfo.qrLibrary.getScoredSorted() < 0) {
-                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
-                } else {
                     qrCodesList = playerInfo.qrLibrary.sortScoreDescending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Descending");
+                    sortButton.setScaleY(1);
+                } else {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Ascending");
+                    sortButton.setScaleY(-1);
                 }
                 qrCodesAdapter.notifyDataSetChanged();
         });

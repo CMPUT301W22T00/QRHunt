@@ -238,7 +238,23 @@
                 android:numColumns="3"
                 android:orientation="vertical"
                 android:verticalSpacing="@dimen/large_padding"
-                app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button"></GridView>
+                app:layout_constraintTop_toBottomOf="@id/player_profile_sort_button">
+            </GridView>
+
+            <TextView
+                android:id="@+id/sort_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/text_off_white"
+                android:textSize="@dimen/text_size"
+                android:fontFamily="@font/quicksand_medium"
+                android:paddingTop="7dp"
+                android:text="Score Descending"
+                app:layout_constraintStart_toEndOf="@+id/player_profile_sort_button"
+                app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
+
+                tools:ignore="MissingConstraints" />
             <!-- to be changed
             <ImageButton
                 android:id="@+id/player_profile_unique_flag"
