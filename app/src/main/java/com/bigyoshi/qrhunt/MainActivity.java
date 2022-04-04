@@ -27,6 +27,8 @@ import com.bigyoshi.qrhunt.bottom_navigation.search.FragmentSearch;
 import com.bigyoshi.qrhunt.databinding.ActivityMainBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
+import com.bigyoshi.qrhunt.player.ProfileType;
+import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayShowTitleEnabled(false);
         actionbar.setDisplayShowCustomEnabled(true);
 
-        player = new Player(this);
+        player = new SelfPlayer(this);
         // This will check if the player already has an account
         if (!player.getPlayerId().matches("")){
             player.initialize();
@@ -95,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", player);
+            bundle.putSerializable("isActivity", 1);
+            bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, search, "search");
+                fragmentTransaction.add(R.id.container, search, "search");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

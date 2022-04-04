@@ -1,5 +1,8 @@
 package com.bigyoshi.qrhunt.player;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -43,13 +47,10 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
 
     private FragmentUserSettingsEditProfileBinding binding;
 
-    /**
-     *  Constructor method
-     *
-     *  Note: Invokes parent constructor
-     */
-    public FragmentPlayerProfileSetting(){
-        super();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme_Dialog_Custom);
     }
 
     /**
@@ -70,6 +71,8 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
                 container,
                 false);
         View root = binding.getRoot();
+        // https://stackoverflow.com/questions/8045556/cant-make-the-custom-dialogfragment-transparent-over-the-fragment
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         username = root.findViewById(R.id.player_profile_settings_edit_username);
         username.setText(playerInfo.getUsername());

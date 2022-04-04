@@ -3,6 +3,8 @@ package com.bigyoshi.qrhunt.qr;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -61,6 +64,8 @@ public class FragmentAddQrCode extends DialogFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         PlayableQrCode qrCode = (PlayableQrCode) getArguments().getSerializable(PlayableQrCode.TAG);
+        // https://stackoverflow.com/questions/8045556/cant-make-the-custom-dialogfragment-transparent-over-the-fragment
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         ImageView imageView = view.findViewById(R.id.qr_scan_profile_image_holder);
         ActivityResultLauncher<Intent> pickPhotoResultLauncher = registerForActivityResult(
@@ -102,7 +107,7 @@ public class FragmentAddQrCode extends DialogFragment {
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
         } else {
-            showLatLong.setText("LOCATION NOT GIVEN");
+            showLatLong.setText("No Location");
         }
 
         addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);
@@ -114,7 +119,7 @@ public class FragmentAddQrCode extends DialogFragment {
         });
 
 
-        Button okButton = view.findViewById(R.id.qr_scan_profile_ok_button);
+        Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
         okButton.setOnClickListener(__ -> {
             LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
             overlay.setVisibility(View.VISIBLE);

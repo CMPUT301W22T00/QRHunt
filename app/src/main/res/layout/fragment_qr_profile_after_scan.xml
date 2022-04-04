@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
+    android:alpha="0.9"
     android:layout_height="fill_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.9"
         android:background="@color/main_off_white_blue_light"
         android:padding="@dimen/large_padding"
         tools:context=".qr.FragmentQrProfileAfterScan">
@@ -17,10 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
-            android:text="XX"
+            android:text="XX pts"
             android:textAlignment="textStart"
             android:textColor="@color/main_blue"
-            android:textSize="@dimen/title_size"
+            android:textSize="@dimen/title_size_medium"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,10 +32,12 @@
             android:id="@+id/qr_scan_profile_toggle_visibility"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_button_location_on_dark"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_button_location_on"
             android:contentDescription="Location Toggle ON"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_divider"
             tools:ignore="HardcodedText" />
 
 
@@ -43,8 +47,7 @@
             android:layout_height="1dp"
             android:alpha="0.2"
             android:background="@color/accent_grey_blue_dark"
-            app:layout_constraintEnd_toStartOf="@id/qr_scan_profile_toggle_visibility"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_score" />
 
@@ -59,9 +62,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand"
-            android:text="(Latitude, Longitude)"
+            android:text="Latitude, Longitude"
             android:textColor="@color/secondary_blue_dark"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/text_size_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_spacer"
             tools:ignore="HardcodedText" />
@@ -70,23 +73,25 @@
             android:id="@+id/qr_scan_profile_num_scanned"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/quicksand"
             android:text="Scans: XX"
             android:textAlignment="textEnd"
             android:textColor="@color/secondary_blue_dark"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_spacer"
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_image_holder"
             tools:ignore="HardcodedText" />
 
-        <!-- figure out how make square-->
         <ImageView
             android:id="@+id/qr_scan_profile_image_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding"
-            android:layout_marginBottom="@dimen/padding"
-            android:background="@drawable/rec_image_holder_bg"
+            android:alpha="0.7"
+            android:background="@drawable/rec_image_holder_after_scan"
             android:contentDescription="Image Placeholder BG"
             android:padding="@dimen/padding"
             app:layout_constraintDimensionRatio="H,1:1"
@@ -100,6 +105,7 @@
             android:id="@+id/qr_scan_profile_take_photo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="0.85"
             android:background="@drawable/rec_button_take_photo"
             android:fontFamily="@font/quicksand"
             android:padding="@dimen/padding"
@@ -107,7 +113,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/secondary_blue_dark"
-            android:textSize="@dimen/text_size"
+            android:textSize="@dimen/subtitle_size_small"
             android:textStyle="bold"
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="@id/qr_scan_profile_image_holder"
@@ -117,38 +123,39 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/qr_scan_profile_ok_button"
+            android:id="@+id/qr_scan_profile_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginBottom="@dimen/padding"
+            android:layout_marginTop="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="@font/quicksand"
             android:gravity="center"
-            android:text="@string/ok"
+            android:text="@string/save"
+            android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size"
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_image_holder" />
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_num_scanned" />
 
         <Button
             android:id="@+id/qr_scan_profile_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginRight="200dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:fontFamily="@font/quicksand"
-            android:gravity="center"
             android:text="@string/cancel"
+            android:textAlignment="center"
+            android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="@dimen/subtitle_size"
+            android:textSize="@dimen/text_size"
             android:textStyle="bold"
-            app:layout_constraintRight_toLeftOf="@id/qr_scan_profile_ok_button"
+            app:layout_constraintEnd_toStartOf="@+id/qr_scan_profile_save_button"
+            app:layout_constraintRight_toLeftOf="@id/qr_scan_profile_save_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qr_scan_profile_image_holder" />
+            app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_num_scanned" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -164,7 +171,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:alpha="0.2"
-            android:background="#E0000000" />
+            android:background="#E0000000"
+            tools:ignore="ContentDescription" />
 
         <ProgressBar
             android:id="@+id/qr_scan_profile_progress_bar"
