@@ -1,18 +1,30 @@
 package com.bigyoshi.qrhunt;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.robotium.solo.Solo;
 
+import junit.framework.AssertionFailedError;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 public class FragmentProfileTest {
 
@@ -64,10 +76,45 @@ public class FragmentProfileTest {
         goToProfile();
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_contact_button));
+        try {
+            solo.getCurrentActivity().findViewById(R.id.contact_call_out);
+        } catch(AssertionFailedError e ){
+            Log.d(FragmentProfileTest.class.getSimpleName(), "checkSocialButton: " + e.getMessage());
+        }
+
+        // go to fragment to
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
+        solo.waitForFragmentById(R.id.player_settings);
+        assertNotNull(solo.getView(R.id.player_settings));
+
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
+        solo.waitForFragmentById(R.id.player_settings_edit_profile);
+        assertNotNull(solo.getView(R.id.player_settings_edit_profile));
+
+        EditText mockTyping = solo.getEditText(1);
+        EditText mockTyping2 = solo.getEditText(2);
+        solo.enterText(mockTyping, "HelloEmail4");
+        solo.enterText(mockTyping2, "HelloSocial3");
+
+        solo.clickOnButton("Save");
+        solo.waitForFragmentById(R.id.player_settings);
+
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_back_button));
+        solo.waitForFragmentById(R.id.player_profile);
+        assertNotNull(solo.getView(R.id.player_profile));
+
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_contact_button));
+
+        assertTrue(solo.searchText("HelloEmail4"));
+        assertTrue(solo.searchText("HelloSocial3"));
+
+        solo.clickOnText("Total Score Rank");
+
+        assertFalse(solo.searchText("HelloEmail4"));
+        assertFalse(solo.searchText("HelloSocial3"));
+
     }
 
-    // Check if SocialButton is not clickable (nothing seen)
-    // Check if SocialButton shows contacts of player
     // Check if call out when you click out of the social button
 
     @After

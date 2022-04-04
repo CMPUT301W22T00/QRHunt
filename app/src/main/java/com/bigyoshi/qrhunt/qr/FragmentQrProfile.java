@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,17 +23,13 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.bigyoshi.qrhunt.player.ProfileType;
-import com.squareup.picasso.Picasso;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -128,7 +123,7 @@ public class FragmentQrProfile extends DialogFragment {
                     .build();
 
 
-            deleteQRConfirmation.findViewById(R.id.delete_qr_callout_button).setOnClickListener(new View.OnClickListener() {
+            deleteQRConfirmation.findViewById(R.id.player_contact_callout_text).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder deleteQRConfirmationBuilder = new AlertDialog.Builder(getContext())

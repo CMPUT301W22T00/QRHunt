@@ -9,7 +9,7 @@
     android:id="@+id/contact_call_out">
 
     <TextView
-        android:id="@+id/delete_qr_callout_button"
+        android:id="@+id/player_contact_callout_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="XXXX"

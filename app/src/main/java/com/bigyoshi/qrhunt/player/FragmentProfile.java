@@ -3,7 +3,6 @@ package com.bigyoshi.qrhunt.player;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -108,6 +107,14 @@ public class FragmentProfile extends Fragment {
         username = root.findViewById(R.id.player_profile_username_title);
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
+
+        String emailCheck = playerInfo.getContact().getEmail();
+        String socialCheck = playerInfo.getContact().getSocial();
+        if (emailCheck.matches("") && socialCheck.matches("")){
+            contactsButton.setAlpha((float) .7);
+        } else {
+            contactsButton.setAlpha((float) 1.0);
+        }
 
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
@@ -277,7 +284,7 @@ public class FragmentProfile extends Fragment {
                                 .transparentOverlay(true)
                                 .backgroundColor(
                                         getResources().getColor(R.color.accent_grey_blue_dark))
-                                .contentView(R.layout.player_contact_callout, R.id.delete_qr_callout_button)
+                                .contentView(R.layout.player_contact_callout, R.id.player_contact_callout_text)
                                 .build()
                                 .show();
                     }

@@ -117,11 +117,11 @@ public class FragmentPlayerProfileSettingTest {
     @Test
     public void checkAcceptsEmailSocialChange(){
         goToPlayerProfileSetting();
-        EditText mockTyping = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_email);
-        EditText mockTyping2 = solo.getCurrentActivity().findViewById(R.id.player_profile_settings_edit_social);
+        EditText mockTyping = solo.getEditText(1);
+        EditText mockTyping2 = solo.getEditText(2);
         solo.enterText(mockTyping, "HelloEmail4");
         solo.enterText(mockTyping2, "HelloSocial3");
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
+        solo.clickOnButton("Save");
         String mockText = mockTyping.getText().toString();
         String mockText2 = mockTyping2.getText().toString();
         Assert.assertEquals(mockText, "HelloEmail4");
