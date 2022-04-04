@@ -44,6 +44,7 @@ public class FragmentQrProfile extends DialogFragment {
     private PlayableQrCode currentQR;
     private Player player;
     private ProfileType profileType;
+    private FirebaseFirestore db;
 
     /**
      * Constructor method
@@ -69,13 +70,23 @@ public class FragmentQrProfile extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr_player_profile, container, false);
 
+        // Get Data Base
+        db = FirebaseFirestore.getInstance();
+
         // Display score
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
         showScore.setText(String.valueOf(currentQR.getScore())+" Points");
 
         // Display numScan
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
-        showNumScanned.setText("01"); // HARD CODED FOR NOW
+        db.collection("qrCodesMetadata").document(currentQR.getId()).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        showNumScanned.setText(task.getResult().get("numScanned").toString());
+                    } else {
+                        showNumScanned.setText("01"); // HARD CODED FOR NOW
+                    }
+                });
 
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);
@@ -161,7 +172,7 @@ public class FragmentQrProfile extends DialogFragment {
         });
 
         // Display Comments
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         ListView commentList = view.findViewById(R.id.qr_profile_comment_list);
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
