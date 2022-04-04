@@ -162,7 +162,6 @@ public class FragmentSearch extends Fragment {
                 bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
 
-                root.setAlpha((float) 1.0);  // Temporary fix, a bit hacky (doesn't revert back wtf)
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.search_bar, profile, "profile")
