@@ -1,31 +1,41 @@
 package com.bigyoshi.qrhunt.qr;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.bigyoshi.qrhunt.R;
+
+
 /**
  * Definition: Generates a QR code with the account specifications to access the account on other devices
  * Note: NA
  * Issues: This is not implement yet
  */
-public class UnplayableQrCode {
+public class UnplayableQrCode extends Fragment {
 
+    private String profileID;
+    private Boolean isLogin;
     /**
      * Constructor method
      *
      */
-    public UnplayableQrCode(){
+
+    public UnplayableQrCode(String profileID, Boolean isLogin){
+        this.profileID = profileID;
+        this.isLogin = isLogin;
     }
 
-    /**
-     * Checks if it has stored a player's game status
-     *
-     * @return true
-     */
-    public Boolean isGameStatus(){
-        /* True if it is game status, false then it is LogIn;
-           could have a isLogIn for completeness though
-         */
-        return true;
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        return view;
+    }
     /**
      * Gets game status features and displays it in a view
      *
