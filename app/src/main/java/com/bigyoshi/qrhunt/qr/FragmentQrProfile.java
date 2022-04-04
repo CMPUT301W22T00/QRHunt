@@ -202,6 +202,7 @@ public class FragmentQrProfile extends DialogFragment {
             db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
                     .collection("comments")
                     .document(newCommentText.getText().toString()).set(map);
+            newCommentText.getText().clear();
             setListViewHeight(commentList);
             commentAdapter.notifyDataSetChanged();
         });
