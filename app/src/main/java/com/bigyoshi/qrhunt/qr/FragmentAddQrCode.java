@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +48,7 @@ public class FragmentAddQrCode extends DialogFragment {
     private Button addPicButton;
     private Bitmap bitmap;
     private ImageView imageView;
+    private Boolean isHidden;
 
     /**
      * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
@@ -110,6 +113,27 @@ public class FragmentAddQrCode extends DialogFragment {
             showLatLong.setText("No Location");
         }
 
+        ImageButton hideLocation = view.findViewById(R.id.qr_scan_profile_toggle_visibility);
+        isHidden = false;
+        hideLocation.setOnClickListener( view1 -> {
+            if (qrLocation != null && qrLocation.exists()) {
+                if (isHidden) {
+                    qrCode.setLocation(qrLocation);
+                    String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
+                    String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
+                    showLatLong.setText(strLatitude + ", " + strLongitude);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
+                    isHidden = false;
+                } else {
+                    qrCode.setLocation(null);
+                    showLatLong.setText("Location Now Hidden");
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
+                    isHidden = true;
+                }
+            }
+        });
+
+        // Take A picture
         addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);
         addPicButton.setOnClickListener(__ -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -118,7 +142,7 @@ public class FragmentAddQrCode extends DialogFragment {
             addPicButton.setClickable(false);
         });
 
-
+        // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
         okButton.setOnClickListener(__ -> {
             LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
@@ -146,6 +170,7 @@ public class FragmentAddQrCode extends DialogFragment {
             }
         });
 
+        // Goes back to the scanner without saving anything
         Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
         cancelButton.setOnClickListener(__ -> dismiss());
 
