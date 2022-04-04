@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -17,11 +19,15 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
     public Context ctx;
     public Button close;
     public String prompt;
+    private TextView txtQrGen;
+    private ImageView imgQrGen;
+    private Bitmap qr;
 
     public CustomDialogBox(@NonNull Context ctx, String prompt, Bitmap qr) {
         super(ctx);
         this.ctx = ctx;
         this.prompt = prompt;
+        this.qr = qr;
     }
 
     @Override
@@ -30,6 +36,11 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.qr_generation);
         close = (Button) findViewById(R.id.generated_qr_close_button);
+        txtQrGen = (TextView) findViewById(R.id.generated_qr_title_text);
+        imgQrGen = (ImageView) findViewById(R.id.generated_qr_image);
+
+        txtQrGen.setText(prompt);
+        imgQrGen.setImageBitmap(qr);
         close.setOnClickListener(this);
     }
 

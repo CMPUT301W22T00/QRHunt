@@ -65,27 +65,6 @@ public class FragmentPlayerSetting extends Fragment {
             dialogFragment.show(getChildFragmentManager(), null);
         });
 
-        // shareProfile.setOnClickListener(v -> {
-        //     //todo make the QR generate
-        //     AlertDialog showGeneratedQr = new AlertDialog.Builder(getContext())
-        //             .setView(R.layout.qr_generation)
-        //             .create();
-
-        //     //TextView generatedQrTitle = showGeneratedQr.findViewById(R.id.generated_qr_title_text);
-        //     //generatedQrTitle.setText("Scan to view\n" + playerInfo.getUsername() + "'s profile!");
-
-        //     showGeneratedQr.show();
-
-        //     showGeneratedQr.findViewById(R.id.generated_qr_close_button).setOnClickListener(new View.OnClickListener() {
-        //         @Override
-        //         public void onClick(View view) {
-        //             showGeneratedQr.dismiss();
-        //         }
-        //     });
-        // });
-
-
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
