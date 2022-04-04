@@ -90,7 +90,7 @@ public class FragmentQrProfile extends DialogFragment {
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
             showLatLong.setText(strLatitude + ", " + strLongitude);
         } else {
-            showLatLong.setText("NO LOCATION");
+            showLatLong.setText("No Location");
         }
 
         // Attach Image
