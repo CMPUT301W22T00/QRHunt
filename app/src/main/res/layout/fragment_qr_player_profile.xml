@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_padding"
+        android:layout_gravity="bottom"
         android:background="@drawable/rec_frame_bg_qr_profile"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -183,7 +184,7 @@
             <ListView
                 android:id="@+id/qr_profile_comment_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginLeft="@dimen/large_padding"
                 android:layout_marginRight="@dimen/large_padding"
                 app:layout_constraintBottom_toBottomOf="parent"

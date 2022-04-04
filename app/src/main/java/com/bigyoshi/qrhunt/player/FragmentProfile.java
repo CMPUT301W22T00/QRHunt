@@ -315,10 +315,11 @@ public class FragmentProfile extends Fragment {
         int totalHeight = 0;
         //Calculate the sum of the height of each column
         int numRows = Math.round(totalNum/3) + 1;
-        View listItem = listAdapter.getView(0, null, gridview);
-        listItem.measure(0, 0);
-        totalHeight += (listItem.getMeasuredWidth() * 5 + listItem.getMeasuredWidth()) * numRows;
-
+        if (!listAdapter.isEmpty()) {
+            View listItem = listAdapter.getView(0, null, gridview);
+            listItem.measure(0, 0);
+            totalHeight += (listItem.getMeasuredWidth() * 5 + listItem.getMeasuredWidth()) * numRows;
+        }
 
         //Get the layout parameters of the gridview
         ViewGroup.LayoutParams params = gridview.getLayoutParams();
