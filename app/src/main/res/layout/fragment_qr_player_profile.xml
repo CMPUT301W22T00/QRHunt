@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_padding"
-        android:background="@drawable/rec_frame_bg_test_2"
+        android:background="@drawable/rec_frame_bg_qr_profile"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/qr_profile_back_button">
