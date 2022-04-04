@@ -63,6 +63,22 @@ public class Player implements Serializable {
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
 
+    public Player(String playerId, String username, Context context) {
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("users");
+        this.rankInfo = new RankInfo();
+        this.bestUniqueQr = new BestQr();
+        this.bestScoringQr = new BestQr();
+        this.admin = false;
+        this.totalScore = 0;
+        this.context = context;
+        this.playerId = playerId;
+        this.username = username;
+        this.contact = new Contact();
+        this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
+        savePlayer();
+    }
+
     public static Player fromPlayerId(String playerId) {
         Player player = new Player(playerId, null);
         player.initialize();
@@ -157,6 +173,10 @@ public class Player implements Serializable {
             newAdmin.admin = false;
             return "PlayerInfo did not become admin.";
         }
+    }
+
+    public void setAdmin(Boolean set){
+        this.admin = set;
     }
 
 

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/padding"
+    android:id="@+id/delete_account_question"
     android:background="@drawable/rec_fragment_bg">
 
     <TextView

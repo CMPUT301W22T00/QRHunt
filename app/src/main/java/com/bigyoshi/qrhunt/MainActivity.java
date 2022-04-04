@@ -164,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public Player getPlayer(){
+        return player;
+    }
+
     /**
      * Updates the database when score is updated
      * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
