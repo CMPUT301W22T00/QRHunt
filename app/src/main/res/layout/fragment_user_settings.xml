@@ -95,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/player_profile_settings_low_spacer" />
 
         <TextView
-            android:id="@+id/player_settings_log_in_qr_clickable"
+            android:id="@+id/player_settings_share_profile_clickable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -134,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
         <TextView
-            android:id="@+id/player_settings_delete_profile_clickable"
+            android:id="@+id/register_new_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
