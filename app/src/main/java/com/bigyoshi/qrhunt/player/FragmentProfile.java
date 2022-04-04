@@ -128,8 +128,12 @@ public class FragmentProfile extends Fragment {
         sortButton.setOnClickListener(view -> {
                 if (playerInfo.qrLibrary.getScoredSorted() < 0) {
                     qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
+                    setGridViewHeight(qrGridView);
+                    sortButton.setScaleY(1);
                 } else {
                     qrCodesList = playerInfo.qrLibrary.sortScoreDescending();
+                    setGridViewHeight(qrGridView);
+                    sortButton.setScaleY(-1);
                 }
                 qrCodesAdapter.notifyDataSetChanged();
         });

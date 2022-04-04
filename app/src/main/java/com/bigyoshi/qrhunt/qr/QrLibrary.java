@@ -68,7 +68,7 @@ public class QrLibrary implements Serializable {
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
-        qrCodesList.sort(compareByScore.reversed());
+        qrCodesList.sort(compareByScore);
         scoreSorted = 1;
         return qrCodesList;
 
@@ -82,7 +82,7 @@ public class QrLibrary implements Serializable {
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
-        qrCodesList.sort(compareByScore);
+        qrCodesList.sort(compareByScore.reversed());
         scoreSorted = -1;
         return qrCodesList;
     }
@@ -94,7 +94,7 @@ public class QrLibrary implements Serializable {
     Comparator<PlayableQrCode> compareByScore = new Comparator<PlayableQrCode>() {
         @Override
         public int compare(PlayableQrCode qr1, PlayableQrCode qr2) {
-            return qr1.getScore() - qr2.getScore();
+            return qr2.getScore() - qr1.getScore();
         }
     };
 
