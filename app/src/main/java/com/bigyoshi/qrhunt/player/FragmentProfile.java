@@ -294,15 +294,13 @@ public class FragmentProfile extends Fragment {
         if (listAdapter == null) {
             return;
         }
-        //Fixed column width, how many columns
-        int numColumns = gridview.getNumColumns(); //3
         int totalNum = listAdapter.getCount();
         int totalHeight = 0;
         //Calculate the sum of the height of each column
-        int numRows = Math.round(totalNum/numColumns) + 1;
-        View listItem = listAdapter.getView(1, null, gridview);
+        int numRows = Math.round(totalNum/3) + 1;
+        View listItem = listAdapter.getView(0, null, gridview);
         listItem.measure(0, 0);
-        totalHeight += listItem.getMeasuredHeight() * numRows;
+        totalHeight += (listItem.getMeasuredWidth() * 5 + listItem.getMeasuredWidth()) * numRows;
 
 
         //Get the layout parameters of the gridview
