@@ -22,7 +22,7 @@ import net.glxn.qrgen.android.QRCode;
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
  * Note: NA
- * Issues: Currently does not implement generating a log-in QR code
+ * Issues:
  */
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
@@ -83,7 +83,7 @@ public class FragmentPlayerSetting extends Fragment {
 
         registerNewDevice.setOnClickListener(v -> {
             // TODO: Generate a QR Code
-            String txtTransfer = "Scan to access " + playerInfo.getUsername() + "'s account on another device!";
+            String txtTransfer = "Scan to access your account on another device!";
             String registerCode = "qrhunt:transfer:"+ playerInfo.getPlayerId();
             Bitmap transferProfileCode = QRCode. from(registerCode).bitmap();
             CustomDialogBox registerQR = new CustomDialogBox(this.getContext(), txtTransfer, transferProfileCode);
