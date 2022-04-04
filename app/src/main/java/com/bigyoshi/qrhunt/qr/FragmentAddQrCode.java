@@ -95,6 +95,8 @@ public class FragmentAddQrCode extends DialogFragment {
                     if (task.isSuccessful()) {
                         if (task.getResult().exists()) {
                             numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                        } else {
+                            numScannedTextView.setText("0 Scans");
                         }
                     } else {
                         numScannedTextView.setText("0 Scans");
@@ -167,6 +169,7 @@ public class FragmentAddQrCode extends DialogFragment {
                                 @Override
                                 public void run() {
                                     dismiss();
+                                    FragmentScanner.codeScanner.startPreview();
                                 }
                             }, 3000);
                         }
