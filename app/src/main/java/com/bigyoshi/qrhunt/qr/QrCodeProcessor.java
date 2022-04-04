@@ -4,12 +4,18 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -43,6 +49,7 @@ public class QrCodeProcessor {
 
     /**
      * Constructor method
+     *
      * @param frag     TBA
      * @param text     QR Content
      * @param playerId
@@ -58,8 +65,7 @@ public class QrCodeProcessor {
 
     /**
      * Gets player's geolocation
-     *
-     * */
+     */
     public void startPollingLocation() {
 
         /* alex please forgive me
@@ -76,12 +82,13 @@ public class QrCodeProcessor {
         mLocationRequest.setInterval(10 * 1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        hackyLocationCallback = new LocationCallback() {};
+        hackyLocationCallback = new LocationCallback() {
+        };
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
+                != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(
-                                activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+                activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         client.requestLocationUpdates(mLocationRequest, hackyLocationCallback, null);
@@ -89,15 +96,14 @@ public class QrCodeProcessor {
 
     /**
      * Processes QR code to be added
-     *
-     * */
+     */
     public void processQRCode() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // todo check here: is this an internal code
         String[] webAddress = qrContent.split(":");
 
-        if (webAddress[0].matches("qrhunt")){
-            if (webAddress[1].matches("shareprofile")){
+        if (webAddress[0].matches("qrhunt")) {
+            if (webAddress[1].matches("shareprofile")) {
                 Toast.makeText(activity, "Sharing user's profile", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Sharing profile");
                 UnplayableQrCode shareProfileQr = new UnplayableQrCode(webAddress[2], false);
@@ -136,8 +142,7 @@ public class QrCodeProcessor {
 
     /**
      * Hashes the QR code
-     *
-     * */
+     */
     private void computeHash() {
         MessageDigest messageDigest = null;
         try {
@@ -156,8 +161,7 @@ public class QrCodeProcessor {
 
     /**
      * Calculates QR score
-     *
-     * */
+     */
     private void computeScore() {
         /* Need to calculate score here
         Probably have to pass in the hash or whatever we use to calculate the value
@@ -177,12 +181,14 @@ public class QrCodeProcessor {
      */
     private Task<Location> getLocation() {
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED
+                != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(
-                                activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+                activity, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         return client.getLastLocation();
     }
 }
+
+
