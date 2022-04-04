@@ -64,7 +64,7 @@ public class QrLibrary implements Serializable {
      * Sorts all QRs in library from lowest to highest scoring
      *
      */
-    public ArrayList<PlayableQrCode> sortScoreAscending(){
+    public ArrayList<PlayableQrCode> sortScoreDescending(){
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
@@ -78,7 +78,7 @@ public class QrLibrary implements Serializable {
      * Sorts all QRs in Library from highest to lowest scoring
      *
      */
-    public ArrayList<PlayableQrCode> sortScoreDescending(){
+    public ArrayList<PlayableQrCode> sortScoreAscending(){
         /* Integer in HashMap would either be the value of the QRCode
         or just some sort of order we use to rank the QRCodes (ie the values)
          */
