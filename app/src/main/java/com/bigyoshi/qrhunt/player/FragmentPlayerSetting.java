@@ -54,7 +54,7 @@ public class FragmentPlayerSetting extends Fragment {
 
         playerEditProfile = root.findViewById(R.id.player_settings_edit_profile_clickable);
         backButton = root.findViewById(R.id.player_settings_back_button);
-        registerNewDevice = root.findViewById(R.id.register_new_device);
+        registerNewDevice = root.findViewById(R.id.player_settings_register_device_clickable);
         shareProfile = root.findViewById(R.id.player_settings_share_profile_clickable);
 
         playerEditProfile.setOnClickListener(v -> {

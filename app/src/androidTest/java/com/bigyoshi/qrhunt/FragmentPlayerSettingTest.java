@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 
@@ -71,4 +72,33 @@ public class FragmentPlayerSettingTest {
     }
 
     // Need to test press on QR when set up
+    @Test
+    public void testShareableQrButton(){
+        goToProfileSetting();
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_share_profile_clickable));
+
+        assertTrue(solo.waitForDialogToOpen());
+        assertTrue(solo.searchText("Scan to view"));
+
+        solo.clickOnButton(0);
+        assertTrue(solo.waitForDialogToClose());
+
+    }
+
+    @Test
+    public void testLogInQrButton(){
+        goToProfileSetting();
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_register_device_clickable));
+
+        assertTrue(solo.waitForDialogToOpen());
+        assertTrue(solo.searchText("Scan to access your"));
+
+        solo.clickOnButton(0);
+        assertTrue(solo.waitForDialogToClose());
+
+    }
+
+
 }

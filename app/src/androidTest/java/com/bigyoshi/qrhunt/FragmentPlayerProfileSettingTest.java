@@ -127,7 +127,7 @@ public class FragmentPlayerProfileSettingTest {
         Assert.assertEquals(mockText, "HelloEmail4");
         Assert.assertEquals(mockText2, "HelloSocial3");
         // Need to check if it updates for the player side
-    }
+    }// Need to check if it doesn't updates for the player side -- pressing cancel
 
-    // Need to check if it doesn't updates for the player side -- pressing cancel
+
 }
