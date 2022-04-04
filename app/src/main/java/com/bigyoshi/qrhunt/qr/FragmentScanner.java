@@ -75,7 +75,7 @@ public class FragmentScanner extends Fragment {
         codeScanner = new CodeScanner(activity, scannerView);
 
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.CONTINUOUS);
+        codeScanner.setScanMode(ScanMode.SINGLE);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
@@ -83,13 +83,12 @@ public class FragmentScanner extends Fragment {
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
-            codeScanner.setScanMode(ScanMode.PREVIEW);
             camera.processQRCode();
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    codeScanner.setScanMode(ScanMode.CONTINUOUS);
+                    codeScanner.startPreview();
                 }
             }, 2000);
         }));

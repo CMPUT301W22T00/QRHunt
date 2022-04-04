@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -47,7 +48,7 @@ public class FragmentProfile extends Fragment {
     private ImageButton settingButton;
     private ImageButton contactsButton;
     private int lastDestination;
-    private GridView showAll;
+    private GridView qrGridView;
     private ArrayList<PlayableQrCode> qrCodesList;
     private ArrayAdapter<PlayableQrCode> qrCodesAdapter;
     private FirebaseFirestore db;
@@ -108,11 +109,14 @@ public class FragmentProfile extends Fragment {
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
-        showAll = root.findViewById(R.id.player_profile_grid_view);
+        qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
-        showAll.setAdapter(qrCodesAdapter);
-        showAll.setOnItemClickListener(
+        qrGridView.setAdapter(qrCodesAdapter);
+        //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
+        setGridViewHeight(qrGridView);
+        qrCodesAdapter.notifyDataSetChanged();
+        qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
                     new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
@@ -298,6 +302,30 @@ public class FragmentProfile extends Fragment {
     public void onResume() {
         super.onResume();
         qrCodesAdapter.notifyDataSetChanged();
-        showAll.invalidate();
+        qrGridView.invalidate();
+    }
+
+    public void setGridViewHeight(GridView gridview) {
+        //Get the adapter of gridview
+        ListAdapter listAdapter = gridview.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalNum = listAdapter.getCount();
+        int totalHeight = 0;
+        //Calculate the sum of the height of each column
+        int numRows = Math.round(totalNum/3) + 1;
+        if (!listAdapter.isEmpty()) {
+            View listItem = listAdapter.getView(0, null, gridview);
+            listItem.measure(0, 0);
+            totalHeight += (listItem.getMeasuredWidth() * 5 + listItem.getMeasuredWidth()) * numRows;
+        }
+
+        //Get the layout parameters of the gridview
+        ViewGroup.LayoutParams params = gridview.getLayoutParams();
+        //set height
+        params.height = totalHeight;
+        //Setting parameters
+        gridview.setLayoutParams(params);
     }
 }
