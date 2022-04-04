@@ -251,7 +251,7 @@ public class FragmentQrProfile extends DialogFragment {
         //params.height finally gets the height required for complete display of the entire ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *
-               (listAdapter .getCount()-1));
+               (listAdapter .getCount()-1) + 50);
         if (params.height < 200) { params.height = 200; }
         listView.setLayoutParams(params);
     }
