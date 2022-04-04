@@ -204,18 +204,21 @@ public class FragmentQrProfile extends DialogFragment {
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
             HashMap<String, String> map = new HashMap<>();
-            map.put("comment", newCommentText.getText().toString());
-            map.put("username", player.getUsername());
 
-            QRComment newComment = new QRComment(
-                    newCommentText.getText().toString(), player.getUsername());
-            comments.add(newComment);
-            db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
-                    .collection("comments")
-                    .document(newCommentText.getText().toString()).set(map);
-            newCommentText.getText().clear();
-            setListViewHeight(commentList);
-            commentAdapter.notifyDataSetChanged();
+            if (!newCommentText.getText().toString().isEmpty()) {
+                map.put("comment", newCommentText.getText().toString());
+                map.put("username", player.getUsername());
+
+                QRComment newComment = new QRComment(
+                        newCommentText.getText().toString(), player.getUsername());
+                comments.add(newComment);
+                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
+                        .collection("comments")
+                        .document(newCommentText.getText().toString()).set(map);
+                newCommentText.getText().clear();
+                setListViewHeight(commentList);
+                commentAdapter.notifyDataSetChanged();
+            }
         });
 
         return view;
