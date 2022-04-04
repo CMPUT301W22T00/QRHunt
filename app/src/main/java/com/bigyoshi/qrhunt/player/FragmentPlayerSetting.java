@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
 
-
+import net.glxn.qrgen.android.QRCode;
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
  * Note: NA
