@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rec_generate_qr_bg"
+    android:padding="@dimen/large_padding">
+
+
+    <ImageView
+        android:id="@+id/generated_qr_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/generated_qr_title_text"
+        app:srcCompat="@drawable/ic_image_gallery" />
+
+    <Button
+        android:id="@+id/generated_qr_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close"
+        android:fontFamily="@font/asap"
+        android:textStyle="bold"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/text_size"
+        android:background="@color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/generated_qr_image"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/generated_qr_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qrgen_text"
+        android:fontFamily="@font/asap"
+        android:textStyle="bold"
+        android:textColor="@color/secondary_blue_dark"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBottom_toTopOf="@+id/generated_qr_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
