@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,16 +19,14 @@ import androidx.fragment.app.Fragment;
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
+import com.bigyoshi.qrhunt.player.Player;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,13 +38,16 @@ import java.util.stream.Stream;
  */
 public class FragmentLeaderboard extends Fragment {
     private static final String TAG = FragmentLeaderboard.class.getSimpleName();
-    private List<Map<String, Object>> bottomLeaderboardPlayers;
-    private List<Map<String, Object>> top3LeaderboardPlayers;
+    private List<Player> bottomLeaderboardPlayers;
+    private List<Player> top3LeaderboardPlayers;
     private LeaderboardListAdapter bottomAdapter;
     private List<View> top3Views;
     private SortCriteria sortCriteria;
     private FragmentLeaderboardBinding binding;
     private FirebaseFirestore db;
+    private Button sortBestUnique;
+    private Button sortTotalScanned;
+    private Button sortTotalScore;
 
     /**
      * creates instance of fragment, and handles where the activity goes after pressing back button
@@ -75,17 +77,9 @@ public class FragmentLeaderboard extends Fragment {
         if (querySnapshotTask.isSuccessful() &&  querySnapshotTask.getResult() != null) {
             Log.d(TAG,"querying all players successful");
             for (QueryDocumentSnapshot doc : querySnapshotTask.getResult()){
-                // ideally, we could just toObject our way to freedom,
-                // but that's not really an option, out tech debt is too deep, deadlines too tight
-                // constrainsts too constrained
-                Map<String, Object> playerInfo = new HashMap<String, Object>();
-                playerInfo.put("username", doc.get("username"));
-                playerInfo.put("totalScore", Optional.ofNullable(doc.get("totalScore")).orElse(0L));
-                playerInfo.put("bestUniqueQr", Optional.ofNullable(doc.get("bestUniqueQr.score")).orElse(0L));
-                playerInfo.put("numScanned", Optional.ofNullable(doc.get("totalScanned")).orElse(0L));
-                bottomLeaderboardPlayers.add(playerInfo);
+                bottomLeaderboardPlayers.add(Player.fromDoc(doc));
             }
-            sortLeaderboardItems();
+            setSortCritera(SortCriteria.TOTAL_SCORE);
         } else {
             Log.d(TAG,"querying all players unsuccessful" + querySnapshotTask.getException());
         }
@@ -116,6 +110,14 @@ public class FragmentLeaderboard extends Fragment {
         top3Views.add((View) binding.layoutSecondPlace);
         top3Views.add((View) binding.layoutThirdPlace);
 
+        sortBestUnique = binding.leaderboardSortBestUnique;
+        sortBestUnique.setOnClickListener(__ -> setSortCritera(SortCriteria.BEST_UNIQUE));
+        sortTotalScanned = binding.leaderboardSortTotalScanned;
+        sortTotalScanned.setOnClickListener(__ -> setSortCritera(SortCriteria.TOTAL_SCANNED));
+        sortTotalScore = binding.leaderboardSortTotalScore;
+        sortTotalScore.setOnClickListener(__ -> setSortCritera(SortCriteria.TOTAL_SCORE));
+
+
         ListView listView = binding.leaderboardRankingList;
         bottomAdapter = new LeaderboardListAdapter(getContext(), 0, bottomLeaderboardPlayers);
         listView.setAdapter(bottomAdapter);
@@ -126,15 +128,15 @@ public class FragmentLeaderboard extends Fragment {
 
     private void sortLeaderboardItems() {
         // https://stackoverflow.com/questions/189559/how-do-i-join-two-lists-in-java
-        List<Map<String, Object>> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());;
-        combined.sort((hm0, hm1) -> {
+        List<Player> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());;
+        combined.sort((p0, p1) -> {
             switch (sortCriteria) {
                 case BEST_UNIQUE:
-                    return Math.toIntExact((Long) hm1.get("bestUniqueQr") - (Long) hm0.get("bestUniqueQr"));
+                    return p1.getBestUniqueQr().getScore() - p0.getBestUniqueQr().getScore();
                 case TOTAL_SCORE:
-                    return Math.toIntExact((Long) hm1.get("totalScore") - (Long) hm0.get("totalScore"));
-                case NUM_SCANNED:
-                    return Math.toIntExact((Long) hm1.get("numScanned") - (Long) hm0.get("numScanned"));
+                    return p1.getTotalScore() - p0.getTotalScore();
+                case TOTAL_SCANNED:
+                    return p1.getNumScanned() - p0.getNumScanned();
                 default:
                     throw new IllegalStateException("sortCriteria not set boi");
             }
@@ -150,17 +152,39 @@ public class FragmentLeaderboard extends Fragment {
 
     private void updateTop3() {
         for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
-            Map<String, Object> playerInfo = top3LeaderboardPlayers.get(i);
+            Player player = top3LeaderboardPlayers.get(i);
             View view = top3Views.get(i);
-            ((TextView) getActivity().findViewById(R.id.top_rank_num)).setText(String.valueOf(i + 1));
-            ((TextView) getActivity().findViewById(R.id.top_rank_username)).setText((String) playerInfo.get("username"));
-            ((TextView) getActivity().findViewById(R.id.top_rank_score)).setText(String.valueOf((Long) playerInfo.get("totalScore")));
-            ((TextView) getActivity().findViewById(R.id.top_rank_unique)).setText(String.valueOf((Long) playerInfo.get("bestUniqueQr")));
-            ((TextView) getActivity().findViewById(R.id.top_rank_scans)).setText(String.valueOf((Long) playerInfo.get("numScanned")));
-
+            ((TextView) view.findViewById(R.id.top_rank_num)).setText(String.valueOf(i + 1));
+            ((TextView) view.findViewById(R.id.top_rank_username)).setText(player.getUsername());
+            ((TextView) view.findViewById(R.id.top_rank_score)).setText(String.valueOf( player.getTotalScore()));
+            ((TextView) view.findViewById(R.id.top_rank_unique)).setText(String.valueOf(player.getBestUniqueQr().getScore()));
+            ((TextView) view.findViewById(R.id.top_rank_scans)).setText(String.valueOf(player.getNumScanned()));
         }
     }
 
+    protected void setSortCritera(SortCriteria sortCriteria) {
+        this.sortCriteria = sortCriteria;
+        float DISABLE = 0.4f;
+        // theres gotta be a more efficient way, im just don't know how
+        switch (sortCriteria) {
+            case TOTAL_SCANNED:
+                sortTotalScanned.setAlpha(1);
+                sortBestUnique.setAlpha(DISABLE);
+                sortTotalScore.setAlpha(DISABLE);
+                break;
+            case TOTAL_SCORE:
+                sortTotalScore.setAlpha(1);
+                sortBestUnique.setAlpha(DISABLE);
+                sortTotalScanned.setAlpha(DISABLE);
+                break;
+            case BEST_UNIQUE:
+                sortBestUnique.setAlpha(1f);
+                sortTotalScore.setAlpha(DISABLE);
+                sortTotalScanned.setAlpha(DISABLE);
+                break;
+        }
+        sortLeaderboardItems();
+    }
     /**
      * Destroys the view and makes binding null
      */

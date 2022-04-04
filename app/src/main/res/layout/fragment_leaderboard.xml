@@ -27,13 +27,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_second_place"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/large_padding"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place">
+        app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        app:layout_constraintWidth_percent="0.33">
 
         <include layout="@layout/leaderboard_panel_content_second" />
 
@@ -41,13 +41,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_third_place"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/large_padding"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toRightOf="@id/layout_first_place"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place">
+        app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        app:layout_constraintWidth_percent="0.33">
 
 
         <include layout="@layout/leaderboard_panel_content_third" />
@@ -56,12 +56,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_first_place"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/large_padding"
+        android:layout_marginVertical="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_title">
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
+        app:layout_constraintWidth_percent="0.40">
 
         <include layout="@layout/leaderboard_panel_content_first" />
 
@@ -71,21 +72,18 @@
         android:id="@+id/leaderboard_my_rank_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/rec_button_rank"
         android:fontFamily="@font/quicksand"
         android:gravity="center"
         android:padding="@dimen/padding"
-        android:text="My Rank"
+        android:text="@string/show_my_rank"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_first_place"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@id/layout_first_place" />
 
     <View
         android:id="@+id/leaderboard_divider"
@@ -98,26 +96,65 @@
         android:background="@color/accent_blue_light"
         android:foreground="@color/accent_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leaderboard_my_rank_button"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/leaderboard_col_names"
-        android:layout_width="391dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="@font/quicksand"
-        android:text="Column Titles"
-        android:textColor="@color/accent_blue_light"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_divider"
-        tools:ignore="HardcodedText" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/leaderboard_col"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/small_padding"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintTop_toTopOf="@id/leaderboard_divider">
+
+
+        <Button
+            android:id="@+id/leaderboard_sort_total_score"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="-1dp"
+            android:background="@color/background_grey"
+            android:text="score"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/text_off_white"
+            android:textSize="@dimen/extra_small_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.18" />
+
+        <Button
+            android:id="@+id/leaderboard_sort_best_unique"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="-1dp"
+            android:background="@color/background_grey"
+            android:text="best\nunique"
+            android:textColor="@color/text_off_white"
+            android:textSize="@dimen/extra_small_text"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toStartOf="@id/leaderboard_sort_total_score"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <Button
+            android:id="@+id/leaderboard_sort_total_scanned"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/background_grey"
+            android:text="number\nscanned"
+            android:textColor="@color/text_off_white"
+            android:textSize="@dimen/extra_small_text"
+            app:layout_constraintHeight_percent="0.99"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toStartOf="@+id/leaderboard_sort_best_unique"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <ListView
@@ -125,13 +162,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/small_padding"
-        android:layout_marginTop="8dp"
         android:divider="@color/transparent"
         android:dividerHeight="5.0sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leaderboard_col_names"
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_col"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton

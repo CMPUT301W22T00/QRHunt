@@ -65,5 +65,6 @@
 
     <!-- for callout -->
     <string name="callout_text">Callout Text</string>
+    <string name="show_my_rank">Show my Rank</string>
 
 </resources>

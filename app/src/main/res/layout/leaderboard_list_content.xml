@@ -30,7 +30,7 @@
         android:text="username"
         android:textAlignment="textStart"
         android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/subtitle_size"
+        android:textSize="@dimen/text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/rank_num"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,34 +45,34 @@
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
         app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
-        app:layout_constraintEnd_toStartOf="@id/rank_num_scans"
-        app:layout_constraintWidth_percent=".15" />
-
-    <TextView
-        android:id="@+id/rank_num_scans"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/asap"
-        android:text="11"
-        android:textAlignment="textEnd"
-        android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
         app:layout_constraintEnd_toStartOf="@id/rank_score"
-        app:layout_constraintWidth_percent="0.10" />
+        app:layout_constraintWidth_percent=".15" />
 
     <TextView
         android:id="@+id/rank_score"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/asap"
-        android:text="9999"
+        android:text="1111"
+        android:textAlignment="textEnd"
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.18" />
+
+    <TextView
+        android:id="@+id/rank_num_scans"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asap"
+        android:text="99"
         android:textAlignment="textEnd"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/subtitle_size"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.17" />
+        app:layout_constraintEnd_toStartOf="@id/rank_highest_unique"
+        app:layout_constraintWidth_percent="0.18" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

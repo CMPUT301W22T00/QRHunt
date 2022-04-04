@@ -31,6 +31,7 @@ public class Player implements Serializable {
     protected transient CollectionReference collectionReference;
 
     protected int totalScore;
+    protected int numScanned;
     protected final RankInfo rankInfo;
     protected final BestQr bestUniqueQr;
     protected final BestQr bestScoringQr;
@@ -43,6 +44,7 @@ public class Player implements Serializable {
     public transient QrLibrary qrLibrary;
 
     protected final transient Context context;
+
     /**
      * Constructor method
      *
@@ -56,6 +58,7 @@ public class Player implements Serializable {
         rankInfo = new RankInfo();
         bestScoringQr = new BestQr();
         bestUniqueQr = new BestQr();
+        numScanned = 0;
         this.totalScore = 0;
         this.username = "";
         this.admin = false;
@@ -246,6 +249,7 @@ public class Player implements Serializable {
             bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
         }
         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
+        numScanned = doc.getLong("totalScanned") != null ? Math.toIntExact(doc.getLong("totalScanned")) : 0;
         username = (String) doc.getData().get("username");
     }
 
@@ -265,5 +269,13 @@ public class Player implements Serializable {
         collectionReference
                 .document(playerId)
                 .update("username", this.username);
+    }
+
+    public int getNumScanned() {
+        return numScanned;
+    }
+
+    public void setNumScanned(int numScanned) {
+        this.numScanned = numScanned;
     }
 }
