@@ -97,10 +97,6 @@ public class FragmentScanner extends Fragment {
         return root;
     }
 
-    public void startScanner() {
-        codeScanner.setScanMode(ScanMode.CONTINUOUS);
-    }
-
     /**
      * Handles when the state is resumed (starts camera previous)
      *
