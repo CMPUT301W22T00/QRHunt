@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
