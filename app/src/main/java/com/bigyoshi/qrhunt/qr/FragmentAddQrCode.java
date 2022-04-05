@@ -93,8 +93,12 @@ public class FragmentAddQrCode extends DialogFragment {
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
         ImageView uniqueFlag = view.findViewById(R.id.qr_after_scan_profile_unique_flag);
         numScannedTextView.setText("Scans: "+ qrCode.getNumScanned());
-        if (qrCode.getNumScanned().matches("1")) { uniqueFlag.setVisibility(View.VISIBLE); }
-        
+        db.collection("qrCodesMetadata").document(qrCode.getId()).get().addOnCompleteListener(docTask -> {
+            if (docTask.getResult().get("numScanned").toString().matches("1")) {
+                Log.d(TAG, "onCreateView: Flag is added");
+                uniqueFlag.setVisibility(View.VISIBLE);
+            }
+        });
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_scan_profile_location);
         QrLocation qrLocation = qrCode.getLocation();

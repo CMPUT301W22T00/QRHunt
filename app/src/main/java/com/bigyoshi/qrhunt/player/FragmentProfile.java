@@ -26,9 +26,13 @@ import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.qr.FragmentQrProfile;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.bigyoshi.qrhunt.qr.QrLibraryAdapter;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
@@ -111,6 +115,12 @@ public class FragmentProfile extends Fragment {
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
+        QuerySnapshot docs = db.collection("users").document(playerInfo.getPlayerId()).collection("qrCodes").get().getResult();
+        for (DocumentSnapshot doc : docs) {
+            PlayableQrCode code = doc.toObject(PlayableQrCode.class);
+            // do other stuff
+        }
+
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
         if (qrCodesList.size() == 0){
             root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
