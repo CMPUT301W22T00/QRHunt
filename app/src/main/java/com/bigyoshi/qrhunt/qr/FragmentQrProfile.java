@@ -83,7 +83,7 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display numScan
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
-        db.collection("qrCodesMetadata").document(qr.getId()).get()
+        db.collection("qrCodesMetadata").document(currentQR.getId()).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String s = task.getResult().get("numScanned").toString() + " Scans";
