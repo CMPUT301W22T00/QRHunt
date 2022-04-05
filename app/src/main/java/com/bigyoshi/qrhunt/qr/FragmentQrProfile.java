@@ -3,7 +3,6 @@ package com.bigyoshi.qrhunt.qr;
 import android.app.AlertDialog;
 import android.location.Location;
 import android.os.Bundle;
-
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,17 +20,16 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
-import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.bigyoshi.qrhunt.player.ProfileType;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
