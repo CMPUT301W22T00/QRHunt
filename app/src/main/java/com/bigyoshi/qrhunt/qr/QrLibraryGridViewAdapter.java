@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

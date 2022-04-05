@@ -188,7 +188,7 @@ public class FragmentLeaderboard extends Fragment {
         profile.setArguments(bundle);
         getChildFragmentManager()
                 .beginTransaction()
-                .replace(R.id.leaderboard, profile, "profile")
+                .add(R.id.leaderboard, profile, "profile")
                 .addToBackStack(null)
                 .commit();
     }

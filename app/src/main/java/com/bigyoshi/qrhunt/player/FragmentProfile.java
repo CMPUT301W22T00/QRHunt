@@ -26,6 +26,7 @@ import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.qr.FragmentQrProfile;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.bigyoshi.qrhunt.qr.QrLibraryAdapter;
+import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -105,8 +106,8 @@ public class FragmentProfile extends Fragment {
 
         ownPlayer = (Player) getArguments().getSerializable("selfPlayer");
         playerInfo = (Player) getArguments().getSerializable("player");
-        lastDestination = (Integer) getArguments().getSerializable("isActivity");
         viewType = (ProfileType) getArguments().getSerializable(PROFILE_TYPE_KEY);
+        lastDestination = (Integer) getArguments().getSerializable("isActivity");
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -124,14 +125,9 @@ public class FragmentProfile extends Fragment {
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
-        qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, ownPlayer);
+        qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, ownPlayer, viewType);
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
-        qrCodesList = playerInfo.qrLibrary.getQrCodes();
-        if (qrCodesList.size() == 0 && playerInfo.getTotalScore() == 0){
-            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
-        } else {
-            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
-        }
+        qrCodesList = new ArrayList<>();
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
         setGridViewHeight(qrGridView);
