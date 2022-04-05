@@ -29,6 +29,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.budiyev.android.codescanner.CodeScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -147,7 +148,7 @@ public class FragmentAddQrCode extends DialogFragment {
         Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
         cancelButton.setOnClickListener(__ -> {
             dismiss();
-            FragmentScanner.codeScanner.startPreview();
+            FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
                 });
 
 
@@ -169,7 +170,7 @@ public class FragmentAddQrCode extends DialogFragment {
                                 @Override
                                 public void run() {
                                     dismiss();
-                                    FragmentScanner.codeScanner.startPreview();
+                                    FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
                                 }
                             }, 3000);
                         }
@@ -192,13 +193,17 @@ public class FragmentAddQrCode extends DialogFragment {
                             if (uriTask.isSuccessful() && uriTask.getResult() != null) {
                                 qrCode.setImageUrl(uriTask.getResult().toString());
                                 Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
+                                qrCode.addToDb();
+                                overlay.setVisibility(View.INVISIBLE);
+                                dismiss();
+                                FragmentScanner.codeScanner.startPreview();
                             }
                         }));
             }
             qrCode.addToDb();
             overlay.setVisibility(View.INVISIBLE);
             dismiss();
-            FragmentScanner.codeScanner.startPreview();
+            FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
         });
 
         return view;
