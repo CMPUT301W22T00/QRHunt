@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         navProfile = findViewById(R.id.top_navigation_profile);
         navProfile.setOnClickListener(view -> {
-            binding.bottomNavigationView.setVisibility(View.INVISIBLE);
+            //binding.bottomNavigationView.setVisibility(View.INVISIBLE);
 
             FragmentProfile profile = new FragmentProfile();
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         navSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
+                //binding.bottomNavigationView.setVisibility(View.INVISIBLE);
                 actionbar.hide();
                 FragmentSearch search = new FragmentSearch(player,
                         navController.getCurrentDestination().getId());
@@ -128,20 +128,16 @@ public class MainActivity extends AppCompatActivity {
 
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
-                navSearch.setVisibility(View.GONE);
-                navProfile.setVisibility(View.GONE); // TEMPORARY
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
                 Bundle result = new Bundle();
                 result.putSerializable("player", player);
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
-                navSearch.setVisibility(View.VISIBLE);
-                navProfile.setVisibility(View.VISIBLE);
+
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
-                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
             }
         });
 
