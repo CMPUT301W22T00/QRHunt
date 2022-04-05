@@ -128,7 +128,7 @@ public class FragmentScanner extends Fragment {
     }
 
     public void disableScanButton() {
-        scanButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_IN);
+        scanButton.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         scanButton.setClickable(false);
     }
 
