@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteX="3dp" />
 
     <ImageView
-        android:id="@+id/qr_grid_flags"
+        android:id="@+id/qr_grid_scanned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_flag_scanned"
@@ -42,6 +42,22 @@
         android:maxWidth="40dp"
         android:layout_gravity="center"
         android:maxHeight="40dp"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/qr_grid_unique"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_flag_unique"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="5dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="40dp"
+        android:layout_gravity="center"
+        android:maxHeight="40dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,23 +14,31 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.Player;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description: Creates the grid on player's profile to show the player's QRLibrary
  * Note: NA
  * Issues: TBA
  */
-public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
+public class QrLibraryAdapter extends ArrayAdapter<PlayableQrCode> {
     private Context context;
     private ArrayList<PlayableQrCode> qrCodes;
+    private Player playerInfo;
+    private Player selfPlayer;
 
-    public QrLibraryGridViewAdapter(Context context, ArrayList<PlayableQrCode> qrCodes) {
+    public QrLibraryAdapter(Context context, ArrayList<PlayableQrCode> qrCodes, Player playerInfo, Player selfPlayer) {
         super(context, 0, qrCodes);
         this.context = context;
         this.qrCodes = qrCodes;
+        this.selfPlayer = selfPlayer;
+        this.playerInfo = playerInfo;
     }
 
     /**
@@ -54,6 +62,28 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
         }
 
         PlayableQrCode qrCode = qrCodes.get(position);
+
+        // Adding flags
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ImageView uniqueFlag = view.findViewById(R.id.qr_grid_unique);
+        db.collection("users").document(playerInfo.getPlayerId()).get().addOnCompleteListener(docTask -> {
+            if (docTask.getException() == null && docTask.getResult() != null && docTask.getResult().getData() != null) {
+                Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) docTask.getResult().get("bestUniqueQR");
+                if (bestUniqueQrMap.getOrDefault("qrId", null) != null) {
+                    if (qrCode.getId().matches(bestUniqueQrMap.getOrDefault("qrId", null).toString())) {
+                        uniqueFlag.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
+        if (!selfPlayer.getPlayerId().matches(playerInfo.getPlayerId())) {
+            if (selfPlayer.getPlayerId().matches(qrCode.getPlayerId())) {
+                ImageView scannedFlag = view.findViewById(R.id.qr_grid_scanned);
+                scannedFlag.setVisibility(View.VISIBLE);
+            }
+        }
 
         // Display image form url or stock image
         ImageView imageView = view.findViewById(R.id.qr_grid_image_view_two);

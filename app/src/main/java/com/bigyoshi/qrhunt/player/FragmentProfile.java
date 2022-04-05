@@ -25,7 +25,7 @@ import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.qr.FragmentQrProfile;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
-import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
+import com.bigyoshi.qrhunt.qr.QrLibraryAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -117,7 +117,7 @@ public class FragmentProfile extends Fragment {
         } else {
             root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
         }
-        qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
+        qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, selfPlayer);
         qrGridView.setAdapter(qrCodesAdapter);
         //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
         setGridViewHeight(qrGridView);
