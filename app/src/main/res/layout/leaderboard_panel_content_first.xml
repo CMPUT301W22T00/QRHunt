@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_leaderboard_panel_fg"
     android:orientation="vertical"
-    android:padding="@dimen/large_padding">
+    android:padding="@dimen/padding">
 
     <TextView
         android:id="@+id/top_rank_num"
@@ -25,7 +25,7 @@
         android:padding="@dimen/padding"
         android:text="@string/username_placeholder"
         android:textColor="@color/accent_blue_light"
-        android:textSize="@dimen/subtitle_size_small"
+        android:textSize="@dimen/text_size"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -53,9 +53,9 @@
         android:text="@string/highest_unique_num"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="@id/top_rank_divider"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/top_rank_divider" />
+        app:layout_constraintStart_toStartOf="@id/top_rank_unique_desc"
+        app:layout_constraintEnd_toEndOf="@id/top_rank_unique_desc"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
 
     <TextView
         android:id="@+id/top_rank_unique_desc"
