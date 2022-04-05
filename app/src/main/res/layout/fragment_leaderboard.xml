@@ -5,7 +5,9 @@
     android:id="@+id/leaderboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_grey">
+    android:background="@color/background_grey"
+    android:padding="@dimen/small_padding"
+    >
 
 
     <TextView
@@ -26,14 +28,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_second_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        app:layout_constraintVertical_bias=".30"
-        app:layout_constraintWidth_percent="0.33">
+        >
 
         <include layout="@layout/leaderboard_panel_content_second" />
 
@@ -41,14 +42,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_third_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toRightOf="@id/layout_first_place"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        app:layout_constraintVertical_bias=".66"
-        app:layout_constraintWidth_percent="0.33">
+        >
 
 
         <include layout="@layout/leaderboard_panel_content_third" />
@@ -57,13 +57,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_first_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
-        app:layout_constraintWidth_percent="0.40">
+        >
 
         <include layout="@layout/leaderboard_panel_content_first" />
 
@@ -167,7 +167,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderboard_col"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedHeight="true"
+        android:layout_marginBottom="@dimen/bottom_bar_height">
+
+    </ListView>
 
     <ImageButton
         android:id="@+id/leaderboard_back_button"

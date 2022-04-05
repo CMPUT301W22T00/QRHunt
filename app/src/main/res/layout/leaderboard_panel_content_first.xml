@@ -68,7 +68,8 @@
         android:textSize="@dimen/extra_small_text"
         android:translationY="-15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_unique" />
+        app:layout_constraintTop_toBottomOf="@id/top_rank_unique"
+        app:layout_constraintEnd_toStartOf="@id/top_rank_scans_desc"/>
 
 
     <TextView
@@ -95,6 +96,7 @@
         android:textSize="@dimen/extra_small_text"
         android:translationY="-15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans" />
+        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans"
+        app:layout_constraintStart_toEndOf="@id/top_rank_unique_desc"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
