@@ -62,9 +62,16 @@ public class MainActivityTest {
 
     //Need a sent back to Scanner / Sent back to Map from Search
 
-
-
-
+    @Test
+    public void checkSearchToScanner() {
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.top_navigation_search));
+        solo.waitForFragmentById(R.id.search_bar);
+        assertNotNull(solo.getView(R.id.search_bar));
+        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.search_bar_back_button));
+        solo.waitForFragmentById(R.id.scanner_view);
+        assertNotNull(solo.getView(R.id.scanner_view));
+    }
 
     @Test
     public void checkSentToMap(){
