@@ -1,10 +1,12 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,6 +19,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
@@ -53,11 +56,26 @@ public class Player implements Serializable {
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
 
-        rankInfo = new RankInfo();
-        bestScoringQr = new BestQr();
-        bestUniqueQr = new BestQr();
+        this.rankInfo = new RankInfo();
+        this.bestScoringQr = new BestQr();
+        this.bestUniqueQr = new BestQr();
         this.totalScore = 0;
         this.username = "";
+        this.playerId = getPlayerId();
+        this.admin = false;
+        this.contact = new Contact();
+        this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
+    }
+
+    public Player(Context context){
+        this.context = context;
+        db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("users");
+        this.rankInfo = new RankInfo();
+        this.bestScoringQr = new BestQr();
+        this.bestUniqueQr = new BestQr();
+        this.totalScore = 0;
+        this.username = generateUsername(context);
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
@@ -132,6 +150,25 @@ public class Player implements Serializable {
         // Use the editTextId to identify which contact to update (with toUpdate)
         this.contact.setSocial(contact.getSocial());
         this.contact.setEmail(contact.getEmail());
+    }
+
+    /**
+     * Generates random unique username when account is created
+     *
+     * @param context context
+     * @return String representing generatedUsername
+     */
+    public String generateUsername(Context context) {
+        // Random unique username generated when account is first created
+        Random rand = new Random();
+        Resources res = context.getResources();
+        String[] adj = res.getStringArray(R.array.adjectives);
+        String[] noun = res.getStringArray(R.array.noun);
+        String adjName = adj[rand.nextInt(adj.length - 1)];
+        String nounName = noun[rand.nextInt(noun.length - 1)];
+        int upperbound = 100;
+        String numName = Integer.toString(rand.nextInt(upperbound));
+        return adjName + nounName + numName;
     }
 
     /**
@@ -221,8 +258,7 @@ public class Player implements Serializable {
 
         admin = (Boolean) doc.getData().get("admin");
 
-        HashMap<String, String> contactMap = (HashMap<String, String>)
-                doc.getData().get("contact");
+        HashMap<String, String> contactMap = (HashMap<String, String>) doc.getData().get("contact");
         if (contact != null) {
             contact.setEmail(contactMap.get("email"));
             contact.setSocial(contactMap.get("social"));

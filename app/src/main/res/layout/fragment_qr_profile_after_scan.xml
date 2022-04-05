@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_button_location_off"
+            android:background="@drawable/ic_button_location_on"
             android:contentDescription="Location Toggle ON"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_divider"

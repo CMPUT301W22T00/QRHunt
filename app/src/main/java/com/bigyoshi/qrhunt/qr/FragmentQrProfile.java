@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,13 +24,18 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.SelfPlayer;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.bigyoshi.qrhunt.player.ProfileType;
+import com.squareup.picasso.Picasso;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -45,18 +51,22 @@ public class FragmentQrProfile extends DialogFragment {
     private Player player;
     private ProfileType profileType;
     private FirebaseFirestore db;
+    private Player selfPlayer;
 
     /**
      * Constructor method
-     *  @param pos int
+     * @param pos int
      * @param currentQR QR to remove
      * @param player    player that the account belongs to
+     * @param selfPlayer
      */
-    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType) {
+    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType, Player selfPlayer) {
         this.pos = pos;
         this.currentQR = currentQR;
         this.player = player;
         this.profileType = profileType;
+        this.selfPlayer = selfPlayer;
+        ;
     }
 
     /**
@@ -134,7 +144,7 @@ public class FragmentQrProfile extends DialogFragment {
                     .build();
 
 
-            deleteQRConfirmation.findViewById(R.id.player_contact_callout_text).setOnClickListener(new View.OnClickListener() {
+            deleteQRConfirmation.findViewById(R.id.qr_profile_option_menu).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder deleteQRConfirmationBuilder = new AlertDialog.Builder(getContext())
@@ -199,18 +209,21 @@ public class FragmentQrProfile extends DialogFragment {
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
             HashMap<String, String> map = new HashMap<>();
-            map.put("comment", newCommentText.getText().toString());
-            map.put("username", player.getUsername());
 
-            QRComment newComment = new QRComment(
-                    newCommentText.getText().toString(), player.getUsername());
-            comments.add(newComment);
-            db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
-                    .collection("comments")
-                    .document(newCommentText.getText().toString()).set(map);
-            newCommentText.getText().clear();
-            setListViewHeight(commentList);
-            commentAdapter.notifyDataSetChanged();
+            if (!newCommentText.getText().toString().isEmpty()) {
+                map.put("comment", newCommentText.getText().toString());
+                map.put("username", selfPlayer.getUsername());
+
+                QRComment newComment = new QRComment(
+                        newCommentText.getText().toString(), selfPlayer.getUsername());
+                comments.add(newComment);
+                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
+                        .collection("comments")
+                        .document(newCommentText.getText().toString()).set(map);
+                newCommentText.getText().clear();
+                setListViewHeight(commentList);
+                commentAdapter.notifyDataSetChanged();
+            }
         });
 
         return view;
@@ -243,7 +256,7 @@ public class FragmentQrProfile extends DialogFragment {
         //params.height finally gets the height required for complete display of the entire ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *
-               (listAdapter .getCount()-1));
+               (listAdapter .getCount()-1) + 50);
         if (params.height < 200) { params.height = 200; }
         listView.setLayoutParams(params);
     }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,8 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.player.Player;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.budiyev.android.codescanner.CodeScanner;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -54,6 +52,8 @@ public class FragmentAddQrCode extends DialogFragment {
     private Bitmap bitmap;
     private ImageView imageView;
     private Boolean isHidden;
+    private CodeScanner codeScanner;
+
 
     /**
      * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
@@ -93,7 +93,11 @@ public class FragmentAddQrCode extends DialogFragment {
         db.collection("qrCodesMetadata").document(qrCode.getId()).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                        if (task.getResult().exists()) {
+                            numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                        } else {
+                            numScannedTextView.setText("0 Scans");
+                        }
                     } else {
                         numScannedTextView.setText("0 Scans");
                     }
@@ -119,12 +123,12 @@ public class FragmentAddQrCode extends DialogFragment {
                     String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
                     String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
                     showLatLong.setText(strLatitude + ", " + strLongitude);
-                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
                     isHidden = false;
                 } else {
                     qrCode.setLocation(null);
                     showLatLong.setText("Location Now Hidden");
-                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
                     isHidden = true;
                 }
             }
@@ -141,7 +145,11 @@ public class FragmentAddQrCode extends DialogFragment {
 
         // Goes back to the scanner without saving anything
         Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
-        cancelButton.setOnClickListener(__ -> dismiss());
+        cancelButton.setOnClickListener(__ -> {
+            dismiss();
+            FragmentScanner.codeScanner.startPreview();
+                });
+
 
         // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
@@ -161,6 +169,7 @@ public class FragmentAddQrCode extends DialogFragment {
                                 @Override
                                 public void run() {
                                     dismiss();
+                                    FragmentScanner.codeScanner.startPreview();
                                 }
                             }, 3000);
                         }
@@ -189,6 +198,7 @@ public class FragmentAddQrCode extends DialogFragment {
             qrCode.addToDb();
             overlay.setVisibility(View.INVISIBLE);
             dismiss();
+            FragmentScanner.codeScanner.startPreview();
         });
 
         return view;
