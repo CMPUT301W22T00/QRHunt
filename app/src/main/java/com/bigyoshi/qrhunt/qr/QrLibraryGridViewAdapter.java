@@ -14,25 +14,20 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 /**
- * Definition: Creates the grid on player's profile to show the player's QRLibrary
- * Note: N/A
- * Issues: N/A
+ * Description: Creates the grid on player's profile to show the player's QRLibrary
+ * Note: NA
+ * Issues: TBA
  */
 public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
     private Context context;
     private ArrayList<PlayableQrCode> qrCodes;
 
-    /**
-     * Constructor method
-     *
-     * @param context context
-     * @param qrCodes list of qr codes
-     */
     public QrLibraryGridViewAdapter(Context context, ArrayList<PlayableQrCode> qrCodes) {
         super(context, 0, qrCodes);
         this.context = context;
@@ -45,7 +40,6 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
      * @param position    Position
      * @param convertView View to convert
      * @param parent      Parent view
-     *
      * @return View
      */
     @NonNull

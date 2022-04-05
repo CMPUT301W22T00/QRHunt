@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentMapBinding;
+import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -70,6 +71,7 @@ public class FragmentMap extends Fragment {
     Location currentLocation;
     private ImageButton btnRecenter;
     private boolean isInfoWindowShown = false;
+    private String playerId;
 
 
     /**
@@ -85,6 +87,13 @@ public class FragmentMap extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState){
+        // Get player id for flags
+        getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
+                this,
+                (requestKey, result) -> {
+                    Player player = (Player) result.getSerializable("player");
+                    playerId = player.getPlayerId();
+                });
 
         // Load/Initialize osmdroid configuration, database, and location
         db = FirebaseFirestore.getInstance();

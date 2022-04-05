@@ -287,24 +287,23 @@
                 android:textSize="@dimen/text_size"
                 app:layout_constraintStart_toEndOf="@+id/player_profile_sort_button"
                 app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer" />
-                app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
+            app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
 
-                tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/qr_library_no_results_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/statement_padding"
+                android:fontFamily="@font/quicksand_medium"
                 android:text="@string/no_qrs"
                 android:textColor="@color/main_off_white_blue_light"
-                android:fontFamily="@font/quicksand_medium"
                 android:textSize="@dimen/subtitle_size"
-                app:layout_constraintTop_toBottomOf="@id/sort_direction"
+                android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_margin="@dimen/statement_padding"
-                android:visibility="invisible"
-                />
+                app:layout_constraintTop_toBottomOf="@id/sort_direction" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

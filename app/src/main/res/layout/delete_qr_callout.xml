@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_call_out"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_callout_bg"
-    android:orientation="vertical"
-    android:id="@+id/contact_call_out">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/delete_qr_callout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
         android:background="@color/transparent"
         android:fontFamily="@font/quicksand_medium"
-        android:textColor="@color/main_off_white_blue_light"
+        android:padding="5dp"
+        android:text="@string/delete"
         android:textAllCaps="false"
-        android:padding="5dp">
+        android:textColor="@color/main_off_white_blue_light">
 
     </Button>
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->

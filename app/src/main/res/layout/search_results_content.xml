@@ -5,27 +5,28 @@
     android:background="@color/transparent"
     android:focusable="false">
 
-    <TextView android:id="@+id/search_results_username_text"
+    <TextView
+        android:id="@+id/search_results_username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:layout_alignParentStart="true"
+        android:fontFamily="@font/quicksand"
+        android:padding="@dimen/large_padding"
+        android:text="@string/username_placeholder"
         android:textColor="@color/main_blue"
-        android:fontFamily="@font/asap"
-        android:textSize="@dimen/subtitle_size"
-        android:padding="@dimen/large_padding"
-        android:layout_alignParentLeft="true"
-        />
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold" />
 
-    <TextView android:id="@+id/search_results_score_text"
+    <TextView
+        android:id="@+id/search_results_score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score"
-        android:textColor="@color/main_off_white_blue_light"
-        android:fontFamily="@font/asap"
-        android:textSize="@dimen/subtitle_size"
-        android:padding="@dimen/large_padding"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="@dimen/large_padding"
-        />
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/large_padding"
+        android:text="@string/total_score"
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="@dimen/subtitle_size_small" />
 
 </RelativeLayout>
