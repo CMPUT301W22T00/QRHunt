@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/search_bar"
     android:background="@color/accent_grey_dark_85op"
     android:padding="@dimen/small_padding">
 
-    <LinearLayout android:id="@+id/search_bar_top_bar"
+    <LinearLayout
+        android:id="@+id/search_bar_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton android:id="@+id/search_bar_back_button"
+        <ImageButton
+            android:id="@+id/search_bar_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_large_padding"
+            android:layout_marginTop="@dimen/padding"
             android:background="@drawable/ic_button_back"
             android:padding="@dimen/padding"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginStart="@dimen/extra_large_padding"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-        <EditText android:id="@+id/search_bar_search_edit_text"
+        <EditText
+            android:id="@+id/search_bar_search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginEnd="@dimen/extra_large_padding"
+            android:autofillHints=""
+            android:textSize="@dimen/text_size_medium"
             android:background="@drawable/rec_search_username"
             android:hint="@string/search_hint"
-            android:padding="@dimen/padding"
-            android:layout_marginTop="@dimen/padding"
-            android:layout_marginStart="@dimen/padding"
-            android:layout_marginEnd="@dimen/extra_large_padding"
-            android:lines="1"
             android:inputType="text"
-            android:autofillHints=""
+            android:lines="1"
+            android:padding="@dimen/padding"
             app:layout_constraintLeft_toRightOf="@id/search_bar_back_button"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--PLEASE CHANGE AHHH-->
         <ProgressBar
             android:id="@+id/search_bar_progress_bar"
             android:layout_width="37dp"
             android:layout_height="40dp"
+            android:padding="@dimen/small_padding"
             android:translationX="-80dp"
             android:translationY="8dp"
-            android:padding="@dimen/small_padding"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -57,29 +61,29 @@
         android:id="@+id/search_no_results_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/statement_padding"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/no_results"
         android:textColor="@color/main_off_white_blue_light"
-        android:fontFamily="@font/quicksand_medium"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_spacer"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="@dimen/statement_padding"
-        android:visibility="invisible"
-        />
+        app:layout_constraintTop_toBottomOf="@id/search_bar_spacer" />
 
-    <Space android:id="@+id/search_bar_spacer"
+    <Space
+        android:id="@+id/search_bar_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_padding"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_top_bar"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_top_bar" />
 
     <ListView
         android:id="@+id/search_bar_results_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/main_off_white_blue_light"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_spacer"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_spacer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
