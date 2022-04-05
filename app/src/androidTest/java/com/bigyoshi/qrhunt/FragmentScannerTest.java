@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.bigyoshi.qrhunt.qr.FragmentQrProfileAfterScan;
 import com.bigyoshi.qrhunt.qr.FragmentScanner;
 import com.robotium.solo.Solo;
 
@@ -28,6 +29,13 @@ public class FragmentScannerTest {
     @Test
     public void start() throws Exception {
         Activity activity = rule.getActivity();
+    }
+
+    @Test
+    public void testScanner(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+
     }
 
 }
