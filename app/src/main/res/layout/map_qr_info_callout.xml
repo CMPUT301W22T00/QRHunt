@@ -28,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/small_padding"
         android:text="Value: XX"
@@ -42,7 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/small_padding"
         android:text="Scans: XX"
@@ -56,8 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="46dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/small_padding"
@@ -68,6 +65,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_call_out_num_scans" />
+
+    <ImageView
+        android:id="@+id/map_call_out_unique_tag"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="-4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/map_call_out_distance"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_flag_unique" />
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
