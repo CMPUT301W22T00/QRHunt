@@ -62,6 +62,10 @@ public class MainActivityTest {
 
     //Need a sent back to Scanner / Sent back to Map from Search
 
+
+
+
+
     @Test
     public void checkSentToMap(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
