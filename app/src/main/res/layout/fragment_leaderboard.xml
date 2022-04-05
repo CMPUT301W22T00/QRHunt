@@ -5,7 +5,8 @@
     android:id="@+id/leaderboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_grey">
+    android:background="@color/background_grey"
+    android:padding="@dimen/small_padding">
 
 
     <TextView
@@ -26,14 +27,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_second_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX=".85"
+        android:scaleY=".85"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        app:layout_constraintVertical_bias=".30"
-        app:layout_constraintWidth_percent="0.33">
+        app:layout_constraintTop_toTopOf="@id/layout_first_place">
 
         <include layout="@layout/leaderboard_panel_content_second" />
 
@@ -41,14 +42,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_third_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleX=".85"
+        android:scaleY=".85"
         app:layout_constraintBottom_toBottomOf="@id/layout_first_place"
         app:layout_constraintLeft_toRightOf="@id/layout_first_place"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        app:layout_constraintVertical_bias=".66"
-        app:layout_constraintWidth_percent="0.33">
+        app:layout_constraintTop_toTopOf="@id/layout_first_place">
 
 
         <include layout="@layout/leaderboard_panel_content_third" />
@@ -57,13 +58,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_first_place"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/large_padding"
+        android:scaleX=".9"
+        android:scaleY=".9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
-        app:layout_constraintWidth_percent="0.40">
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title">
 
         <include layout="@layout/leaderboard_panel_content_first" />
 
@@ -72,16 +74,18 @@
     <Button
         android:id="@+id/leaderboard_my_rank_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/rec_button_rank"
         android:fontFamily="@font/quicksand"
         android:gravity="center"
         android:padding="@dimen/padding"
-        android:text="@string/show_my_rank"
+        android:text="@string/my_rank"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium"
+        android:textSize="@dimen/text_size_small"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_first_place" />
@@ -118,13 +122,14 @@
             android:layout_marginHorizontal="-1dp"
             android:layout_marginEnd="12dp"
             android:background="@color/background_grey"
-            android:text="score"
+            android:text="Score"
             android:textAlignment="textEnd"
-            android:textColor="@color/text_off_white"
-            android:textSize="@dimen/extra_small_text"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/leaderboard_sort_best_unique"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.18" />
 
         <Button
@@ -132,27 +137,47 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="-1dp"
+            android:layout_marginEnd="-8dp"
             android:background="@color/background_grey"
-            android:text="best\nunique"
+            android:text="Unique"
             android:textAlignment="textEnd"
-            android:textColor="@color/text_off_white"
-            android:textSize="@dimen/extra_small_text"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBaseline_toBaselineOf="@+id/leaderboard_sort_total_scanned"
             app:layout_constraintEnd_toStartOf="@id/leaderboard_sort_total_score"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.15" />
 
         <Button
             android:id="@+id/leaderboard_sort_total_scanned"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:background="@color/background_grey"
-            android:text="number\nscanned"
+            android:text="Scans"
             android:textAlignment="textEnd"
-            android:textColor="@color/text_off_white"
-            android:textSize="@dimen/extra_small_text"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toStartOf="@+id/leaderboard_sort_best_unique"
             app:layout_constraintHeight_percent="0.99"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/leaderboard_rank_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:text="Ranks"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_blue_light"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/leaderboard_sort_total_scanned"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -161,13 +186,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/small_padding"
+        android:layout_marginBottom="@dimen/bottom_bar_height"
         android:divider="@color/transparent"
         android:dividerHeight="5.0sp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leaderboard_col"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0">
+
+    </ListView>
 
     <ImageButton
         android:id="@+id/leaderboard_back_button"
