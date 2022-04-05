@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,6 +203,8 @@ public class FragmentQrProfile extends DialogFragment {
         ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
+            // https://stackoverflow.com/questions/1489852/android-handle-enter-in-an-edittext
+            newCommentText.setImeActionLabel("Press enter for search", KeyEvent.KEYCODE_ENTER);
             HashMap<String, String> map = new HashMap<>();
 
             if (!newCommentText.getText().toString().isEmpty()) {

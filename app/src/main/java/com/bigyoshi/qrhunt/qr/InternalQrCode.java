@@ -60,7 +60,7 @@ public class InternalQrCode {
                 bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 1);
                 profile.setArguments(bundle);
-                showSharedProfile(profile);
+                this.showSharedProfile(profile);
             });
         } else {
             setTransferAccount();
@@ -70,7 +70,7 @@ public class InternalQrCode {
     /**
      * Gets game status features and displays it in a view
      *
-     * @param profile   profile to see
+     * @param profile profile to see
      */
     public void showSharedProfile(FragmentProfile profile) {
         // Function used to get game status features and displaying it in a view (UI)
