@@ -114,11 +114,7 @@ public class FragmentProfile extends Fragment {
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
 
-        if (qrCodesList.size() == 0) {
-            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
-        } else {
-            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
-        }
+
         qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, ownPlayer);
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrGridView.setAdapter(qrCodesAdapter);
@@ -133,6 +129,11 @@ public class FragmentProfile extends Fragment {
         db.collection("users").document(playerInfo.getPlayerId()).collection("qrCodes").get().addOnCompleteListener(task -> {
             for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                 qrCodesList.add(doc.toObject(PlayableQrCode.class));
+            }
+            if (qrCodesList.size() == 0) {
+                root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
+            } else {
+                root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
             }
             qrCodesAdapter.notifyDataSetChanged();
         });

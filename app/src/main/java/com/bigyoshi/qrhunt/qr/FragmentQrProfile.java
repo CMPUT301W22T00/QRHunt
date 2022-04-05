@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.bigyoshi.qrhunt.player.ProfileType;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
@@ -49,9 +50,10 @@ public class FragmentQrProfile extends DialogFragment {
 
     /**
      * Constructor method
-     * @param pos int
-     * @param qr QR to remove
-     * @param player    player that the account belongs to
+     *
+     * @param pos        int
+     * @param qr         QR to remove
+     * @param player     player that the account belongs to
      * @param selfPlayer user's own account
      */
     public FragmentQrProfile(int pos, PlayableQrCode qr, Player player, ProfileType profileType, Player selfPlayer) {
@@ -74,17 +76,16 @@ public class FragmentQrProfile extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr_player_profile, container, false);
 
-        // Get Data Base
         db = FirebaseFirestore.getInstance();
 
         // Display score
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
-        showScore.setText(String.valueOf(qr.getScore())+" Points");
+        showScore.setText(String.valueOf(qr.getScore()) + " Points");
 
         // Display numScan and unique flag
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
         ImageView uniqueFlag = view.findViewById(R.id.qr_profile_unique_flag);
-        showNumScanned.setText("Scans: "+ qr.getNumScanned());
+        showNumScanned.setText("Scans: " + qr.getNumScanned());
         if (qr.getNumScanned().matches("1")) { uniqueFlag.setVisibility(View.VISIBLE); }
 
         // Display scanned Flag
@@ -200,7 +201,6 @@ public class FragmentQrProfile extends DialogFragment {
         });
 
 
-
         // Add QRComment
         ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
         commentButton.setOnClickListener(view3 -> {
@@ -244,7 +244,7 @@ public class FragmentQrProfile extends DialogFragment {
         }
         int totalHeight = 60;
         //listAdapter.getCount() returns the number of data items
-        for (int i = 0,len = listAdapter.getCount(); i <len; i++) {
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
@@ -253,12 +253,12 @@ public class FragmentQrProfile extends DialogFragment {
         //params.height finally gets the height required for complete display of the entire ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *
-               (listAdapter .getCount()-1) + 50);
+                (listAdapter.getCount() - 1) + 50);
         if (params.height < 200) { params.height = 200; }
         listView.setLayoutParams(params);
     }
 
-    public void removeQR(){
+    public void removeQR() {
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
         parentFrag.libraryRemoveQR(pos, qr);
         getFragmentManager().beginTransaction().remove(this).commit();
