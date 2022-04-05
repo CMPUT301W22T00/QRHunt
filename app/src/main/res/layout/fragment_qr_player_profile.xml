@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qr_library_qr_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_grey"
-    android:padding="@dimen/large_padding"
-    android:id="@+id/qr_library_qr_profile">
+    android:padding="@dimen/large_padding">
 
     <ImageButton
         android:id="@+id/qr_profile_back_button"
@@ -36,8 +36,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_padding"
         android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/large_padding"
         android:background="@drawable/rec_frame_bg_qr_profile"
         android:padding="@dimen/large_padding"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -183,11 +183,10 @@
 
             <ListView
                 android:id="@+id/qr_profile_comment_list"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="100dp"
-                android:layout_marginLeft="@dimen/large_padding"
-                android:layout_marginRight="@dimen/large_padding"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/qr_profile_add_comment">
 
             </ListView>
@@ -214,6 +213,25 @@
                 app:layout_constraintEnd_toEndOf="@+id/qr_profile_add_comment"
                 app:layout_constraintTop_toTopOf="@+id/qr_profile_add_comment"
                 tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/qr_profile_unique_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/qr_profile_image_placeholder"
+                app:layout_constraintTop_toTopOf="@+id/qr_profile_image_placeholder"
+                app:srcCompat="@drawable/ic_flag_unique" />
+
+            <ImageView
+                android:id="@+id/qr_profile_scanned_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/qr_profile_image_placeholder"
+                app:layout_constraintTop_toTopOf="@+id/qr_profile_image_placeholder"
+                app:srcCompat="@drawable/ic_flag_scanned" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
