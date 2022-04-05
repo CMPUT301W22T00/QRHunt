@@ -81,13 +81,8 @@ public class FragmentScanner extends Fragment {
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             camera.processQRCode();
-//            final Handler handler = new Handler(Looper.getMainLooper());
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    codeScanner.startPreview();
-//                }
-//            }, 2000);
+            codeScanner.setScanMode(ScanMode.PREVIEW);
+            codeScanner.startPreview();
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
