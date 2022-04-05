@@ -38,8 +38,8 @@ import java.util.stream.Stream;
 
 /**
  * Definition: Fragment representing the leaderboard
- * Note: NA
- * Issues: This is not implemented yet
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentLeaderboard extends Fragment {
     private static final String TAG = FragmentLeaderboard.class.getSimpleName();
@@ -57,10 +57,10 @@ public class FragmentLeaderboard extends Fragment {
     private Player selfPlayer;
 
     /**
-     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * Creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +89,12 @@ public class FragmentLeaderboard extends Fragment {
 
     }
 
+
+    /**
+     * Query to get all the players from the database thus far
+     *
+     * @param querySnapshotTask querySnapshotTask
+     */
     private void onPlayersSnapshotTask(Task<QuerySnapshot> querySnapshotTask) {
         if (querySnapshotTask.isSuccessful() && querySnapshotTask.getResult() != null) {
             Log.d(TAG, "querying all players successful");
@@ -105,8 +111,8 @@ public class FragmentLeaderboard extends Fragment {
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
      * @param inflater           inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return root
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -156,6 +162,12 @@ public class FragmentLeaderboard extends Fragment {
         return root;
     }
 
+    /**
+     * Launch profile to show
+     *
+     * @param playerToShow    playersToShow
+     * @param currentPlayerId currentPlayerId
+     */
     private void launchProfileView(Player playerToShow, String currentPlayerId) {
         FragmentProfile profile = new FragmentProfile();
         Bundle bundle = new Bundle();
@@ -171,6 +183,7 @@ public class FragmentLeaderboard extends Fragment {
         } else {
             bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
         }
+        binding.leaderboardMyRankButton.setVisibility(View.GONE);
         bundle.putInt("isActivity", 1);
         profile.setArguments(bundle);
         getChildFragmentManager()
@@ -180,6 +193,9 @@ public class FragmentLeaderboard extends Fragment {
                 .commit();
     }
 
+    /**
+     * Sorts leaderboard
+     */
     private void sortLeaderboardItems() {
         // https://stackoverflow.com/questions/189559/how-do-i-join-two-lists-in-java
         List<Player> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());
@@ -205,12 +221,16 @@ public class FragmentLeaderboard extends Fragment {
         updateTop3();
     }
 
+    /**
+     * Updates the top three players
+     */
     private void updateTop3() {
         for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
             Player player = top3LeaderboardPlayers.get(i);
             View view = top3Views.get(i);
             view.setOnClickListener(__ -> {
                 launchProfileView(player, playerId);
+                binding.leaderboardMyRankButton.setVisibility(View.GONE);
             });
             ((TextView) view.findViewById(R.id.top_rank_username)).setText(player.getUsername());
             ((TextView) view.findViewById(R.id.top_rank_score)).setText(
@@ -221,6 +241,11 @@ public class FragmentLeaderboard extends Fragment {
         }
     }
 
+    /**
+     * Sort by specific criteria
+     *
+     * @param sortCriteria criteria
+     */
     protected void setSortCritera(SortCriteria sortCriteria) {
         this.sortCriteria = sortCriteria;
         float DISABLED_ALPHA = 0.4f;

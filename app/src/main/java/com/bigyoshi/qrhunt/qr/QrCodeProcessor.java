@@ -27,8 +27,8 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Definition: Interprets the information that the scanner scans and gets the current location Note:
  * Gives the ability to take a picture for the QR
- * Notes: NA
- * Issues: TBA
+ * Notes: N/A
+ * Issues: N/A
  */
 public class QrCodeProcessor {
     public static final String TAG = QrCodeProcessor.class.getSimpleName();
@@ -48,7 +48,7 @@ public class QrCodeProcessor {
      *
      * @param frag     TBA
      * @param text     QR Content
-     * @param playerId
+     * @param playerId player id
      */
     public QrCodeProcessor(Fragment frag, String text, String playerId) {
         this.frag = frag;
@@ -66,7 +66,7 @@ public class QrCodeProcessor {
 
         /* alex please forgive me
         super, super hacky way to get location not to be null.
-        apparently just requesting it is enough to get the location manager off it's ass
+        apparently just requesting it is enough to get the location manager off it's ass  todo you gonna leave it like this?
         even if we never care about the result
         it's super messed up
         if it break in the future, we may need to implement more of LocationCallback

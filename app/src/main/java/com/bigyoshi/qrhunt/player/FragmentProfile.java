@@ -35,8 +35,9 @@ import java.util.Locale;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
- * Definition: Fragment class for the player profile screen Note: NA Issues: Rankings are not
- * implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
+ * Definition: Fragment class for the player profile screen
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentProfile extends Fragment {
     public static final String PROFILE_TYPE_KEY = "isOwnProfile";
@@ -56,13 +57,19 @@ public class FragmentProfile extends Fragment {
     private ProfileType viewType;
     public static final String TAG = FragmentProfile.class.getSimpleName();
 
+
+    /**
+     * Customizes the back pressed functionality
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity()
                 .getOnBackPressedDispatcher()
                 .addCallback(this,
-                        new OnBackPressedCallback(true) {
+                            new OnBackPressedCallback(true) {
 
                             @Override
                             public void handleOnBackPressed() {
@@ -106,17 +113,26 @@ public class FragmentProfile extends Fragment {
         TextView rank = root.findViewById(R.id.player_profile_rank);
         rank.setText(String.format(Locale.CANADA, "%d", playerInfo.getRankInfo().getTotalScore()));
         TextView bestUnique = root.findViewById(R.id.player_profile_unique_score_text);
-        bestUnique.setText(String.valueOf(playerInfo.getBestUniqueQr().getScore()));
+        if (String.valueOf(playerInfo.getBestUniqueQr().getScore()).matches("0")) {
+            bestUnique.setText("");
+        } else {
+            bestUnique.setText(String.valueOf(playerInfo.getBestUniqueQr().getScore()));
+        }
 
         QRTotalValue = root.findViewById(R.id.player_profile_score);
         username = root.findViewById(R.id.player_profile_username_title);
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
-
-
         qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, ownPlayer);
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
+        qrCodesList = playerInfo.qrLibrary.getQrCodes();
+        if (qrCodesList.size() == 0 && playerInfo.getTotalScore() == 0){
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
+        } else {
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
+        }
+        qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
         setGridViewHeight(qrGridView);
         qrGridView.setOnItemClickListener(
@@ -316,6 +332,9 @@ public class FragmentProfile extends Fragment {
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
 
+    /**
+     * Resumes the previous activity and notifies if the QR adapter needs to change
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -323,6 +342,11 @@ public class FragmentProfile extends Fragment {
         qrGridView.invalidate();
     }
 
+    /**
+     * Sizes the grid view
+     *
+     * @param gridview grid view for QR Library
+     */
     public void setGridViewHeight(GridView gridview) {
         //Get the adapter of gridview
         ListAdapter listAdapter = gridview.getAdapter();

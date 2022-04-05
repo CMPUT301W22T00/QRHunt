@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Definition: Builds app, manages fragments, and accesses database
  * Note: Mainly controls the bottom navigation and top navigation bars
- * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play)
+ * Issues: N/A
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -136,11 +137,13 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
-                Bundle result = new Bundle();
-                result.putSerializable("player", player);
-                getSupportFragmentManager().setFragmentResult("getPlayer", result);
+                this.findViewById(R.id.navigation_map).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+
+                this.findViewById(R.id.navigation_scanner).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_leaderBoard).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
                 navSearch.setVisibility(View.GONE);
-                navProfile.setVisibility(View.GONE); // TEMPORARY
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
@@ -149,10 +152,20 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 navProfile.setVisibility(View.VISIBLE);
+                this.findViewById(R.id.navigation_scanner).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+                this.findViewById(R.id.navigation_map).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_leaderBoard).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
                 binding.bottomNavigationView.setVisibility(View.VISIBLE);
+                this.findViewById(R.id.navigation_leaderBoard).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+                this.findViewById(R.id.navigation_scanner).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_map).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
             }
         });
 
@@ -176,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Updates the database when score is updated
      * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
-     *
      */
     private void updateFirebaseListeners() {
         // watch the score

@@ -1,20 +1,17 @@
 package com.bigyoshi.qrhunt.qr;
 
-import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * Definition: Library to keep track of QR codes scanned by a certain player
- * Note: NA
- * Issues: TBA
+ * Note: N/A
+ * Issues: N/A
  */
 public class QrLibrary implements Serializable {
 
@@ -37,7 +34,6 @@ public class QrLibrary implements Serializable {
 
     /**
      * Updates the QRLibrary of the player (aligning to the their QR database)
-     *
      */
     public void update() {
         qrCodesList = new ArrayList<>();
@@ -62,7 +58,6 @@ public class QrLibrary implements Serializable {
 
     /**
      * Sorts all QRs in library from lowest to highest scoring
-     *
      */
     public ArrayList<PlayableQrCode> sortScoreDescending(){
         /* Integer in HashMap would either be the value of the QRCode
@@ -76,7 +71,6 @@ public class QrLibrary implements Serializable {
 
     /**
      * Sorts all QRs in Library from highest to lowest scoring
-     *
      */
     public ArrayList<PlayableQrCode> sortScoreAscending(){
         /* Integer in HashMap would either be the value of the QRCode
@@ -87,6 +81,11 @@ public class QrLibrary implements Serializable {
         return qrCodesList;
     }
 
+    /**
+     * Sorts by scores
+     *
+     * @return int
+     */
     public int getScoredSorted() {
         return scoreSorted;
     }

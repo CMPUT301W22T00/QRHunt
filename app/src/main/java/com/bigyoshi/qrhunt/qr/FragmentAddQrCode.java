@@ -43,8 +43,8 @@ import java.util.Optional;
 
 /**
  * Definition: After scan fragment popup - displays values information and handles location photo
- * Note: NA
- * Issues: TBA
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentAddQrCode extends DialogFragment {
     public static final String TAG = FragmentAddQrCode.class.getSimpleName();
@@ -216,7 +216,7 @@ public class FragmentAddQrCode extends DialogFragment {
      * Creates new instance for QR to add
      *
      * @param playableQRCode QR to add
-     * @return QR to add
+     * @return fragmentAddQRCode
      */
     public static FragmentAddQrCode newInstance(PlayableQrCode playableQRCode) {
         FragmentAddQrCode fragmentAddQRCode = new FragmentAddQrCode();

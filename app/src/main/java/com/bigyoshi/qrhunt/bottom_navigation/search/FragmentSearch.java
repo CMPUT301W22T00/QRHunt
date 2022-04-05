@@ -1,5 +1,6 @@
 package com.bigyoshi.qrhunt.bottom_navigation.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -36,8 +38,8 @@ import java.util.ArrayList;
 
 /**
  * Definition: Fragment representing the search function (searching users)
- * Note: NA
- * Issues: Not implemented yet
+ * Note: N/A
+ * Issues: Is case sensitive
  */
 public class FragmentSearch extends Fragment {
     private static final String TAG = FragmentSearch.class.getSimpleName();
@@ -52,11 +54,22 @@ public class FragmentSearch extends Fragment {
     private ArrayList<Player> searchList = new ArrayList<>();
     private ArrayAdapter<Player> searchAdapter;
 
+    /**
+     * Constructor method
+     *
+     * @param player player
+     * @param id id
+     */
     public FragmentSearch(Player player, int id) {
         this.player = player;
         this.navId = id;
     }
 
+    /**
+     * Creates back pressed functionality for the search bar
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -76,6 +89,14 @@ public class FragmentSearch extends Fragment {
                 });
     }
 
+    /**
+     * Creates the view for the search bar
+     *
+     * @param inflater            inflater
+     * @param container           where the fragment is contained
+     * @param savedInstanceState  savedInstanceState
+     * @return root
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -172,6 +193,8 @@ public class FragmentSearch extends Fragment {
                 bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()

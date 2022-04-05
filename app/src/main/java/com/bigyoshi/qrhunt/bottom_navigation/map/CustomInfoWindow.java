@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 /**
  * Definition: A custom information window for the markers/pins
  * Note: N/A
- * Issues: The pins don't close when you tap on a different one
+ * Issues: N/A
  */
 public class CustomInfoWindow extends InfoWindow {
 
@@ -26,11 +26,18 @@ public class CustomInfoWindow extends InfoWindow {
     PlayableQrCode qr;
     String playerId;
 
-    public CustomInfoWindow(MapView mapView, String distance, PlayableQrCode qr, String playerId) {
-        super(R.layout.map_qr_info_callout, mapView);
-        this.distance = distance;
-        this.qr = qr;
-    }
+    /**
+     * Constructor method
+     *
+     * @param mapView   map view
+     * @param distance  distance from player location
+     * @param qr        qr code
+     */
+    public CustomInfoWindow(MapView mapView, String distance, PlayableQrCode qr) {
+            super(R.layout.map_qr_info_callout, mapView);
+            this.distance = distance;
+            this.qr = qr;
+        }
 
     public void onClose() {
 

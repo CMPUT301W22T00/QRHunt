@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,8 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
- * Note: NA
- * Issues: NA
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentQrProfile extends DialogFragment {
 
@@ -62,15 +63,14 @@ public class FragmentQrProfile extends DialogFragment {
         this.player = player;
         this.profileType = profileType;
         this.selfPlayer = selfPlayer;
-        ;
     }
 
     /**
      * Creates the view for deleting a QR code
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return View
      */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -180,7 +180,6 @@ public class FragmentQrProfile extends DialogFragment {
         });
 
         // Display Comments
-
         ListView commentList = view.findViewById(R.id.qr_profile_comment_list);
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
@@ -205,6 +204,8 @@ public class FragmentQrProfile extends DialogFragment {
         ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
+            // https://stackoverflow.com/questions/1489852/android-handle-enter-in-an-edittext
+            newCommentText.setImeActionLabel("Press enter for search", KeyEvent.KEYCODE_ENTER);
             HashMap<String, String> map = new HashMap<>();
 
             if (!newCommentText.getText().toString().isEmpty()) {
@@ -226,7 +227,13 @@ public class FragmentQrProfile extends DialogFragment {
         return view;
     }
 
-    // Me being stupid and using a DialogFragment as the base early on
+
+    /**
+     * Custom style to the view
+     *
+     * @param savedInstanceState saveInstanceState
+     */
+    // Me being stupid and using a DialogFragment as the base early on  todo you gonna leave this here?
     // Makes it full screen rather than windowed view
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -235,7 +242,12 @@ public class FragmentQrProfile extends DialogFragment {
                 android.R.style.Theme_Black_NoTitleBar_Fullscreen);
     }
 
-    //Dynamically set the height for the listview (display as many items as there are)
+
+    /**
+     * Dynamically set the height for the listview (display as many items as there are)
+     *
+     * @param listView  comments list
+     */
     public void setListViewHeight(ListView listView) {
         //Get the adapter of listView
         ListAdapter listAdapter = listView.getAdapter();
@@ -258,7 +270,10 @@ public class FragmentQrProfile extends DialogFragment {
         listView.setLayoutParams(params);
     }
 
-    public void removeQR() {
+    /**
+     * Removes QR from library
+     */
+    public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
         parentFrag.libraryRemoveQR(pos, qr);
         getFragmentManager().beginTransaction().remove(this).commit();

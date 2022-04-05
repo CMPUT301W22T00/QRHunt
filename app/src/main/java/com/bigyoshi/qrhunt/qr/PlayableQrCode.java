@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * Definition: Playing QR - Players can scan this and get points
  * Note: Stores and pulls values related to the QR from database
- * Issues: TBA
+ * Issues: N/A
  */
 public class PlayableQrCode implements Serializable {
     public static final String TAG = PlayableQrCode.class.getSimpleName();
@@ -31,7 +31,6 @@ public class PlayableQrCode implements Serializable {
 
     /**
      * Constructor method
-     *
      */
     public PlayableQrCode() {
         this.numScanned = "1";
@@ -40,8 +39,6 @@ public class PlayableQrCode implements Serializable {
 
     /**
      * Constructor method
-     * Note: We need to distinguish QRCodes already scanned and those who have not been scanned yet
-     *         Since initialization of numScanned would either be an update OR just 1
      *
      * @param id    QRCode id
      * @param score QRCode score
@@ -151,7 +148,6 @@ public class PlayableQrCode implements Serializable {
      * @param playerId Current player
      */
     public void deleteFromDb(FirebaseFirestore db, String playerId) {
-        // todo: toast here for confirmation either way?
         db.collection("users").document(playerId)
                 .collection("qrCodes")
                 .document(id)
@@ -169,7 +165,6 @@ public class PlayableQrCode implements Serializable {
 
     /**
      * Adds QR to QR profile and database
-     *
      */
     public void addToDb() {
         db.collection("users").document(getPlayerId())

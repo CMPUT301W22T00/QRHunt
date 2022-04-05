@@ -19,8 +19,8 @@ import java.util.Optional;
 
 /**
  * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
- * Note: NA
- * Issues: NA
+ * Note: N/A
+ * Issues: N/A
  */
 public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
@@ -46,6 +46,8 @@ public class Player implements Serializable {
     /**
      * Constructor method
      *
+     * @param playerId  Player id
+     * @param context   Context
      */
     public Player(String playerId, Context context) {
         db = FirebaseFirestore.getInstance();
@@ -63,6 +65,12 @@ public class Player implements Serializable {
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
 
+    /**
+     * Get player by player id
+     *
+     * @param playerId  Player id
+     * @return player
+     */
     @Deprecated
     public static Player fromPlayerId(String playerId) {
         // note: don't ever use this, left in for legacy reasons
@@ -72,28 +80,59 @@ public class Player implements Serializable {
         return player;
     }
 
+    /**
+     * Get player from the database
+     *
+     * @param doc   doc result from query
+     * @return player
+     */
     public static Player fromDoc(DocumentSnapshot doc) {
         Player player = new Player(doc.getId(), null);
         player.setPropsFromDoc(doc);
         return player;
     }
 
+    /**
+     * Getter method
+     *
+     * @return player Id
+     */
     public String getPlayerId() {
         return playerId;
     }
 
+    /**
+     * Setter method
+     *
+     * @param playerId player Id
+     */
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
 
+    /**
+     * Getter method
+     *
+     * @return Best unique qr
+     */
     public BestQr getBestUniqueQr() {
         return bestUniqueQr;
     }
 
+    /**
+     * Getter method
+     *
+     * @return Best scoring Qr
+     */
     public BestQr getBestScoringQr() {
         return bestScoringQr;
     }
 
+    /**
+     * Getter method
+     *
+     * @return RankInfo
+     */
     public RankInfo getRankInfo() {
         return rankInfo;
     }
@@ -129,7 +168,7 @@ public class Player implements Serializable {
     /**
      * Setter method (both email and social media contact)
      *
-     * @param contact
+     * @param contact   todo tag
      */
     public void setContact(Contact contact) {
         // Use the editTextId to identify which contact to update (with toUpdate)
@@ -215,6 +254,11 @@ public class Player implements Serializable {
         });
     }
 
+    /**
+     * Gets the player information from the database
+     *
+     * @param doc   doc result
+     */
     private void setPropsFromDoc(DocumentSnapshot doc) {
         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
         Log.d(TAG, String.valueOf(doc.getData().get("contact")));
@@ -272,10 +316,20 @@ public class Player implements Serializable {
                 .update("username", this.username);
     }
 
+    /**
+     * Getter method
+     *
+     * @return Number of qr scanned
+     */
     public int getNumScanned() {
         return numScanned;
     }
 
+    /**
+     * Setter method
+     *
+     * @param numScanned new number scanned
+     */
     public void setNumScanned(int numScanned) {
         this.numScanned = numScanned;
     }

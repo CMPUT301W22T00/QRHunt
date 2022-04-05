@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 
 import com.bigyoshi.qrhunt.R;
 
+/**
+ * Definition: Dialog box for presents the generated Qr codes
+ * Note: N/A
+ * Issue: N/A
+ */
 public class CustomDialogBox extends Dialog implements android.view.View.OnClickListener {
 
     public Context ctx;
@@ -23,6 +28,13 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
     private ImageView imgQrGen;
     private Bitmap qr;
 
+    /**
+     * Constructor method
+     *
+     * @param ctx       context
+     * @param prompt    prompt
+     * @param qr        qr
+     */
     public CustomDialogBox(@NonNull Context ctx, String prompt, Bitmap qr) {
         super(ctx);
         this.ctx = ctx;
@@ -30,6 +42,11 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
         this.qr = qr;
     }
 
+    /**
+     * Creates the view for the dialog
+     *
+     * @param savedInstanceSate savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceSate){
         super.onCreate(savedInstanceSate);
@@ -44,6 +61,11 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
         close.setOnClickListener(this);
     }
 
+    /**
+     * Lstens for the close button to be clicked
+     *
+     * @param v view
+     */
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.generated_qr_close_button){

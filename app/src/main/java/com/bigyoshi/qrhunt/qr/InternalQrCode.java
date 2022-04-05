@@ -33,6 +33,11 @@ public class InternalQrCode {
 
     /**
      * Constructor method
+     *
+     * @param playerId  player id
+     * @param isLogin   detects whether the qr code scanned was for login or game status
+     * @param frag      scanner fragment
+     * @param id        id
      */
     public InternalQrCode(String playerId, Boolean isLogin, Fragment frag, String id) {
         this.playerId = playerId;
@@ -64,6 +69,8 @@ public class InternalQrCode {
 
     /**
      * Gets game status features and displays it in a view
+     *
+     * @param profile profile to see
      */
     public void showSharedProfile(FragmentProfile profile) {
         // Function used to get game status features and displaying it in a view (UI)

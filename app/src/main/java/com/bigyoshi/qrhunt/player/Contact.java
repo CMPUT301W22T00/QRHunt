@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 /**
  * Definition: Stores the social media handle and email of the player
- * Note: NA
- * Issue: NA
+ * Note: N/A
+ * Issue: N/A
  */
 public class Contact implements Serializable {
     private String socialMedia;
@@ -44,7 +44,7 @@ public class Contact implements Serializable {
     /**
      * Setter method
      *
-     * @param newSocial
+     * @param newSocial new social
      */
     public void setSocial(String newSocial){
 
@@ -54,7 +54,7 @@ public class Contact implements Serializable {
     /**
      * Setter method
      *
-     * @param newEmail
+     * @param newEmail new email
      */
     public void setEmail(String newEmail){
 

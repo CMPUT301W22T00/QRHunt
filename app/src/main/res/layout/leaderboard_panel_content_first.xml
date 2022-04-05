@@ -53,8 +53,8 @@
         android:text="@string/highest_unique_num"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size"
-        app:layout_constraintStart_toStartOf="@id/top_rank_unique_desc"
         app:layout_constraintEnd_toEndOf="@id/top_rank_unique_desc"
+        app:layout_constraintStart_toStartOf="@id/top_rank_unique_desc"
         app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
 
     <TextView
@@ -64,12 +64,13 @@
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="unique"
-        android:textColor="@color/background_grey"
+        android:textColor="@color/main_off_white_blue_light"
         android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
         android:translationY="-15dp"
+        app:layout_constraintEnd_toStartOf="@id/top_rank_scans_desc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_unique"
-        app:layout_constraintEnd_toStartOf="@id/top_rank_scans_desc"/>
+        app:layout_constraintTop_toBottomOf="@id/top_rank_unique" />
 
 
     <TextView
@@ -92,11 +93,12 @@
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="scanned"
-        android:textColor="@color/background_grey"
+        android:textColor="@color/main_off_white_blue_light"
         android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
         android:translationY="-15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans"
-        app:layout_constraintStart_toEndOf="@id/top_rank_unique_desc"/>
+        app:layout_constraintStart_toEndOf="@id/top_rank_unique_desc"
+        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

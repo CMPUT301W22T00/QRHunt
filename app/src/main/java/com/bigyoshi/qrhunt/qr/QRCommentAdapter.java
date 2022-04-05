@@ -14,16 +14,36 @@ import com.bigyoshi.qrhunt.R;
 
 import java.util.ArrayList;
 
+/**
+ * Definition: Adapter that holds the comment objects
+ * Note: N/A
+ * Issues: N/A
+ */
 public class QRCommentAdapter extends ArrayAdapter<QRComment> {
     private Context context;
     private ArrayList<QRComment> comments;
 
+    /**
+     * Constructor method
+     *
+     * @param context   context
+     * @param comments  comments list
+     */
     public QRCommentAdapter(Context context, ArrayList<QRComment> comments) {
         super(context, 0, comments);
         this.context = context;
         this.comments = comments;
     }
 
+    /**
+     * Creates the view for the comment block
+     *
+     * @param position      position
+     * @param convertView   view
+     * @param parent        view
+     *
+     * @return view
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

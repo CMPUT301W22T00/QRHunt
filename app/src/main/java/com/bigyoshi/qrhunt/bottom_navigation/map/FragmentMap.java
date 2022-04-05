@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -45,14 +44,11 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -80,8 +76,9 @@ public class FragmentMap extends Fragment {
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater inflater
-     * @param container Where the fragment is contained
+     *
+     * @param inflater           inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */
@@ -267,7 +264,6 @@ public class FragmentMap extends Fragment {
 
     /**
      * Pauses the osmdroid configuration when moving to a new fragment/activity
-     *
      */
     @Override
     public void onPause() {
@@ -280,9 +276,9 @@ public class FragmentMap extends Fragment {
 
     /**
      * Converts a vector image to a bitmap
-     * @param drawable
-     *        - A vector image
-     * @return bitmap of the vector image
+     *
+     * @param drawable  a vector image
+     * @return bitmap   of the vector image
      */
     public static Bitmap drawableToBitmap (Drawable drawable){
         if (drawable instanceof BitmapDrawable) {
@@ -300,7 +296,6 @@ public class FragmentMap extends Fragment {
 
     /**
      * Gets player's geolocation
-     *
      * */
     public void startPollingLocation() {
 
@@ -330,7 +325,7 @@ public class FragmentMap extends Fragment {
     }
 
     /**
-     * Gets location if permission is enabled(?)
+     * Gets location if permission is enabled(?) todo is this still a question?
      *
      * @return client.getLastLocation()
      */
@@ -347,8 +342,8 @@ public class FragmentMap extends Fragment {
 
     /**
      * Converts the distance into a string and rounds it to one decimal place
-     * @param distance
-     *      - A float
+     *
+     * @param distance  a float
      * @return d
      */
     public String formatDistance(float distance) {
