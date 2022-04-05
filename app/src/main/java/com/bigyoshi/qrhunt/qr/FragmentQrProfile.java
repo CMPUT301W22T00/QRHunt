@@ -94,7 +94,7 @@ public class FragmentQrProfile extends DialogFragment {
                     if (task.isSuccessful()) {
                         showNumScanned.setText(task.getResult().get("numScanned").toString());
                     } else {
-                        showNumScanned.setText("01"); // HARD CODED FOR NOW
+                        showNumScanned.setText("01"); // HARD CODED FOR NOW     todo add "Scans: " + "numScanned"
                     }
                 });
 
