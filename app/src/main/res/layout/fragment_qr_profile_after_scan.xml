@@ -157,6 +157,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_num_scanned" />
 
+        <ImageView
+            android:id="@+id/qr_after_scan_profile_unique_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/qr_scan_profile_image_holder"
+            app:layout_constraintTop_toTopOf="@+id/qr_scan_profile_image_holder"
+            app:srcCompat="@drawable/ic_flag_unique" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
