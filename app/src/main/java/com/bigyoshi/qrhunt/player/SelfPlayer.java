@@ -15,9 +15,7 @@ public class SelfPlayer extends Player implements Serializable {
     private static final String TAG = SelfPlayer.class.getSimpleName();
 
     public SelfPlayer(Context context) {
-
         super(context);
-
     }
 
     public String getPlayerId() {

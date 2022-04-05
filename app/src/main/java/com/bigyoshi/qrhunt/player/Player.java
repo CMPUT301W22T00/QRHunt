@@ -55,13 +55,12 @@ public class Player implements Serializable {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
-
         this.rankInfo = new RankInfo();
         this.bestScoringQr = new BestQr();
         this.bestUniqueQr = new BestQr();
         this.totalScore = 0;
         this.username = "";
-        this.playerId = getPlayerId();
+        this.playerId = playerId;
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
@@ -79,12 +78,6 @@ public class Player implements Serializable {
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
-    }
-
-    public static Player fromPlayerId(String playerId) {
-        Player player = new Player(playerId, null);
-        player.initialize();
-        return player;
     }
 
     public static Player fromDoc(DocumentSnapshot doc) {
@@ -196,7 +189,6 @@ public class Player implements Serializable {
         }
     }
 
-
     /**
      * Checks whether a player is an admin
      *
@@ -256,33 +248,33 @@ public class Player implements Serializable {
         Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
-        admin = (Boolean) doc.getData().get("admin");
+        this.admin = (Boolean) doc.getData().get("admin");
+        this.username = (String) doc.getData().get("username");
 
         HashMap<String, String> contactMap = (HashMap<String, String>) doc.getData().get("contact");
-        if (contact != null) {
-            contact.setEmail(contactMap.get("email"));
-            contact.setSocial(contactMap.get("social"));
+        if (this.contact != null) {
+            this.contact.setEmail(contactMap.get("email"));
+            this.contact.setSocial(contactMap.get("social"));
         }
 
         Map<String, Long> rankInfoMap = (HashMap<String, Long>) doc.get("rank");
         if (rankInfoMap != null) {
-            rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
-            rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
-            rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
+            this.rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
+            this.rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
+            this.rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
         }
         // code duplication is cool 😎
         Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
         if (bestScoringQrMap != null) {
-            bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
-            bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
+            this.bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
+            this.bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
         }
         Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) doc.get("bestUniqueQr");
         if (bestUniqueQrMap != null) {
-            bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
-            bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
+            this.bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
+            this.bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
         }
-        totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
-        username = (String) doc.getData().get("username");
+        this.totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
     }
 
     /**
