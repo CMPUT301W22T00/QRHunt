@@ -207,7 +207,7 @@ public class FragmentQrProfile extends DialogFragment {
 
             if (!newCommentText.getText().toString().isEmpty()) {
                 map.put("comment", newCommentText.getText().toString());
-                map.put("username", player.getUsername());
+                map.put("username", selfPlayer.getUsername());
 
                 QRComment newComment = new QRComment(
                         newCommentText.getText().toString(), player.getUsername());
