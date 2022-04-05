@@ -1,112 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_list_item"
     android:orientation="horizontal"
-    android:padding="@dimen/padding">
+    android:padding="@dimen/padding"
+    android:paddingHorizontal="@dimen/large_padding">
 
     <TextView
         android:id="@+id/rank_num"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:fontFamily="@font/quicksand"
-        android:padding="@dimen/padding"
-        android:text="@string/pound_sign"
+        android:fontFamily="@font/asap"
+        android:text="55"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="@dimen/subtitle_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent=".11" />
 
     <TextView
         android:id="@+id/rank_username"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/rank_num"
-        android:fontFamily="@font/quicksand"
-        android:padding="@dimen/padding"
-        android:text="@string/username_placeholder"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="username"
+        android:textAlignment="textStart"
         android:textColor="@color/accent_grey_blue_dark"
         android:textSize="@dimen/text_size"
-        android:textStyle="bold" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rank_num"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/rank_highest_unique"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/rank_divider_left"
-        android:fontFamily="@font/quicksand_medium"
-        android:gravity="right"
-        android:padding="@dimen/padding"
-        android:text="@string/highest_unique_num"
+        android:fontFamily="@font/asap"
+        android:text="777"
+        android:textAlignment="textEnd"
         android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/text_size"
-        app:layout_constraintWidth_percent=".21" />
-
-    <TextView
-        android:id="@+id/rank_divider_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/rank_num_scans"
-        android:padding="@dimen/small_padding"
-        android:text="@string/score_divider"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/title_size" />
-
-    <TextView
-        android:id="@+id/rank_num_scans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toStartOf="@+id/rank_divider_right"
-        android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/padding"
-        android:text="@string/scans_num"
-        android:textAlignment="center"
-        android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/text_size" />
-
-    <TextView
-        android:id="@+id/rank_divider_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="0dp"
-        android:layout_toStartOf="@+id/rank_score"
-        android:padding="@dimen/small_padding"
-        android:text="@string/score_divider"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/title_size" />
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
+        app:layout_constraintEnd_toStartOf="@id/rank_score"
+        app:layout_constraintWidth_percent=".15" />
 
     <TextView
         android:id="@+id/rank_score"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="bottom"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:text="@string/total_score"
+        android:fontFamily="@font/asap"
+        android:text="1111"
+        android:textAlignment="textEnd"
         android:textColor="@color/accent_grey_blue_dark"
-        android:textSize="@dimen/text_size"
-        android:textStyle="bold" />
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.18" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/rank_num_scans"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asap"
+        android:text="99"
+        android:textAlignment="textEnd"
+        android:textColor="@color/accent_grey_blue_dark"
+        android:textSize="@dimen/subtitle_size"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/rank_username"
+        app:layout_constraintEnd_toStartOf="@id/rank_highest_unique"
+        app:layout_constraintWidth_percent="0.18" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

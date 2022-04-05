@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Definition: Builds app, manages fragments, and accesses database
  * Note: Mainly controls the bottom navigation and top navigation bars
- * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play)
+ * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play) todo is this still an issue?
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -85,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
                 R.id.main_bottom_navigation_host_fragment);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
+
+        // todo: find a way to pass playerId to the leaderbaord throuhg this
+        //  duart forsaken interface that is frag nav
+        // findViewById(R.id.navigation_leaderBoard).setOnClickListener(__ -> {
+        //  Bundle res = new Bundle();
+        //  res.putString("playerId", player.getPlayerId());
+        //  Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_leaderBoard, res);
+        // });
+
         navProfile = findViewById(R.id.top_navigation_profile);
         navProfile.setOnClickListener(view -> {
             //binding.bottomNavigationView.setVisibility(View.INVISIBLE);
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             bundle.putSerializable("player", player);
             bundle.putSerializable("selfPlayer", player);
             bundle.putSerializable("isActivity", 1);
-            bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
+            bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -125,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
-
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
             }
@@ -138,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
+                binding.bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -161,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Updates the database when score is updated
      * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
-     *
      */
     private void updateFirebaseListeners() {
         // watch the score

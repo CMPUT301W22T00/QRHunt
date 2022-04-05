@@ -2,6 +2,11 @@ package com.bigyoshi.qrhunt.player;
 
 import java.io.Serializable;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: N/A
+ */
 public class RankInfo implements Serializable {
     private int totalScore;
     private int bestUniqueQr;

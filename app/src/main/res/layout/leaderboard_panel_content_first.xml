@@ -1,87 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/rec_leaderboard_panel_fg"
-    android:padding="@dimen/large_padding">
+    android:orientation="vertical"
+    android:padding="@dimen/padding">
 
-    <ImageView
+    <TextView
         android:id="@+id/top_rank_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding"
         android:background="@drawable/ic_rank_num_one"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/padding"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/top_rank_username"
-        android:text="@string/username_placeholder"
-        android:textSize="@dimen/subtitle_size_small"
-        android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/padding"
-        android:textStyle="bold"
-        android:textColor="@color/accent_blue_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_num"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
+        android:text="@string/username_placeholder"
+        android:textColor="@color/accent_blue_light"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_num" />
 
     <TextView
         android:id="@+id/top_rank_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/total_score"
         android:textColor="@color/black"
         android:textSize="@dimen/subtitle_size_small"
         android:textStyle="bold"
-        android:fontFamily="@font/quicksand_medium"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_username"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_username" />
 
     <TextView
         android:id="@+id/top_rank_unique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
         android:text="@string/highest_unique_num"
         android:textColor="@color/black"
-        android:padding="@dimen/padding"
         android:textSize="@dimen/text_size"
-        android:fontFamily="@font/quicksand_medium"
-        app:layout_constraintTop_toTopOf="@id/top_rank_divider"
-        app:layout_constraintBottom_toBottomOf="@id/top_rank_divider"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintEnd_toEndOf="@id/top_rank_unique_desc"
+        app:layout_constraintStart_toStartOf="@id/top_rank_unique_desc"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
 
     <TextView
-        android:id="@+id/top_rank_divider"
+        android:id="@+id/top_rank_unique_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/score_divider"
-        android:textColor="@color/black"
-        android:padding="@dimen/small_padding"
-        android:textSize="@dimen/title_size"
-        android:fontFamily="@font/quicksand"
-        app:layout_constraintLeft_toRightOf="@id/top_rank_unique"
-        app:layout_constraintRight_toLeftOf="@id/top_rank_scans"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_score"/>
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
+        android:text="unique"
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
+        android:translationY="-15dp"
+        app:layout_constraintEnd_toStartOf="@id/top_rank_scans_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_unique" />
+
 
     <TextView
         android:id="@+id/top_rank_scans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
         android:text="@string/scans_num"
         android:textColor="@color/black"
-        android:padding="@dimen/padding"
         android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="@id/top_rank_scans_desc"
+        app:layout_constraintStart_toStartOf="@id/top_rank_scans_desc"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
+
+    <TextView
+        android:id="@+id/top_rank_scans_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
-        app:layout_constraintTop_toTopOf="@id/top_rank_divider"
-        app:layout_constraintBottom_toBottomOf="@id/top_rank_divider"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:padding="@dimen/padding"
+        android:text="scanned"
+        android:textColor="@color/main_off_white_blue_light"
+        android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
+        android:translationY="-15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/top_rank_unique_desc"
+        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

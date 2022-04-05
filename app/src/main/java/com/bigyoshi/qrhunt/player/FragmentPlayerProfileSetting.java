@@ -1,26 +1,17 @@
 package com.bigyoshi.qrhunt.player;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,8 +22,8 @@ import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsEditProfileBinding;
 
 /**
  * Definition: Setting for user to edit their account information (username, email, social handle)
- * Note: NA
- * Issues: NA
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentPlayerProfileSetting extends DialogFragment {
     private static final String TAG = FragmentPlayerProfileSetting.class.getSimpleName();
@@ -56,9 +47,9 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     /**
      * Creates view and handles user button clicks within UI
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return root
      */
     @Nullable

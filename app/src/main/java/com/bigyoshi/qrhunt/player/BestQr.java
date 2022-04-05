@@ -2,7 +2,12 @@ package com.bigyoshi.qrhunt.player;
 
 import java.io.Serializable;
 
-// Can be used to represent best unique code, best scoring code, best anything
+
+/**
+ * Definition: Can be used to represent best unique code, best scoring code, best anything
+ * Note: N/A
+ * Issues: N/A
+ */
 public class BestQr implements Serializable {
     private String qrId;
     private int score;
