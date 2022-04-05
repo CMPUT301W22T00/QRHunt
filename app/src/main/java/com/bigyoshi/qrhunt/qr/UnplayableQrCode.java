@@ -13,8 +13,6 @@ import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Collection;
-
 
 /**
  * Definition: Generates a QR code with the account specifications to access the account on other devices
@@ -34,23 +32,23 @@ public class UnplayableQrCode{
      * Constructor method
      *
      */
-    public UnplayableQrCode(String profileID, Boolean isLogin, Fragment frag){
-        this.profileID = profileID;
+    public UnplayableQrCode(String playerId, Boolean isLogin, Fragment frag){
+        this.profileID = playerId;
         this.isLogin = isLogin;
         this.frag = frag;
 
         if (!this.isLogin) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             CollectionReference collectionReference = db.collection("users");
-            player = new Player(profileID, frag.getContext());
-            player = Player.fromDoc(collectionReference.document(player.getPlayerId()).get());
-            FragmentProfile profile = new FragmentProfile();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
-            bundle.putSerializable("player", player);
-            bundle.putSerializable("isActivity", 1);
-            profile.setArguments(bundle);
-            getGameStatusInfo(profile);
+            collectionReference.document(playerId).get().addOnCompleteListener(querySnapshotTask -> {
+                FragmentProfile profile = new FragmentProfile();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
+                bundle.putSerializable("player", Player.fromDoc(querySnapshotTask.getResult()));
+                bundle.putSerializable("isActivity", 1);
+                profile.setArguments(bundle);
+                showSharedProfile(profile);
+            });
         } else {
             getLogInInfo();
         }
@@ -60,7 +58,7 @@ public class UnplayableQrCode{
      * Gets game status features and displays it in a view
      *
      */
-    public void getGameStatusInfo(FragmentProfile profile){
+    public void showSharedProfile(FragmentProfile profile){
         // Function used to get game status features and displaying it in a view (UI)
         //if (!isAdded()) return;
         frag.getActivity().getSupportFragmentManager()
