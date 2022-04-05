@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottom_navigation.map.FragmentMap"
-    android:id="@+id/map">
+    tools:context=".bottom_navigation.map.FragmentMap">
 
     <org.osmdroid.views.MapView
         android:id="@+id/map_view"
@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="162dp">
-    </org.osmdroid.views.MapView>
+        tools:layout_editor_absoluteY="162dp"></org.osmdroid.views.MapView>
 
     <ImageButton
         android:id="@+id/map_recenter"

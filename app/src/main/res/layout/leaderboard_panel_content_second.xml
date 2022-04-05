@@ -15,8 +15,8 @@
         android:id="@+id/top_rank_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/back_padding"
         android:background="@drawable/ic_rank_num_two"
+        android:padding="@dimen/back_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +42,8 @@
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/total_score"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="@dimen/text_size"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_rank_username" />

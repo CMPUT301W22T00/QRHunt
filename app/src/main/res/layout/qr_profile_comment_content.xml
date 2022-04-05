@@ -5,33 +5,33 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-        <TextView
-            android:id="@+id/qr_profile_comment_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/asap"
-            android:padding="@dimen/padding"
-            android:text="@string/username_placeholder"
-            android:textAlignment="textStart"
-            android:textColor="@color/main_blue"
-            android:textSize="@dimen/text_size_small"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/qr_profile_comment_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/asap"
+        android:padding="@dimen/padding"
+        android:text="@string/username_placeholder"
+        android:textAlignment="textStart"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/qr_profile_comment_body"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:fontFamily="@font/asap"
-            android:padding="@dimen/padding"
-            android:text="@string/comment_placeholder"
-            android:textSize="@dimen/extra_small_text"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/qr_profile_comment_username"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/qr_profile_comment_username"
-            app:layout_constraintWidth_percent="0.6" />
+    <TextView
+        android:id="@+id/qr_profile_comment_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/asap"
+        android:padding="@dimen/padding"
+        android:text="@string/comment_placeholder"
+        android:textSize="@dimen/extra_small_text"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/qr_profile_comment_username"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qr_profile_comment_username"
+        app:layout_constraintWidth_percent="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
