@@ -53,6 +53,21 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/search_no_results_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_results"
+        android:textColor="@color/main_off_white_blue_light"
+        android:fontFamily="@font/quicksand_medium"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_spacer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="@dimen/statement_padding"
+        android:visibility="invisible"
+        />
+
     <Space android:id="@+id/search_bar_spacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_padding"
