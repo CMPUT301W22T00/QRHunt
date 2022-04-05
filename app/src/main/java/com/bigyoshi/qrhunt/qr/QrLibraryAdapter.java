@@ -74,7 +74,7 @@ public class QrLibraryAdapter extends ArrayAdapter<PlayableQrCode> {
                             uniqueFlag.setVisibility(View.VISIBLE);
                         }
                     }
-
+                });
         if (!selfPlayer.getPlayerId().matches(playerInfo.getPlayerId())) {
             if (selfPlayer.getPlayerId().matches(qrCode.getPlayerId())) {
                 ImageView scannedFlag = view.findViewById(R.id.qr_grid_scanned);

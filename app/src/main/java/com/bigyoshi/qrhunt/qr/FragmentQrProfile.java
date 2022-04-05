@@ -87,16 +87,29 @@ public class FragmentQrProfile extends DialogFragment {
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
         showScore.setText(String.valueOf(currentQR.getScore())+" Points");
 
-        // Display numScan
+        // Display numScan and unique flag
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
+        ImageView uniqueFlag = view.findViewById(R.id.qr_profile_unique_flag);
         db.collection("qrCodesMetadata").document(currentQR.getId()).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        showNumScanned.setText("Scans: "+task.getResult().get("numScanned").toString());
+                        String numScanned = task.getResult().get("numScanned").toString();
+                        showNumScanned.setText("Scans: "+numScanned);
+                        if (numScanned.matches("1")) {
+                            uniqueFlag.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         showNumScanned.setText("Scans: 1"); // HARD CODED FOR NOW     todo add "Scans: " + "numScanned"
                     }
                 });
+
+        // Display scanned Flag
+        if (!selfPlayer.getPlayerId().matches(player.getPlayerId())) {
+            if (selfPlayer.getPlayerId().matches(currentQR.getPlayerId())) {
+                ImageView scannedFlag = view.findViewById(R.id.qr_profile_scanned_flag);
+                scannedFlag.setVisibility(View.VISIBLE);
+            }
+        }
 
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);

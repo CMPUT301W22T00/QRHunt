@@ -119,7 +119,6 @@ public class FragmentProfile extends Fragment {
         }
         qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, selfPlayer);
         qrGridView.setAdapter(qrCodesAdapter);
-        //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
         setGridViewHeight(qrGridView);
         qrCodesAdapter.notifyDataSetChanged();
         qrGridView.setOnItemClickListener(
