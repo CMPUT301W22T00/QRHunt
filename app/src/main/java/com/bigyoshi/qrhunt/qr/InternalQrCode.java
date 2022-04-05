@@ -71,7 +71,6 @@ public class InternalQrCode {
      * Gets game status features and displays it in a view
      *
      * @param profile   profile to see
-     */
     public void showSharedProfile(FragmentProfile profile) {
         // Function used to get game status features and displaying it in a view (UI)
         //if (!isAdded()) return;
