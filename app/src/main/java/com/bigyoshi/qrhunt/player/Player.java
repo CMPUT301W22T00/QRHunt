@@ -1,12 +1,10 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.QrLibrary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,7 +17,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
@@ -34,6 +31,7 @@ public class Player implements Serializable {
     protected transient CollectionReference collectionReference;
 
     protected int totalScore;
+    protected int numScanned;
     protected final RankInfo rankInfo;
     protected final BestQr bestUniqueQr;
     protected final BestQr bestScoringQr;
@@ -44,44 +42,32 @@ public class Player implements Serializable {
     // TODO: fix this. In theory, QrLibrary is _perfectly_ serializable. The android runtime disagrees
     // we're leaving it this way for now because confusingly, everything seems to work
     public transient QrLibrary qrLibrary;
+    protected transient Context context;
 
-    protected final transient Context context;
     /**
      * Constructor method
      *
-     * @param context context
      */
     public Player(String playerId, Context context) {
-        this.context = context;
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
-
+        this.context = context;
         this.rankInfo = new RankInfo();
         this.bestScoringQr = new BestQr();
         this.bestUniqueQr = new BestQr();
         this.totalScore = 0;
+        this.numScanned = 0;
         this.username = "";
-        this.playerId = getPlayerId();
+        this.playerId = playerId;
         this.admin = false;
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
 
-    public Player(Context context){
-        this.context = context;
-        db = FirebaseFirestore.getInstance();
-        collectionReference = db.collection("users");
-        this.rankInfo = new RankInfo();
-        this.bestScoringQr = new BestQr();
-        this.bestUniqueQr = new BestQr();
-        this.totalScore = 0;
-        this.username = generateUsername(context);
-        this.admin = false;
-        this.contact = new Contact();
-        this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
-    }
-
+    @Deprecated
     public static Player fromPlayerId(String playerId) {
+        // note: don't ever use this, left in for legacy reasons
+        // what this does is serve you a race condition on a silver platter
         Player player = new Player(playerId, null);
         player.initialize();
         return player;
@@ -153,25 +139,6 @@ public class Player implements Serializable {
     }
 
     /**
-     * Generates random unique username when account is created
-     *
-     * @param context context
-     * @return String representing generatedUsername
-     */
-    public String generateUsername(Context context) {
-        // Random unique username generated when account is first created
-        Random rand = new Random();
-        Resources res = context.getResources();
-        String[] adj = res.getStringArray(R.array.adjectives);
-        String[] noun = res.getStringArray(R.array.noun);
-        String adjName = adj[rand.nextInt(adj.length - 1)];
-        String nounName = noun[rand.nextInt(noun.length - 1)];
-        int upperbound = 100;
-        String numName = Integer.toString(rand.nextInt(upperbound));
-        return adjName + nounName + numName;
-    }
-
-    /**
      * Setter method
      *
      * @param newName new username to assign
@@ -225,7 +192,6 @@ public class Player implements Serializable {
                         @Override
                         public void onSuccess(Void aVoid) {
                             // These are a method which gets executed when the task is succeeded
-
                             Log.d(TAG, "Data has been added successfully!");
                         }
                     })
@@ -256,33 +222,37 @@ public class Player implements Serializable {
         Log.d(TAG, String.valueOf(doc.getData().get("totalScore")));
         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
+        this.admin = (Boolean) doc.getData().get("admin");
+        this.username = (String) doc.getData().get("username");
         admin = (Boolean) doc.getData().get("admin");
+        setUsername((String) doc.getString("username"));
+        setPlayerId(doc.getId());
 
         HashMap<String, String> contactMap = (HashMap<String, String>) doc.getData().get("contact");
-        if (contact != null) {
-            contact.setEmail(contactMap.get("email"));
-            contact.setSocial(contactMap.get("social"));
+        if (contactMap != null && this.contact != null) {
+            this.contact.setEmail(contactMap.get("email"));
+            this.contact.setSocial(contactMap.get("social"));
         }
 
         Map<String, Long> rankInfoMap = (HashMap<String, Long>) doc.get("rank");
         if (rankInfoMap != null) {
-            rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
-            rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
-            rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
+            this.rankInfo.setTotalScannedRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScanned", Long.valueOf(1))));
+            this.rankInfo.setBestUniqueQrRank(Math.toIntExact(rankInfoMap.getOrDefault("bestUniqueQr", (Long.valueOf(1)))));
+            this.rankInfo.setTotalScoreRank(Math.toIntExact(rankInfoMap.getOrDefault("totalScore", (Long.valueOf(1)))));
         }
         // code duplication is cool 😎
         Map<String, Object> bestScoringQrMap = (HashMap<String, Object>) doc.get("bestScoringQr");
         if (bestScoringQrMap != null) {
-            bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
-            bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
+            this.bestScoringQr.setQrId((String) bestScoringQrMap.getOrDefault("qrId", null));
+            this.bestScoringQr.setScore(Math.toIntExact((Long) bestScoringQrMap.getOrDefault("score", 0)));
         }
         Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) doc.get("bestUniqueQr");
         if (bestUniqueQrMap != null) {
-            bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
-            bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
+            this.bestUniqueQr.setQrId((String) bestUniqueQrMap.getOrDefault("qrId", null));
+            this.bestUniqueQr.setScore(Math.toIntExact((Long) bestUniqueQrMap.getOrDefault("score", 0)));
         }
         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
-        username = (String) doc.getData().get("username");
+        numScanned = doc.getLong("totalScanned") != null ? Math.toIntExact(doc.getLong("totalScanned")) : 0;
     }
 
     /**
@@ -301,5 +271,13 @@ public class Player implements Serializable {
         collectionReference
                 .document(playerId)
                 .update("username", this.username);
+    }
+
+    public int getNumScanned() {
+        return numScanned;
+    }
+
+    public void setNumScanned(int numScanned) {
+        this.numScanned = numScanned;
     }
 }

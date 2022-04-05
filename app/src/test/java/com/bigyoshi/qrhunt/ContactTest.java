@@ -35,7 +35,4 @@ public class ContactTest {
         assertNotEquals(contact.getSocial(),"");
         assertEquals(contact.getSocial(), mockSocial);
     }
-
-    // Add Tests
-    // User assertions to check if they're true or false or equals
 }

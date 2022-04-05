@@ -27,6 +27,8 @@ import com.bigyoshi.qrhunt.databinding.FragmentSearchBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
+import com.bigyoshi.qrhunt.qr.FragmentScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -90,6 +92,7 @@ public class FragmentSearch extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MainActivity.class);
+                FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
                 startActivity(intent);
             }
         });
@@ -156,13 +159,13 @@ public class FragmentSearch extends Fragment {
 
                 // todo: actually make this make sense and act on it
                 if ( ((Player)searchAdapter.getItemAtPosition(i)).getPlayerId() == (player.getPlayerId())) {
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
                 }
                 else if (player.isAdmin()){
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.ADMIN_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.ADMIN_VIEW);
                 }
                 else{
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
 
                 }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
