@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/map_call_out_num_scans" />
 
     <ImageView
-        android:id="@+id/map_call_out_unique_tag"
+        android:id="@+id/map_call_out_unique_flag"
         android:layout_width="55dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
@@ -79,7 +79,7 @@
         app:srcCompat="@drawable/ic_flag_unique" />
 
     <ImageView
-        android:id="@+id/map_call_out_scanned_tag"
+        android:id="@+id/map_call_out_scanned_flag"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="18dp"
