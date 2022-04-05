@@ -3,11 +3,16 @@ package com.bigyoshi.qrhunt.qr;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +26,7 @@ import com.budiyev.android.codescanner.AutoFocusMode;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.ScanMode;
+import com.google.zxing.Result;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,10 +38,17 @@ import java.util.Arrays;
  */
 public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
+    // ms we give grace period before taking away scan button
+    // prevents flickering
+    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    private static final int SMOOTHING_DELAY = 3000;
+    private Handler smoothingHandler;
+    private Runnable smoothingRunnable;
     public static CodeScanner codeScanner;
     private QrCodeProcessor camera;
     private String playerId;
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    private Button scanButton;
+    private String currentCodeValue;
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
@@ -50,6 +63,7 @@ public class FragmentScanner extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        smoothingHandler = new Handler(Looper.getMainLooper());
         getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
                 this,
                 (requestKey, result) -> {
@@ -67,31 +81,60 @@ public class FragmentScanner extends Fragment {
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.fragment_scanner, container, false);
 
+        scanButton = root.findViewById(R.id.start_scan);
+        scanButton.setOnClickListener(__ -> {
+            if (smoothingRunnable != null) {
+                smoothingHandler.removeCallbacks(smoothingRunnable);
+                codeScanner.setDecodeCallback(null);
+            }
+            camera = new QrCodeProcessor(FragmentScanner.this, currentCodeValue, playerId);
+            camera.processQrCode();
+        });
+        disableScanButton();
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
-        assert activity != null;
-        codeScanner = new CodeScanner(activity, scannerView);
 
+        codeScanner = new CodeScanner(activity, scannerView);
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
-        codeScanner.setScanMode(ScanMode.SINGLE);
+        codeScanner.setScanMode(ScanMode.CONTINUOUS);
         codeScanner.setAutoFocusMode(AutoFocusMode.SAFE);
         codeScanner.setFlashEnabled(false);
         codeScanner.setAutoFocusEnabled(true);
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
-            codeScanner.setScanMode(ScanMode.PREVIEW);
-            codeScanner.startPreview();
-            camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
-            camera.processQRCode();
+            decodeCallback(result);
         }));
 
-        codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
+        codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown));
         return root;
+    }
+
+    private void decodeCallback(Result result) {
+        currentCodeValue = Arrays.toString(result.getRawBytes());
+        Log.d(TAG, String.format("decoded code: %s, enabling button for %d", currentCodeValue, SMOOTHING_DELAY));
+        enableScanButton();
+        if (smoothingRunnable != null) {
+            smoothingHandler.removeCallbacks(smoothingRunnable);
+        }
+        smoothingRunnable = (() -> {
+            Log.d(TAG, "disabling scan button");
+            disableScanButton();
+        });
+        smoothingHandler.postDelayed(smoothingRunnable, SMOOTHING_DELAY);
+    }
+
+    public void disableScanButton() {
+        scanButton.getBackground().setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_IN);
+        scanButton.setClickable(false);
+    }
+
+    public void enableScanButton() {
+        scanButton.getBackground().setColorFilter(null);
+        scanButton.setClickable(true);
     }
 
     /**
      * Handles when the state is resumed (starts camera previous)
-     *
      */
     @Override
     public void onResume() {
@@ -101,7 +144,6 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Handles when the state is paused (release resources)
-     *
      */
     @Override
     public void onPause() {

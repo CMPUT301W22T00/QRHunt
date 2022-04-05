@@ -146,22 +146,6 @@ public class Player implements Serializable {
         this.username = newName;
     }
 
-    /**
-     * Assigns another player admin if this player is admin
-     *
-     * @param newAdmin new Admin to assign
-     * @return String describing whether or not player was made admin
-     */
-    public String makeAdmin(Player newAdmin) {
-        if (this.isAdmin()) {
-            newAdmin.admin = true;
-            return "PlayerInfo now admin.";
-        } else {
-            newAdmin.admin = false;
-            return "PlayerInfo did not become admin.";
-        }
-    }
-
 
     /**
      * Checks whether a player is an admin
@@ -225,7 +209,9 @@ public class Player implements Serializable {
         this.username = (String) doc.getData().get("username");
         admin = (Boolean) doc.getData().get("admin");
         setUsername((String) doc.getString("username"));
-        setPlayerId(doc.getId());
+        // should we use a setter? yes
+        // does it break when we use a setter? also yes
+        playerId = doc.getId();
 
         HashMap<String, String> contactMap = (HashMap<String, String>) doc.getData().get("contact");
         if (contactMap != null && this.contact != null) {

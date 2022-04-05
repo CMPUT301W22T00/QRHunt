@@ -70,5 +70,6 @@
     <string name="show_my_rank">Show my Rank</string>
     <string name="close">close</string>
     <string name="qrgen_text">QRGen Text</string>
+    <string name="scan_qr_code_button">Scan QR Code</string>
 
 </resources>

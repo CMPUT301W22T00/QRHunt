@@ -93,35 +93,23 @@ public class QrCodeProcessor {
     /**
      * Processes QR code to be added
      */
-    public void processQRCode() {
+    public void processQrCode() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // todo check here: is this an internal code
-        String[] webAddress = qrContent.split(":");
-
-        if (webAddress[0].matches("qrhunt")) {
-            if (webAddress[1].matches("shareprofile")) {
+        String[] qrCodeParts = qrContent.split(":");
+        if (qrCodeParts[0].matches("qrhunt")) {
+            LocationServices.getFusedLocationProviderClient(activity)
+                    .removeLocationUpdates(hackyLocationCallback);
+            if (qrCodeParts[1].matches("shareprofile")) {
                 Toast.makeText(activity, "Sharing user's profile", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Sharing profile");
-                InternalQrCode shareProfileQr = new InternalQrCode(webAddress[2], false, frag, playerId);
-
+                InternalQrCode shareProfileQr = new InternalQrCode(qrCodeParts[2], false, frag, playerId);
             } else {
-                Toast.makeText(activity, "Transfering your data...", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Transfering...");
-                InternalQrCode transferProfileQr = new InternalQrCode(webAddress[2], true, frag, playerId);
+                Toast.makeText(activity, "Transferring your data...", Toast.LENGTH_SHORT).show();
+                InternalQrCode transferProfileQr = new InternalQrCode(qrCodeParts[2], true, frag, playerId);
             }
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
-                }
-            }, 4000);
-
         } else {
             computeHash();
             computeScore();
             PlayableQrCode qrCode = new PlayableQrCode(playerId, hash, score);
-
             getLocation()
                     .addOnCompleteListener(
                             task -> {
@@ -154,7 +142,6 @@ public class QrCodeProcessor {
         } catch (NoSuchAlgorithmException noAlgEx) {
             noAlgEx.printStackTrace();
         }
-        assert messageDigest != null;
         digest = messageDigest.digest(qrContent.getBytes());
         StringBuilder stringBuilder = new StringBuilder();
         for (byte b : digest) {
@@ -167,15 +154,11 @@ public class QrCodeProcessor {
      * Calculates QR score
      */
     private void computeScore() {
-        /* Need to calculate score here
-        Probably have to pass in the hash or whatever we use to calculate the value
-        sha1 gives 160 bits → max value is therefore 2^160
-         */
-        score =
-                new BigInteger(1, digest)
-                        .multiply(new BigInteger("100"))
-                        .divide((new BigInteger("2").pow(160)))
-                        .intValue();
+        // Uniform RV value between 0 and 1
+        score = new BigInteger(1, digest)
+                .multiply(new BigInteger("100"))
+                .divide((new BigInteger("2").pow(160)))
+                .intValue();
     }
 
     /**

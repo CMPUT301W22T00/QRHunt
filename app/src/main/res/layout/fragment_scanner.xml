@@ -23,14 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp">
-        <ImageButton
+
+        <Button
             android:id="@+id/start_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_button_camera"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/transparent"
-            android:visibility="invisible"/>
+            android:text="@string/scan_qr_code_button"/>
     </RelativeLayout>
 </FrameLayout>

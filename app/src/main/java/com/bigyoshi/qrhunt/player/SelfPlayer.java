@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt.player;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -30,6 +31,7 @@ public class SelfPlayer extends Player implements Serializable {
             // generated lazily, only once
             if (playerId.isEmpty()) {
                 username = generateUsername();
+                Log.d(TAG, String.format("generated username: %s", username));
                 setPlayerId(UUID.randomUUID().toString());
             }
             Log.d(TAG, String.format("retrieved uuid: %s", playerId));
@@ -64,6 +66,6 @@ public class SelfPlayer extends Player implements Serializable {
         String nounName = noun[rand.nextInt(noun.length - 1)];
         int upperbound = 100;
         String numName = Integer.toString(rand.nextInt(upperbound));
-        return adjName + nounName + numName;
+        return String.format("%s_%s_%d", adjName, nounName, numName);
     }
 }
