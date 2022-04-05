@@ -30,7 +30,13 @@ public class FragmentQrProfileAfterScanTest {
         Activity activity = rule.getActivity();
     }
 
-    // Need to test the bottom navigation
+    // Testing...smth
+
+    @Test
+    public void checkToggleLocationOff() {
+
+    }
+
     @Test
     public void checkClickTakePhoto() {
 
