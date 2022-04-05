@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.player.Player;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -52,46 +53,49 @@ public class QrLibraryAdapter extends ArrayAdapter<PlayableQrCode> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.qr_grid_element,
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.qr_grid_element,
                     parent,
                     false);
-
         }
-
         PlayableQrCode qrCode = qrCodes.get(position);
 
-        // Adding flags
-
+        // extremely inefficient 1-by-1 querying of codes but I don't care at this point
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        ImageView uniqueFlag = view.findViewById(R.id.qr_grid_unique);
-        db.collection("qrCodesMetadata").document(qrCode.getId()).get()
+        ImageView uniqueFlag = convertView.findViewById(R.id.qr_grid_unique);
+        ImageView scannedFlag = convertView.findViewById(R.id.qr_grid_scanned);
+        db.collection("qrCodesMetadata")
+                .document(qrCode.getId())
+                .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        if (task.getResult().get("numScanned").toString().matches("1")) {
+                        if (task.getResult().getLong("numScanned") == 1L) {
                             uniqueFlag.setVisibility(View.VISIBLE);
                         }
                     }
                 });
-        if (!selfPlayer.getPlayerId().matches(playerInfo.getPlayerId())) {
-            if (selfPlayer.getPlayerId().matches(qrCode.getPlayerId())) {
-                ImageView scannedFlag = view.findViewById(R.id.qr_grid_scanned);
-                scannedFlag.setVisibility(View.VISIBLE);
-            }
-        }
+
+        db.collection("users")
+                .document(selfPlayer.getPlayerId())
+                .collection("qrCodes")
+                .whereEqualTo(FieldPath.documentId(), qrCode.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        scannedFlag.setVisibility(View.VISIBLE);
+                    }
+                });
 
         // Display image form url or stock image
-        ImageView imageView = view.findViewById(R.id.qr_grid_image_view_two);
+        ImageView imageView = convertView.findViewById(R.id.qr_grid_image_view_two);
         if (qrCode.getImageUrl() != null) {
             Picasso.get().load(qrCode.getImageUrl()).into(imageView);
         }
         imageView.setCropToPadding(true); // Crop to the center
         // Display the score under the image
-        TextView textView = view.findViewById(R.id.qr_grid_score);
+        TextView textView = convertView.findViewById(R.id.qr_grid_score);
         textView.setText(String.valueOf(qrCode.getScore()));
 
-        return view;
+        return convertView;
     }
 }

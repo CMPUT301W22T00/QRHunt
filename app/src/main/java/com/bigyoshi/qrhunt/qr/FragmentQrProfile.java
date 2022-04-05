@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,18 +23,13 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.player.SelfPlayer;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.bigyoshi.qrhunt.player.ProfileType;
-import com.squareup.picasso.Picasso;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
@@ -47,7 +41,7 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 public class FragmentQrProfile extends DialogFragment {
 
     private int pos;
-    private PlayableQrCode currentQR;
+    private PlayableQrCode qr;
     private Player player;
     private ProfileType profileType;
     private FirebaseFirestore db;
@@ -56,13 +50,13 @@ public class FragmentQrProfile extends DialogFragment {
     /**
      * Constructor method
      * @param pos int
-     * @param currentQR QR to remove
+     * @param qr QR to remove
      * @param player    player that the account belongs to
-     * @param selfPlayer
+     * @param selfPlayer user's own account
      */
-    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType, Player selfPlayer) {
+    public FragmentQrProfile(int pos, PlayableQrCode qr, Player player, ProfileType profileType, Player selfPlayer) {
         this.pos = pos;
-        this.currentQR = currentQR;
+        this.qr = qr;
         this.player = player;
         this.profileType = profileType;
         this.selfPlayer = selfPlayer;
@@ -85,17 +79,17 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display score
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
-        showScore.setText(String.valueOf(currentQR.getScore())+" Points");
+        showScore.setText(String.valueOf(qr.getScore())+" Points");
 
         // Display numScan and unique flag
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
         ImageView uniqueFlag = view.findViewById(R.id.qr_profile_unique_flag);
-        showNumScanned.setText("Scans: "+ currentQR.getNumScanned());
-        if (currentQR.getNumScanned().matches("1")) { uniqueFlag.setVisibility(View.VISIBLE); }
+        showNumScanned.setText("Scans: "+ qr.getNumScanned());
+        if (qr.getNumScanned().matches("1")) { uniqueFlag.setVisibility(View.VISIBLE); }
 
         // Display scanned Flag
         if (!selfPlayer.getPlayerId().matches(player.getPlayerId())) {
-            if (selfPlayer.getPlayerId().matches(currentQR.getPlayerId())) {
+            if (selfPlayer.getPlayerId().matches(qr.getPlayerId())) {
                 ImageView scannedFlag = view.findViewById(R.id.qr_profile_scanned_flag);
                 scannedFlag.setVisibility(View.VISIBLE);
             }
@@ -103,7 +97,7 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);
-        QrLocation qrLocation = currentQR.getLocation();
+        QrLocation qrLocation = qr.getLocation();
         if (qrLocation != null) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
@@ -114,8 +108,8 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Attach Image
         ImageView showPic = view.findViewById(R.id.qr_profile_image_placeholder);
-        if (currentQR.getImageUrl() != null) {
-            Picasso.get().load(currentQR.getImageUrl()).into(showPic);
+        if (qr.getImageUrl() != null) {
+            Picasso.get().load(qr.getImageUrl()).into(showPic);
         }
         showPic.setCropToPadding(true);
 
@@ -125,7 +119,7 @@ public class FragmentQrProfile extends DialogFragment {
 
 
         ImageButton deleteButton = view.findViewById(R.id.qr_profile_option_menu);
-        if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(currentQR.getPlayerId())) {
+        if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(qr.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         } else {
             deleteButton.setVisibility(View.INVISIBLE);
@@ -191,7 +185,7 @@ public class FragmentQrProfile extends DialogFragment {
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
         commentList.setAdapter(commentAdapter);
         commentList.setNestedScrollingEnabled(true); // Commented out to test new solution
-        db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId()).collection("comments")
+        db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(qr.getId()).collection("comments")
                 .get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
@@ -220,7 +214,7 @@ public class FragmentQrProfile extends DialogFragment {
                 QRComment newComment = new QRComment(
                         newCommentText.getText().toString(), selfPlayer.getUsername());
                 comments.add(newComment);
-                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
+                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(qr.getId())
                         .collection("comments")
                         .document(newCommentText.getText().toString()).set(map);
                 newCommentText.getText().clear();
@@ -266,7 +260,7 @@ public class FragmentQrProfile extends DialogFragment {
 
     public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
-        parentFrag.libraryRemoveQR(pos, currentQR);
+        parentFrag.libraryRemoveQR(pos, qr);
         getFragmentManager().beginTransaction().remove(this).commit();
     }
 }
