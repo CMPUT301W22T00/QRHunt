@@ -10,7 +10,10 @@ import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
 import com.bigyoshi.qrhunt.player.SelfPlayer;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Collection;
 
 
 /**
@@ -37,11 +40,10 @@ public class UnplayableQrCode{
         this.frag = frag;
 
         if (!this.isLogin) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference collectionReference = db.collection("users");
             player = new Player(profileID, frag.getContext());
-            player.setPlayerId(profileID);
-            if (profileID.matches(FirebaseFirestore.getInstance().collection("users").document(profileID).getId())){
-                player.initialize();
-            }
+            player = Player.fromDoc(collectionReference.document(player.getPlayerId()).get());
             FragmentProfile profile = new FragmentProfile();
             Bundle bundle = new Bundle();
             bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
