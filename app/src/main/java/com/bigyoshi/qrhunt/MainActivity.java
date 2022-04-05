@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         // determines current fragment so the right button is visible
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
