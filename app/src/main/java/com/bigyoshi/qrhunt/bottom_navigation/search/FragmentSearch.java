@@ -1,5 +1,6 @@
 package com.bigyoshi.qrhunt.bottom_navigation.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -191,6 +193,8 @@ public class FragmentSearch extends Fragment {
                 bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
