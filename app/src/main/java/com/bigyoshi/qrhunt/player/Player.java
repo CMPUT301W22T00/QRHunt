@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
@@ -209,9 +208,9 @@ public class Player implements Serializable {
      * Gets playerData from database by matching against playerIds in database
      */
     public void initialize() {
-        collectionReference.document(playerId).addSnapshotListener((EventListener<DocumentSnapshot>) (doc, error) -> {
-            if (error == null && doc != null && doc.getData() != null) {
-                setPropsFromDoc(doc);
+        collectionReference.document(playerId).get().addOnCompleteListener(docTask -> {
+            if (docTask.getException() == null && docTask.getResult() != null && docTask.getResult().getData() != null) {
+                setPropsFromDoc(docTask.getResult());
             }
         });
     }

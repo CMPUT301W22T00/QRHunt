@@ -8,11 +8,9 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
-import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -20,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Definition: Generates a QR code with the account specifications to access the account on other devices
  * Note: NA
- * Issues: This is not implement yet
+ * Issues:
  */
 public class InternalQrCode {
     private static final String SHARED_PREFS = "sharedPrefs";
@@ -31,7 +29,6 @@ public class InternalQrCode {
     private Player player;
     private String selfId;
     private Fragment frag;
-    private FragmentProfileBinding binding;
 
 
     /**
