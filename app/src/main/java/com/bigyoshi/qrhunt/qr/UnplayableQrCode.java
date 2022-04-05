@@ -1,12 +1,7 @@
 package com.bigyoshi.qrhunt.qr;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bigyoshi.qrhunt.R;
@@ -22,7 +17,7 @@ import com.bigyoshi.qrhunt.player.SelfPlayer;
  * Note: NA
  * Issues: This is not implement yet
  */
-public class UnplayableQrCode extends Fragment{
+public class UnplayableQrCode{
 
     private String profileID;
     private Boolean isLogin;
@@ -40,22 +35,7 @@ public class UnplayableQrCode extends Fragment{
         this.isLogin = isLogin;
         this.frag = frag;
         //if (this.isLogin) { getLogInInfo(); }
-        if (!this.isLogin) { getGameStatusInfo(); }
-        else { getLogInInfo(); }
-    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        return root;
-    }
-    /**
-     * Gets game status features and displays it in a view
-     *
-     */
-    public void getGameStatusInfo(){
-        // Function used to get game status features and displaying it in a view (UI)
         player = Player.fromPlayerId(profileID);
         FragmentProfile profile = new FragmentProfile();
         Bundle bundle = new Bundle();
@@ -64,6 +44,19 @@ public class UnplayableQrCode extends Fragment{
         bundle.putSerializable("isActivity", 0);
         profile.setArguments(bundle);
 
+        if (!this.isLogin) {
+            getGameStatusInfo(profile);
+        } else {
+            getLogInInfo();
+        }
+    }
+
+    /**
+     * Gets game status features and displays it in a view
+     *
+     */
+    public void getGameStatusInfo(FragmentProfile profile){
+        // Function used to get game status features and displaying it in a view (UI)
         //if (!isAdded()) return;
         frag.getActivity().getSupportFragmentManager()
                 .beginTransaction()
