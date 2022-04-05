@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -136,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
+                this.findViewById(R.id.navigation_map).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+
+                this.findViewById(R.id.navigation_scanner).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_leaderBoard).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
                 navSearch.setVisibility(View.GONE);
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
@@ -145,10 +152,20 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 navProfile.setVisibility(View.VISIBLE);
+                this.findViewById(R.id.navigation_scanner).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+                this.findViewById(R.id.navigation_map).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_leaderBoard).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
                 binding.bottomNavigationView.setVisibility(View.VISIBLE);
+                this.findViewById(R.id.navigation_leaderBoard).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
+                this.findViewById(R.id.navigation_scanner).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
+                this.findViewById(R.id.navigation_map).setBackgroundColor(
+                        ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
             }
         });
 
