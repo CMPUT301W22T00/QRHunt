@@ -3,13 +3,9 @@ package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.util.Log;
 
-import com.bigyoshi.qrhunt.R;
-
 import java.io.Serializable;
-import java.util.Random;
 import java.util.UUID;
 
 // class specifically for the player themselves
