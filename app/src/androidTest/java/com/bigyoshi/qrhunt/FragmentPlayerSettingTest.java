@@ -56,7 +56,7 @@ public class FragmentPlayerSettingTest {
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
         solo.waitForFragmentById(R.id.player_profile_settings);
         assertNotNull(solo.getView(R.id.player_profile_settings));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_cancel_button));
+        solo.clickOnButton("Cancel");
         assertNotNull(solo.getView(R.id.player_settings));
     }
 
@@ -67,7 +67,7 @@ public class FragmentPlayerSettingTest {
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_settings_edit_profile_clickable));
         solo.waitForFragmentById(R.id.player_profile_settings);
         assertNotNull(solo.getView(R.id.player_profile_settings));
-        solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_ok_button));
+        solo.clickOnButton("Save");
         assertNotNull(solo.getView(R.id.player_settings));
     }
 
