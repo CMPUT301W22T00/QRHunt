@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/search_bar"
-    android:background="@color/accent_grey_dark_90op"
+    android:background="@color/accent_grey_dark_85op"
     android:padding="@dimen/small_padding">
 
     <LinearLayout android:id="@+id/search_bar_top_bar"
