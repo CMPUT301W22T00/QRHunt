@@ -56,6 +56,7 @@ public class Player implements Serializable {
         rankInfo = new RankInfo();
         bestScoringQr = new BestQr();
         bestUniqueQr = new BestQr();
+        this.playerId = playerId;
         this.totalScore = 0;
         this.username = "";
         this.admin = false;

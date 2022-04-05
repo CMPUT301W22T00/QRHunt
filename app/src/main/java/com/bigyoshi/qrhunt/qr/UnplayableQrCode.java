@@ -8,16 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.R;
+import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
 import com.bigyoshi.qrhunt.player.SelfPlayer;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 /**
@@ -25,13 +22,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Note: NA
  * Issues: This is not implement yet
  */
-public class UnplayableQrCode extends Fragment {
+public class UnplayableQrCode extends Fragment{
 
     private String profileID;
     private Boolean isLogin;
     private Player player;
     private SelfPlayer transferPlayer;
     private Fragment frag;
+    private FragmentProfileBinding binding;
 
     /**
      * Constructor method
@@ -41,14 +39,16 @@ public class UnplayableQrCode extends Fragment {
         this.profileID = profileID;
         this.isLogin = isLogin;
         this.frag = frag;
+        //if (this.isLogin) { getLogInInfo(); }
         if (!this.isLogin) { getGameStatusInfo(); }
         else { getLogInInfo(); }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        return view;
+        return root;
     }
     /**
      * Gets game status features and displays it in a view
@@ -56,14 +56,7 @@ public class UnplayableQrCode extends Fragment {
      */
     public void getGameStatusInfo(){
         // Function used to get game status features and displaying it in a view (UI)
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(this.profileID).get()
-            .addOnCompleteListener(task -> {
-               if (task.isSuccessful()) {
-                   DocumentSnapshot doc = task.getResult();
-                   player = Player.fromDoc(doc);
-               }
-        });
+        player = Player.fromPlayerId(profileID);
         FragmentProfile profile = new FragmentProfile();
         Bundle bundle = new Bundle();
         bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
@@ -71,12 +64,12 @@ public class UnplayableQrCode extends Fragment {
         bundle.putSerializable("isActivity", 0);
         profile.setArguments(bundle);
 
-        if (!isAdded()) return;
-        FragmentManager fragmentManager = frag.getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.scanner_view, profile, "profile");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        //if (!isAdded()) return;
+        frag.getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.scanner_view, profile, "profile")
+                .addToBackStack(null)
+                .commit();
     }
 
     /**
