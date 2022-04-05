@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.main_bottom_navigation_host_fragment);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
+
         // todo: find a way to pass playerId to the leaderbaord throuhg this
         //  duart forsaken interface that is frag nav
         // findViewById(R.id.navigation_leaderBoard).setOnClickListener(__ -> {
@@ -135,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
-                navSearch.setVisibility(View.GONE);
-                navProfile.setVisibility(View.GONE); // TEMPORARY
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
-                binding.bottomNavigationView.setVisibility(View.INVISIBLE);
+                binding.bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
 
