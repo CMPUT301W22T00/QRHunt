@@ -91,16 +91,21 @@ public class FragmentAddQrCode extends DialogFragment {
         ((TextView) view.findViewById(R.id.qr_scan_profile_score)).setText(String.format("%d points", qrCode.getScore()));
 
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
+        ImageView uniqueFlag = view.findViewById(R.id.qr_after_scan_profile_unique_flag);
         db.collection("qrCodesMetadata").document(qrCode.getId()).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult().exists()) {
-                            numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                            String numScanned = task.getResult().get("numScanned").toString();
+                            numScannedTextView.setText("Scans: "+numScanned);
+                            if (numScanned.matches("1")) {
+                                uniqueFlag.setVisibility(View.VISIBLE);
+                            }
                         } else {
-                            numScannedTextView.setText("0 Scans");
+                            numScannedTextView.setText("Scans: 0");
                         }
                     } else {
-                        numScannedTextView.setText("0 Scans");
+                        numScannedTextView.setText("Scans: 0");
                     }
                 }
         );
@@ -165,6 +170,8 @@ public class FragmentAddQrCode extends DialogFragment {
                             cancelButton.setClickable(false);
                             okButton.setText("Scanned");
                             okButton.setClickable(false);
+                            ImageView scannedFlag = view.findViewById(R.id.qr_after_scan_profile_scanned_flag);
+                            scannedFlag.setVisibility(View.VISIBLE);
                             final Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
                                 @Override
