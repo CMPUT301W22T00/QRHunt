@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="45dp"
                 android:fontFamily="@font/quicksand_medium"
-                android:text="XX pts"
+                android:text="XX Points"
                 android:textColor="@color/accent_blue_light"
                 android:textSize="@dimen/title_size_medium"
                 app:layout_constraintEnd_toStartOf="@+id/qr_profile_option_menu"
