@@ -120,6 +120,13 @@ public class FragmentSearch extends Fragment {
                             searchClient = new SearchClient(charSequence.toString());
                             searchClient.setOnSearchResults(
                                     docs -> {
+                                        if (docs.size() == 0){
+                                            root.findViewById(R.id.search_no_results_text)
+                                                    .setVisibility(View.VISIBLE);
+                                        } else {
+                                            root.findViewById(R.id.search_no_results_text)
+                                                    .setVisibility(View.INVISIBLE);
+                                        }
                                         Log.d(TAG, String.format("Found %d users for search query %s", docs.size(), searchClient));
                                         for (DocumentSnapshot doc : docs) {
                                             Player found = Player.fromDoc(doc);
@@ -130,6 +137,8 @@ public class FragmentSearch extends Fragment {
                                     });
                             searchClient.scheduleSearchQuery();
                         } else {
+                            root.findViewById(R.id.search_no_results_text)
+                                    .setVisibility(View.INVISIBLE);
                             searchProgressBar.setVisibility(View.INVISIBLE);
                         }
                     }
