@@ -157,6 +157,7 @@ public class FragmentSearch extends Fragment {
 
                 }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
+                bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 0);
                 profile.setArguments(bundle);
 

@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", player);
+            bundle.putSerializable("selfPlayer", player);
             bundle.putSerializable("isActivity", 1);
             bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
