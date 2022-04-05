@@ -105,8 +105,8 @@
         android:id="@+id/leaderboard_col"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
         android:layout_marginVertical="@dimen/small_padding"
+        android:orientation="horizontal"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintTop_toTopOf="@id/leaderboard_divider">
 
@@ -116,10 +116,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="-1dp"
+            android:layout_marginEnd="12dp"
             android:background="@color/background_grey"
             android:text="score"
             android:textAlignment="textEnd"
-            android:layout_marginEnd="12dp"
             android:textColor="@color/text_off_white"
             android:textSize="@dimen/extra_small_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,9 +134,9 @@
             android:layout_marginHorizontal="-1dp"
             android:background="@color/background_grey"
             android:text="best\nunique"
+            android:textAlignment="textEnd"
             android:textColor="@color/text_off_white"
             android:textSize="@dimen/extra_small_text"
-            android:textAlignment="textEnd"
             app:layout_constraintEnd_toStartOf="@id/leaderboard_sort_total_score"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.15" />
@@ -147,14 +147,12 @@
             android:layout_height="match_parent"
             android:background="@color/background_grey"
             android:text="number\nscanned"
+            android:textAlignment="textEnd"
             android:textColor="@color/text_off_white"
             android:textSize="@dimen/extra_small_text"
-            app:layout_constraintHeight_percent="0.99"
-            android:textAlignment="textEnd"
             app:layout_constraintEnd_toStartOf="@+id/leaderboard_sort_best_unique"
+            app:layout_constraintHeight_percent="0.99"
             app:layout_constraintTop_toTopOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

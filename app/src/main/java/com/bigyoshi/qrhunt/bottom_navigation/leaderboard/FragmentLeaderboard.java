@@ -1,11 +1,14 @@
 package com.bigyoshi.qrhunt.bottom_navigation.leaderboard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -45,6 +48,7 @@ public class FragmentLeaderboard extends Fragment {
     private SortCriteria sortCriteria;
     private FragmentLeaderboardBinding binding;
     private FirebaseFirestore db;
+    private String playerId;
     private Button sortBestUnique;
     private Button sortTotalScanned;
     private Button sortTotalScore;
@@ -52,11 +56,17 @@ public class FragmentLeaderboard extends Fragment {
     /**
      * creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
+     *
      * @param savedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // really hacky but i couldn't for the life of me figure out
+        // how to pass the playerid betwixt fragements using mobile_navigation.xml
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
+        playerId = sharedPreferences.getString("playerId", "");
+
         db = FirebaseFirestore.getInstance();
         sortCriteria = SortCriteria.TOTAL_SCORE;
         top3Views = new ArrayList<>();
@@ -64,31 +74,32 @@ public class FragmentLeaderboard extends Fragment {
         top3LeaderboardPlayers = new ArrayList<>();
         getActivity().getOnBackPressedDispatcher().addCallback(this,
                 new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                    @Override
+                    public void handleOnBackPressed() {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
     }
 
     private void onPlayersSnapshotTask(Task<QuerySnapshot> querySnapshotTask) {
-        if (querySnapshotTask.isSuccessful() &&  querySnapshotTask.getResult() != null) {
-            Log.d(TAG,"querying all players successful");
-            for (QueryDocumentSnapshot doc : querySnapshotTask.getResult()){
+        if (querySnapshotTask.isSuccessful() && querySnapshotTask.getResult() != null) {
+            Log.d(TAG, "querying all players successful");
+            for (QueryDocumentSnapshot doc : querySnapshotTask.getResult()) {
                 bottomLeaderboardPlayers.add(Player.fromDoc(doc));
             }
             setSortCritera(SortCriteria.TOTAL_SCORE);
         } else {
-            Log.d(TAG,"querying all players unsuccessful" + querySnapshotTask.getException());
+            Log.d(TAG, "querying all players unsuccessful" + querySnapshotTask.getException());
         }
     }
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
-     * @param inflater inflater
-     * @param container Where the fragment is contained
+     *
+     * @param inflater           inflater
+     * @param container          Where the fragment is contained
      * @param savedInstanceState SavedInstanceState
      * @return root
      */
@@ -119,10 +130,21 @@ public class FragmentLeaderboard extends Fragment {
 
 
         ListView listView = binding.leaderboardRankingList;
-        bottomAdapter = new LeaderboardListAdapter(getContext(), 0, bottomLeaderboardPlayers);
+        bottomAdapter = new LeaderboardListAdapter(getContext(), 0, bottomLeaderboardPlayers, playerId);
         listView.setAdapter(bottomAdapter);
         db.collection("users").get().addOnCompleteListener(this::onPlayersSnapshotTask);
-
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Player player = (Player) listView.getItemAtPosition(i);
+        });
+        binding.leaderboardMyRankButton.setOnClickListener(__ -> {
+            for (int i = 0; i < bottomLeaderboardPlayers.size(); i++) {
+                if (playerId.equals(bottomLeaderboardPlayers.get(i).getPlayerId())) {
+                    listView.smoothScrollToPositionFromTop(i, 0);
+                    return;
+                }
+            }
+            listView.setSelectionAfterHeaderView();
+        });
         return root;
     }
 
@@ -186,6 +208,7 @@ public class FragmentLeaderboard extends Fragment {
         }
         sortLeaderboardItems();
     }
+
     /**
      * Destroys the view and makes binding null
      */

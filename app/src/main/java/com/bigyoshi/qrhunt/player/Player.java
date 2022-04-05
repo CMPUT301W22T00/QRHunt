@@ -223,12 +223,14 @@ public class Player implements Serializable {
         Log.d(TAG, String.valueOf(doc.getData().get("username")));
 
         admin = (Boolean) doc.getData().get("admin");
+        setUsername((String) doc.getString("username"));
+        setPlayerId(doc.getId());
 
         HashMap<String, String> contactMap = (HashMap<String, String>)
                 doc.getData().get("contact");
-        if (contact != null) {
-            contact.setEmail(contactMap.get("email"));
-            contact.setSocial(contactMap.get("social"));
+        if (contactMap != null) {
+            contact.setEmail(contactMap.getOrDefault("email", null));
+            contact.setSocial(contactMap.getOrDefault("social", null));
         }
 
         Map<String, Long> rankInfoMap = (HashMap<String, Long>) doc.get("rank");
@@ -250,7 +252,6 @@ public class Player implements Serializable {
         }
         totalScore = Math.toIntExact((long) doc.getData().get("totalScore"));
         numScanned = doc.getLong("totalScanned") != null ? Math.toIntExact(doc.getLong("totalScanned")) : 0;
-        username = (String) doc.getData().get("username");
     }
 
     /**
