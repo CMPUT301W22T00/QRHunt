@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
+import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.io.Serializable;
 
 
 /**
@@ -29,17 +30,19 @@ public class UnplayableQrCode extends Fragment {
     private String profileID;
     private Boolean isLogin;
     private Player player;
+    private SelfPlayer transferPlayer;
+    private Fragment frag;
+
     /**
      * Constructor method
      *
      */
-
-    public UnplayableQrCode(String profileID, Boolean isLogin){
+    public UnplayableQrCode(String profileID, Boolean isLogin, Fragment frag){
         this.profileID = profileID;
         this.isLogin = isLogin;
+        this.frag = frag;
         if (!this.isLogin) { getGameStatusInfo(); }
-
-
+        else { getLogInInfo(); }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,11 +71,12 @@ public class UnplayableQrCode extends Fragment {
         bundle.putSerializable("isActivity", 0);
         profile.setArguments(bundle);
 
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.search_bar, profile, "profile")
-                .addToBackStack(null)
-                .commit();
+        if (!isAdded()) return;
+        FragmentManager fragmentManager = frag.getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.scanner_view, profile, "profile");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     /**
@@ -82,5 +86,6 @@ public class UnplayableQrCode extends Fragment {
     public void getLogInInfo(){
         // Function used to get log-in specifications
         // We need to somehow, get this info -> log in immediately
+        transferPlayer.setPlayerId(profileID);
     }
 }

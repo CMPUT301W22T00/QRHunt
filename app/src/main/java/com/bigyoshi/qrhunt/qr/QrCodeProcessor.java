@@ -4,18 +4,12 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.player.FragmentProfile;
-import com.bigyoshi.qrhunt.player.ProfileType;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -106,11 +100,12 @@ public class QrCodeProcessor {
             if (webAddress[1].matches("shareprofile")) {
                 Toast.makeText(activity, "Sharing user's profile", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Sharing profile");
-                UnplayableQrCode shareProfileQr = new UnplayableQrCode(webAddress[2], false);
+                UnplayableQrCode shareProfileQr = new UnplayableQrCode(webAddress[2], false, frag);
 
             } else {
                 Toast.makeText(activity, "Transfering your data...", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Transfering...");
+                UnplayableQrCode transferProfileQr = new UnplayableQrCode(webAddress[2], true, frag);
             }
             FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
         } else {
