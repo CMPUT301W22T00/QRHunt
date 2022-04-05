@@ -1,6 +1,9 @@
 package com.bigyoshi.qrhunt.qr;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,9 +22,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Note: NA
  * Issues: This is not implement yet
  */
-public class UnplayableQrCode{
-
-    private String profileID;
+public class InternalQrCode {
+    private static final String SHARED_PREFS = "sharedPrefs";
+    private static final String PLAYER_ID_PREF = "playerId";
+    private static final String TAG = InternalQrCode.class.getSimpleName();
+    private String playerId;
     private Boolean isLogin;
     private Player player;
     private SelfPlayer transferPlayer;
@@ -30,10 +35,9 @@ public class UnplayableQrCode{
 
     /**
      * Constructor method
-     *
      */
-    public UnplayableQrCode(String playerId, Boolean isLogin, Fragment frag){
-        this.profileID = playerId;
+    public InternalQrCode(String playerId, Boolean isLogin, Fragment frag) {
+        this.playerId = playerId;
         this.isLogin = isLogin;
         this.frag = frag;
 
@@ -50,15 +54,14 @@ public class UnplayableQrCode{
                 showSharedProfile(profile);
             });
         } else {
-            getLogInInfo();
+            setTransferAccount();
         }
     }
 
     /**
      * Gets game status features and displays it in a view
-     *
      */
-    public void showSharedProfile(FragmentProfile profile){
+    public void showSharedProfile(FragmentProfile profile) {
         // Function used to get game status features and displaying it in a view (UI)
         //if (!isAdded()) return;
         frag.getActivity().getSupportFragmentManager()
@@ -70,11 +73,12 @@ public class UnplayableQrCode{
 
     /**
      * Gets accessing account or "log-in" specifications
-     *
      */
-    public void getLogInInfo(){
-        // Function used to get log-in specifications
-        // We need to somehow, get this info -> log in immediately
-        transferPlayer.setPlayerId(profileID);
+    public void setTransferAccount() {
+        SharedPreferences sharedPreferences = frag.getContext().getSharedPreferences(SHARED_PREFS,
+                Context.MODE_PRIVATE);
+        sharedPreferences.edit().putString(PLAYER_ID_PREF, playerId).apply();
+        Log.d(TAG, String.format("set uuid for transfer: %s", this.playerId));
+        frag.getActivity().recreate();
     }
 }
