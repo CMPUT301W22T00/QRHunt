@@ -67,7 +67,6 @@
 
     <!-- for callout -->
     <string name="callout_text">Callout Text</string>
-    <string name="show_my_rank">Show my Rank</string>
     <string name="close">close</string>
     <string name="qrgen_text">QRGen Text</string>
 
