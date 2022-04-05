@@ -159,13 +159,13 @@ public class FragmentSearch extends Fragment {
 
                 // todo: actually make this make sense and act on it
                 if ( ((Player)searchAdapter.getItemAtPosition(i)).getPlayerId() == (player.getPlayerId())) {
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
                 }
                 else if (player.isAdmin()){
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.ADMIN_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.ADMIN_VIEW);
                 }
                 else{
-                    bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
+                    bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
 
                 }
                 bundle.putSerializable("player", (Player) searchAdapter.getItemAtPosition(i));
