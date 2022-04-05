@@ -67,16 +67,13 @@ public class QrLibraryAdapter extends ArrayAdapter<PlayableQrCode> {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ImageView uniqueFlag = view.findViewById(R.id.qr_grid_unique);
-        db.collection("users").document(playerInfo.getPlayerId()).get().addOnCompleteListener(docTask -> {
-            if (docTask.getException() == null && docTask.getResult() != null && docTask.getResult().getData() != null) {
-                Map<String, Object> bestUniqueQrMap = (HashMap<String, Object>) docTask.getResult().get("bestUniqueQR");
-                if (bestUniqueQrMap.getOrDefault("qrId", null) != null) {
-                    if (qrCode.getId().matches(bestUniqueQrMap.getOrDefault("qrId", null).toString())) {
-                        uniqueFlag.setVisibility(View.VISIBLE);
+        db.collection("qrCodesMetadata").document(qrCode.getId()).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().get("numScanned").toString().matches("1")) {
+                            uniqueFlag.setVisibility(View.VISIBLE);
+                        }
                     }
-                }
-            }
-        });
 
         if (!selfPlayer.getPlayerId().matches(playerInfo.getPlayerId())) {
             if (selfPlayer.getPlayerId().matches(qrCode.getPlayerId())) {
