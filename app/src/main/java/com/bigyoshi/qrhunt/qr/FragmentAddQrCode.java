@@ -127,7 +127,7 @@ public class FragmentAddQrCode extends DialogFragment {
                     isHidden = false;
                 } else {
                     qrCode.setLocation(null);
-                    showLatLong.setText("Location Now Hidden");
+                    showLatLong.setText("No Location");
                     hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
                     isHidden = true;
                 }
