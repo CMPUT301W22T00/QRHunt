@@ -19,9 +19,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Description: Creates the grid on player's profile to show the player's QRLibrary
- * Note: NA
- * Issues: TBA
+ * Definition: Creates the grid on player's profile to show the player's QRLibrary
+ * Note: N/A
+ * Issues: N/A
  */
 public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
     private Context context;
@@ -39,6 +39,7 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
      * @param position    Position
      * @param convertView View to convert
      * @param parent      Parent view
+     *
      * @return View
      */
     @NonNull

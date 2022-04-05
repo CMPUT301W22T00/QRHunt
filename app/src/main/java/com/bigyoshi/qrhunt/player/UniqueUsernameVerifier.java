@@ -1,8 +1,6 @@
 package com.bigyoshi.qrhunt.player;
 
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -10,6 +8,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: N/A
+ */
 public class UniqueUsernameVerifier {
     private final String TAG = UniqueUsernameVerifier.class.getSimpleName();
     private final Integer VERIFICATION_DELAY = 500;
@@ -23,18 +26,32 @@ public class UniqueUsernameVerifier {
         this.playerId = playerId;
     }
 
+    /**
+     * todo does smth
+     */
     public void cancel() {
         cancelled = true;
     }
 
+    /**
+     * todo does smth
+     */
     public boolean isCancelled() {
         return cancelled;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param onUsernameVerificationResults
+     */
     public void setOnUsernameVerificationResults(OnUsernameVerificationResults onUsernameVerificationResults) {
         this.onUsernameVerificationResults = onUsernameVerificationResults;
     }
 
+    /**
+     * todo does smth
+     */
     public void scheduleUniqueUsernameVerification() {
         Log.d(TAG, String.format("scheduling to run verification on \"%s\" in %d ms", username, VERIFICATION_DELAY));
         new Timer()
@@ -71,6 +88,9 @@ public class UniqueUsernameVerifier {
                 }, VERIFICATION_DELAY);
     }
 
+    /**
+     * todo does smth
+     */
     public static interface OnUsernameVerificationResults {
         public void onResults(boolean unique);
     }

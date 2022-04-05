@@ -12,16 +12,29 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.UUID;
 
-// class specifically for the player themselves
+/**
+ * Definition: Class specifically for the player themselves
+ * Note: N/A
+ * Issues: N/A
+ */
 public class SelfPlayer extends Player implements Serializable {
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String PLAYER_ID_PREF = "playerId";
     private static final String TAG = SelfPlayer.class.getSimpleName();
 
+    /**
+     * Constructor method
+     * @param context   todo tag
+     */
     public SelfPlayer(Context context) {
         super(null, context);
     }
 
+    /**
+     * todo does smth
+     *
+     * @return playerId
+     */
     public String getPlayerId() {
         // fetched lazily, but only once
         if (playerId == null) {
@@ -37,6 +50,11 @@ public class SelfPlayer extends Player implements Serializable {
         return playerId;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param playerId  todo tag
+     */
     public void setPlayerId(String playerId) {
         // to think about: when the id is changed, it's essentially a new player?
         this.playerId = playerId;

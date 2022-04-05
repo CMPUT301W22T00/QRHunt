@@ -32,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * Definition: Builds app, manages fragments, and accesses database
  * Note: Mainly controls the bottom navigation and top navigation bars
- * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play)
+ * Issues: When the player first installs the app and creates an account, the app freezes (need to restart app to play) todo is this still an issue?
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Updates the database when score is updated
      * Note: Should be called whenever the playerId changes (transfers account) - proper id listened for changes
-     *
      */
     private void updateFirebaseListeners() {
         // watch the score

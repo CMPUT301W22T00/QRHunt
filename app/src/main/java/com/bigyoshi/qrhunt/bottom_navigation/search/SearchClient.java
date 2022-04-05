@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: Is case sensitive
+ */
 public class SearchClient {
     private final String TAG = SearchClient.class.getSimpleName();
     private final String username;
@@ -29,10 +34,18 @@ public class SearchClient {
         return cancelled;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param onSearchResults
+     */
     public void setOnSearchResults(SearchClient.UsernameResultsFound onSearchResults) {
         this.onSearchResults = onSearchResults;
     }
 
+    /**
+     * todo does smth
+     */
     public void scheduleSearchQuery() {
         int VERIFICATION_DELAY = 500;
         // Full text search isn't supported that would be too easy.

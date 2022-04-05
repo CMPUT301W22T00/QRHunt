@@ -16,15 +16,37 @@ import com.bigyoshi.qrhunt.player.Player;
 import java.util.List;
 import java.util.Objects;
 
-// yes, i know ideally we are supposed to use objects blag lah la jglksjdfldsf
+
+/**
+ * Definition: Fills the data in a ListView List items are automatically inserted to a list using an Adapter that pulls the content from a source such as an arraylist, array or databa
+ * Note: yes, i know ideally we are supposed to use objects blag lah la jglksjdfldsf
+ * Issues: We aren't using objects now are we
+ */
 public class LeaderboardListAdapter extends ArrayAdapter<Player> {
     private final String playerId;
 
+
+    /**
+     * todo does smth
+     *
+     * @param context
+     * @param resource
+     * @param objects
+     * @param playerId
+     */
     public LeaderboardListAdapter(@NonNull Context context, int resource, @NonNull List<Player> objects, String playerId) {
         super(context, resource, objects);
         this.playerId = playerId;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

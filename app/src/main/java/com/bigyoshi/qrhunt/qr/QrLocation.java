@@ -9,8 +9,8 @@ import java.io.Serializable;
 
 /**
  * Definition: Keeping track of location and geohash of a pair of latitude and longitude points
- * Note: NA
- * Issues: TBA
+ * Note: N/A
+ * Issues: N/A
  */
 public class QrLocation implements Serializable {
     private Double latitude;
@@ -19,7 +19,6 @@ public class QrLocation implements Serializable {
 
     /**
      * Constructor method
-     *
      */
     public QrLocation() {}
 
@@ -51,7 +50,6 @@ public class QrLocation implements Serializable {
     /**
      * Tries to set geoHash if it can. In cases where the object is deserialized from the database,
      * latitude and longitude are set one by one, so we can't be sure if we have one we have both
-     *
      */
     private void computeGeoHash() {
         if (getLongitude() != null && getLatitude() != null) {

@@ -20,8 +20,8 @@ import java.util.Optional;
 
 /**
  * Definition: Object representing player, keeps track of all player data and deals with db functions regarding players
- * Note: NA
- * Issues: NA
+ * Note: N/A
+ * Issues: N/A
  */
 public class Player implements Serializable {
     private static final String TAG = Player.class.getSimpleName();
@@ -47,6 +47,8 @@ public class Player implements Serializable {
     /**
      * Constructor method
      *
+     * @param playerId  todo tag
+     * @param context   todo tag
      */
     public Player(String playerId, Context context) {
         db = FirebaseFirestore.getInstance();
@@ -64,6 +66,12 @@ public class Player implements Serializable {
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
 
+    /**
+     * todo does smth
+     *
+     * @param playerId  todo tag
+     * @return player
+     */
     @Deprecated
     public static Player fromPlayerId(String playerId) {
         // note: don't ever use this, left in for legacy reasons
@@ -73,6 +81,12 @@ public class Player implements Serializable {
         return player;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param doc   todo tag
+     * @return player
+     */
     public static Player fromDoc(DocumentSnapshot doc) {
         Player player = new Player(doc.getId(), null);
         player.setPropsFromDoc(doc);
@@ -130,7 +144,7 @@ public class Player implements Serializable {
     /**
      * Setter method (both email and social media contact)
      *
-     * @param contact
+     * @param contact   todo tag
      */
     public void setContact(Contact contact) {
         // Use the editTextId to identify which contact to update (with toUpdate)
@@ -216,6 +230,11 @@ public class Player implements Serializable {
         });
     }
 
+    /**
+     * todo does smth
+     *
+     * @param doc   todo tag
+     */
     private void setPropsFromDoc(DocumentSnapshot doc) {
         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
         Log.d(TAG, String.valueOf(doc.getData().get("contact")));

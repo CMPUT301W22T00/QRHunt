@@ -36,8 +36,8 @@ import java.util.ArrayList;
 
 /**
  * Definition: Fragment representing the search function (searching users)
- * Note: NA
- * Issues: Not implemented yet
+ * Note: N/A
+ * Issues: Is case sensitive
  */
 public class FragmentSearch extends Fragment {
     private static final String TAG = FragmentSearch.class.getSimpleName();
@@ -57,6 +57,11 @@ public class FragmentSearch extends Fragment {
         this.navId = id;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param savedInstanceState    savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -76,6 +81,14 @@ public class FragmentSearch extends Fragment {
                 });
     }
 
+    /**
+     * todo does smth
+     *
+     * @param inflater            inflater
+     * @param container           where the fragment is contained
+     * @param savedInstanceState  savedInstanceState
+     * @return root
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

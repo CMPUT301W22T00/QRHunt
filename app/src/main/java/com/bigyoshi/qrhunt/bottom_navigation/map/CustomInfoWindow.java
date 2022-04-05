@@ -4,8 +4,6 @@ import android.widget.TextView;
 
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
-import com.bigyoshi.qrhunt.qr.QrLocation;
-import com.google.zxing.qrcode.encoder.QRCode;
 
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.infowindow.InfoWindow;
@@ -15,14 +13,21 @@ import java.text.DecimalFormat;
 /**
  * Definition: A custom information window for the markers/pins
  * Note: N/A
- * Issues: The pins don't close when you tap on a different one
+ * Issues: QR pin callout doesn't close when you tap on a different pin or tap outside the pin
  */
 public class CustomInfoWindow extends InfoWindow {
 
         String distance;
         PlayableQrCode qr;
 
-        public CustomInfoWindow(MapView mapView, String distance, PlayableQrCode qr) {
+    /**
+     * todo does smth
+     *
+     * @param mapView   todo tag
+     * @param distance  todo tag
+     * @param qr        todo tag
+     */
+    public CustomInfoWindow(MapView mapView, String distance, PlayableQrCode qr) {
             super(R.layout.map_qr_info_callout, mapView);
             this.distance = distance;
             this.qr = qr;
@@ -32,7 +37,12 @@ public class CustomInfoWindow extends InfoWindow {
 
         }
 
-        @Override
+    /**
+     * todo does smth
+     *
+     * @param arg0  todo tag
+     */
+    @Override
         public void onOpen(Object arg0) {
             TextView txtDistance = (TextView) mView.findViewById(R.id.map_call_out_distance);
             TextView txtScore = (TextView) mView.findViewById(R.id.map_call_out_score);
