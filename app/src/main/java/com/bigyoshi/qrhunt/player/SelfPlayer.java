@@ -31,6 +31,7 @@ public class SelfPlayer extends Player implements Serializable {
             if (playerId.isEmpty()) {
                 username = generateUsername();
                 setPlayerId(UUID.randomUUID().toString());
+                savePlayer();
             }
             Log.d(TAG, String.format("retrieved uuid: %s", playerId));
         }
@@ -46,7 +47,6 @@ public class SelfPlayer extends Player implements Serializable {
         editor.putString(PLAYER_ID_PREF, this.playerId);
         editor.apply();
         Log.d(TAG, String.format("set uuid: %s", this.playerId));
-        savePlayer();
     }
 
     /**
