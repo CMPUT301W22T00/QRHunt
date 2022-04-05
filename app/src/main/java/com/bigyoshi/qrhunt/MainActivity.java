@@ -24,6 +24,8 @@ import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
 import com.bigyoshi.qrhunt.player.SelfPlayer;
+import com.bigyoshi.qrhunt.qr.FragmentScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -68,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         player = new SelfPlayer(this);
         // This will check if the player already has an account
-        if (!player.getPlayerId().matches("")){
+        if (player.getPlayerId().matches(db.collection("users").document(player.getPlayerId()).getId())){
             player.initialize();
+        } else {
+            player.setPlayerId(player.getPlayerId()); // save it
         }
 
         scoreView = toolbar.findViewById(R.id.top_scanner_score);
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", player);
+            bundle.putSerializable("selfPlayer", player);
             bundle.putSerializable("isActivity", 1);
             bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.container, search, "search");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
             }
         });
 

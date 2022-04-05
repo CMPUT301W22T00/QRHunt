@@ -7,15 +7,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -24,9 +28,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.player.Player;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.budiyev.android.codescanner.CodeScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -46,6 +52,9 @@ public class FragmentAddQrCode extends DialogFragment {
     private Button addPicButton;
     private Bitmap bitmap;
     private ImageView imageView;
+    private Boolean isHidden;
+    private CodeScanner codeScanner;
+
 
     /**
      * After scanning QR code - Handles the displaying and saving of the QR code values (score, number of scans, location)
@@ -82,20 +91,16 @@ public class FragmentAddQrCode extends DialogFragment {
         ((TextView) view.findViewById(R.id.qr_scan_profile_score)).setText(String.format("%d points", qrCode.getScore()));
 
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
-        numScannedTextView.setText("0 Scans");
-        db.collection("users").document(qrCode.getPlayerId()).get().addOnCompleteListener(task -> {
+        db.collection("qrCodesMetadata").document(qrCode.getId()).get()
+                .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        DocumentSnapshot res = task.getResult();
-                        if (res != null && res.exists()) {
-                            Double numScanned = res.getDouble("numScanned");
-                            int intNumScanned;
-                            if (numScanned != null) {
-                                intNumScanned = numScanned.intValue();
-                            } else {
-                                intNumScanned = 0;
-                            }
-                            numScannedTextView.setText(String.format("%d Scans", intNumScanned));
+                        if (task.getResult().exists()) {
+                            numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                        } else {
+                            numScannedTextView.setText("0 Scans");
                         }
+                    } else {
+                        numScannedTextView.setText("0 Scans");
                     }
                 }
         );
@@ -110,6 +115,27 @@ public class FragmentAddQrCode extends DialogFragment {
             showLatLong.setText("No Location");
         }
 
+        ImageButton hideLocation = view.findViewById(R.id.qr_scan_profile_toggle_visibility);
+        isHidden = false;
+        hideLocation.setOnClickListener( view1 -> {
+            if (qrLocation != null && qrLocation.exists()) {
+                if (isHidden) {
+                    qrCode.setLocation(qrLocation);
+                    String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
+                    String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
+                    showLatLong.setText(strLatitude + ", " + strLongitude);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
+                    isHidden = false;
+                } else {
+                    qrCode.setLocation(null);
+                    showLatLong.setText("Location Now Hidden");
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
+                    isHidden = true;
+                }
+            }
+        });
+
+        // Take A picture
         addPicButton = view.findViewById(R.id.qr_scan_profile_take_photo_button);
         addPicButton.setOnClickListener(__ -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -118,9 +144,42 @@ public class FragmentAddQrCode extends DialogFragment {
             addPicButton.setClickable(false);
         });
 
+        // Goes back to the scanner without saving anything
+        Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
+        cancelButton.setOnClickListener(__ -> {
+            dismiss();
+            FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
+                });
 
+
+        // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
+        Query qrList =  db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
+        qrList.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot doc : task.getResult()) {
+                    if (doc.exists()) {
+                        PlayableQrCode qrCodeDB = doc.toObject(PlayableQrCode.class);
+                        if (qrCodeDB.getId().matches(qrCode.getId())) {
+                            cancelButton.setText("Already");
+                            cancelButton.setClickable(false);
+                            okButton.setText("Scanned");
+                            okButton.setClickable(false);
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dismiss();
+                                    FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
+                                }
+                            }, 3000);
+                        }
+                    }
+                }
+            }
+        });
         okButton.setOnClickListener(__ -> {
+            Toast toast = Toast.makeText(getContext(), "QR ADD", Toast.LENGTH_LONG);
             LinearLayout overlay = view.findViewById(R.id.qr_scan_profile_fader_layout);
             overlay.setVisibility(View.VISIBLE);
 
@@ -134,20 +193,18 @@ public class FragmentAddQrCode extends DialogFragment {
                             if (uriTask.isSuccessful() && uriTask.getResult() != null) {
                                 qrCode.setImageUrl(uriTask.getResult().toString());
                                 Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
+                                qrCode.addToDb();
+                                overlay.setVisibility(View.INVISIBLE);
+                                dismiss();
+                                FragmentScanner.codeScanner.startPreview();
                             }
-                            qrCode.addToDb();
-                            overlay.setVisibility(View.INVISIBLE);
-                            dismiss();
                         }));
-            } else {
-                qrCode.addToDb();
-                overlay.setVisibility(View.INVISIBLE);
-                dismiss();
             }
+            qrCode.addToDb();
+            overlay.setVisibility(View.INVISIBLE);
+            dismiss();
+            FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
         });
-
-        Button cancelButton = view.findViewById(R.id.qr_scan_profile_cancel_button);
-        cancelButton.setOnClickListener(__ -> dismiss());
 
         return view;
     }

@@ -3,13 +3,9 @@ package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.util.Log;
 
-import com.bigyoshi.qrhunt.R;
-
 import java.io.Serializable;
-import java.util.Random;
 import java.util.UUID;
 
 // class specifically for the player themselves
@@ -19,7 +15,7 @@ public class SelfPlayer extends Player implements Serializable {
     private static final String TAG = SelfPlayer.class.getSimpleName();
 
     public SelfPlayer(Context context) {
-        super(null, context);
+        super(context);
     }
 
     public String getPlayerId() {
@@ -47,24 +43,5 @@ public class SelfPlayer extends Player implements Serializable {
         editor.apply();
         Log.d(TAG, String.format("set uuid: %s", this.playerId));
         savePlayer();
-    }
-
-    /**
-     * Generates random unique username when account is created
-     *
-     * @param context context
-     * @return String representing generatedUsername
-     */
-    public String generateUsername(Context context) {
-        // Random unique username generated when account is first created
-        Random rand = new Random();
-        Resources res = context.getResources();
-        String[] adj = res.getStringArray(R.array.adjectives);
-        String[] noun = res.getStringArray(R.array.noun);
-        String adjName = adj[rand.nextInt(adj.length - 1)];
-        String nounName = noun[rand.nextInt(noun.length - 1)];
-        int upperbound = 100;
-        String numName = Integer.toString(rand.nextInt(upperbound));
-        return adjName + nounName + numName;
     }
 }

@@ -4,13 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +32,7 @@ import java.util.Arrays;
  */
 public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
-    private CodeScanner codeScanner;
+    public static CodeScanner codeScanner;
     private QrCodeProcessor camera;
     private String playerId;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
@@ -82,23 +79,14 @@ public class FragmentScanner extends Fragment {
         codeScanner.setFormats(CodeScanner.ALL_FORMATS);
 
         codeScanner.setDecodeCallback(result -> activity.runOnUiThread(() -> {
+            codeScanner.setScanMode(ScanMode.PREVIEW);
+            codeScanner.startPreview();
             camera = new QrCodeProcessor(FragmentScanner.this, result.getText(), playerId);
             camera.processQRCode();
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    codeScanner.startPreview();
-                }
-            }, 2000);
         }));
 
         codeScanner.setErrorCallback(thrown -> Log.e(TAG, "Camera has failed: ", thrown ));
         return root;
-    }
-
-    public void startScanner() {
-        codeScanner.setScanMode(ScanMode.CONTINUOUS);
     }
 
     /**

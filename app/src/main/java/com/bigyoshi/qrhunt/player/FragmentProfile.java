@@ -44,6 +44,7 @@ public class FragmentProfile extends Fragment {
     private TextView username;
     private TextView totalScanned;
     private Player playerInfo;
+    private Player selfPlayer;
     private ImageButton settingButton;
     private ImageButton contactsButton;
     private int lastDestination;
@@ -92,6 +93,7 @@ public class FragmentProfile extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
+        selfPlayer = (Player) getArguments().getSerializable("selfPlayer");
         playerInfo = (Player) getArguments().getSerializable("player");
         lastDestination = (Integer) getArguments().getSerializable("isActivity");
         viewType = (ProfileType) getArguments().getSerializable(PROFILE_TYPE_KEY);
@@ -110,6 +112,11 @@ public class FragmentProfile extends Fragment {
 
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
+        if (qrCodesList.size() == 0){
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
+        } else {
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
+        }
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
         //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
@@ -117,18 +124,25 @@ public class FragmentProfile extends Fragment {
         qrCodesAdapter.notifyDataSetChanged();
         qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
-                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType)
+                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType, selfPlayer)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
                     onPause();
                 });
 
 
         ImageButton sortButton = root.findViewById(R.id.player_profile_sort_button);
+        TextView sortIndication = root.findViewById(R.id.sort_direction);
         sortButton.setOnClickListener(view -> {
                 if (playerInfo.qrLibrary.getScoredSorted() < 0) {
-                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
-                } else {
                     qrCodesList = playerInfo.qrLibrary.sortScoreDescending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Descending");
+                    sortButton.setScaleY(1);
+                } else {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Ascending");
+                    sortButton.setScaleY(-1);
                 }
                 qrCodesAdapter.notifyDataSetChanged();
         });

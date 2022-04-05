@@ -32,6 +32,7 @@
     <string name="profile_rank_title">Total Score Rank</string>
     <string name="codes_scanned_title">QR Codes Scanned</string>
     <string name="highest_unique_title">Highest Unique QR</string>
+    <string name="no_qrs">Library is empty</string>
 
     <!-- for leaderboard -->
     <string name="leaderboard_title">Leaderboard</string>
@@ -61,9 +62,13 @@
     <string name="delete_account_confirmed">Account Deleted</string>
     <string name="delete">Delete</string>
     <string name="delete_qr_profile">Delete QR Profile?</string>
+    <string name="no_results">No results found</string>
 
 
     <!-- for callout -->
     <string name="callout_text">Callout Text</string>
     <string name="show_my_rank">Show my Rank</string>
+    <string name="close">close</string>
+    <string name="qrgen_text">QRGen Text</string>
+
 </resources>
