@@ -154,9 +154,10 @@ public class FragmentLeaderboard extends Fragment {
         for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
             Player player = top3LeaderboardPlayers.get(i);
             View view = top3Views.get(i);
-            ((TextView) view.findViewById(R.id.top_rank_num)).setText(String.valueOf(i + 1));
             ((TextView) view.findViewById(R.id.top_rank_username)).setText(player.getUsername());
-            ((TextView) view.findViewById(R.id.top_rank_score)).setText(String.valueOf( player.getTotalScore()));
+            ((TextView) view.findViewById(R.id.top_rank_score)).setText(
+                    String.format("%d points", player.getTotalScore())
+            );
             ((TextView) view.findViewById(R.id.top_rank_unique)).setText(String.valueOf(player.getBestUniqueQr().getScore()));
             ((TextView) view.findViewById(R.id.top_rank_scans)).setText(String.valueOf(player.getNumScanned()));
         }

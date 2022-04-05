@@ -10,19 +10,18 @@
 
     <TextView
         android:id="@+id/leaderboard_title"
-        android:layout_width="159dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/quicksand"
-        android:text="Leaderboard"
+        android:text="@string/leaderboard_title"
         android:textAlignment="center"
         android:textColor="@color/main_blue"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        app:layout_constraintVertical_bias=".30"
         app:layout_constraintWidth_percent="0.33">
 
         <include layout="@layout/leaderboard_panel_content_second" />
@@ -47,6 +47,7 @@
         app:layout_constraintLeft_toRightOf="@id/layout_first_place"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        app:layout_constraintVertical_bias=".66"
         app:layout_constraintWidth_percent="0.33">
 
 
