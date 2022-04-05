@@ -29,26 +29,33 @@ public class InternalQrCode {
     private String playerId;
     private Boolean isLogin;
     private Player player;
-    private SelfPlayer transferPlayer;
+    private String selfId;
     private Fragment frag;
     private FragmentProfileBinding binding;
+
 
     /**
      * Constructor method
      */
-    public InternalQrCode(String playerId, Boolean isLogin, Fragment frag) {
+    public InternalQrCode(String playerId, Boolean isLogin, Fragment frag, String id) {
         this.playerId = playerId;
         this.isLogin = isLogin;
         this.frag = frag;
+        this.selfId = id;
 
         if (!this.isLogin) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             CollectionReference collectionReference = db.collection("users");
+            collectionReference.document(this.selfId).get()
+                    .addOnCompleteListener(querySnapshotTask -> {
+                        player = Player.fromDoc(querySnapshotTask.getResult());
+            });
             collectionReference.document(playerId).get().addOnCompleteListener(querySnapshotTask -> {
                 FragmentProfile profile = new FragmentProfile();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
                 bundle.putSerializable("player", Player.fromDoc(querySnapshotTask.getResult()));
+                bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 1);
                 profile.setArguments(bundle);
                 showSharedProfile(profile);

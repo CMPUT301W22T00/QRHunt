@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:alpha="0.9"
         android:background="@color/main_off_white_blue_light"
-        android:padding="@dimen/large_padding"
-        tools:context=".qr.FragmentQrProfileAfterScan">
+        android:padding="@dimen/large_padding">
 
         <TextView
             android:id="@+id/qr_scan_profile_score"
