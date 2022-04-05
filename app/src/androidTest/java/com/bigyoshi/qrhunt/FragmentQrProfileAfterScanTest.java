@@ -31,5 +31,13 @@ public class FragmentQrProfileAfterScanTest {
     }
 
     // Need to test the bottom navigation
+    @Test
+    public void checkClickTakePhoto() {
+
+    }
+
+
+
+
     // Need to test the top bar navigation
 }
