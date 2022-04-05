@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 actionbar.show();
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
+                
                 actionbar.show();
                 Bundle result = new Bundle();
                 result.putSerializable("player", player);

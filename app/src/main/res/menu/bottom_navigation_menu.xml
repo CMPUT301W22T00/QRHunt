@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_button_map"
+        android:icon="@drawable/navigation_buttons"
         android:title="" />
 
     <item
         android:id="@+id/navigation_scanner"
-        android:icon="@drawable/ic_button_camera"
+        android:icon="@drawable/scanner_buttons"
         android:title="" />
 
     <item
         android:id="@+id/navigation_leaderBoard"
-        android:icon="@drawable/ic_button_leaderboard"
+        android:icon="@drawable/leaderboard_buttons"
         android:title=""/>
 
 </menu>
