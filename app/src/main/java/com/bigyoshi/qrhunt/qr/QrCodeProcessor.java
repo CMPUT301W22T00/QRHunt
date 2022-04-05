@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -107,7 +109,14 @@ public class QrCodeProcessor {
                 Log.d(TAG, "Transfering...");
                 InternalQrCode transferProfileQr = new InternalQrCode(webAddress[2], true, frag);
             }
-            FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
+                }
+            }, 4000);
+
         } else {
             computeHash();
             computeScore();
