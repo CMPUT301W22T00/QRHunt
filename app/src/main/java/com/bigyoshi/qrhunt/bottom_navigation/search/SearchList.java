@@ -16,7 +16,7 @@ import com.bigyoshi.qrhunt.player.Player;
 import java.util.ArrayList;
 
 /**
- * Definition: todo smth smth smth
+ * Definition: Adapter holding all the players that have been searched
  * Note: N/A
  * Issues: Is case sensitive
  */
@@ -25,10 +25,10 @@ public class SearchList extends ArrayAdapter<Player> {
     private Context context;
 
     /**
-     * todo does smth
+     * Construction method
      *
-     * @param context
-     * @param playersFound
+     * @param context context
+     * @param playersFound found players list
      */
     public SearchList(Context context, ArrayList<Player> playersFound){
         super(context, 0, playersFound);
@@ -37,11 +37,11 @@ public class SearchList extends ArrayAdapter<Player> {
     }
 
     /**
-     * todo does smth
+     * Creates the view for the list block
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @param position    position
+     * @param convertView view
+     * @param parent      parent view
      * @return view
      */
     @NonNull

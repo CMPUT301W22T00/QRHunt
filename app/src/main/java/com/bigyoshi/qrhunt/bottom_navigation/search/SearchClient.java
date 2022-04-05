@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Definition: todo smth smth smth
+ * Definition: Queries for players based on search
  * Note: N/A
  * Issues: Is case sensitive
  */
@@ -35,16 +35,16 @@ public class SearchClient {
     }
 
     /**
-     * todo does smth
+     * Condition for search results
      *
-     * @param onSearchResults
+     * @param onSearchResults search results
      */
     public void setOnSearchResults(SearchClient.UsernameResultsFound onSearchResults) {
         this.onSearchResults = onSearchResults;
     }
 
     /**
-     * todo does smth
+     * Queries for players based on search
      */
     public void scheduleSearchQuery() {
         int VERIFICATION_DELAY = 500;
@@ -83,6 +83,9 @@ public class SearchClient {
                 }, VERIFICATION_DELAY);
     }
 
+    /**
+     * Interface for finding usernames
+     */
     public static interface UsernameResultsFound {
         public void onResults(List<DocumentSnapshot> found);
     }

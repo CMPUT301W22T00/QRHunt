@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,6 +203,8 @@ public class FragmentQrProfile extends DialogFragment {
         ImageButton commentButton = view.findViewById(R.id.qr_profile_send_comment_button);
         commentButton.setOnClickListener(view3 -> {
             EditText newCommentText = view.findViewById(R.id.qr_profile_add_comment);
+            // https://stackoverflow.com/questions/1489852/android-handle-enter-in-an-edittext
+            newCommentText.setImeActionLabel("Press enter for search", KeyEvent.KEYCODE_ENTER);
             HashMap<String, String> map = new HashMap<>();
 
             if (!newCommentText.getText().toString().isEmpty()) {
@@ -225,9 +228,9 @@ public class FragmentQrProfile extends DialogFragment {
 
 
     /**
-     * todo does smth
+     * Custom style to the view
      *
-     * @param savedInstanceState    saveInstanceState
+     * @param savedInstanceState saveInstanceState
      */
     // Me being stupid and using a DialogFragment as the base early on  todo you gonna leave this here?
     // Makes it full screen rather than windowed view
@@ -242,7 +245,7 @@ public class FragmentQrProfile extends DialogFragment {
     /**
      * Dynamically set the height for the listview (display as many items as there are)
      *
-     * @param listView  todo tag
+     * @param listView  comments list
      */
     public void setListViewHeight(ListView listView) {
         //Get the adapter of listView
@@ -267,7 +270,7 @@ public class FragmentQrProfile extends DialogFragment {
     }
 
     /**
-     * Removes QR from library...
+     * Removes QR from library
      */
     public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());

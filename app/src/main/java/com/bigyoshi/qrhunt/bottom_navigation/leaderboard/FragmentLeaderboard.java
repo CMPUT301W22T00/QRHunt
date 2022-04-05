@@ -55,10 +55,10 @@ public class FragmentLeaderboard extends Fragment {
     private Button sortTotalScore;
 
     /**
-     * creates instance of fragment, and handles where the activity goes after pressing back button
+     * Creates instance of fragment, and handles where the activity goes after pressing back button
      * (eg, either to scanner or map)
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +84,12 @@ public class FragmentLeaderboard extends Fragment {
 
     }
 
+
+    /**
+     * Query to get all the players from the database thus far
+     *
+     * @param querySnapshotTask querySnapshotTask
+     */
     private void onPlayersSnapshotTask(Task<QuerySnapshot> querySnapshotTask) {
         if (querySnapshotTask.isSuccessful() && querySnapshotTask.getResult() != null) {
             Log.d(TAG, "querying all players successful");
@@ -150,6 +156,12 @@ public class FragmentLeaderboard extends Fragment {
         return root;
     }
 
+    /**
+     * Launch profile to show
+     *
+     * @param playerToShow    playersToShow
+     * @param currentPlayerId currentPlayerId
+     */
     private void launchProfileView(Player playerToShow, String currentPlayerId) {
         FragmentProfile profile = new FragmentProfile();
         Bundle bundle = new Bundle();
@@ -173,6 +185,9 @@ public class FragmentLeaderboard extends Fragment {
                 .commit();
     }
 
+    /**
+     * Sorts leaderboard
+     */
     private void sortLeaderboardItems() {
         // https://stackoverflow.com/questions/189559/how-do-i-join-two-lists-in-java
         List<Player> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());;
@@ -197,6 +212,9 @@ public class FragmentLeaderboard extends Fragment {
         updateTop3();
     }
 
+    /**
+     * Updates the top three players
+     */
     private void updateTop3() {
         for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
             Player player = top3LeaderboardPlayers.get(i);
@@ -214,9 +232,9 @@ public class FragmentLeaderboard extends Fragment {
     }
 
     /**
-     * todo does smth
+     * Sort by specific criteria
      *
-     * @param sortCriteria
+     * @param sortCriteria criteria
      */
     protected void setSortCritera(SortCriteria sortCriteria) {
         this.sortCriteria = sortCriteria;

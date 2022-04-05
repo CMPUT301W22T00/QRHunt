@@ -24,14 +24,14 @@ public class SelfPlayer extends Player implements Serializable {
 
     /**
      * Constructor method
-     * @param context   todo tag
+     * @param context   context
      */
     public SelfPlayer(Context context) {
         super(null, context);
     }
 
     /**
-     * todo does smth
+     * Gets the player id and checks if they already have an account through shared prefs
      *
      * @return playerId
      */
@@ -52,9 +52,9 @@ public class SelfPlayer extends Player implements Serializable {
     }
 
     /**
-     * todo does smth
+     * Setter method
      *
-     * @param playerId  todo tag
+     * @param playerId  player id
      */
     public void setPlayerId(String playerId) {
         // to think about: when the id is changed, it's essentially a new player?

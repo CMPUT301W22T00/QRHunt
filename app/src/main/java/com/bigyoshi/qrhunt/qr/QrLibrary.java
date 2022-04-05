@@ -81,7 +81,11 @@ public class QrLibrary implements Serializable {
         return qrCodesList;
     }
 
-
+    /**
+     * Sorts by scores
+     *
+     * @return int
+     */
     public int getScoredSorted() {
         return scoreSorted;
     }

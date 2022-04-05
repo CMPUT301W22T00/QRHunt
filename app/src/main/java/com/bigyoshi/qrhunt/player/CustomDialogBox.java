@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import com.bigyoshi.qrhunt.R;
 
 /**
- * Definition: todo smth smth smth
+ * Definition: Dialog box for presents the generated Qr codes
  * Note: N/A
  * Issue: N/A
  */
@@ -31,9 +31,9 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
     /**
      * Constructor method
      *
-     * @param ctx       todo tag
-     * @param prompt    todo tag
-     * @param qr        todo tag
+     * @param ctx       context
+     * @param prompt    prompt
+     * @param qr        qr
      */
     public CustomDialogBox(@NonNull Context ctx, String prompt, Bitmap qr) {
         super(ctx);
@@ -43,7 +43,7 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
     }
 
     /**
-     * todo does smth
+     * Creates the view for the dialog
      *
      * @param savedInstanceSate savedInstanceState
      */
@@ -62,9 +62,9 @@ public class CustomDialogBox extends Dialog implements android.view.View.OnClick
     }
 
     /**
-     * todo does smth
+     * Lstens for the close button to be clicked
      *
-     * @param v todo tag
+     * @param v view
      */
     @Override
     public void onClick(View v) {

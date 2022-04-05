@@ -46,8 +46,8 @@ public class Player implements Serializable {
     /**
      * Constructor method
      *
-     * @param playerId  todo tag
-     * @param context   todo tag
+     * @param playerId  Player id
+     * @param context   Context
      */
     public Player(String playerId, Context context) {
         db = FirebaseFirestore.getInstance();
@@ -66,9 +66,9 @@ public class Player implements Serializable {
     }
 
     /**
-     * todo does smth
+     * Get player by player id
      *
-     * @param playerId  todo tag
+     * @param playerId  Player id
      * @return player
      */
     @Deprecated
@@ -81,9 +81,9 @@ public class Player implements Serializable {
     }
 
     /**
-     * todo does smth
+     * Get player from the database
      *
-     * @param doc   todo tag
+     * @param doc   doc result from query
      * @return player
      */
     public static Player fromDoc(DocumentSnapshot doc) {
@@ -92,22 +92,47 @@ public class Player implements Serializable {
         return player;
     }
 
+    /**
+     * Getter method
+     *
+     * @return player Id
+     */
     public String getPlayerId() {
         return playerId;
     }
 
+    /**
+     * Setter method
+     *
+     * @param playerId player Id
+     */
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
 
+    /**
+     * Getter method
+     *
+     * @return Best unique qr
+     */
     public BestQr getBestUniqueQr() {
         return bestUniqueQr;
     }
 
+    /**
+     * Getter method
+     *
+     * @return Best scoring Qr
+     */
     public BestQr getBestScoringQr() {
         return bestScoringQr;
     }
 
+    /**
+     * Getter method
+     *
+     * @return RankInfo
+     */
     public RankInfo getRankInfo() {
         return rankInfo;
     }
@@ -230,9 +255,9 @@ public class Player implements Serializable {
     }
 
     /**
-     * todo does smth
+     * Gets the player information from the database
      *
-     * @param doc   todo tag
+     * @param doc   doc result
      */
     private void setPropsFromDoc(DocumentSnapshot doc) {
         Log.d(TAG, String.valueOf(doc.getData().get("admin")));
@@ -291,10 +316,20 @@ public class Player implements Serializable {
                 .update("username", this.username);
     }
 
+    /**
+     * Getter method
+     *
+     * @return Number of qr scanned
+     */
     public int getNumScanned() {
         return numScanned;
     }
 
+    /**
+     * Setter method
+     *
+     * @param numScanned new number scanned
+     */
     public void setNumScanned(int numScanned) {
         this.numScanned = numScanned;
     }
