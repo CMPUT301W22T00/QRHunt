@@ -95,7 +95,8 @@ public class FragmentAddQrCode extends DialogFragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult().exists()) {
-                            numScannedTextView.setText(task.getResult().get("numScanned").toString());
+                            String s = task.getResult().get("numScanned").toString() + " Scans";
+                            numScannedTextView.setText(s);
                         } else {
                             numScannedTextView.setText("0 Scans");
                         }
