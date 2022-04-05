@@ -123,12 +123,12 @@ public class FragmentAddQrCode extends DialogFragment {
                     String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
                     String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
                     showLatLong.setText(strLatitude + ", " + strLongitude);
-                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
                     isHidden = false;
                 } else {
                     qrCode.setLocation(null);
                     showLatLong.setText("Location Now Hidden");
-                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_on);
+                    hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
                     isHidden = true;
                 }
             }
