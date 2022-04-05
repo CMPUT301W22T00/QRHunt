@@ -203,7 +203,7 @@ public class FragmentAddQrCode extends DialogFragment {
             qrCode.addToDb();
             overlay.setVisibility(View.INVISIBLE);
             dismiss();
-            FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
+            FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
         });
 
         return view;
