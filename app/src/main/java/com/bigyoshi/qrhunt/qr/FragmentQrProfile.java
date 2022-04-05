@@ -31,8 +31,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.bigyoshi.qrhunt.player.ProfileType;
-
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
