@@ -82,7 +82,6 @@ public class FragmentProfileTest {
             Log.d(FragmentProfileTest.class.getSimpleName(), "checkSocialButton: " + e.getMessage());
         }
 
-        // go to fragment to
         solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.player_profile_settings_button));
         solo.waitForFragmentById(R.id.player_settings);
         assertNotNull(solo.getView(R.id.player_settings));
@@ -115,7 +114,6 @@ public class FragmentProfileTest {
 
     }
 
-    // Check if call out when you click out of the social button
 
     @After
     public void tearDown() throws Exception {
