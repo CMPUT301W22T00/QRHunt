@@ -49,7 +49,6 @@
     <string name="settings_icon_desc">settings</string>
     <string name="ok">OK</string>
     <string name="add_comment">Add a comment…</string>
-    <string name="comment_placeholder">Comment</string>
 
     <!-- for after scan -->
     <string name="cancel">Cancel</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,52 +13,20 @@
         android:layout_height="0dp"
         android:background="@drawable/rec_button_take_photo"
         android:backgroundTint="@color/transparent"
-        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="H,1:1"
-        app:shapeAppearanceOverlay="@style/ImageView.Corner"
-        app:srcCompat="@drawable/ic_image_gallery"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@drawable/ic_image_gallery_new"
+        android:scaleType="centerCrop"
+        tools:ignore="MissingConstraints"
+        app:shapeAppearanceOverlay="@style/ImageView.Corner"/>
 
     <TextView
         android:id="@+id/qr_grid_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="SCORE"
-        android:textAlignment="center"
-        android:textColor="@color/accent_blue_light"
-        android:textSize="@dimen/text_size"
         app:layout_constraintTop_toBottomOf="@+id/qr_grid_image_view_two"
-        tools:layout_editor_absoluteX="3dp" />
-
-    <ImageView
-        android:id="@+id/qr_grid_scanned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_flag_scanned"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="5dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:layout_gravity="center"
-        android:maxHeight="40dp"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/qr_grid_unique"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_flag_unique"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="5dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="40dp"
-        android:layout_gravity="center"
-        android:maxHeight="40dp"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
+        android:text="SCORE"
+        android:textSize="@dimen/text_size"
+        android:textAlignment="center"
+        android:textColor="@color/accent_blue_light"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

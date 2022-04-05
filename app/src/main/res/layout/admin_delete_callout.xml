@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/contact_call_out"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_callout_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/contact_call_out">
 
     <TextView
         android:id="@+id/delete_call_out_button"
+        android:background="@color/transparent"
+        android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:clickable="true"
-        android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/padding"
         android:text="@string/delete_account"
-        android:textAllCaps="false"
+        android:textSize="@dimen/subtitle_size"
+        android:fontFamily="@font/quicksand_medium"
         android:textColor="@color/main_red_midtone"
-        android:textSize="@dimen/subtitle_size">
+        android:padding="@dimen/padding"
+        android:clickable="true">
 
     </TextView>
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->

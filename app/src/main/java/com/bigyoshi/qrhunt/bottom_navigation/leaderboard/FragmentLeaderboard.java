@@ -29,7 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +53,6 @@ public class FragmentLeaderboard extends Fragment {
     private Button sortBestUnique;
     private Button sortTotalScanned;
     private Button sortTotalScore;
-    private Player selfPlayer;
 
     /**
      * Creates instance of fragment, and handles where the activity goes after pressing back button
@@ -67,13 +65,10 @@ public class FragmentLeaderboard extends Fragment {
         super.onCreate(savedInstanceState);
         // really hacky but i couldn't for the life of me figure out
         // how to pass the playerid betwixt fragements using mobile_navigation.xml
-        db = FirebaseFirestore.getInstance();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
         playerId = sharedPreferences.getString("playerId", "");
-        db.collection("users").document(playerId).get().addOnCompleteListener(docTask -> {
-            selfPlayer = Player.fromDoc(docTask.getResult());
-        });
 
+        db = FirebaseFirestore.getInstance();
         sortCriteria = SortCriteria.TOTAL_SCORE;
         top3Views = new ArrayList<>();
         bottomLeaderboardPlayers = new ArrayList<>();
@@ -150,7 +145,6 @@ public class FragmentLeaderboard extends Fragment {
             launchProfileView(player, playerId);
         });
         binding.leaderboardMyRankButton.setOnClickListener(__ -> {
-            binding.leaderboardMyRankButton.setVisibility(View.INVISIBLE);
             for (int i = 0; i < bottomLeaderboardPlayers.size(); i++) {
                 if (playerId.equals(bottomLeaderboardPlayers.get(i).getPlayerId())) {
                     listView.smoothScrollToPositionFromTop(i, 0);
@@ -172,7 +166,6 @@ public class FragmentLeaderboard extends Fragment {
         FragmentProfile profile = new FragmentProfile();
         Bundle bundle = new Bundle();
         bundle.putSerializable("player", playerToShow);
-        bundle.putSerializable("selfPlayer", selfPlayer);
         // admin actions not supported from leaderboard
         // the reason definitely isn't technical and has nothing to do with the fact that I
         // couldn't pass the entire player object to check if they're the admin
@@ -188,7 +181,7 @@ public class FragmentLeaderboard extends Fragment {
         profile.setArguments(bundle);
         getChildFragmentManager()
                 .beginTransaction()
-                .add(R.id.leaderboard, profile, "profile")
+                .replace(R.id.leaderboard, profile, "profile")
                 .addToBackStack(null)
                 .commit();
     }
@@ -198,8 +191,7 @@ public class FragmentLeaderboard extends Fragment {
      */
     private void sortLeaderboardItems() {
         // https://stackoverflow.com/questions/189559/how-do-i-join-two-lists-in-java
-        List<Player> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());
-        ;
+        List<Player> combined = Stream.concat(top3LeaderboardPlayers.stream(), bottomLeaderboardPlayers.stream()).collect(Collectors.toList());;
         combined.sort((p0, p1) -> {
             switch (sortCriteria) {
                 case BEST_UNIQUE:

@@ -38,8 +38,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Locale;
-import java.util.Optional;
 
 /**
  * Definition: After scan fragment popup - displays values information and handles location photo
@@ -93,18 +91,20 @@ public class FragmentAddQrCode extends DialogFragment {
         ((TextView) view.findViewById(R.id.qr_scan_profile_score)).setText(String.format("%d points", qrCode.getScore()));
 
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
-        ImageView uniqueFlag = view.findViewById(R.id.qr_after_scan_profile_unique_flag);
-        db.collection("qrCodesMetadata").document(qrCode.getId()).get().addOnCompleteListener(docTask -> {
-            numScannedTextView.setText(String.format(
-                    Locale.CANADA,
-                    "%d scans",
-                    Optional.ofNullable(docTask.getResult().getLong("numScanned")).orElse(0L)
-            ));
-            if (!docTask.getResult().exists() || docTask.getResult().getLong("numScanned") == 0L) {
-                Log.d(TAG, String.format("numScanned non-existant || numScanned == 0, %s is unique", qrCode.getId()));
-                uniqueFlag.setVisibility(View.VISIBLE);
-            }
-        });
+        db.collection("qrCodesMetadata").document(qrCode.getId()).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().exists()) {
+                            String s = task.getResult().get("numScanned").toString() + " Scans";
+                            numScannedTextView.setText(s);
+                        } else {
+                            numScannedTextView.setText("0 Scans");
+                        }
+                    } else {
+                        numScannedTextView.setText("0 Scans");
+                    }
+                }
+        );
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_scan_profile_location);
         QrLocation qrLocation = qrCode.getLocation();
@@ -118,7 +118,7 @@ public class FragmentAddQrCode extends DialogFragment {
 
         ImageButton hideLocation = view.findViewById(R.id.qr_scan_profile_toggle_visibility);
         isHidden = false;
-        hideLocation.setOnClickListener(view1 -> {
+        hideLocation.setOnClickListener( view1 -> {
             if (qrLocation != null && qrLocation.exists()) {
                 if (isHidden) {
                     qrCode.setLocation(qrLocation);
@@ -129,7 +129,7 @@ public class FragmentAddQrCode extends DialogFragment {
                     isHidden = false;
                 } else {
                     qrCode.setLocation(null);
-                    showLatLong.setText("No Location");
+                    showLatLong.setText("Location Now Hidden");
                     hideLocation.setBackgroundResource(R.drawable.ic_button_location_off);
                     isHidden = true;
                 }
@@ -150,12 +150,12 @@ public class FragmentAddQrCode extends DialogFragment {
         cancelButton.setOnClickListener(__ -> {
             dismiss();
             FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
-        });
+                });
 
 
         // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
-        Query qrList = db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
+        Query qrList =  db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
         qrList.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
@@ -167,8 +167,6 @@ public class FragmentAddQrCode extends DialogFragment {
                             okButton.setText("Scanned");
                             okButton.setClickable(false);
                             addPicButton.setVisibility(View.INVISIBLE);
-                            ImageView scannedFlag = view.findViewById(R.id.qr_after_scan_profile_scanned_flag);
-                            scannedFlag.setVisibility(View.VISIBLE);
                             final Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
                                 @Override

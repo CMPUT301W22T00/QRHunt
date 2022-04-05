@@ -1,95 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map_call_out"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_callout_qr_info"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/map_call_out">
 
     <TextView
         android:id="@+id/map_call_out_distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/extra_small_padding"
+        android:padding="5dp"
         android:text="Distance: XXkm"
         android:textColor="@color/main_off_white_blue_light"
         android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/map_call_out_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/extra_small_padding"
-        android:text="Value: XX"
-        android:textColor="@color/main_off_white_blue_light"
+        android:padding="5dp"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_call_out_distance" />
+        android:text="Value: XX"
+        android:textColor="@color/main_off_white_blue_light"/>
 
     <TextView
         android:id="@+id/map_call_out_num_scans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/extra_small_padding"
-        android:text="Scans: XX"
-        android:textColor="@color/main_off_white_blue_light"
+        android:padding="5dp"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_call_out_score" />
+        android:text="Scans: XX"
+        android:textColor="@color/main_off_white_blue_light"/>
 
     <TextView
         android:id="@+id/map_call_out_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="@font/quicksand_medium"
-        android:padding="@dimen/extra_small_padding"
-        android:text="Latitude, Longitude"
-        android:textColor="@color/main_off_white_blue_light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_call_out_num_scans" />
-
-    <ImageView
-        android:id="@+id/map_call_out_unique_flag"
-        android:layout_width="55dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="-9dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/map_call_out_distance"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_flag_unique" />
-
-    <ImageView
-        android:id="@+id/map_call_out_scanned_flag"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="8dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/map_call_out_distance"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_flag_scanned" />
+        android:padding="5dp"
+        android:text="Latitude, Longitude"
+        android:textColor="@color/main_off_white_blue_light"/>
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

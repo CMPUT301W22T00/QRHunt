@@ -41,7 +41,7 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 public class FragmentQrProfile extends DialogFragment {
 
     private int pos;
-    private PlayableQrCode qr;
+    private PlayableQrCode currentQR;
     private Player player;
     private ProfileType profileType;
     private FirebaseFirestore db;
@@ -51,13 +51,13 @@ public class FragmentQrProfile extends DialogFragment {
      * Constructor method
      *
      * @param pos        int
-     * @param qr         QR to remove
+     * @param currentQR  QR to remove
      * @param player     player that the account belongs to
-     * @param selfPlayer user's own account
+     * @param selfPlayer todo tag
      */
-    public FragmentQrProfile(int pos, PlayableQrCode qr, Player player, ProfileType profileType, Player selfPlayer) {
+    public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType, Player selfPlayer) {
         this.pos = pos;
-        this.qr = qr;
+        this.currentQR = currentQR;
         this.player = player;
         this.profileType = profileType;
         this.selfPlayer = selfPlayer;
@@ -74,13 +74,14 @@ public class FragmentQrProfile extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qr_player_profile, container, false);
 
+        // Get Data Base
         db = FirebaseFirestore.getInstance();
 
         // Display score
         TextView showScore = view.findViewById(R.id.qr_profile_qr_score);
-        showScore.setText(String.valueOf(qr.getScore()) + " Points");
+        showScore.setText(String.valueOf(currentQR.getScore())+" Points");
 
-        // Display numScan and unique flag
+        // Display numScan
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
         db.collection("qrCodesMetadata").document(qr.getId()).get()
                 .addOnCompleteListener(task -> {
@@ -94,7 +95,7 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Display location
         TextView showLatLong = view.findViewById(R.id.qr_profile_qr_location);
-        QrLocation qrLocation = qr.getLocation();
+        QrLocation qrLocation = currentQR.getLocation();
         if (qrLocation != null) {
             String strLatitude = Location.convert(qrLocation.getLatitude(), Location.FORMAT_DEGREES);
             String strLongitude = Location.convert(qrLocation.getLongitude(), Location.FORMAT_DEGREES);
@@ -105,8 +106,8 @@ public class FragmentQrProfile extends DialogFragment {
 
         // Attach Image
         ImageView showPic = view.findViewById(R.id.qr_profile_image_placeholder);
-        if (qr.getImageUrl() != null) {
-            Picasso.get().load(qr.getImageUrl()).into(showPic);
+        if (currentQR.getImageUrl() != null) {
+            Picasso.get().load(currentQR.getImageUrl()).into(showPic);
         }
         showPic.setCropToPadding(true);
 
@@ -116,7 +117,7 @@ public class FragmentQrProfile extends DialogFragment {
 
 
         ImageButton deleteButton = view.findViewById(R.id.qr_profile_option_menu);
-        if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(qr.getPlayerId())) {
+        if (profileType == ProfileType.ADMIN_VIEW || profileType == ProfileType.OWN_VIEW || player.getPlayerId().equals(currentQR.getPlayerId())) {
             deleteButton.setVisibility(View.VISIBLE);
         } else {
             deleteButton.setVisibility(View.INVISIBLE);
@@ -181,7 +182,7 @@ public class FragmentQrProfile extends DialogFragment {
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
         commentList.setAdapter(commentAdapter);
         commentList.setNestedScrollingEnabled(true); // Commented out to test new solution
-        db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(qr.getId()).collection("comments")
+        db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId()).collection("comments")
                 .get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
@@ -194,6 +195,7 @@ public class FragmentQrProfile extends DialogFragment {
                 }
             }
         });
+
 
 
         // Add QRComment
@@ -211,7 +213,7 @@ public class FragmentQrProfile extends DialogFragment {
                 QRComment newComment = new QRComment(
                         newCommentText.getText().toString(), selfPlayer.getUsername());
                 comments.add(newComment);
-                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(qr.getId())
+                db.collection("users").document(player.getPlayerId()).collection("qrCodes").document(currentQR.getId())
                         .collection("comments")
                         .document(newCommentText.getText().toString()).set(map);
                 newCommentText.getText().clear();
@@ -252,7 +254,7 @@ public class FragmentQrProfile extends DialogFragment {
         }
         int totalHeight = 60;
         //listAdapter.getCount() returns the number of data items
-        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+        for (int i = 0,len = listAdapter.getCount(); i <len; i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
@@ -261,7 +263,7 @@ public class FragmentQrProfile extends DialogFragment {
         //params.height finally gets the height required for complete display of the entire ListView
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() *
-                (listAdapter.getCount() - 1) + 50);
+               (listAdapter .getCount()-1) + 50);
         if (params.height < 200) { params.height = 200; }
         listView.setLayoutParams(params);
     }
@@ -271,7 +273,7 @@ public class FragmentQrProfile extends DialogFragment {
      */
     public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
-        parentFrag.libraryRemoveQR(pos, qr);
+        parentFrag.libraryRemoveQR(pos, currentQR);
         getFragmentManager().beginTransaction().remove(this).commit();
     }
 }

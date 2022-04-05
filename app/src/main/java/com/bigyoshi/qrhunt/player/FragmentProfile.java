@@ -25,9 +25,7 @@ import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentProfileBinding;
 import com.bigyoshi.qrhunt.qr.FragmentQrProfile;
 import com.bigyoshi.qrhunt.qr.PlayableQrCode;
-import com.bigyoshi.qrhunt.qr.QrLibraryAdapter;
 import com.bigyoshi.qrhunt.qr.QrLibraryGridViewAdapter;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class FragmentProfile extends Fragment {
     private TextView username;
     private TextView totalScanned;
     private Player playerInfo;
-    private Player ownPlayer;
+    private Player selfPlayer;
     private ImageButton settingButton;
     private ImageButton contactsButton;
     private int lastDestination;
@@ -72,27 +70,27 @@ public class FragmentProfile extends Fragment {
                 .addCallback(this,
                             new OnBackPressedCallback(true) {
 
-                            @Override
-                            public void handleOnBackPressed() {
-                                if (lastDestination == 1) {
-                                    Intent intent = new Intent(getContext(), MainActivity.class);
-                                    Bundle prevNav = new Bundle();
-                                    prevNav.putSerializable("previous", lastDestination);
-                                    intent.putExtras(prevNav);
-                                    startActivity(intent);
-                                } else {
-                                    getFragmentManager().popBackStackImmediate();
+                                @Override
+                                public void handleOnBackPressed() {
+                                    if (lastDestination == 1) {
+                                        Intent intent = new Intent(getContext(), MainActivity.class);
+                                        Bundle prevNav = new Bundle();
+                                        prevNav.putSerializable("previous", lastDestination);
+                                        intent.putExtras(prevNav);
+                                        startActivity(intent);
+                                    } else {
+                                        getFragmentManager().popBackStackImmediate();
+                                    }
                                 }
-                            }
-                        });
+                });
     }
 
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return View
      */
     @Nullable
@@ -101,13 +99,11 @@ public class FragmentProfile extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        db = FirebaseFirestore.getInstance();
-        qrCodesList = new ArrayList<>();
 
-        ownPlayer = (Player) getArguments().getSerializable("selfPlayer");
+        selfPlayer = (Player) getArguments().getSerializable("selfPlayer");
         playerInfo = (Player) getArguments().getSerializable("player");
-        viewType = (ProfileType) getArguments().getSerializable(PROFILE_TYPE_KEY);
         lastDestination = (Integer) getArguments().getSerializable("isActivity");
+        viewType = (ProfileType) getArguments().getSerializable(PROFILE_TYPE_KEY);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -125,59 +121,49 @@ public class FragmentProfile extends Fragment {
         contactsButton = root.findViewById(R.id.player_profile_contact_button);
         totalScanned = root.findViewById(R.id.player_profile_scanned_text);
 
-        qrCodesAdapter = new QrLibraryAdapter(root.getContext(), qrCodesList, playerInfo, ownPlayer, viewType);
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
-        qrCodesList = new ArrayList<>();
+        qrCodesList = playerInfo.qrLibrary.getQrCodes();
+        if (qrCodesList.size() == 0 && playerInfo.getTotalScore() == 0){
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
+        } else {
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
+        }
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
+        //qrGridView.setNestedScrollingEnabled(true); // Commented out to test
         setGridViewHeight(qrGridView);
+        qrCodesAdapter.notifyDataSetChanged();
         qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
-                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType, ownPlayer)
+                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType, selfPlayer)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
                     onPause();
                 });
-
-        db.collection("users").document(playerInfo.getPlayerId()).collection("qrCodes").get().addOnCompleteListener(task -> {
-            for (DocumentSnapshot doc : task.getResult().getDocuments()) {
-                qrCodesList.add(doc.toObject(PlayableQrCode.class));
-            }
-            if (qrCodesList.size() == 0) {
-                root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
-            } else {
-                root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
-            }
-            qrCodesAdapter.notifyDataSetChanged();
-        });
 
 
         ImageButton sortButton = root.findViewById(R.id.player_profile_sort_button);
         TextView sortIndication = root.findViewById(R.id.sort_direction);
         sortButton.setOnClickListener(view -> {
-            if (playerInfo.qrLibrary.getScoredSorted() > 0) {
-                playerInfo.qrLibrary.sortScoreAscending();
-                qrCodesList.sort((a,b) -> {
-                    return a.getScore() - b.getScore();
-                });
-                setGridViewHeight(qrGridView);
-                sortIndication.setText("Score Descending");
-                sortButton.setScaleY(1);
-            } else {
-                playerInfo.qrLibrary.sortScoreDescending();
-                qrCodesList.sort((a,b) -> {
-                    return b.getScore() - a.getScore();
-                });
-                sortIndication.setText("Score Ascending");
-                sortButton.setScaleY(-1);
-            }
-            qrCodesAdapter.notifyDataSetChanged();
+                if (playerInfo.qrLibrary.getScoredSorted() < 0) {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreDescending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Descending");
+                    sortButton.setScaleY(1);
+                } else {
+                    qrCodesList = playerInfo.qrLibrary.sortScoreAscending();
+                    setGridViewHeight(qrGridView);
+                    sortIndication.setText("Score Ascending");
+                    sortButton.setScaleY(-1);
+                }
+                qrCodesAdapter.notifyDataSetChanged();
         });
 
 
         settingButton = root.findViewById(R.id.player_profile_settings_button);
         if (viewType == ProfileType.VISITOR_VIEW) {
             settingButton.setVisibility(View.INVISIBLE);
-        } else {
+        }
+        else {
             settingButton.setVisibility(View.VISIBLE);
         }
 
@@ -198,7 +184,8 @@ public class FragmentProfile extends Fragment {
                         fragmentTransaction.add(R.id.player_profile, profileSetting, "setting");
                         fragmentTransaction.commit();
                     });
-        } else if (viewType == ProfileType.ADMIN_VIEW) {
+        }
+        else if (viewType == ProfileType.ADMIN_VIEW) {
             settingButton.setOnClickListener(
                     v -> {
                         SimpleTooltip deleteAccountCallout = new SimpleTooltip.Builder(getContext())
@@ -232,47 +219,47 @@ public class FragmentProfile extends Fragment {
                                         confirmDeletePrompt.findViewById(
                                                 R.id.delete_qr_dialog_confirm_button)
                                                 .setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View view) {
-                                                        db = FirebaseFirestore.getInstance();
-                                                        db.collection("users")
-                                                                .document(playerInfo.getPlayerId())
-                                                                .delete()
-                                                                .addOnSuccessListener(unused -> {
-                                                                    db.collection("user")
-                                                                            .document(playerInfo.getPlayerId())
-                                                                            .delete();
-                                                                    Log.d(TAG, "Successfully removed player from data base");
-                                                                })
-                                                                .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));
+                                                @Override
+                                                public void onClick(View view) {
+                                                    db = FirebaseFirestore.getInstance();
+                                                    db.collection("users")
+                                                            .document(playerInfo.getPlayerId())
+                                                            .delete()
+                                                            .addOnSuccessListener(unused -> {
+                                                                db.collection("user")
+                                                                        .document(playerInfo.getPlayerId())
+                                                                        .delete();
+                                                                Log.d(TAG, "Successfully removed player from data base");
+                                                            })
+                                                            .addOnFailureListener(e -> Log.w(TAG, "Error removing player from data base", e));
 
 
-                                                        AlertDialog.Builder accountDeletedConfirmationBuilder =
-                                                                new AlertDialog.Builder(getContext());
+                                                    AlertDialog.Builder accountDeletedConfirmationBuilder =
+                                                            new AlertDialog.Builder(getContext());
 
-                                                        accountDeletedConfirmationBuilder.setView(R.layout.admin_delete_profile_confirmation);
+                                                    accountDeletedConfirmationBuilder.setView(R.layout.admin_delete_profile_confirmation);
 
-                                                        AlertDialog accountDeletedConfirmation =
-                                                                accountDeletedConfirmationBuilder.create();
+                                                    AlertDialog accountDeletedConfirmation =
+                                                        accountDeletedConfirmationBuilder.create();
 
-                                                        accountDeletedConfirmation.show();
+                                                    accountDeletedConfirmation.show();
 
-                                                        accountDeletedConfirmation.findViewById(
-                                                                R.id.delete_confirm_confirm_button)
-                                                                .setOnClickListener(new View.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View view) {
+                                                    accountDeletedConfirmation.findViewById(
+                                                            R.id.delete_confirm_confirm_button)
+                                                            .setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View view) {
 
-                                                                        Intent intent = new Intent(getContext(), MainActivity.class);
-                                                                        startActivity(intent);
-                                                                        accountDeletedConfirmation.dismiss();
-                                                                    }
-                                                                });
+                                                            Intent intent = new Intent(getContext(), MainActivity.class);
+                                                            startActivity(intent);
+                                                            accountDeletedConfirmation.dismiss();
+                                                        }
+                                                    });
 
-                                                        confirmDeletePrompt.dismiss();
+                                                    confirmDeletePrompt.dismiss();
 
-                                                    }
-                                                });
+                                                }
+                                            });
 
                                         confirmDeletePrompt.findViewById(
                                                 R.id.delete_qr_dialog_cancel_button)
@@ -286,6 +273,7 @@ public class FragmentProfile extends Fragment {
                                 });
 
                         deleteAccountCallout.show();
+
 
 
                     });
@@ -330,6 +318,7 @@ public class FragmentProfile extends Fragment {
     public void libraryRemoveQR(int pos, PlayableQrCode removeQR) {
         qrCodesList.remove(pos);
         qrCodesAdapter.notifyDataSetChanged();
+        db = FirebaseFirestore.getInstance();
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
 
@@ -357,7 +346,7 @@ public class FragmentProfile extends Fragment {
         int totalNum = listAdapter.getCount();
         int totalHeight = 0;
         //Calculate the sum of the height of each column
-        int numRows = Math.round(totalNum / 3) + 1;
+        int numRows = Math.round(totalNum/3) + 1;
         if (!listAdapter.isEmpty()) {
             View listItem = listAdapter.getView(0, null, gridview);
             listItem.measure(0, 0);

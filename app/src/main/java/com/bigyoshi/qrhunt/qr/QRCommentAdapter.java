@@ -49,17 +49,17 @@ public class QRCommentAdapter extends ArrayAdapter<QRComment> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.qr_profile_comment_content, parent,
+            view = LayoutInflater.from(context).inflate(R.layout.qr_comment_element, parent,
                     false);
         }
 
         QRComment comment = comments.get(position);
 
         // Displaying the text
-        TextView username = view.findViewById(R.id.qr_profile_comment_username);
+        TextView username = view.findViewById(R.id.qr_comment_username);
         username.setText(comment.getUsername());
 
-        TextView commentText = view.findViewById(R.id.qr_profile_comment_body);
+        TextView commentText = view.findViewById(R.id.qr_comment_text);
         commentText.setText(comment.getComment());
 
         return view;
