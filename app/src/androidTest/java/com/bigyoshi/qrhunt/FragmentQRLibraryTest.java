@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt;
 
 import android.app.Activity;
+import android.widget.GridView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -36,10 +37,6 @@ public class FragmentQRLibraryTest {
 
     //test works assuming exactly one qr code w/ no image
 
-    public void testQrLibrary(){
-        goToPlayerProfile();
-
-        solo.clickOnImage();
-    }
+    //todo finish this
 
 }
