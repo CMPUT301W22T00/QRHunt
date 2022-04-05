@@ -61,14 +61,16 @@
         android:id="@+id/top_rank_unique_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksand"
-        android:padding="@dimen/small_padding"
-        android:text="@string/score_divider"
-        android:textColor="@color/black"
-        android:textSize="@dimen/title_size"
-        app:layout_constraintLeft_toRightOf="@id/top_rank_unique"
-        app:layout_constraintRight_toLeftOf="@id/top_rank_scans"
-        app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
+        android:text="unique"
+        android:textColor="@color/background_grey"
+        android:textSize="@dimen/extra_small_text"
+        android:translationY="-15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_unique"
+        app:layout_constraintEnd_toStartOf="@id/top_rank_scans_desc"/>
+
 
     <TextView
         android:id="@+id/top_rank_scans"
@@ -79,8 +81,22 @@
         android:text="@string/scans_num"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="@id/top_rank_divider"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/top_rank_divider" />
+        app:layout_constraintEnd_toEndOf="@id/top_rank_scans_desc"
+        app:layout_constraintStart_toStartOf="@id/top_rank_scans_desc"
+        app:layout_constraintTop_toBottomOf="@id/top_rank_score" />
+
+    <TextView
+        android:id="@+id/top_rank_scans_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand_medium"
+        android:padding="@dimen/padding"
+        android:text="scanned"
+        android:textColor="@color/background_grey"
+        android:textSize="@dimen/extra_small_text"
+        android:translationY="-15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_rank_scans"
+        app:layout_constraintStart_toEndOf="@id/top_rank_unique_desc"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

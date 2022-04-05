@@ -64,6 +64,10 @@ public class SelfPlayer extends Player implements Serializable {
         String nounName = noun[rand.nextInt(noun.length - 1)];
         int upperbound = 100;
         String numName = Integer.toString(rand.nextInt(upperbound));
-        return adjName + nounName + numName;
+        String generatedName = adjName + nounName + numName;
+        if (generatedName.length() > 12){
+            generatedName = generatedName.substring(0,12);
+        }
+        return  generatedName;
     }
 }
