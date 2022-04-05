@@ -46,7 +46,7 @@ public class SelfPlayer extends Player implements Serializable {
         editor.putString(PLAYER_ID_PREF, this.playerId);
         editor.apply();
         Log.d(TAG, String.format("set uuid: %s", this.playerId));
-        savePlayer();
+        //savePlayer();
     }
 
     /**
