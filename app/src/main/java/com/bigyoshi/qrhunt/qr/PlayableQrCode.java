@@ -63,7 +63,7 @@ public class PlayableQrCode implements Serializable {
         db.collection("qrCodesMetadata").document(this.id).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        this.numScanned = task.getResult().get("numScanned").toString();
+                        this.numScanned = task.getResult().getData().getOrDefault("numScanned", 0).toString();
                     }
                 });
         return this.numScanned;
