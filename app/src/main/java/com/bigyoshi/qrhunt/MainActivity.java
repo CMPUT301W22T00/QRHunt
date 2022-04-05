@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         player = new SelfPlayer(this);
         // This will check if the player already has an account
-        if (!player.getPlayerId().matches("")){
+        if (player.getPlayerId().matches(db.collection("users").document(player.getPlayerId()).getId())){
             player.initialize();
+        } else {
+            player.setPlayerId(player.getPlayerId()); // save it
         }
 
         scoreView = toolbar.findViewById(R.id.top_scanner_score);
