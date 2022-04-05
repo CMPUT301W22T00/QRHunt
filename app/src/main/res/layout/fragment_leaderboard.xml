@@ -34,9 +34,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/layout_first_place"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
+        android:scaleX=".85"
+        android:scaleY=".85"
         >
 
-        <include layout="@layout/leaderboard_panel_content_second" />
+        <include
+            layout="@layout/leaderboard_panel_content_second" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,7 +51,8 @@
         app:layout_constraintLeft_toRightOf="@id/layout_first_place"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/layout_first_place"
-        >
+        android:scaleX=".85"
+        android:scaleY=".85">
 
 
         <include layout="@layout/leaderboard_panel_content_third" />
@@ -63,7 +67,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
-        >
+        android:scaleX=".9"
+        android:scaleY=".9">
 
         <include layout="@layout/leaderboard_panel_content_first" />
 
