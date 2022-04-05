@@ -37,7 +37,7 @@
     <!-- for leaderboard -->
     <string name="leaderboard_title">Leaderboard</string>
     <string name="pound_sign">#</string>
-    <string name="username_placeholder">Username</string>
+    <string name="username_placeholder">Username1234</string>
     <string name="score_divider">|</string>
     <string name="highest_unique_num">UQ</string>
     <string name="scans_num">SC</string>
