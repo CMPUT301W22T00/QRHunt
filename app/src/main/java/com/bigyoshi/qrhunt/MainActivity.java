@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             }
             String scoreVal = String.valueOf(snapshot.getData().getOrDefault("totalScore", 0));
             Log.d(TAG, String.format("set the score to be %s", scoreVal));
-            scoreView.setText(String.format("Score: %s", scoreVal));
+            scoreView.setText(String.format("%s points", scoreVal));
         });
     }
 

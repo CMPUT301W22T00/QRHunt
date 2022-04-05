@@ -38,6 +38,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * Definition: After scan fragment popup - displays values information and handles location photo
@@ -92,10 +94,14 @@ public class FragmentAddQrCode extends DialogFragment {
 
         numScannedTextView = view.findViewById(R.id.qr_scan_profile_num_scanned);
         ImageView uniqueFlag = view.findViewById(R.id.qr_after_scan_profile_unique_flag);
-        numScannedTextView.setText("Scans: "+ qrCode.getNumScanned());
         db.collection("qrCodesMetadata").document(qrCode.getId()).get().addOnCompleteListener(docTask -> {
-            if (docTask.getResult().get("numScanned").toString().matches("1")) {
-                Log.d(TAG, "onCreateView: Flag is added");
+            numScannedTextView.setText(String.format(
+                    Locale.CANADA,
+                    "%d scans",
+                    Optional.ofNullable(docTask.getResult().getLong("numScanned")).orElse(0L)
+            ));
+            if (!docTask.getResult().exists() || docTask.getResult().getLong("numScanned") == 0L) {
+                Log.d(TAG, String.format("numScanned non-existant || numScanned == 0, %s is unique", qrCode.getId()));
                 uniqueFlag.setVisibility(View.VISIBLE);
             }
         });
@@ -112,7 +118,7 @@ public class FragmentAddQrCode extends DialogFragment {
 
         ImageButton hideLocation = view.findViewById(R.id.qr_scan_profile_toggle_visibility);
         isHidden = false;
-        hideLocation.setOnClickListener( view1 -> {
+        hideLocation.setOnClickListener(view1 -> {
             if (qrLocation != null && qrLocation.exists()) {
                 if (isHidden) {
                     qrCode.setLocation(qrLocation);
@@ -144,12 +150,12 @@ public class FragmentAddQrCode extends DialogFragment {
         cancelButton.setOnClickListener(__ -> {
             dismiss();
             FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
-                });
+        });
 
 
         // Adds QR to Account
         Button okButton = view.findViewById(R.id.qr_scan_profile_save_button);
-        Query qrList =  db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
+        Query qrList = db.collection("users").document(qrCode.getPlayerId()).collection("qrCodes");
         qrList.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
