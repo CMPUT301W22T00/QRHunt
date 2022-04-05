@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
+                navSearch.setVisibility(View.GONE);
             }
             if (navDestination.getId() == R.id.navigation_scanner) {
                 actionbar.show();
