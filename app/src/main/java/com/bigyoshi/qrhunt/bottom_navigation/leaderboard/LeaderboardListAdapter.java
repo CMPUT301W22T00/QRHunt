@@ -42,7 +42,6 @@ public class LeaderboardListAdapter extends ArrayAdapter<Player> {
         numScanned.setText(String.valueOf(player.getNumScanned()));
         TextView totalScore = (TextView) convertView.findViewById(R.id.rank_score);
         totalScore.setText(String.valueOf(player.getTotalScore()));
-
         return convertView;
     }
 }
