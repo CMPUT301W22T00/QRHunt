@@ -19,20 +19,20 @@ import java.util.Objects;
 
 /**
  * Definition: Fills the data in a ListView List items are automatically inserted to a list using an Adapter that pulls the content from a source such as an arraylist, array or databa
- * Note: yes, i know ideally we are supposed to use objects blag lah la jglksjdfldsf
- * Issues: We aren't using objects now are we
+ * Note: N/A
+ * Issues: N/A
  */
 public class LeaderboardListAdapter extends ArrayAdapter<Player> {
     private final String playerId;
 
 
     /**
-     * todo does smth
+     * Constructor method
      *
-     * @param context
-     * @param resource
-     * @param objects
-     * @param playerId
+     * @param context  context
+     * @param resource resource
+     * @param objects  list of players
+     * @param playerId current playerId
      */
     public LeaderboardListAdapter(@NonNull Context context, int resource, @NonNull List<Player> objects, String playerId) {
         super(context, resource, objects);
@@ -40,11 +40,11 @@ public class LeaderboardListAdapter extends ArrayAdapter<Player> {
     }
 
     /**
-     * todo does smth
+     * Makes view for leaderboard list view
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @param position position
+     * @param convertView convertView
+     * @param parent parent view
      * @return convertView
      */
     @NonNull

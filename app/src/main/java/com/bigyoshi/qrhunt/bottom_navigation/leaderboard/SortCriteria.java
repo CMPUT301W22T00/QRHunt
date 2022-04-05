@@ -1,7 +1,7 @@
 package com.bigyoshi.qrhunt.bottom_navigation.leaderboard;
 
 /**
- *  Definition: todo does smth
+ *  Definition: Sorting criteria
  *  Note: N/A
  *  Issues: N/A
  */

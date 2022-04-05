@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 /**
  * Definition: A custom information window for the markers/pins
  * Note: N/A
- * Issues: QR pin callout doesn't close when you tap on a different pin or tap outside the pin
+ * Issues: N/A
  */
 public class CustomInfoWindow extends InfoWindow {
 
@@ -21,11 +21,11 @@ public class CustomInfoWindow extends InfoWindow {
         PlayableQrCode qr;
 
     /**
-     * todo does smth
+     * Constructor method
      *
-     * @param mapView   todo tag
-     * @param distance  todo tag
-     * @param qr        todo tag
+     * @param mapView   map view
+     * @param distance  distance from player location
+     * @param qr        qr code
      */
     public CustomInfoWindow(MapView mapView, String distance, PlayableQrCode qr) {
             super(R.layout.map_qr_info_callout, mapView);
@@ -38,9 +38,9 @@ public class CustomInfoWindow extends InfoWindow {
         }
 
     /**
-     * todo does smth
+     * Called when the call out is opened (presents call out)
      *
-     * @param arg0  todo tag
+     * @param arg0  object
      */
     @Override
         public void onOpen(Object arg0) {
@@ -68,7 +68,4 @@ public class CustomInfoWindow extends InfoWindow {
             txtScans.setText(numScan);
             txtLocation.setText(loc);
         }
-
-
-
 }

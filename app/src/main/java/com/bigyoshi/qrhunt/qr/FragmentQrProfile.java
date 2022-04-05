@@ -225,9 +225,9 @@ public class FragmentQrProfile extends DialogFragment {
 
 
     /**
-     * todo does smth
+     * Custom style to the view
      *
-     * @param savedInstanceState    saveInstanceState
+     * @param savedInstanceState saveInstanceState
      */
     // Me being stupid and using a DialogFragment as the base early on  todo you gonna leave this here?
     // Makes it full screen rather than windowed view
@@ -242,7 +242,7 @@ public class FragmentQrProfile extends DialogFragment {
     /**
      * Dynamically set the height for the listview (display as many items as there are)
      *
-     * @param listView  todo tag
+     * @param listView  comments list
      */
     public void setListViewHeight(ListView listView) {
         //Get the adapter of listView
@@ -267,7 +267,7 @@ public class FragmentQrProfile extends DialogFragment {
     }
 
     /**
-     * Removes QR from library...
+     * Removes QR from library
      */
     public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());

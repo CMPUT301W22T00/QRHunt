@@ -27,6 +27,12 @@ public class QrLibraryGridViewAdapter extends ArrayAdapter<PlayableQrCode> {
     private Context context;
     private ArrayList<PlayableQrCode> qrCodes;
 
+    /**
+     * Constructor method
+     *
+     * @param context context
+     * @param qrCodes list of qr codes
+     */
     public QrLibraryGridViewAdapter(Context context, ArrayList<PlayableQrCode> qrCodes) {
         super(context, 0, qrCodes);
         this.context = context;

@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Definition: todo smth smth smth
+ * Definition: Veries if the username is unique when user wants a new username
  * Note: N/A
  * Issues: N/A
  */
@@ -21,36 +21,42 @@ public class UniqueUsernameVerifier {
     private OnUsernameVerificationResults onUsernameVerificationResults;
     private boolean cancelled;
 
+    /**
+     * Constructor method
+     *
+     * @param username Username
+     * @param playerId Player id
+     */
     public UniqueUsernameVerifier(String username, String playerId) {
         this.username = username;
         this.playerId = playerId;
     }
 
     /**
-     * todo does smth
+     * Detects if the user cancelled the request
      */
     public void cancel() {
         cancelled = true;
     }
 
     /**
-     * todo does smth
+     * Checks if the user cancelled their request
      */
     public boolean isCancelled() {
         return cancelled;
     }
 
     /**
-     * todo does smth
+     * Checks condition of unique username
      *
-     * @param onUsernameVerificationResults
+     * @param onUsernameVerificationResults unique
      */
     public void setOnUsernameVerificationResults(OnUsernameVerificationResults onUsernameVerificationResults) {
         this.onUsernameVerificationResults = onUsernameVerificationResults;
     }
 
     /**
-     * todo does smth
+     * Queries to check if the unique name is unique
      */
     public void scheduleUniqueUsernameVerification() {
         Log.d(TAG, String.format("scheduling to run verification on \"%s\" in %d ms", username, VERIFICATION_DELAY));
@@ -89,7 +95,7 @@ public class UniqueUsernameVerifier {
     }
 
     /**
-     * todo does smth
+     * Interface for the unique for results
      */
     public static interface OnUsernameVerificationResults {
         public void onResults(boolean unique);
