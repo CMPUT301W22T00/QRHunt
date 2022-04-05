@@ -45,6 +45,7 @@ public class FragmentProfile extends Fragment {
     private TextView username;
     private TextView totalScanned;
     private Player playerInfo;
+    private Player selfPlayer;
     private ImageButton settingButton;
     private ImageButton contactsButton;
     private int lastDestination;
@@ -93,6 +94,7 @@ public class FragmentProfile extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
+        selfPlayer = (Player) getArguments().getSerializable("selfPlayer");
         playerInfo = (Player) getArguments().getSerializable("player");
         lastDestination = (Integer) getArguments().getSerializable("isActivity");
         viewType = (ProfileType) getArguments().getSerializable(IS_OWN_PROFILE);
@@ -123,7 +125,7 @@ public class FragmentProfile extends Fragment {
         qrCodesAdapter.notifyDataSetChanged();
         qrGridView.setOnItemClickListener(
                 (adapterView, view, i, l) -> {
-                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType)
+                    new FragmentQrProfile(i, qrCodesList.get(i), playerInfo, viewType, selfPlayer)
                             .show(getChildFragmentManager(), "LIBRARY_REMOVE_QR");
                     onPause();
                 });
