@@ -42,17 +42,16 @@ public class Player implements Serializable {
     // TODO: fix this. In theory, QrLibrary is _perfectly_ serializable. The android runtime disagrees
     // we're leaving it this way for now because confusingly, everything seems to work
     public transient QrLibrary qrLibrary;
-    protected final transient Context context;
+    protected transient Context context;
 
     /**
      * Constructor method
      *
-     * @param context context
      */
     public Player(String playerId, Context context) {
-        this.context = context;
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
+        this.context = context;
         this.rankInfo = new RankInfo();
         this.bestScoringQr = new BestQr();
         this.bestUniqueQr = new BestQr();
@@ -65,7 +64,10 @@ public class Player implements Serializable {
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
 
+    @Deprecated
     public static Player fromPlayerId(String playerId) {
+        // note: don't ever use this, left in for legacy reasons
+        // what this does is serve you a race condition on a silver platter
         Player player = new Player(playerId, null);
         player.initialize();
         return player;
@@ -190,7 +192,6 @@ public class Player implements Serializable {
                         @Override
                         public void onSuccess(Void aVoid) {
                             // These are a method which gets executed when the task is succeeded
-
                             Log.d(TAG, "Data has been added successfully!");
                         }
                     })

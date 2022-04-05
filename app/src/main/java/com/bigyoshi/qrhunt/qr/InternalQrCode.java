@@ -47,7 +47,7 @@ public class InternalQrCode {
             collectionReference.document(playerId).get().addOnCompleteListener(querySnapshotTask -> {
                 FragmentProfile profile = new FragmentProfile();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.VISITOR_VIEW);
+                bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
                 bundle.putSerializable("player", Player.fromDoc(querySnapshotTask.getResult()));
                 bundle.putSerializable("isActivity", 1);
                 profile.setArguments(bundle);

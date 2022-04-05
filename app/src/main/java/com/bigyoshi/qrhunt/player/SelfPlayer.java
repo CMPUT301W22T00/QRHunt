@@ -3,9 +3,13 @@ package com.bigyoshi.qrhunt.player;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 
+import com.bigyoshi.qrhunt.R;
+
 import java.io.Serializable;
+import java.util.Random;
 import java.util.UUID;
 
 // class specifically for the player themselves
@@ -15,7 +19,7 @@ public class SelfPlayer extends Player implements Serializable {
     private static final String TAG = SelfPlayer.class.getSimpleName();
 
     public SelfPlayer(Context context) {
-        super(context);
+        super(null, context);
     }
 
     public String getPlayerId() {
@@ -25,6 +29,7 @@ public class SelfPlayer extends Player implements Serializable {
             playerId = sharedPreferences.getString(PLAYER_ID_PREF, "");
             // generated lazily, only once
             if (playerId.isEmpty()) {
+                username = generateUsername();
                 setPlayerId(UUID.randomUUID().toString());
             }
             Log.d(TAG, String.format("retrieved uuid: %s", playerId));
@@ -37,11 +42,28 @@ public class SelfPlayer extends Player implements Serializable {
         this.playerId = playerId;
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,
                 Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(PLAYER_ID_PREF, this.playerId);
         editor.apply();
         Log.d(TAG, String.format("set uuid: %s", this.playerId));
         savePlayer();
+    }
+
+    /**
+     * Generates random unique username when account is created
+     *
+     * @return String representing generatedUsername
+     */
+    public String generateUsername() {
+        // Random unique username generated when account is first created
+        Random rand = new Random();
+        Resources res = context.getResources();
+        String[] adj = res.getStringArray(R.array.adjectives);
+        String[] noun = res.getStringArray(R.array.noun);
+        String adjName = adj[rand.nextInt(adj.length - 1)];
+        String nounName = noun[rand.nextInt(noun.length - 1)];
+        int upperbound = 100;
+        String numName = Integer.toString(rand.nextInt(upperbound));
+        return adjName + nounName + numName;
     }
 }
