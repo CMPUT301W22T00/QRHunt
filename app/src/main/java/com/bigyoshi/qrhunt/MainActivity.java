@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
-                //this.findViewById(R.id.navigation_map).setBackground(getDrawable(R.drawable.));
+                this.findViewById(R.id.navigation_map).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
 
                 this.findViewById(R.id.navigation_scanner).setBackgroundColor(
                         ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.VISIBLE);
                 navProfile.setVisibility(View.VISIBLE);
-                //this.findViewById(R.id.navigation_scanner).setBackground(getDrawable(R.drawable.));
+                this.findViewById(R.id.navigation_scanner).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
                 this.findViewById(R.id.navigation_map).setBackgroundColor(
                         ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
                 this.findViewById(R.id.navigation_leaderBoard).setBackgroundColor(
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             if (navDestination.getId() == R.id.navigation_leaderBoard) {
                 actionbar.hide();
                 binding.bottomNavigationView.setVisibility(View.VISIBLE);
-                //this.findViewById(R.id.navigation_leaderBoard).setBackground(getDrawable(R.drawable.));
+                this.findViewById(R.id.navigation_leaderBoard).setBackground(getDrawable(R.drawable.rec_bottom_nav_highlight));
                 this.findViewById(R.id.navigation_scanner).setBackgroundColor(
                         ContextCompat.getColor(this.getApplicationContext(), R.color.transparent));
                 this.findViewById(R.id.navigation_map).setBackgroundColor(
