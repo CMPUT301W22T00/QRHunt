@@ -48,7 +48,7 @@ public class QrCodeProcessor {
      *
      * @param frag     TBA
      * @param text     QR Content
-     * @param playerId todo tag
+     * @param playerId player id
      */
     public QrCodeProcessor(Fragment frag, String text, String playerId) {
         this.frag = frag;

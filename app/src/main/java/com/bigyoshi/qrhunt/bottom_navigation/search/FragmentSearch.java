@@ -52,15 +52,21 @@ public class FragmentSearch extends Fragment {
     private ArrayList<Player> searchList = new ArrayList<>();
     private ArrayAdapter<Player> searchAdapter;
 
+    /**
+     * Constructor method
+     *
+     * @param player player
+     * @param id id
+     */
     public FragmentSearch(Player player, int id) {
         this.player = player;
         this.navId = id;
     }
 
     /**
-     * todo does smth
+     * Creates back pressed functionality for the search bar
      *
-     * @param savedInstanceState    savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,7 +88,7 @@ public class FragmentSearch extends Fragment {
     }
 
     /**
-     * todo does smth
+     * Creates the view for the search bar
      *
      * @param inflater            inflater
      * @param container           where the fragment is contained

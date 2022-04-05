@@ -58,7 +58,7 @@ public class FragmentProfile extends Fragment {
 
 
     /**
-     * todo does smth
+     * Customizes the back pressed functionality
      *
      * @param savedInstanceState savedInstanceState
      */
@@ -319,7 +319,7 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     * todo does smth
+     * Resumes the previous activity and notifies if the QR adapter needs to change
      */
     @Override
     public void onResume() {
@@ -329,9 +329,9 @@ public class FragmentProfile extends Fragment {
     }
 
     /**
-     * todo does smth
+     * Sizes the grid view
      *
-     * @param gridview todo tag
+     * @param gridview grid view for QR Library
      */
     public void setGridViewHeight(GridView gridview) {
         //Get the adapter of gridview

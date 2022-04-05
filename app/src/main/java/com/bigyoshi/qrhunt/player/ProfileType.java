@@ -1,7 +1,7 @@
 package com.bigyoshi.qrhunt.player;
 
 /**
- * Definition: todo smth smth smth
+ * Definition: Player Profile options
  * Note: N/A
  * Issues: N/A
  */

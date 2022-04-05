@@ -44,7 +44,7 @@ public class Contact implements Serializable {
     /**
      * Setter method
      *
-     * @param newSocial
+     * @param newSocial new social
      */
     public void setSocial(String newSocial){
 
@@ -54,7 +54,7 @@ public class Contact implements Serializable {
     /**
      * Setter method
      *
-     * @param newEmail
+     * @param newEmail new email
      */
     public void setEmail(String newEmail){
 

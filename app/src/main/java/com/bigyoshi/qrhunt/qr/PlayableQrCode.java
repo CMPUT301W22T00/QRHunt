@@ -38,8 +38,6 @@ public class PlayableQrCode implements Serializable {
 
     /**
      * Constructor method
-     * Note: We need to distinguish QRCodes already scanned and those who have not been scanned yet todo still an issue?
-     *         Since initialization of numScanned would either be an update OR just 1
      *
      * @param id    QRCode id
      * @param score QRCode score
@@ -157,7 +155,6 @@ public class PlayableQrCode implements Serializable {
      * @param playerId Current player
      */
     public void deleteFromDb(FirebaseFirestore db, String playerId) {
-        // todo: toast here for confirmation either way?
         db.collection("users").document(playerId)
                 .collection("qrCodes")
                 .document(id)

@@ -35,9 +35,13 @@ public class FragmentPlayerProfileSetting extends DialogFragment {
     private Button ok;
     private Button cancel;
     private UniqueUsernameVerifier verifier;
-
     private FragmentUserSettingsEditProfileBinding binding;
 
+    /**
+     * Setting style for the player profile settings
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
