@@ -193,6 +193,10 @@ public class FragmentAddQrCode extends DialogFragment {
                             if (uriTask.isSuccessful() && uriTask.getResult() != null) {
                                 qrCode.setImageUrl(uriTask.getResult().toString());
                                 Log.d(TAG, "Image upload succeeded to " + uriTask.getResult().toString());
+                                qrCode.addToDb();
+                                overlay.setVisibility(View.INVISIBLE);
+                                dismiss();
+                                FragmentScanner.codeScanner.startPreview();
                             }
                         }));
             }
