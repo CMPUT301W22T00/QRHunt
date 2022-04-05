@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public class FragmentScanner extends Fragment {
     // prevents flickering
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private static final int SMOOTHING_DELAY = 3000;
+    private HandlerThread smoothingHandlerThread;
     private Handler smoothingHandler;
     private Runnable smoothingRunnable;
     public static CodeScanner codeScanner;
@@ -63,7 +65,9 @@ public class FragmentScanner extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        smoothingHandler = new Handler(Looper.getMainLooper());
+        smoothingHandlerThread = new HandlerThread(TAG);
+        smoothingHandlerThread.start();
+        smoothingHandler = new Handler(smoothingHandlerThread.getLooper());
         getActivity().getSupportFragmentManager().setFragmentResultListener("getPlayer",
                 this,
                 (requestKey, result) -> {
@@ -85,7 +89,7 @@ public class FragmentScanner extends Fragment {
         scanButton.setOnClickListener(__ -> {
             if (smoothingRunnable != null) {
                 smoothingHandler.removeCallbacks(smoothingRunnable);
-                codeScanner.setDecodeCallback(null);
+                smoothingRunnable = null;
             }
             camera = new QrCodeProcessor(FragmentScanner.this, currentCodeValue, playerId);
             camera.processQrCode();
