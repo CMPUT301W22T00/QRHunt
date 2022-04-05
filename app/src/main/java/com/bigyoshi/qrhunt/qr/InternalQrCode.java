@@ -60,7 +60,7 @@ public class InternalQrCode {
                 bundle.putSerializable("selfPlayer", player);
                 bundle.putSerializable("isActivity", 1);
                 profile.setArguments(bundle);
-                this.showSharedProfile(profile);
+                showSharedProfile(profile);
             });
         } else {
             setTransferAccount();
