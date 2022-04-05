@@ -176,6 +176,7 @@ public class FragmentLeaderboard extends Fragment {
         } else {
             bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
         }
+        binding.leaderboardMyRankButton.setVisibility(View.GONE);
         bundle.putInt("isActivity", 1);
         profile.setArguments(bundle);
         getChildFragmentManager()
@@ -221,6 +222,7 @@ public class FragmentLeaderboard extends Fragment {
             View view = top3Views.get(i);
             view.setOnClickListener(__ -> {
                 launchProfileView(player, playerId);
+                binding.leaderboardMyRankButton.setVisibility(View.GONE);
             });
             ((TextView) view.findViewById(R.id.top_rank_username)).setText(player.getUsername());
             ((TextView) view.findViewById(R.id.top_rank_score)).setText(
