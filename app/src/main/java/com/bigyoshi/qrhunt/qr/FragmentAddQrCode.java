@@ -161,7 +161,7 @@ public class FragmentAddQrCode extends DialogFragment {
                     if (doc.exists()) {
                         PlayableQrCode qrCodeDB = doc.toObject(PlayableQrCode.class);
                         if (qrCodeDB.getId().matches(qrCode.getId())) {
-                            cancelButton.setText("Already");
+                            cancelButton.setText("");
                             cancelButton.setClickable(false);
                             okButton.setText("Scanned");
                             okButton.setClickable(false);
