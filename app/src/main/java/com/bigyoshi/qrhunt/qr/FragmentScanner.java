@@ -114,7 +114,7 @@ public class FragmentScanner extends Fragment {
     }
 
     private void decodeCallback(Result result) {
-        currentCodeValue = Arrays.toString(result.getRawBytes());
+        currentCodeValue = result.getText();
         Log.d(TAG, String.format("decoded code: %s, enabling button for %d", currentCodeValue, SMOOTHING_DELAY));
         enableScanButton();
         if (smoothingRunnable != null) {
