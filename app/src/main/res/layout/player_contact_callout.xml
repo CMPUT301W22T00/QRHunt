@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/rec_callout_bg"
@@ -15,7 +14,7 @@
         android:text="XXXX"
         android:fontFamily="@font/quicksand_medium"
         android:textColor="@color/main_off_white_blue_light"
-        android:padding="5dp">
+        android:padding="@dimen/small_padding">
 
     </TextView>
     <!-- from https://github.com/douglasjunior/android-simple-tooltip/issues/93 -->

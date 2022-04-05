@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
-        android:padding="5dp"
+        android:padding="@dimen/small_padding"
         android:textSize="14sp"
         android:text="insert error"
         android:textColor="@color/main_off_white_blue_light"/>
