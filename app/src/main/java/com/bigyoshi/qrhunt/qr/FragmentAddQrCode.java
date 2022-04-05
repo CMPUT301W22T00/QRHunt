@@ -165,6 +165,7 @@ public class FragmentAddQrCode extends DialogFragment {
                             cancelButton.setClickable(false);
                             okButton.setText("Scanned");
                             okButton.setClickable(false);
+                            addPicButton.setVisibility(View.INVISIBLE);
                             final Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
                                 @Override
