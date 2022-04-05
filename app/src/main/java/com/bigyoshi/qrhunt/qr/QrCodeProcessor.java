@@ -102,12 +102,12 @@ public class QrCodeProcessor {
             if (webAddress[1].matches("shareprofile")) {
                 Toast.makeText(activity, "Sharing user's profile", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Sharing profile");
-                InternalQrCode shareProfileQr = new InternalQrCode(webAddress[2], false, frag);
+                InternalQrCode shareProfileQr = new InternalQrCode(webAddress[2], false, frag, playerId);
 
             } else {
                 Toast.makeText(activity, "Transfering your data...", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Transfering...");
-                InternalQrCode transferProfileQr = new InternalQrCode(webAddress[2], true, frag);
+                InternalQrCode transferProfileQr = new InternalQrCode(webAddress[2], true, frag, playerId);
             }
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
