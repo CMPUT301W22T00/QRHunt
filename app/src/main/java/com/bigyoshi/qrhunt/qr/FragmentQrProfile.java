@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,25 +23,21 @@ import androidx.fragment.app.DialogFragment;
 import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.R;
-import com.bigyoshi.qrhunt.player.SelfPlayer;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.bigyoshi.qrhunt.player.ProfileType;
-import com.squareup.picasso.Picasso;
 
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * Definition: Fragment used when the player wishes to delete their QR code
- * Note: NA
- * Issues: NA
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentQrProfile extends DialogFragment {
 
@@ -55,10 +50,11 @@ public class FragmentQrProfile extends DialogFragment {
 
     /**
      * Constructor method
-     * @param pos int
-     * @param currentQR QR to remove
-     * @param player    player that the account belongs to
-     * @param selfPlayer
+     *
+     * @param pos        int
+     * @param currentQR  QR to remove
+     * @param player     player that the account belongs to
+     * @param selfPlayer todo tag
      */
     public FragmentQrProfile(int pos, PlayableQrCode currentQR, Player player, ProfileType profileType, Player selfPlayer) {
         this.pos = pos;
@@ -66,15 +62,14 @@ public class FragmentQrProfile extends DialogFragment {
         this.player = player;
         this.profileType = profileType;
         this.selfPlayer = selfPlayer;
-        ;
     }
 
     /**
      * Creates the view for deleting a QR code
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return View
      */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -182,7 +177,6 @@ public class FragmentQrProfile extends DialogFragment {
         });
 
         // Display Comments
-
         ListView commentList = view.findViewById(R.id.qr_profile_comment_list);
         ArrayList<QRComment> comments = new ArrayList();
         QRCommentAdapter commentAdapter = new QRCommentAdapter(view.getContext(), comments);
@@ -229,7 +223,13 @@ public class FragmentQrProfile extends DialogFragment {
         return view;
     }
 
-    // Me being stupid and using a DialogFragment as the base early on
+
+    /**
+     * todo does smth
+     *
+     * @param savedInstanceState    saveInstanceState
+     */
+    // Me being stupid and using a DialogFragment as the base early on  todo you gonna leave this here?
     // Makes it full screen rather than windowed view
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -238,7 +238,12 @@ public class FragmentQrProfile extends DialogFragment {
                 android.R.style.Theme_Black_NoTitleBar_Fullscreen);
     }
 
-    //Dynamically set the height for the listview (display as many items as there are)
+
+    /**
+     * Dynamically set the height for the listview (display as many items as there are)
+     *
+     * @param listView  todo tag
+     */
     public void setListViewHeight(ListView listView) {
         //Get the adapter of listView
         ListAdapter listAdapter = listView.getAdapter();
@@ -261,6 +266,9 @@ public class FragmentQrProfile extends DialogFragment {
         listView.setLayoutParams(params);
     }
 
+    /**
+     * Removes QR from library...
+     */
     public void removeQR(){
         FragmentProfile parentFrag = ((FragmentProfile) this.getParentFragment());
         parentFrag.libraryRemoveQR(pos, currentQR);

@@ -27,8 +27,8 @@ import java.util.Arrays;
 
 /**
  * Definition: Scanner with camera - Scans and decodes QR code
- * Note: NA
- * Issues: TBA
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentScanner extends Fragment {
     public static final String TAG = FragmentScanner.class.getSimpleName();
@@ -40,9 +40,9 @@ public class FragmentScanner extends Fragment {
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return root
      */
     @Nullable
@@ -91,7 +91,6 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Handles when the state is resumed (starts camera previous)
-     *
      */
     @Override
     public void onResume() {
@@ -101,7 +100,6 @@ public class FragmentScanner extends Fragment {
 
     /**
      * Handles when the state is paused (release resources)
-     *
      */
     @Override
     public void onPause() {

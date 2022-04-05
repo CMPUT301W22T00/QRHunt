@@ -19,10 +19,11 @@ import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentUserSettingsBinding;
 
 import net.glxn.qrgen.android.QRCode;
+
 /**
  * Definition: Settings menu for editing user's profile and generating QR to access account on other devices
- * Note: NA
- * Issues:
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentPlayerSetting extends Fragment {
     private FragmentUserSettingsBinding binding;
@@ -36,9 +37,9 @@ public class FragmentPlayerSetting extends Fragment {
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
-     * @param inflater           Inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return root
      */
     @Nullable

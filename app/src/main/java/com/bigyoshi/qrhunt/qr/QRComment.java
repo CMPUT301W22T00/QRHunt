@@ -1,17 +1,27 @@
 package com.bigyoshi.qrhunt.qr;
 
-import com.bigyoshi.qrhunt.player.Player;
 import com.google.firebase.firestore.Exclude;
 
 import java.io.Serializable;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: N/A
+ */
 public class QRComment implements Serializable {
     private static final String TAG = QRComment.class.getSimpleName();
     protected String username;
     protected String comment;
 
-    public QRComment() {}
+    public QRComment() {} // and this...? Delete if it does nothing <-------------------
 
+    /**
+     * Constructor method
+     *
+     * @param comment   todo tag
+     * @param username  todo tag
+     */
     public QRComment(String comment, String username) {
         this.comment = comment;
         this.username = username;

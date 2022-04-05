@@ -37,8 +37,8 @@ import java.util.stream.Stream;
 
 /**
  * Definition: Fragment representing the leaderboard
- * Note: NA
- * Issues: This is not implemented yet
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentLeaderboard extends Fragment {
     private static final String TAG = FragmentLeaderboard.class.getSimpleName();
@@ -100,8 +100,8 @@ public class FragmentLeaderboard extends Fragment {
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
      * @param inflater           inflater
-     * @param container          Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return root
      */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -213,6 +213,11 @@ public class FragmentLeaderboard extends Fragment {
         }
     }
 
+    /**
+     * todo does smth
+     *
+     * @param sortCriteria
+     */
     protected void setSortCritera(SortCriteria sortCriteria) {
         this.sortCriteria = sortCriteria;
         float DISABLED_ALPHA = 0.4f;

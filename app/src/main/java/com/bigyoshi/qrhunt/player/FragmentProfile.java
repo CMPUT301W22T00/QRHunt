@@ -34,8 +34,9 @@ import java.util.Locale;
 import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
- * Definition: Fragment class for the player profile screen Note: NA Issues: Rankings are not
- * implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
+ * Definition: Fragment class for the player profile screen
+ * Note: N/A
+ * Issues: N/A
  */
 public class FragmentProfile extends Fragment {
     public static final String PROFILE_TYPE_KEY = "isOwnProfile";
@@ -55,6 +56,12 @@ public class FragmentProfile extends Fragment {
     private ProfileType viewType;
     public static final String TAG = FragmentProfile.class.getSimpleName();
 
+
+    /**
+     * todo does smth
+     *
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +88,9 @@ public class FragmentProfile extends Fragment {
     /**
      * Sets up fragment to be loaded in, finds all views, sets onClickListener for buttons
      *
-     * @param inflater Inflater
-     * @param container Where the fragment is contained
-     * @param savedInstanceState SavedInstanceState
+     * @param inflater           inflater
+     * @param container          where the fragment is contained
+     * @param savedInstanceState savedInstanceState
      * @return View
      */
     @Nullable
@@ -311,6 +318,9 @@ public class FragmentProfile extends Fragment {
         removeQR.deleteFromDb(db, playerInfo.getPlayerId());
     }
 
+    /**
+     * todo does smth
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -318,6 +328,11 @@ public class FragmentProfile extends Fragment {
         qrGridView.invalidate();
     }
 
+    /**
+     * todo does smth
+     *
+     * @param gridview todo tag
+     */
     public void setGridViewHeight(GridView gridview) {
         //Get the adapter of gridview
         ListAdapter listAdapter = gridview.getAdapter();

@@ -33,6 +33,11 @@ public class InternalQrCode {
 
     /**
      * Constructor method
+     *
+     * @param playerId  todo tag
+     * @param isLogin   todo tag
+     * @param frag      todo tag
+     * @param id        todo tag
      */
     public InternalQrCode(String playerId, Boolean isLogin, Fragment frag, String id) {
         this.playerId = playerId;
@@ -64,6 +69,8 @@ public class InternalQrCode {
 
     /**
      * Gets game status features and displays it in a view
+     *
+     * @param profile   todo tag
      */
     public void showSharedProfile(FragmentProfile profile) {
         // Function used to get game status features and displaying it in a view (UI)

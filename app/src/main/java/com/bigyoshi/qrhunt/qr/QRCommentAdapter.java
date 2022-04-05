@@ -14,16 +14,36 @@ import com.bigyoshi.qrhunt.R;
 
 import java.util.ArrayList;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: N/A
+ */
 public class QRCommentAdapter extends ArrayAdapter<QRComment> {
     private Context context;
     private ArrayList<QRComment> comments;
 
+    /**
+     * Constructor method
+     *
+     * @param context   todo tag
+     * @param comments  todo and this...?
+     */
     public QRCommentAdapter(Context context, ArrayList<QRComment> comments) {
         super(context, 0, comments);
         this.context = context;
         this.comments = comments;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param position      todo tag
+     * @param convertView   todo tag
+     * @param parent        todo tag
+     *
+     * @return view
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

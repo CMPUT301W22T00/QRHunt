@@ -15,16 +15,35 @@ import com.bigyoshi.qrhunt.player.Player;
 
 import java.util.ArrayList;
 
+/**
+ * Definition: todo smth smth smth
+ * Note: N/A
+ * Issues: Is case sensitive
+ */
 public class SearchList extends ArrayAdapter<Player> {
     private ArrayList<Player> playersFound;
     private Context context;
 
+    /**
+     * todo does smth
+     *
+     * @param context
+     * @param playersFound
+     */
     public SearchList(Context context, ArrayList<Player> playersFound){
         super(context, 0, playersFound);
         this.playersFound = playersFound;
         this.context = context;
     }
 
+    /**
+     * todo does smth
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
