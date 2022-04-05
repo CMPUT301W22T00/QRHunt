@@ -55,7 +55,6 @@ public class Player implements Serializable {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("users");
-
         this.rankInfo = new RankInfo();
         this.bestScoringQr = new BestQr();
         this.bestUniqueQr = new BestQr();
@@ -80,12 +79,13 @@ public class Player implements Serializable {
         this.contact = new Contact();
         this.qrLibrary = new QrLibrary(db, Optional.ofNullable(playerId).orElse(getPlayerId()));
     }
-
-    public static Player fromPlayerId(String playerId) {
-        Player player = new Player(playerId, null);
-        player.initialize();
-        return player;
-    }
+//
+//    public static Player fromPlayerId(String playerId, Context context) {
+//        Player player = new Player(playerId, context);
+//        player.initialize(playerId);
+//        player.qrLibrary = new QrLibrary(FirebaseFirestore.getInstance(), Optional.ofNullable(playerId).orElse(player.getPlayerId()));
+//        return player;
+//    }
 
     public static Player fromDoc(DocumentSnapshot doc) {
         Player player = new Player(doc.getId(), null);
@@ -243,6 +243,14 @@ public class Player implements Serializable {
      * Gets playerData from database by matching against playerIds in database
      */
     public void initialize() {
+        collectionReference.document(playerId).addSnapshotListener((EventListener<DocumentSnapshot>) (doc, error) -> {
+            if (error == null && doc != null && doc.getData() != null) {
+                setPropsFromDoc(doc);
+            }
+        });
+    }
+
+    public void initialize(String playerId) {
         collectionReference.document(playerId).addSnapshotListener((EventListener<DocumentSnapshot>) (doc, error) -> {
             if (error == null && doc != null && doc.getData() != null) {
                 setPropsFromDoc(doc);

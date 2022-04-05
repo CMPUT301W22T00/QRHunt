@@ -25,6 +25,7 @@ import com.bigyoshi.qrhunt.player.Player;
 import com.bigyoshi.qrhunt.player.ProfileType;
 import com.bigyoshi.qrhunt.player.SelfPlayer;
 import com.bigyoshi.qrhunt.qr.FragmentScanner;
+import com.budiyev.android.codescanner.ScanMode;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.add(R.id.container, search, "search");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                FragmentScanner.codeScanner.stopPreview();
+                FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
             }
         });
 
