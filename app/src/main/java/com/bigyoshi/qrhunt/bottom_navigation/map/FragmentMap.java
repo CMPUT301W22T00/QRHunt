@@ -197,7 +197,7 @@ public class FragmentMap extends Fragment {
                                     Log.d(TAG, String.format("Distance: %s", d));
 
                                     // Creates custom info window for the marker
-                                    CustomInfoWindow blurb = new CustomInfoWindow(map, d, qrCode, playerId);
+                                    CustomInfoWindow blurb = new CustomInfoWindow(map, d, qrCode);
                                     geoPin.setInfoWindow(blurb);
                                     geoPin.setIcon(pinIcon);
 
