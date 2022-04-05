@@ -1,6 +1,7 @@
 package com.bigyoshi.qrhunt.qr;
 
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentId;
@@ -24,7 +25,7 @@ public class PlayableQrCode implements Serializable {
     private Integer score;
     private QrLocation location;
     private String imageUrl;
-    private int numScanned;
+    private String numScanned;
     // transient → will not be serialized
     private transient FirebaseFirestore db;
 
@@ -33,7 +34,7 @@ public class PlayableQrCode implements Serializable {
      *
      */
     public PlayableQrCode() {
-        this.numScanned = 1;
+        this.numScanned = "1";
         db = FirebaseFirestore.getInstance();
     }
 
@@ -49,7 +50,6 @@ public class PlayableQrCode implements Serializable {
         this.playerId = playerId;
         this.id = id;
         this.score = score;
-        this.numScanned = 1;
         db = FirebaseFirestore.getInstance();
     }
 
@@ -59,7 +59,13 @@ public class PlayableQrCode implements Serializable {
      * @return numScanned
      */
     @Exclude
-    public int getNumScanned() {
+    public String getNumScanned() {
+        db.collection("qrCodesMetadata").document(this.id).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        this.numScanned = task.getResult().get("numScanned").toString();
+                    }
+                });
         return this.numScanned;
     }
 
@@ -109,19 +115,6 @@ public class PlayableQrCode implements Serializable {
      */
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    /**
-     * Getter method for the database - pulls total number scanned
-     *
-     * @param db qrMetadata collection
-     */
-    public void grabNumScanned(FirebaseFirestore db) {
-        // Pulls the total number scanned from the db
-        Task<DocumentSnapshot> qrData = db.collection("qrCodes").document(getId()).get();
-        this.numScanned = Integer.parseInt((Objects.requireNonNull
-                (Objects.requireNonNull(qrData.getResult())
-                        .getString("numScanned"))));
     }
 
     /**

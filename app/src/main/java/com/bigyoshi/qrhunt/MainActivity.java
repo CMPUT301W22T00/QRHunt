@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
             if (navDestination.getId() == R.id.navigation_map) {
                 actionbar.show();
+                Bundle result = new Bundle();
+                result.putSerializable("player", player);
+                getSupportFragmentManager().setFragmentResult("getPlayer", result);
                 navSearch.setVisibility(View.GONE);
                 navProfile.setVisibility(View.GONE); // TEMPORARY
             }

@@ -90,18 +90,8 @@ public class FragmentQrProfile extends DialogFragment {
         // Display numScan and unique flag
         TextView showNumScanned = view.findViewById(R.id.qr_profile_num_scanned);
         ImageView uniqueFlag = view.findViewById(R.id.qr_profile_unique_flag);
-        db.collection("qrCodesMetadata").document(currentQR.getId()).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        String numScanned = task.getResult().get("numScanned").toString();
-                        showNumScanned.setText("Scans: "+numScanned);
-                        if (numScanned.matches("1")) {
-                            uniqueFlag.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        showNumScanned.setText("Scans: 1"); // HARD CODED FOR NOW     todo add "Scans: " + "numScanned"
-                    }
-                });
+        showNumScanned.setText("Scans: "+ currentQR.getNumScanned());
+        if (currentQR.getNumScanned().matches("1")) { uniqueFlag.setVisibility(View.VISIBLE); }
 
         // Display scanned Flag
         if (!selfPlayer.getPlayerId().matches(player.getPlayerId())) {
