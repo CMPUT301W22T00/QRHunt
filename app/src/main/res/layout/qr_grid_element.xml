@@ -23,10 +23,12 @@
         android:id="@+id/qr_grid_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/qr_grid_image_view_two"
+        android:layout_marginTop="8dp"
         android:text="SCORE"
-        android:textSize="@dimen/text_size"
         android:textAlignment="center"
-        android:textColor="@color/accent_blue_light"/>
+        android:textColor="@color/accent_blue_light"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintTop_toBottomOf="@+id/qr_grid_image_view_two"
+        tools:layout_editor_absoluteX="3dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
