@@ -60,8 +60,6 @@ public class MainActivityTest {
         assertNotNull(solo.getView(R.id.search_bar));
     }
 
-    //Need a sent back to Scanner / Sent back to Map from Search
-
     @Test
     public void checkSearchToScanner() {
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
@@ -72,6 +70,11 @@ public class MainActivityTest {
         solo.waitForFragmentById(R.id.scanner_view);
         assertNotNull(solo.getView(R.id.scanner_view));
     }
+
+    // todo need a sent back to Map from Search
+
+    // Still need bottom nav for this
+
 
     @Test
     public void checkSentToMap(){
