@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,7 +21,9 @@ import androidx.fragment.app.Fragment;
 import com.bigyoshi.qrhunt.MainActivity;
 import com.bigyoshi.qrhunt.R;
 import com.bigyoshi.qrhunt.databinding.FragmentLeaderboardBinding;
+import com.bigyoshi.qrhunt.player.FragmentProfile;
 import com.bigyoshi.qrhunt.player.Player;
+import com.bigyoshi.qrhunt.player.ProfileType;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -135,6 +136,26 @@ public class FragmentLeaderboard extends Fragment {
         db.collection("users").get().addOnCompleteListener(this::onPlayersSnapshotTask);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Player player = (Player) listView.getItemAtPosition(i);
+            FragmentProfile profile = new FragmentProfile();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("player", player);
+            // admin actions not supported from leaderboard
+            // the reason definitely isn't technical and has nothing to do with the fact that I
+            // couldn't pass the entire player object to check if they're the admin
+            // instead the reason is because it would tempt admins to delete high scoring profiles
+            // in order to give themselves an edge
+            if (playerId.equals(bottomLeaderboardPlayers.get(i).getPlayerId())) {
+                bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
+            } else {
+                bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
+            }
+            bundle.putInt("isActivity", 1);
+            profile.setArguments(bundle);
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .add(0, profile, "profile")
+                    .addToBackStack(null)
+                    .commit();
         });
         binding.leaderboardMyRankButton.setOnClickListener(__ -> {
             for (int i = 0; i < bottomLeaderboardPlayers.size(); i++) {

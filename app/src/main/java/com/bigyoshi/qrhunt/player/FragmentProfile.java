@@ -3,7 +3,6 @@ package com.bigyoshi.qrhunt.player;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,7 +38,7 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
  * implemented / displayed, QR Code GameStatus is not implemented, No QRLibrary display
  */
 public class FragmentProfile extends Fragment {
-    public static final String IS_OWN_PROFILE = "isOwnProfile";
+    public static final String PROFILE_TYPE_KEY = "isOwnProfile";
     private FragmentProfileBinding binding;
     private TextView QRTotalValue;
     private TextView username;
@@ -95,7 +94,7 @@ public class FragmentProfile extends Fragment {
 
         playerInfo = (Player) getArguments().getSerializable("player");
         lastDestination = (Integer) getArguments().getSerializable("isActivity");
-        viewType = (ProfileType) getArguments().getSerializable(IS_OWN_PROFILE);
+        viewType = (ProfileType) getArguments().getSerializable(PROFILE_TYPE_KEY);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
