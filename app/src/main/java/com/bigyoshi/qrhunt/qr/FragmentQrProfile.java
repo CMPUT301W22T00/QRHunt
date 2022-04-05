@@ -88,9 +88,10 @@ public class FragmentQrProfile extends DialogFragment {
         db.collection("qrCodesMetadata").document(currentQR.getId()).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        showNumScanned.setText(task.getResult().get("numScanned").toString());
+                        String s = task.getResult().get("numScanned").toString() + " Scans";
+                        showNumScanned.setText(s);
                     } else {
-                        showNumScanned.setText("01"); // HARD CODED FOR NOW
+                        showNumScanned.setText("1 Scans"); // HARD CODED FOR NOW
                     }
                 });
 
