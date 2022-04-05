@@ -255,6 +255,22 @@
                 app:layout_constraintTop_toBottomOf="@id/player_profile_low_spacer"
 
                 tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/qr_library_no_results_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_qrs"
+                android:textColor="@color/main_off_white_blue_light"
+                android:fontFamily="@font/quicksand_medium"
+                android:textSize="@dimen/subtitle_size"
+                app:layout_constraintTop_toBottomOf="@id/sort_direction"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="@dimen/statement_padding"
+                android:visibility="invisible"
+                />
+
             <!-- to be changed
             <ImageButton
                 android:id="@+id/player_profile_unique_flag"

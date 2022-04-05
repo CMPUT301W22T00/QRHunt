@@ -111,6 +111,11 @@ public class FragmentProfile extends Fragment {
 
         qrGridView = root.findViewById(R.id.player_profile_grid_view);
         qrCodesList = playerInfo.qrLibrary.getQrCodes();
+        if (qrCodesList.size() == 0){
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.VISIBLE);
+        } else {
+            root.findViewById(R.id.qr_library_no_results_text).setVisibility(View.INVISIBLE);
+        }
         qrCodesAdapter = new QrLibraryGridViewAdapter(root.getContext(), qrCodesList);
         qrGridView.setAdapter(qrCodesAdapter);
         //qrGridView.setNestedScrollingEnabled(true); // Commented out to test

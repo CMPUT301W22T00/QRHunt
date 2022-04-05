@@ -32,6 +32,7 @@
     <string name="profile_rank_title">Total Score Rank</string>
     <string name="codes_scanned_title">QR Codes Scanned</string>
     <string name="highest_unique_title">Highest Unique QR</string>
+    <string name="no_qrs">Library is empty</string>
 
     <!-- for leaderboard -->
     <string name="leaderboard_title">Leaderboard</string>
