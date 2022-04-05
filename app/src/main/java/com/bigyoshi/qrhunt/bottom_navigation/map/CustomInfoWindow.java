@@ -50,7 +50,7 @@ public class CustomInfoWindow extends InfoWindow {
             String dist = "Distance: " + distance;
             String points = "Value: " + String.valueOf(qr.getScore());
             String numScan = "Scans: "+ String.valueOf(qr.getNumScanned());
-            String loc = "Lat: " + lat + ", Long: " + lng;
+            String loc = "Lat: " + lat + ", Lon: " + lng;
 
             // Settings the text
             txtDistance.setText(dist);

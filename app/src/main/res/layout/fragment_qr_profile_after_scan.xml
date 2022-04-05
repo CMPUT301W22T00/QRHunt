@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:alpha="0.9"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:alpha="0.9">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -155,6 +155,25 @@
             app:layout_constraintRight_toLeftOf="@id/qr_scan_profile_save_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/qr_scan_profile_num_scanned" />
+
+        <ImageView
+            android:id="@+id/qr_after_scan_profile_unique_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/qr_scan_profile_image_holder"
+            app:layout_constraintTop_toTopOf="@+id/qr_scan_profile_image_holder"
+            app:srcCompat="@drawable/ic_flag_unique" />
+
+        <ImageView
+            android:id="@+id/qr_after_scan_profile_scanned_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/qr_scan_profile_image_holder"
+            app:layout_constraintTop_toTopOf="@+id/qr_scan_profile_image_holder"
+            app:srcCompat="@drawable/ic_flag_scanned" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

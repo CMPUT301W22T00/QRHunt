@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/padding"
-    android:background="@drawable/rec_fragment_bg">
+    android:background="@drawable/rec_fragment_bg"
+    android:padding="@dimen/padding">
 
     <TextView
         android:id="@+id/delete_dialog_confirmation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_account_confirmed"
+        android:layout_marginBottom="@dimen/padding"
         android:fontFamily="@font/asap"
-        android:textStyle="bold"
+        android:padding="@dimen/padding"
+        android:text="@string/delete_account_confirmed"
         android:textColor="@color/main_red_midtone"
         android:textSize="@dimen/subtitle_size"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginBottom="@dimen/padding"
-        android:padding="@dimen/padding"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
@@ -29,9 +28,9 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:fontFamily="@font/asap"
-        android:textStyle="bold"
         android:text="@string/ok"
         android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delete_dialog_confirmation_title" />
 

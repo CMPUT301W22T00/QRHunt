@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/padding"
-    android:background="@drawable/rec_frame_bg"
     android:alpha="0.7"
+    android:background="@drawable/rec_frame_bg"
     android:padding="@dimen/large_padding">
 
     <ImageView
@@ -28,9 +28,9 @@
         android:fontFamily="@font/quicksand_medium"
         android:padding="@dimen/padding"
         android:text="@string/edit_profile_title"
-        android:textStyle="bold"
         android:textColor="@color/main_blue"
         android:textSize="@dimen/text_size"
+        android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/player_profile_settings_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,9 +46,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/username_title"
+        android:textColor="@color/secondary_blue_dark"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
-        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_spacer" />
 
@@ -120,9 +120,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/email_title"
+        android:textColor="@color/secondary_blue_dark"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
-        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_mid_spacer" />
 
@@ -175,9 +175,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_medium"
         android:text="@string/socials_title"
+        android:textColor="@color/secondary_blue_dark"
         android:textSize="@dimen/extra_small_text"
         android:textStyle="bold"
-        android:textColor="@color/secondary_blue_dark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_profile_settings_low_spacer" />
 
@@ -236,26 +236,26 @@
             android:id="@+id/player_profile_settings_cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_medium"
-            android:textAlignment="textEnd"
             android:background="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/quicksand_medium"
             android:text="@string/cancel"
+            android:textAlignment="textEnd"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/player_profile_settings_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_medium"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_medium"
             android:background="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/quicksand_medium"
             android:text="@string/save"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
