@@ -162,10 +162,11 @@ public class FragmentAddQrCode extends DialogFragment {
                     if (doc.exists()) {
                         PlayableQrCode qrCodeDB = doc.toObject(PlayableQrCode.class);
                         if (qrCodeDB.getId().matches(qrCode.getId())) {
-                            cancelButton.setText("Already");
+                            cancelButton.setText("");
                             cancelButton.setClickable(false);
                             okButton.setText("Scanned");
                             okButton.setClickable(false);
+                            addPicButton.setVisibility(View.INVISIBLE);
                             ImageView scannedFlag = view.findViewById(R.id.qr_after_scan_profile_scanned_flag);
                             scannedFlag.setVisibility(View.VISIBLE);
                             final Handler handler = new Handler(Looper.getMainLooper());
@@ -206,7 +207,7 @@ public class FragmentAddQrCode extends DialogFragment {
             qrCode.addToDb();
             overlay.setVisibility(View.INVISIBLE);
             dismiss();
-            FragmentScanner.codeScanner.setScanMode(ScanMode.PREVIEW);
+            FragmentScanner.codeScanner.setScanMode(ScanMode.SINGLE);
         });
 
         return view;
