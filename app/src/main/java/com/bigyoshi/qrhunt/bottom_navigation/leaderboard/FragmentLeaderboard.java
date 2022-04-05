@@ -136,26 +136,7 @@ public class FragmentLeaderboard extends Fragment {
         db.collection("users").get().addOnCompleteListener(this::onPlayersSnapshotTask);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Player player = (Player) listView.getItemAtPosition(i);
-            FragmentProfile profile = new FragmentProfile();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("player", player);
-            // admin actions not supported from leaderboard
-            // the reason definitely isn't technical and has nothing to do with the fact that I
-            // couldn't pass the entire player object to check if they're the admin
-            // instead the reason is because it would tempt admins to delete high scoring profiles
-            // in order to give themselves an edge
-            if (playerId.equals(bottomLeaderboardPlayers.get(i).getPlayerId())) {
-                bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
-            } else {
-                bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
-            }
-            bundle.putInt("isActivity", 1);
-            profile.setArguments(bundle);
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .add(0, profile, "profile")
-                    .addToBackStack(null)
-                    .commit();
+            launchProfileView(player, playerId);
         });
         binding.leaderboardMyRankButton.setOnClickListener(__ -> {
             for (int i = 0; i < bottomLeaderboardPlayers.size(); i++) {
@@ -167,6 +148,29 @@ public class FragmentLeaderboard extends Fragment {
             listView.setSelectionAfterHeaderView();
         });
         return root;
+    }
+
+    private void launchProfileView(Player playerToShow, String currentPlayerId) {
+        FragmentProfile profile = new FragmentProfile();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("player", playerToShow);
+        // admin actions not supported from leaderboard
+        // the reason definitely isn't technical and has nothing to do with the fact that I
+        // couldn't pass the entire player object to check if they're the admin
+        // instead the reason is because it would tempt admins to delete high scoring profiles
+        // in order to give themselves an edge
+        if (playerId.equals(playerToShow.getPlayerId())) {
+            bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.OWN_VIEW);
+        } else {
+            bundle.putSerializable(FragmentProfile.PROFILE_TYPE_KEY, ProfileType.VISITOR_VIEW);
+        }
+        bundle.putInt("isActivity", 1);
+        profile.setArguments(bundle);
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.leaderboard, profile, "profile")
+                .addToBackStack(null)
+                .commit();
     }
 
     private void sortLeaderboardItems() {
@@ -197,6 +201,9 @@ public class FragmentLeaderboard extends Fragment {
         for (int i = 0; i < top3LeaderboardPlayers.size(); i++) {
             Player player = top3LeaderboardPlayers.get(i);
             View view = top3Views.get(i);
+            view.setOnClickListener(__ -> {
+                launchProfileView(player, playerId);
+            });
             ((TextView) view.findViewById(R.id.top_rank_username)).setText(player.getUsername());
             ((TextView) view.findViewById(R.id.top_rank_score)).setText(
                     String.format("%d points", player.getTotalScore())
@@ -208,23 +215,23 @@ public class FragmentLeaderboard extends Fragment {
 
     protected void setSortCritera(SortCriteria sortCriteria) {
         this.sortCriteria = sortCriteria;
-        float DISABLE = 0.4f;
+        float DISABLED_ALPHA = 0.4f;
         // theres gotta be a more efficient way, im just don't know how
         switch (sortCriteria) {
             case TOTAL_SCANNED:
                 sortTotalScanned.setAlpha(1);
-                sortBestUnique.setAlpha(DISABLE);
-                sortTotalScore.setAlpha(DISABLE);
+                sortBestUnique.setAlpha(DISABLED_ALPHA);
+                sortTotalScore.setAlpha(DISABLED_ALPHA);
                 break;
             case TOTAL_SCORE:
                 sortTotalScore.setAlpha(1);
-                sortBestUnique.setAlpha(DISABLE);
-                sortTotalScanned.setAlpha(DISABLE);
+                sortBestUnique.setAlpha(DISABLED_ALPHA);
+                sortTotalScanned.setAlpha(DISABLED_ALPHA);
                 break;
             case BEST_UNIQUE:
                 sortBestUnique.setAlpha(1f);
-                sortTotalScore.setAlpha(DISABLE);
-                sortTotalScanned.setAlpha(DISABLE);
+                sortTotalScore.setAlpha(DISABLED_ALPHA);
+                sortTotalScanned.setAlpha(DISABLED_ALPHA);
                 break;
         }
         sortLeaderboardItems();
