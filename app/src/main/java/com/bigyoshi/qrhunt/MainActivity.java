@@ -69,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         player = new SelfPlayer(this);
         // This will check if the player already has an account
-        if (!player.getPlayerId().matches("")){
+        if (player.getPlayerId().matches(db.collection("users").document(player.getPlayerId()).getId())){
             player.initialize();
+        } else {
+            player.setPlayerId(player.getPlayerId()); // save it
         }
 
         scoreView = toolbar.findViewById(R.id.top_scanner_score);
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("player", player);
+            bundle.putSerializable("selfPlayer", player);
             bundle.putSerializable("isActivity", 1);
             bundle.putSerializable(FragmentProfile.IS_OWN_PROFILE, ProfileType.OWN_VIEW);
             profile.setArguments(bundle);
